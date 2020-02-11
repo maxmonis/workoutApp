@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useLiftState from '../Hooks/useLiftState';
 import LiftApp from './LiftComponents/LiftApp';
+import CurrentApp from './CurrentComponents/CurrentApp';
 import uuid from 'uuid/v4';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -72,7 +73,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function HomeApp() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -128,6 +128,7 @@ export default function HomeApp() {
         })}
       >
         <div className={classes.drawerHeader} />
+        <CurrentApp lifts={lifts} />
       </main>
       <Drawer
         className={classes.drawer}
