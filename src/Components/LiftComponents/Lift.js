@@ -12,7 +12,7 @@ const Lift = ({ id, liftName, removeLift, editLift }) => {
   const [isEditing, toggle] = useToggle(false);
   return (
     <div>
-      <ListItem style={{ height: '64px' }}>
+      <ListItem style={{ height: '64px' }} component='div'>
         {isEditing ? (
           <EditLiftForm
             editLift={editLift}

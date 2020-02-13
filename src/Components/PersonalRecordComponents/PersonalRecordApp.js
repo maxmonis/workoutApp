@@ -12,7 +12,11 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import PersonalRecordDisplay from './PersonalRecordDisplay';
 import personalRecordChecker from './PersonalRecordsFunctions/personalRecordChecker';
-import findBrokenRecords from './BrokenRecordsFunctions/brokenRecordFinder';
+import brokenRecordFinder from './PersonalRecordsFunctions/brokenRecordFinder';
+
+
+const date = new Date();
+const currentDate = date.toLocaleDateString();
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -32,35 +36,21 @@ const PersonalRecordApp = ({ lifts }) => {
   const [currentSets, setCurrentSets] = useState(1);
   const [currentReps, setCurrentReps] = useState(1);
   const [currentWeight, setCurrentWeight] = useState(135);
+
   const initialPersonalRecords =
     JSON.parse(window.localStorage.getItem('personalRecords')) || [];
-  const initialBrokenRecords =
-    JSON.parse(window.localStorage.getItem('brokenRecords')) || [];
 
   const [personalRecords, setPersonalRecords] = useState(
     initialPersonalRecords
   );
-  const [brokenRecords, setBrokenRecords] = useState(initialBrokenRecords);
 
   useEffect(() => {
     window.localStorage.setItem(
       'personalRecords',
       JSON.stringify(personalRecords)
     );
+    console.log(personalRecords);
   }, [personalRecords]);
-
-  useEffect(() => {
-    window.localStorage.setItem('brokenRecords', JSON.stringify(brokenRecords));
-  }, [brokenRecords]);
-
-  const handleNewPR = newPR => {
-    const newBrokenRecords = findBrokenRecords(
-      personalRecords,
-      newPR
-    );
-    newBrokenRecords && setBrokenRecords(...newBrokenRecords, ...brokenRecords);
-    setPersonalRecords([newPR, ...personalRecords]);
-  };
 
   const handleChange = e => {
     const { id, value } = e.target;
@@ -94,14 +84,32 @@ const PersonalRecordApp = ({ lifts }) => {
     setOpen(false);
   };
 
+  const handleNewPR = newPR => {
+    const unbrokenPRs = personalRecords.filter(
+      personalRecord => !personalRecord.surpassed
+    );
+    const sameLiftPRs = unbrokenPRs.filter(
+      personalRecord => personalRecord.lift === newPR.lift
+    );
+    sameLiftPRs.length && brokenRecordFinder(sameLiftPRs, newPR, currentDate);
+    setPersonalRecords([newPR, ...personalRecords]);
+  };
+
   const handleSubmit = () => {
     if (currentWeight < 1) return;
+    const unbrokenPRs = personalRecords.filter(
+      personalRecord => !personalRecord.surpassed
+    );
+    const sameLiftPRs = unbrokenPRs.filter(
+      personalRecord => personalRecord.lift === currentLift
+    );
     const newPR = personalRecordChecker(
-      personalRecords,
+      sameLiftPRs,
       currentLift,
       currentSets,
       currentReps,
-      currentWeight
+      currentWeight,
+      currentDate
     );
     newPR && handleNewPR(newPR);
     handleClose();
@@ -129,7 +137,7 @@ const PersonalRecordApp = ({ lifts }) => {
                 input={<Input id='currentLift' />}
               >
                 {lifts.map(lift => (
-                  <option required key={lift.id} value={lift.liftName}>
+                  <option key={lift.id} value={lift.liftName}>
                     {lift.liftName}
                   </option>
                 ))}
