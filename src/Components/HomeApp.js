@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useLiftState from '../Hooks/useLiftState';
 import LiftApp from './LiftComponents/LiftApp';
-import CurrentApp from './CurrentComponents/CurrentApp';
+import PersonalRecordApp from './PersonalRecordComponents/PersonalRecordApp';
 import uuid from 'uuid/v4';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -90,6 +90,7 @@ export default function HomeApp() {
   ];
   const initialLifts =
     JSON.parse(window.localStorage.getItem('lifts')) || defaultLifts;
+
   const { lifts, addLift, removeLift, editLift } = useLiftState(initialLifts);
 
   useEffect(() => {
@@ -128,7 +129,9 @@ export default function HomeApp() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <CurrentApp lifts={lifts} />
+        <PersonalRecordApp
+          lifts={lifts}
+        />
       </main>
       <Drawer
         className={classes.drawer}
