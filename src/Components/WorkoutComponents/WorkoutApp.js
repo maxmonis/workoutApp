@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
+import clsx from 'clsx';
+
+import brokenRecordFinder from '../PersonalBestComponents/brokenRecordFinder';
+import personalBestChecker from '../PersonalBestComponents/personalBestChecker';
+import PersonalBestApp from '../PersonalBestComponents/PersonalBestApp';
+import CurrentWorkoutApp from './CurrentWorkoutApp';
+import PreviousWorkoutApp from './PreviousWorkoutApp';
+import useLiftState from '../../Hooks/useLiftState';
+import LiftApp from '../LiftComponents/LiftApp';
+
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -8,16 +19,6 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import brokenRecordFinder from '../PersonalRecordComponents/brokenRecordFinder';
-import generateExercise from './generateExercise';
-import personalRecordChecker from '../PersonalRecordComponents/personalRecordChecker';
-import PersonalRecordApp from '../PersonalRecordComponents/PersonalRecordApp';
-import CurrentWorkoutApp from './CurrentWorkoutApp';
-import PreviousWorkoutApp from './PreviousWorkoutApp';
-import useLiftState from '../../Hooks/useLiftState';
-import LiftApp from '../LiftComponents/LiftApp';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -32,14 +33,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
-const windowWidth = window.innerWidth;
-const drawerWidth = windowWidth * 0.5;
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,16 +98,6 @@ const useStyles = makeStyles(theme => ({
 const WorkoutApp = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const handleOpenDrawer = () => {
-    setOpenDrawer(true);
-  };
-
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
 
   const defaultLifts = [
     { id: uuid(), liftName: 'Bench Press' },
@@ -119,20 +107,8 @@ const WorkoutApp = () => {
   const initialLifts =
     JSON.parse(window.localStorage.getItem('lifts')) || defaultLifts;
 
-  const { lifts, addLift, removeLift, editLift } = useLiftState(initialLifts);
-
-  useEffect(() => {
-    window.localStorage.setItem('lifts', JSON.stringify(lifts));
-  }, [lifts]);
-
-  const [currentLift, setCurrentLift] = useState(lifts[0].liftName);
-  const [currentSets, setCurrentSets] = useState(1);
-  const [currentReps, setCurrentReps] = useState(1);
-  const [currentWeight, setCurrentWeight] = useState(135);
-  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
-
-  const initialPersonalRecords =
-    JSON.parse(window.localStorage.getItem('personalRecords')) || [];
+  const initialPersonalBests =
+    JSON.parse(window.localStorage.getItem('personalBests')) || [];
 
   const initialCurrentWorkout =
     JSON.parse(window.localStorage.getItem('currentWorkout')) || [];
@@ -140,8 +116,10 @@ const WorkoutApp = () => {
   const initialPreviousWorkouts =
     JSON.parse(window.localStorage.getItem('previousWorkouts')) || [];
 
-  const [personalRecords, setPersonalRecords] = useState(
-    initialPersonalRecords
+  const { lifts, addLift, removeLift, editLift } = useLiftState(initialLifts);
+
+  const [personalBests, setPersonalBests] = useState(
+    initialPersonalBests
   );
 
   const [currentWorkout, setCurrentWorkout] = useState(initialCurrentWorkout);
@@ -151,11 +129,15 @@ const WorkoutApp = () => {
   );
 
   useEffect(() => {
+    window.localStorage.setItem('lifts', JSON.stringify(lifts));
+  }, [lifts]);
+
+  useEffect(() => {
     window.localStorage.setItem(
-      'personalRecords',
-      JSON.stringify(personalRecords)
+      'personalBests',
+      JSON.stringify(personalBests)
     );
-  }, [personalRecords]);
+  }, [personalBests]);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -171,11 +153,19 @@ const WorkoutApp = () => {
     );
   }, [previousWorkouts]);
 
-  const unbrokenPRs = personalRecords.filter(
-    personalRecord => !personalRecord.surpassed
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentLift, setCurrentLift] = useState(lifts[0].liftName);
+  const [currentSets, setCurrentSets] = useState(1);
+  const [currentReps, setCurrentReps] = useState(1);
+  const [currentWeight, setCurrentWeight] = useState(135);
+  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
+
+  const currentPersonalBests = personalBests.filter(
+    personalBest => !personalBest.surpassed
   );
-  const currentLiftPRs = unbrokenPRs.filter(
-    personalRecord => personalRecord.lift === currentLift
+  const currentLiftPersonalBests = currentPersonalBests.filter(
+    personalBest => personalBest.lift === currentLift
   );
 
   const handleChange = e => {
@@ -209,19 +199,18 @@ const WorkoutApp = () => {
     setOpenDialog(false);
   };
 
-  const handleNewPR = newPR => {
-    currentLiftPRs.length > 0 &&
-      brokenRecordFinder(currentLiftPRs, newPR, currentDate);
-    setPersonalRecords([newPR, ...personalRecords]);
+  const handleOpenDrawer = () => {
+    setOpenDrawer(true);
   };
 
-  const checkForNewPR = currentExercise => {
-    const newPR = personalRecordChecker(
-      currentLiftPRs,
-      currentExercise,
-      currentDate
-    );
-    newPR && handleNewPR(newPR);
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false);
+  };
+
+  const handleNewPB = newPB => {
+    currentLiftPersonalBests.length > 0 &&
+      brokenRecordFinder(currentLiftPersonalBests, newPB, currentDate);
+    setPersonalBests([newPB, ...personalBests]);
   };
 
   const handleNextExercise = () => {
@@ -230,29 +219,34 @@ const WorkoutApp = () => {
     if (currentReps < 1) setCurrentReps(1);
     let totalSets = currentSets;
     if (currentWorkout.length) {
-      const mostRecentWorkout = currentWorkout[currentWorkout.length - 1];
+      const mostRecentExercise = currentWorkout[currentWorkout.length - 1];
       if (
-        mostRecentWorkout.lift === currentLift &&
-        mostRecentWorkout.reps === currentReps &&
-        mostRecentWorkout.weight === currentWeight
+        mostRecentExercise.lift === currentLift &&
+        mostRecentExercise.reps === currentReps &&
+        mostRecentExercise.weight === currentWeight
       ) {
-        totalSets += mostRecentWorkout.sets;
+        totalSets += mostRecentExercise.sets;
         setCurrentWorkout(currentWorkout.pop());
       }
     }
-    const currentExercise = generateExercise(
+    const currentExercise = personalBestChecker(
+      personalBests,
+      currentDate,
       currentLift,
       totalSets,
       currentReps,
       currentWeight
     );
     setCurrentWorkout([...currentWorkout, currentExercise]);
-    checkForNewPR(currentExercise);
+    currentExercise.becamePersonalBest && handleNewPB(currentExercise);
+  };
+
+  const handleEditWorkout = () => {
+    console.log('Handle Edit Workout');
   };
 
   const handleSaveWorkout = () => {
     if (!currentWorkoutName) return;
-
     setPreviousWorkouts([
       {
         id: uuid(),
@@ -357,7 +351,9 @@ const WorkoutApp = () => {
                 editLift={editLift}
                 addLift={addLift}
               />
-              <Button onClick={handleCloseDialog}>Close</Button>
+              <Button onClick={handleCloseDialog}>
+                Finished Editing Lifts
+              </Button>
             </DialogContent>
           </Dialog>
           <Button onClick={handleNextExercise} color='primary'>
@@ -376,22 +372,11 @@ const WorkoutApp = () => {
             />
 
             <CurrentWorkoutApp
-              currentWorkoutName={currentWorkoutName}
               currentWorkout={currentWorkout}
+              handleEditWorkout={handleEditWorkout}
               handleSaveWorkout={handleSaveWorkout}
+              currentWorkoutName={currentWorkoutName}
             />
-            {currentWorkout.length > 0 &&
-              (currentWorkoutName === '' ? (
-                <div>
-                  <Button disabled color='primary'>
-                    Enter Name to Save Workout
-                  </Button>
-                </div>
-              ) : (
-                <Button onClick={handleSaveWorkout} color='primary'>
-                  Save Workout
-                </Button>
-              ))}
           </div>
         </div>
       </main>
@@ -415,31 +400,26 @@ const WorkoutApp = () => {
         </div>
         <Divider />
         <List>
-          {['Previous Workouts', 'Personal Bests', 'Broken Records'].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          <ListItem button key='Previous Workouts'>
+            <ListItemIcon>
+              <span role='img' aria-label='weightlifter'>
+                🏋️
+              </span>
+            </ListItemIcon>
+            <ListItemText primary='Previous Workouts' />
+          </ListItem>
+          <ListItem button key='Personal Bests'>
+            <ListItemIcon>
+              <span role='img' aria-label='flexed arm'>
+                💪
+              </span>
+            </ListItemIcon>
+            <ListItemText primary='Personal Bests' />
+          </ListItem>
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-
         <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-        <PersonalRecordApp personalRecords={personalRecords} />
+        <PersonalBestApp personalBests={personalBests} />
       </Drawer>
     </div>
   );
