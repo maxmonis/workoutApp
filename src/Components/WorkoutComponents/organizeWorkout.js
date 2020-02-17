@@ -12,31 +12,31 @@ export default exercises => {
       if (currentLift === exercises[i - 1].lift) {
         exerciseArray.pop();
         if (currentSets > 1) {
-          currentExercise.volume += `, ${currentSets}(${currentReps}x${currentWeight})`;
+          currentExercise.printout += `, ${currentSets}(${currentReps}x${currentWeight})`;
         } else if (currentReps > 1) {
-          currentExercise.volume += `, ${currentReps}x${currentWeight}`;
+          currentExercise.printout += `, ${currentReps}x${currentWeight}`;
         } else {
-          currentExercise.volume += `, ${currentWeight}`;
+          currentExercise.printout += `, ${currentWeight}`;
         }
         exerciseArray.push(currentExercise);
       } else {
         if (currentSets > 1) {
           currentExercise = {
             id: uuid(),
-            lift: `${currentLift}: `,
-            volume: `${currentSets}(${currentReps}x${currentWeight})`
+            lift: currentLift,
+            printout: `${currentSets}(${currentReps}x${currentWeight})`
           };
         } else if (currentReps > 1) {
           currentExercise = {
             id: uuid(),
-            lift: `${currentLift}: `,
-            volume: `${currentReps}x${currentWeight}`
+            lift: currentLift,
+            printout: `${currentReps}x${currentWeight}`
           };
         } else {
           currentExercise = {
             id: uuid(),
-            lift: `${currentLift}: `,
-            volume: `${currentWeight}`
+            lift: currentLift,
+            printout: `${currentWeight}`
           };
         }
         exerciseArray.push(currentExercise);
@@ -45,20 +45,20 @@ export default exercises => {
       if (currentSets > 1) {
         currentExercise = {
           id: uuid(),
-          lift: `${currentLift}: `,
-          volume: `${currentSets}(${currentReps}x${currentWeight})`
+          lift: currentLift,
+          printout: `${currentSets}(${currentReps}x${currentWeight})`
         };
       } else if (currentReps > 1) {
         currentExercise = {
           id: uuid(),
-          lift: `${currentLift}: `,
-          volume: `${currentReps}x${currentWeight}`
+          lift: currentLift,
+          printout: `${currentReps}x${currentWeight}`
         };
       } else {
         currentExercise = {
           id: uuid(),
-          lift: `${currentLift}: `,
-          volume: `${currentWeight}`
+          lift: currentLift,
+          printout: `${currentWeight}`
         };
       }
       exerciseArray.push(currentExercise);

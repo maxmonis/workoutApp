@@ -8,6 +8,7 @@ const LiftApp = ({ lifts, removeLift, editLift, addLift }) => {
   return (
     <Paper
       style={{
+        width: '400px',
         padding: 0,
         margin: 0,
         heights: '100vh',
@@ -15,8 +16,8 @@ const LiftApp = ({ lifts, removeLift, editLift, addLift }) => {
       }}
       elevation={0}
     >
-      <Grid container justify='center' style={{ marginTop: '1rem' }}>
-        <Grid item xs={11}>
+      <Grid container justify='center' >
+        <Grid item xs>
           <LiftForm addLift={addLift} />
           <LiftList lifts={lifts} removeLift={removeLift} editLift={editLift} />
         </Grid>

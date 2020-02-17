@@ -20,6 +20,7 @@ const LiftForm = ({ addLift }) => {
           margin='normal'
           label='Add New Lift'
           fullWidth
+          autoFocus={true}
         />
       </form>
     </Paper>
