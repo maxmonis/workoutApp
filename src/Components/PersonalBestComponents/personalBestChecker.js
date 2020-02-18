@@ -1,19 +1,12 @@
-import uuid from 'uuid/v4';
-
-export default (
-  personalBests,
-  currentDate,
-  currentLift,
-  currentSets,
-  currentReps,
-  currentWeight
-) => {
+export default (currentLiftPersonalBests, currentExercise, currentDate) => {
+  const currentSets = currentExercise.sets;
+  const currentReps = currentExercise.reps;
+  const currentWeight = currentExercise.weight;
   let ruledOut = false;
   if (!ruledOut) {
-    const heavierWithMoreReps = personalBests.filter(
+    const heavierWithMoreReps = currentLiftPersonalBests.filter(
       personalBest =>
-        personalBest.weight >= currentWeight &&
-        personalBest.reps >= currentReps
+        personalBest.weight >= currentWeight && personalBest.reps >= currentReps
     );
     heavierWithMoreReps.forEach(personalBest => {
       if (personalBest.sets >= currentSets) {
@@ -23,10 +16,9 @@ export default (
     });
   }
   if (!ruledOut) {
-    const heavierWithMoreSets = personalBests.filter(
+    const heavierWithMoreSets = currentLiftPersonalBests.filter(
       personalBest =>
-        personalBest.weight >= currentWeight &&
-        personalBest.sets >= currentSets
+        personalBest.weight >= currentWeight && personalBest.sets >= currentSets
     );
     heavierWithMoreSets.forEach(personalBest => {
       if (personalBest.reps >= currentReps) {
@@ -36,7 +28,7 @@ export default (
     });
   }
   if (!ruledOut) {
-    const higherRepsAndSets = personalBests.filter(
+    const higherRepsAndSets = currentLiftPersonalBests.filter(
       personalBest =>
         personalBest.reps >= currentReps && personalBest.sets >= currentSets
     );
@@ -47,31 +39,8 @@ export default (
       }
     });
   }
-  const currentId = uuid();
-  const currentClassification =
-    currentSets > 1
-      ? 'multiSet'
-      : currentReps > 1
-      ? 'oneSet'
-      : 'oneRep';
-  const currentPrintout =
-    currentClassification === 'multiSet'
-      ? `${currentSets}(${currentReps}x${currentWeight})`
-      : currentClassification === 'oneSet'
-      ? `${currentReps}x${currentWeight}`
-      : currentWeight;
-  const currentVolume = currentSets * currentReps * currentWeight;
-  const personalBest = ruledOut ? false : currentDate;
-  return {
-    id: currentId,
-    lift: currentLift,
-    sets: currentSets,
-    reps: currentReps,
-    weight: currentWeight,
-    volume: currentVolume,
-    classification: currentClassification,
-    printout: currentPrintout,
-    becamePersonalBest: personalBest,
-    surpassed: false
-  };
+  if (!ruledOut) {
+    currentExercise.personalBest = currentDate;
+    return currentExercise;
+  }
 };
