@@ -6,7 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
-const LiftForm = ({
+const EditExerciseForm = ({
   editExercise,
   id,
   lift,
@@ -14,7 +14,8 @@ const LiftForm = ({
   reps,
   weight,
   handleCloseDialog,
-  lifts
+  lifts,
+  index
 }) => {
   const [currentLift, setCurrentLift] = useState(lift);
   const [currentSets, setCurrentSets] = useState(sets);
@@ -39,6 +40,11 @@ const LiftForm = ({
       default:
         return;
     }
+  };
+
+  const handleSaveChanges = () => {
+    editExercise(id, currentLift, currentSets, currentReps, currentWeight, index);
+    handleCloseDialog();
   };
   return (
     <form>
@@ -84,7 +90,7 @@ const LiftForm = ({
         <Button color='primary' onClick={handleCloseDialog}>
           Discard Changes
         </Button>
-        <Button color='primary' onClick={handleCloseDialog}>
+        <Button color='primary' onClick={handleSaveChanges}>
           Save Changes
         </Button>
       </FormControl>
@@ -92,4 +98,4 @@ const LiftForm = ({
   );
 };
 
-export default LiftForm;
+export default EditExerciseForm;

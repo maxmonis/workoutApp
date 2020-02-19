@@ -1,45 +1,91 @@
 import React, { useState } from 'react';
 import organizeWorkout from '../WorkoutComponents/organizeWorkout';
 import ExerciseApp from './ExerciseApp';
+
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
 
 export default function CurrentWorkoutApp({
   currentWorkout,
   removeExercise,
   editExercise,
   lifts,
+  currentWorkoutName,
+  handleChange,
   handleSaveWorkout
 }) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleEditWorkout = () => {
-    setIsEditing(true);
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
   };
-  if (currentWorkout.length > 0 && !isEditing) {
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleSave = () => {
+    handleSaveWorkout();
+    handleCloseDialog();
+  };
+
+  if (currentWorkout.length > 0) {
     const exercises = organizeWorkout(currentWorkout);
     return (
       <div>
-        {exercises.map(exercise => (
-          <h4 key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</h4>
-        ))}
-        <Button color='primary' onClick={handleEditWorkout}>
-          Edit Workout
-        </Button>
-        <Button color='primary' onClick={handleSaveWorkout}>
-          Save Workout
-        </Button>
+        <div>
+          <ExerciseApp
+            currentWorkout={currentWorkout}
+            removeExercise={removeExercise}
+            editExercise={editExercise}
+            lifts={lifts}
+          />
+          <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
+            Save Workout
+          </Button>
+          <Dialog
+            open={dialogOpen}
+            onClose={handleCloseDialog}
+            aria-labelledby='form-dialog-title'
+          >
+            <DialogContent>
+              <TextField
+                required
+                id='workoutName'
+                label='Workout Name'
+                type='string'
+                variant='outlined'
+                value={currentWorkoutName}
+                onChange={handleChange}
+                autoFocus
+              />
+              {exercises.map(exercise => (
+                <h4
+                  key={exercise.id}
+                >{`${exercise.lift}: ${exercise.printout}`}</h4>
+              ))}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color='primary'>
+                Cancel
+              </Button>
+              {currentWorkoutName ? (
+                <Button onClick={handleSave} color='primary'>
+                  Save
+                </Button>
+              ) : (
+                <Button disabled color='primary'>
+                  Name is Required
+                </Button>
+              )}
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     );
-  } else if (currentWorkout.length > 0) {
-    return (
-      <ExerciseApp
-        currentWorkout={currentWorkout}
-        removeExercise={removeExercise}
-        editExercise={editExercise}
-        lifts={lifts}
-      />
-    );
-  } else {
-    return null;
   }
+  return null;
 }

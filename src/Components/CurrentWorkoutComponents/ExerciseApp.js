@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import ExerciseList from './ExerciseList';
 
 const ExerciseApp = ({
-  exercises,
+  currentWorkout,
   removeExercise,
   editExercise,
   lifts
@@ -14,7 +14,8 @@ const ExerciseApp = ({
       style={{
         width: '400px',
         padding: 0,
-        margin: 0,
+        marginRight: 'auto',
+        marginLeft: 'auto',
         heights: '100vh',
         backgroundColor: '#fafafa'
       }}
@@ -23,7 +24,7 @@ const ExerciseApp = ({
       <Grid container justify='center'>
         <Grid item xs>
           <ExerciseList
-            exercises={exercises}
+            currentWorkout={currentWorkout}
             removeExercise={removeExercise}
             editExercise={editExercise}
             lifts={lifts}

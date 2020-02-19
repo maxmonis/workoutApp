@@ -18,7 +18,8 @@ const Exercise = ({
   printout,
   removeExercise,
   editExercise,
-  lifts
+  lifts,
+  index
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const handleOpenDialog = () => {
@@ -58,6 +59,7 @@ const Exercise = ({
                   weight={weight}
                   handleCloseDialog={handleCloseDialog}
                   lifts={lifts}
+                  index={index}
                 />
               </DialogContent>
             </Dialog>

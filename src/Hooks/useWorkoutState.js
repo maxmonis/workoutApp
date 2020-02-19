@@ -25,9 +25,7 @@ const createCurrentExercise = (
     id: currentId,
     volume: currentVolume,
     classification: currentClassification,
-    printout: currentPrintout,
-    becamePersonalBest: false,
-    surpassed: false
+    printout: currentPrintout
   };
   return currentExercise;
 };
@@ -62,13 +60,19 @@ export default initialCurrentWorkout => {
         currentWorkout.filter(exercise => exercise.id !== exerciseId)
       );
     },
-    editExercise: (exerciseId, newExercise) => {
-      const currentLift = newExercise.lift;
-      const currentSets = newExercise.sets;
-      const currentReps = newExercise.reps;
-      const currentWeight = newExercise.weight;
-      const currentIndex = currentWorkout.indexOf(newExercise);
+    editExercise: (
+      exerciseId,
+      currentLift,
+      newSets,
+      newReps,
+      currentWeight,
+      currentIndex
+    ) => {
+      if (currentWeight < 1) return;
+      const currentSets = newSets < 1 ? 1 : newSets;
+      const currentReps = newReps < 1 ? 1 : newReps;
       let totalSets = currentSets;
+      let redundantExercise = false;
       if (currentIndex > 0) {
         const mostRecentExercise = currentWorkout[currentIndex - 1];
         if (
@@ -76,7 +80,8 @@ export default initialCurrentWorkout => {
           mostRecentExercise.reps === currentReps &&
           mostRecentExercise.weight === currentWeight
         ) {
-          totalSets += mostRecentExercise.sets;
+          redundantExercise = mostRecentExercise;
+          totalSets += parseInt(mostRecentExercise.sets);
           setCurrentWorkout(
             currentWorkout.filter(
               exercise => exercise.id !== mostRecentExercise.id
@@ -84,18 +89,27 @@ export default initialCurrentWorkout => {
           );
         }
       }
-
       const currentExercise = createCurrentExercise(
         currentLift,
         totalSets,
         currentReps,
         currentWeight
       );
-      setCurrentWorkout(
-        currentWorkout.map(exercise =>
-          exercise.id === exerciseId ? currentExercise : exercise
-        )
-      );
+      if (redundantExercise) {
+        setCurrentWorkout(
+          currentWorkout
+            .filter(exercise => exercise.id !== redundantExercise.id)
+            .map(exercise =>
+              exercise.id === exerciseId ? currentExercise : exercise
+            )
+        );
+      } else {
+        setCurrentWorkout(
+          currentWorkout.map(exercise =>
+            exercise.id === exerciseId ? currentExercise : exercise
+          )
+        );
+      }
     },
     resetCurrentWorkout: () => {
       setCurrentWorkout([]);

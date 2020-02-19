@@ -1,7 +1,12 @@
-export default (currentLiftPersonalBests, currentExercise, currentDate) => {
+export default (personalBests, currentDate, currentExercise) => {
+  const currentLift = currentExercise.lift;
   const currentSets = currentExercise.sets;
   const currentReps = currentExercise.reps;
   const currentWeight = currentExercise.weight;
+  const currentLiftPersonalBests = personalBests
+    .filter(personalBest => personalBest.lift === currentLift)
+    .filter(personalBest => !personalBest.surpassed);
+  console.log(currentLiftPersonalBests);
   let ruledOut = false;
   if (!ruledOut) {
     const heavierWithMoreReps = currentLiftPersonalBests.filter(
@@ -40,7 +45,9 @@ export default (currentLiftPersonalBests, currentExercise, currentDate) => {
     });
   }
   if (!ruledOut) {
-    currentExercise.personalBest = currentDate;
-    return currentExercise;
+    const newPersonalBest = currentExercise;
+    newPersonalBest.becamePersonalBest = currentDate;
+    return newPersonalBest;
   }
+  return currentExercise;
 };

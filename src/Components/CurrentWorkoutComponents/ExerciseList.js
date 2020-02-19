@@ -4,12 +4,12 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Exercise from './Exercise';
 
-const ExerciseList = ({ exercises, removeExercise, editExercise, lifts }) => {
-  if (exercises.length)
+const ExerciseList = ({ currentWorkout, removeExercise, editExercise, lifts }) => {
+  if (currentWorkout.length)
     return (
       <Paper>
         <List>
-          {exercises.map((exercise, i) => (
+          {currentWorkout.map((exercise, i) => (
             <Fragment key={exercise.id}>
               <Exercise
                 {...exercise}
@@ -17,8 +17,9 @@ const ExerciseList = ({ exercises, removeExercise, editExercise, lifts }) => {
                 removeExercise={removeExercise}
                 editExercise={editExercise}
                 lifts={lifts}
+                index={i}
               />
-              {i < exercises.length - 1 && <Divider />}
+              {i < currentWorkout.length - 1 && <Divider />}
             </Fragment>
           ))}
         </List>

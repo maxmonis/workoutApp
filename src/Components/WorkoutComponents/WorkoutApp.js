@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import clsx from 'clsx';
 
-import brokenRecordFinder from '../PersonalBestComponents/brokenRecordFinder';
-import personalBestChecker from '../PersonalBestComponents/personalBestChecker';
 import PersonalBestApp from '../PersonalBestComponents/PersonalBestApp';
 import CurrentWorkoutApp from '../CurrentWorkoutComponents/CurrentWorkoutApp';
 import LiftApp from '../LiftComponents/LiftApp';
 import PreviousWorkoutApp from './PreviousWorkoutApp';
+
+import checkForPersonalBests from '../PersonalBestComponents/checkForPersonalBests';
+import checkForBrokenRecords from '../PersonalBestComponents/checkForBrokenRecords';
+
 import useLiftState from '../../Hooks/useLiftState';
 import useWorkoutState from '../../Hooks/useWorkoutState';
 
@@ -158,17 +160,10 @@ const WorkoutApp = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [currentLift, setCurrentLift] = useState(lifts[0].liftName);
-  const [currentSets, setCurrentSets] = useState('');
-  const [currentReps, setCurrentReps] = useState('');
-  const [currentWeight, setCurrentWeight] = useState('');
+  const [currentSets, setCurrentSets] = useState(1);
+  const [currentReps, setCurrentReps] = useState(1);
+  const [currentWeight, setCurrentWeight] = useState(135);
   const [currentWorkoutName, setCurrentWorkoutName] = useState('');
-
-  const currentPersonalBests = personalBests.filter(
-    personalBest => !personalBest.surpassed
-  );
-  const currentLiftPersonalBests = currentPersonalBests.filter(
-    personalBest => personalBest.lift === currentLift
-  );
 
   const handleChange = e => {
     const { id, value } = e.target;
@@ -210,13 +205,10 @@ const WorkoutApp = () => {
   };
 
   const handleNewPersonalBest = newPersonalBest => {
-    currentLiftPersonalBests.length > 0 &&
-      brokenRecordFinder(
-        currentLiftPersonalBests,
-        newPersonalBest,
-        currentDate
-      );
     setPersonalBests([newPersonalBest, ...personalBests]);
+    if (personalBests.length > 0) {
+      checkForBrokenRecords(personalBests, newPersonalBest, currentDate);
+    }
   };
 
   const handleNextExercise = () => {
@@ -228,10 +220,10 @@ const WorkoutApp = () => {
 
   const handleSaveWorkout = () => {
     currentWorkout.forEach(exercise => {
-      const currentExercise = personalBestChecker(
-        currentLiftPersonalBests,
-        currentWorkout,
-        currentDate
+      const currentExercise = checkForPersonalBests(
+        personalBests,
+        currentDate,
+        exercise
       );
       currentExercise.becamePersonalBest &&
         handleNewPersonalBest(currentExercise);
@@ -346,25 +338,16 @@ const WorkoutApp = () => {
             </DialogContent>
           </Dialog>
           <Button onClick={handleNextExercise} color='primary'>
-            Next Exercise
+            Enter
           </Button>
           <div>
-            <TextField
-              required
-              id='workoutName'
-              label='Workout Name'
-              type='string'
-              variant='outlined'
-              value={currentWorkoutName}
-              onChange={handleChange}
-              autoFocus
-            />
-
             <CurrentWorkoutApp
               currentWorkout={currentWorkout}
               removeExercise={removeExercise}
               editExercise={editExercise}
               lifts={lifts}
+              currentWorkoutName={currentWorkoutName}
+              handleChange={handleChange}
               handleSaveWorkout={handleSaveWorkout}
             />
           </div>
