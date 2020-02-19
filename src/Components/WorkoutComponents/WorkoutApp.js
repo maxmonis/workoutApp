@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import clsx from 'clsx';
 
-import PersonalBestApp from '../PersonalBestComponents/PersonalBestApp';
-import CurrentWorkoutApp from '../CurrentWorkoutComponents/CurrentWorkoutApp';
+import PersonalBestApp from './PersonalBestApp';
+import CurrentWorkoutApp from './CurrentWorkoutApp';
 import LiftApp from '../LiftComponents/LiftApp';
 import PreviousWorkoutApp from './PreviousWorkoutApp';
 
-import checkForPersonalBests from '../PersonalBestComponents/checkForPersonalBests';
-import checkForBrokenRecords from '../PersonalBestComponents/checkForBrokenRecords';
+import checkForPersonalBests from '../../Functions/checkForPersonalBests';
+import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
 
 import useLiftState from '../../Hooks/useLiftState';
 import useWorkoutState from '../../Hooks/useWorkoutState';
@@ -205,11 +205,15 @@ const WorkoutApp = () => {
     setOpenDrawer(false);
   };
 
-  const handleNewPersonalBest = newPersonalBest => {
-    setPersonalBests([newPersonalBest, ...personalBests]);
-    if (personalBests.length > 0) {
+  const handleCheckForNewBrokenRecords = newPersonalBests => {
+    newPersonalBests.forEach(newPersonalBest => {
       checkForBrokenRecords(personalBests, currentDate, newPersonalBest);
-    }
+    });
+  };
+
+  const handleNewPersonalBests = newPersonalBests => {
+    setPersonalBests([...newPersonalBests, ...personalBests]);
+    handleCheckForNewBrokenRecords(newPersonalBests);
   };
 
   const handleNextExercise = () => {
@@ -220,15 +224,19 @@ const WorkoutApp = () => {
   };
 
   const handleSaveWorkout = () => {
-    currentWorkout.forEach(exercise => {
-      const currentExercise = checkForPersonalBests(
+    const newPersonalBests = [];
+    const sortedWorkout = currentWorkout.sort((a, b) => b.volume - a.volume);
+    sortedWorkout.forEach(exercise => {
+      const newPersonalBest = checkForPersonalBests(
         personalBests,
-        currentDate,
         exercise
       );
-      currentExercise.becamePersonalBest &&
-        handleNewPersonalBest(currentExercise);
+      if (newPersonalBest) {
+        exercise.becamePersonalBest = currentDate;
+        newPersonalBests.push(exercise);
+      }
     });
+    newPersonalBests.length > 0 && handleNewPersonalBests(newPersonalBests);
     setPreviousWorkouts([
       {
         id: uuid(),
