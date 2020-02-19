@@ -123,6 +123,7 @@ const WorkoutApp = () => {
 
   const {
     currentWorkout,
+    reorderCurrentWorkout,
     addExercise,
     removeExercise,
     editExercise,
@@ -343,6 +344,7 @@ const WorkoutApp = () => {
           <div>
             <CurrentWorkoutApp
               currentWorkout={currentWorkout}
+              reorderCurrentWorkout={reorderCurrentWorkout}
               removeExercise={removeExercise}
               editExercise={editExercise}
               lifts={lifts}

@@ -7,12 +7,20 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const ExerciseList = ({
   currentWorkout,
+  reorderCurrentWorkout,
   removeExercise,
   editExercise,
   lifts
 }) => {
   const handleDragEnd = result => {
-    console.log(result);
+    const { destination, source, draggableId } = result;
+    if (!destination || destination.index === source.index) {
+      return;
+    }
+    const exerciseIds = currentWorkout.map(exercise => exercise.id);
+    exerciseIds.splice(source.index, 1);
+    exerciseIds.splice(destination.index, 0, draggableId);
+    reorderCurrentWorkout(exerciseIds);
   };
   if (currentWorkout.length) {
     return (

@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 export default function CurrentWorkoutApp({
   currentWorkout,
+  reorderCurrentWorkout,
   removeExercise,
   editExercise,
   lifts,
@@ -39,6 +40,7 @@ export default function CurrentWorkoutApp({
         <div>
           <ExerciseApp
             currentWorkout={currentWorkout}
+            reorderCurrentWorkout={reorderCurrentWorkout}
             removeExercise={removeExercise}
             editExercise={editExercise}
             lifts={lifts}

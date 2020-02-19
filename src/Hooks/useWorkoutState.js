@@ -111,6 +111,17 @@ export default initialCurrentWorkout => {
         );
       }
     },
+    reorderCurrentWorkout: exerciseIds => {
+      const newWorkout = [];
+      exerciseIds.forEach(exerciseId => {
+        currentWorkout.forEach(exercise => {
+          if (exerciseId === exercise.id) {
+            newWorkout.push(exercise);
+          }
+        });
+      });
+      setCurrentWorkout(newWorkout);
+    },
     resetCurrentWorkout: () => {
       setCurrentWorkout([]);
     }
