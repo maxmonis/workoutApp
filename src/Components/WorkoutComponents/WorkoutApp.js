@@ -207,7 +207,7 @@ const WorkoutApp = () => {
   const handleNewPersonalBest = newPersonalBest => {
     setPersonalBests([newPersonalBest, ...personalBests]);
     if (personalBests.length > 0) {
-      checkForBrokenRecords(personalBests, newPersonalBest, currentDate);
+      checkForBrokenRecords(personalBests, currentDate, newPersonalBest);
     }
   };
 

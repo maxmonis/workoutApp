@@ -1,4 +1,4 @@
-export default (personalBests, newPB, currentDate) => {
+export default (personalBests, currentDate, newPB) => {
   const brokenRecords = [];
   const lighterWithLessReps = personalBests.filter(
     personalBest =>
