@@ -53,14 +53,14 @@ const EditExerciseForm = ({
           currentLift={currentLift}
           currentSets={currentSets}
           currentReps={currentReps}
-          currentWeight
+          currentWeight={currentWeight}
         />
-        <Button color='primary' onClick={handleCloseDialog}>
-          Discard Changes
-        </Button>
-        <Button color='primary' onClick={handleSaveChanges}>
-          Save Changes
-        </Button>
+        <div>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button color='primary' onClick={handleSaveChanges}>
+            Save
+          </Button>
+        </div>
       </FormControl>
     </form>
   );

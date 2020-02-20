@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import clsx from 'clsx';
 
-import PersonalBestApp from '../PersonalBestComponents/PersonalBestApp';
 import CurrentWorkoutApp from './CurrentWorkoutApp';
+import DrawerContent from './DrawerContent';
 import LiftApp from '../LiftComponents/LiftApp';
-import PreviousWorkoutApp from './PreviousWorkoutApp';
 import ExerciseEntryForm from '../ExerciseComponents/ExerciseEntryForm';
 
 import checkForPersonalBests from '../../Functions/checkForPersonalBests';
 import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
+import useStyles from '../../Functions/useStyles';
 
 import useLiftState from '../../Hooks/useLiftState';
 import useWorkoutState from '../../Hooks/useWorkoutState';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,77 +23,15 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex'
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginRight: drawerWidth
-  },
-  title: {
-    flexGrow: 1
-  },
-  hide: {
-    display: 'none'
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start'
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginRight: -drawerWidth
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginRight: 0
-  }
-}));
 
 const WorkoutApp = () => {
   const classes = useStyles();
@@ -279,7 +217,7 @@ const WorkoutApp = () => {
                 currentLift={currentLift}
                 currentSets={currentSets}
                 currentReps={currentReps}
-                currentWeight
+                currentWeight={currentWeight}
               />
             </FormControl>
           </form>
@@ -340,27 +278,10 @@ const WorkoutApp = () => {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          <ListItem button key='Previous Workouts'>
-            <ListItemIcon>
-              <span role='img' aria-label='weightlifter'>
-                🏋️
-              </span>
-            </ListItemIcon>
-            <ListItemText primary='Previous Workouts' />
-          </ListItem>
-          <ListItem button key='Personal Bests'>
-            <ListItemIcon>
-              <span role='img' aria-label='flexed arm'>
-                💪
-              </span>
-            </ListItemIcon>
-            <ListItemText primary='Personal Bests' />
-          </ListItem>
-        </List>
-        <Divider />
-        <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-        <PersonalBestApp personalBests={personalBests} />
+        <DrawerContent
+          previousWorkouts={previousWorkouts}
+          personalBests={personalBests}
+        />
       </Drawer>
     </div>
   );

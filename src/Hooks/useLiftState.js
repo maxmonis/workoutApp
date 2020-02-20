@@ -16,6 +16,7 @@ export default initialLifts => {
       setLifts(alphabetizeLifts([...lifts, { id: uuid(), liftName: newLift }]));
     },
     removeLift: liftId => {
+      if (lifts.length < 2) return;
       setLifts(alphabetizeLifts(lifts.filter(lift => lift.id !== liftId)));
     },
     editLift: (liftId, newLift) => {
