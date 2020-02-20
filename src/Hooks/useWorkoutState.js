@@ -45,14 +45,12 @@ export default initialCurrentWorkout => {
       if (currentWeight < 1) return;
       const currentSets = newSets < 1 ? 1 : newSets;
       const currentReps = newReps < 1 ? 1 : newReps;
-
       const currentExercise = createCurrentExercise(
         currentLift,
         currentSets,
         currentReps,
         currentWeight
       );
-
       setCurrentWorkout(
         eliminateRedundancy(
           currentWorkout.map(exercise =>

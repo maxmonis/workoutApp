@@ -156,13 +156,8 @@ const WorkoutApp = () => {
 
   const handleSaveWorkout = () => {
     currentWorkout.forEach(exercise => {
-      const currentExercise = checkForPersonalBests(
-        personalBests,
-        currentDate,
-        exercise
-      );
-      currentExercise.becamePersonalBest &&
-        handleNewPersonalBest(currentExercise);
+      const currentExercise = checkForPersonalBests(personalBests, exercise);
+      currentExercise && handleNewPersonalBest(exercise);
     });
     setPreviousWorkouts([
       {

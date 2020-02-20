@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PersonalBestApp({ personalBests }) {
+const PersonalBestApp = ({ personalBests }) => {
   if (personalBests) {
     const sortPBs = PBs => {
       return PBs.sort((a, b) => {
@@ -36,4 +36,6 @@ export default function PersonalBestApp({ personalBests }) {
     );
   }
   return null;
-}
+};
+
+export default PersonalBestApp;

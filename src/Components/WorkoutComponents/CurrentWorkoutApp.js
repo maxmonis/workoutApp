@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import organizeWorkout from '../../Functions/organizeWorkout';
+
 import ExerciseApp from '../ExerciseComponents/ExerciseApp';
+
+import organizeWorkout from '../../Functions/organizeWorkout';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 
-export default function CurrentWorkoutApp({
+const CurrentWorkoutApp = ({
   currentWorkout,
   reorderWorkout,
   removeExercise,
@@ -17,7 +19,7 @@ export default function CurrentWorkoutApp({
   currentWorkoutName,
   handleChange,
   handleSaveWorkout
-}) {
+}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -90,4 +92,6 @@ export default function CurrentWorkoutApp({
     );
   }
   return null;
-}
+};
+
+export default CurrentWorkoutApp;
