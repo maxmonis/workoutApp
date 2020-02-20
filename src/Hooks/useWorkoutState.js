@@ -26,6 +26,17 @@ export default initialCurrentWorkout => {
       );
       setCurrentWorkout([...currentWorkout, currentExercise]);
     },
+    reorderWorkout: newIds => {
+      const newWorkout = [];
+      newIds.forEach(newId => {
+        currentWorkout.forEach(exercise => {
+          if (exercise.id === newId) {
+            newWorkout.push(exercise);
+          }
+        });
+      });
+      setCurrentWorkout(newWorkout);
+    },
     removeExercise: exerciseId => {
       setCurrentWorkout(
         currentWorkout.filter(exercise => exercise.id !== exerciseId)
