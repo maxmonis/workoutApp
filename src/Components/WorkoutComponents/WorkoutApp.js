@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 import clsx from 'clsx';
 
 import PersonalBestApp from '../PersonalBestComponents/PersonalBestApp';
-import CurrentWorkoutApp from '../CurrentWorkoutComponents/CurrentWorkoutApp';
+import CurrentWorkoutApp from './CurrentWorkoutApp';
 import LiftApp from '../LiftComponents/LiftApp';
 import PreviousWorkoutApp from './PreviousWorkoutApp';
 
