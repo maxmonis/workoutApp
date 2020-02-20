@@ -1,8 +1,10 @@
 import React from 'react';
-import LiftList from './LiftList';
+
 import LiftForm from './LiftForm';
-import Paper from '@material-ui/core/Paper';
+import LiftList from './LiftList';
+
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const LiftApp = ({ lifts, removeLift, editLift, addLift }) => {
   return (
@@ -16,7 +18,7 @@ const LiftApp = ({ lifts, removeLift, editLift, addLift }) => {
       }}
       elevation={0}
     >
-      <Grid container justify='center' >
+      <Grid container justify='center'>
         <Grid item xs>
           <LiftForm addLift={addLift} />
           <LiftList lifts={lifts} removeLift={removeLift} editLift={editLift} />

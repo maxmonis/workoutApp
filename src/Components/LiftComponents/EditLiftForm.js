@@ -1,5 +1,7 @@
 import React from 'react';
+
 import useInputState from '../../Hooks/useInputState';
+
 import TextField from '@material-ui/core/TextField';
 
 const EditLiftForm = ({ id, liftName, editLift, toggleEditForm }) => {

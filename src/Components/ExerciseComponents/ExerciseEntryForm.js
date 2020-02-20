@@ -1,9 +1,9 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 
 const ExerciseEntryForm = ({
   lifts,

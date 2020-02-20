@@ -4,38 +4,37 @@ import clsx from 'clsx';
 
 import CurrentWorkoutApp from './CurrentWorkoutApp';
 import DrawerContent from './DrawerContent';
-import LiftApp from '../LiftComponents/LiftApp';
 import ExerciseEntryForm from '../ExerciseComponents/ExerciseEntryForm';
+import LiftApp from '../LiftComponents/LiftApp';
 
-import checkForPersonalBests from '../../Functions/checkForPersonalBests';
 import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
+import checkForPersonalBests from '../../Functions/checkForPersonalBests';
 import useStyles from '../../Functions/useStyles';
 
 import useLiftState from '../../Hooks/useLiftState';
 import useWorkoutState from '../../Hooks/useWorkoutState';
 
 import { useTheme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import FormControl from '@material-ui/core/FormControl';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import FormControl from '@material-ui/core/FormControl';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
 const WorkoutApp = () => {
-  const classes = useStyles();
   const theme = useTheme();
+  const classes = useStyles(theme);
 
   const defaultLifts = [
     { id: uuid(), liftName: 'Bench Press' },
@@ -108,13 +107,13 @@ const WorkoutApp = () => {
         setCurrentLift(value);
         break;
       case 'numSets':
-        setCurrentSets(value && parseInt(value));
+        setCurrentSets(value);
         break;
       case 'numReps':
-        setCurrentReps(value && parseInt(value));
+        setCurrentReps(value);
         break;
       case 'currentWeight':
-        setCurrentWeight(value && parseInt(value));
+        setCurrentWeight(value);
         break;
       case 'workoutName':
         setCurrentWorkoutName(value);
@@ -142,7 +141,7 @@ const WorkoutApp = () => {
 
   const handleNewPersonalBest = newPersonalBest => {
     setPersonalBests([newPersonalBest, ...personalBests]);
-    if (personalBests.length > 0) {
+    if (personalBests.length) {
       checkForBrokenRecords(personalBests, newPersonalBest, currentDate);
     }
   };
@@ -265,11 +264,7 @@ const WorkoutApp = () => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleCloseDrawer}>
-            {theme.direction === 'rtl' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronRightIcon />
           </IconButton>
         </div>
         <Divider />

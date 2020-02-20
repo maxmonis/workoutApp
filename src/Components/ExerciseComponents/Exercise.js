@@ -1,14 +1,16 @@
 import React, { useState, Fragment } from 'react';
-import EditExerciseForm from './EditExerciseForm';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItem';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+
+import { Draggable } from 'react-beautiful-dnd';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditExerciseForm from './EditExerciseForm';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { Draggable } from 'react-beautiful-dnd';
+import ListItemText from '@material-ui/core/ListItem';
 
 const Exercise = ({
   id,

@@ -9,15 +9,15 @@ export default (currentLift, currentSets, currentReps, currentWeight) => {
       ? `${currentSets}(${currentReps}x${currentWeight})`
       : currentClassification === 'oneSet'
       ? `${currentReps}x${currentWeight}`
-      : currentWeight;
+      : `${currentWeight}`;
   const currentVolume = currentSets * currentReps * currentWeight;
   const currentExercise = {
     lift: currentLift,
     sets: currentSets,
     reps: currentReps,
     weight: currentWeight,
-    id: currentId,
     volume: currentVolume,
+    id: currentId,
     classification: currentClassification,
     printout: currentPrintout
   };

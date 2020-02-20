@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
+
+import { Droppable } from 'react-beautiful-dnd';
+
 import Divider from '@material-ui/core/Divider';
 import Exercise from './Exercise';
-import { Droppable } from 'react-beautiful-dnd';
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 
 const ExerciseList = ({
   currentWorkout,

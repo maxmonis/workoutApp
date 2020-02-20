@@ -1,8 +1,10 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import ExerciseList from './ExerciseList';
+
 import { DragDropContext } from 'react-beautiful-dnd';
+
+import ExerciseList from './ExerciseList';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const ExerciseApp = ({
   currentWorkout,

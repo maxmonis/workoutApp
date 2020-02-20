@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import ExerciseEntryForm from './ExerciseEntryForm';
 
-import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
 
 const EditExerciseForm = ({
   editExercise,
@@ -15,6 +15,7 @@ const EditExerciseForm = ({
   handleCloseDialog,
   lifts
 }) => {
+  const currentId = id;
   const [currentLift, setCurrentLift] = useState(lift);
   const [currentSets, setCurrentSets] = useState(sets);
   const [currentReps, setCurrentReps] = useState(reps);
@@ -27,13 +28,13 @@ const EditExerciseForm = ({
         setCurrentLift(value);
         break;
       case 'numSets':
-        setCurrentSets(value && parseInt(value));
+        setCurrentSets(value);
         break;
       case 'numReps':
-        setCurrentReps(value && parseInt(value));
+        setCurrentReps(value);
         break;
       case 'currentWeight':
-        setCurrentWeight(value && parseInt(value));
+        setCurrentWeight(value);
         break;
       default:
         return;
@@ -41,7 +42,16 @@ const EditExerciseForm = ({
   };
 
   const handleSaveChanges = () => {
-    editExercise(id, currentLift, currentSets, currentReps, currentWeight);
+    if (currentWeight < 1) return;
+    if (currentSets < 1) setCurrentSets(1);
+    if (currentReps < 1) setCurrentReps(1);
+    editExercise(
+      currentId,
+      currentLift,
+      currentSets,
+      currentReps,
+      currentWeight
+    );
     handleCloseDialog();
   };
   return (

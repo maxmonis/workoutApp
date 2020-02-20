@@ -1,4 +1,5 @@
 import React from 'react';
+
 import organizeWorkout from '../../Functions/organizeWorkout';
 
 const PreviousWorkoutApp = ({ previousWorkouts }) => {

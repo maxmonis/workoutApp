@@ -44,8 +44,5 @@ export default (personalBests, currentExercise) => {
       }
     });
   }
-  if (!ruledOut) {
-    return true;
-  }
-  return false;
+  return !ruledOut;
 };
