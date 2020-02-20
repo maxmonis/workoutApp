@@ -7,8 +7,8 @@ import CurrentWorkoutApp from './CurrentWorkoutApp';
 import LiftApp from '../LiftComponents/LiftApp';
 import PreviousWorkoutApp from './PreviousWorkoutApp';
 
-import checkForPersonalBests from '../PersonalBestComponents/checkForPersonalBests';
-import checkForBrokenRecords from '../PersonalBestComponents/checkForBrokenRecords';
+import checkForPersonalBests from '../../Functions/checkForPersonalBests';
+import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
 
 import useLiftState from '../../Hooks/useLiftState';
 import useWorkoutState from '../../Hooks/useWorkoutState';

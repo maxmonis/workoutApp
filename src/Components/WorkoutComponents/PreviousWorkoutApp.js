@@ -1,5 +1,5 @@
 import React from 'react';
-import organizeWorkout from './organizeWorkout';
+import organizeWorkout from '../../Functions/organizeWorkout';
 
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
   if (previousWorkouts.length > 0) {

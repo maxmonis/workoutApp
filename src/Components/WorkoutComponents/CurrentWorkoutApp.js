@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import organizeWorkout from './organizeWorkout';
+import organizeWorkout from '../../Functions/organizeWorkout';
 import ExerciseApp from '../ExerciseComponents/ExerciseApp';
 
 import Button from '@material-ui/core/Button';
