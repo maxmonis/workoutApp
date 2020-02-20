@@ -9,7 +9,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const DrawerContent = ({ previousWorkouts, personalBests }) => {
+const DrawerContent = ({
+  previousWorkouts,
+  currentPersonalBests,
+  previousPersonalBests
+}) => {
   return (
     <div>
       <List>
@@ -32,7 +36,10 @@ const DrawerContent = ({ previousWorkouts, personalBests }) => {
       </List>
       <Divider />
       <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-      <PersonalBestApp personalBests={personalBests} />
+      <PersonalBestApp
+        currentPersonalBests={currentPersonalBests}
+        previousPersonalBests={previousPersonalBests}
+      />
     </div>
   );
 };

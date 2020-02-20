@@ -1,35 +1,41 @@
-export default (personalBests, newPB, currentDate) => {
+export default currentPersonalBests => {
   const brokenRecords = [];
-  const lighterWithLessReps = personalBests.filter(
-    personalBest =>
-      newPB.weight >= personalBest.weight && newPB.reps >= personalBest.reps
-  );
-  lighterWithLessReps.forEach(personalBest => {
-    if (newPB.sets >= personalBest.sets) {
-      personalBest.surpassed = currentDate;
-      brokenRecords.push(personalBest);
-    }
-  });
-  const lighterWithLessSets = personalBests.filter(
-    personalBest =>
-      newPB.weight >= personalBest.weight && newPB.sets >= personalBest.sets
-  );
-  lighterWithLessSets.forEach(personalBest => {
-    if (newPB.reps >= personalBest.reps) {
-      personalBest.surpassed = currentDate;
-      brokenRecords.push(personalBest);
-    }
-  });
-  const lessRepsAndSets = personalBests.filter(
-    personalBest =>
-      newPB.reps >= personalBest.reps && newPB.sets >= personalBest.sets
-  );
-  lessRepsAndSets.forEach(personalBest => {
-    if (newPB.weight >= personalBest.weight) {
-      personalBest.surpassed = currentDate;
-      brokenRecords.push(personalBest);
-    }
+  currentPersonalBests.forEach(testCase => {
+    const currentLift = testCase.lift;
+    const currentSets = testCase.sets;
+    const currentReps = testCase.reps;
+    const currentWeight = testCase.weight;
+    const currentId = testCase.id;
+    const currentLiftPersonalBests = currentPersonalBests.filter(personalBest => (
+      currentId !== personalBest.id && currentLift === personalBest.lift
+    ));
+    const heavierWithMoreReps = currentLiftPersonalBests.filter(
+      personalBest =>
+        personalBest.weight >= currentWeight && personalBest.reps >= currentReps
+    );
+    heavierWithMoreReps.forEach(personalBest => {
+      if (personalBest.sets >= currentSets) {
+        brokenRecords.push(currentId);
+      }
+    });
+    const heavierWithMoreSets = currentLiftPersonalBests.filter(
+      personalBest =>
+        personalBest.weight >= currentWeight && personalBest.sets >= currentSets
+    );
+    heavierWithMoreSets.forEach(personalBest => {
+      if (personalBest.reps >= currentReps) {
+        brokenRecords.push(currentId);
+      }
+    });
+    const higherRepsAndSets = currentLiftPersonalBests.filter(
+      personalBest =>
+        personalBest.reps >= currentReps && personalBest.sets >= currentSets
+    );
+    higherRepsAndSets.forEach(personalBest => {
+      if (personalBest.weight >= currentWeight) {
+        brokenRecords.push(currentId);
+      }
+    });
   });
   return brokenRecords;
 };
-

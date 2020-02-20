@@ -8,7 +8,7 @@ import ExerciseEntryForm from '../ExerciseComponents/ExerciseEntryForm';
 import LiftApp from '../LiftComponents/LiftApp';
 
 import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
-import checkForPersonalBests from '../../Functions/checkForPersonalBests';
+import checkForPersonalBest from '../../Functions/checkForPersonalBest';
 import useStyles from '../../Functions/useStyles';
 
 import useLiftState from '../../Hooks/useLiftState';
@@ -44,8 +44,11 @@ const WorkoutApp = () => {
   const initialLifts =
     JSON.parse(window.localStorage.getItem('lifts')) || defaultLifts;
 
-  const initialPersonalBests =
-    JSON.parse(window.localStorage.getItem('personalBests')) || [];
+  const initialCurrentPersonalBests =
+    JSON.parse(window.localStorage.getItem('currentPersonalBests')) || [];
+
+  const initialPreviousPersonalBests =
+    JSON.parse(window.localStorage.getItem('previousPersonalBests')) || [];
 
   const initialCurrentWorkout =
     JSON.parse(window.localStorage.getItem('currentWorkout')) || [];
@@ -64,7 +67,13 @@ const WorkoutApp = () => {
     resetCurrentWorkout
   } = useWorkoutState(initialCurrentWorkout);
 
-  const [personalBests, setPersonalBests] = useState(initialPersonalBests);
+  const [currentPersonalBests, setCurrentPersonalBests] = useState(
+    initialCurrentPersonalBests
+  );
+
+  const [previousPersonalBests, setPreviousPersonalBests] = useState(
+    initialPreviousPersonalBests
+  );
 
   const [previousWorkouts, setPreviousWorkouts] = useState(
     initialPreviousWorkouts
@@ -75,8 +84,18 @@ const WorkoutApp = () => {
   }, [lifts]);
 
   useEffect(() => {
-    window.localStorage.setItem('personalBests', JSON.stringify(personalBests));
-  }, [personalBests]);
+    window.localStorage.setItem(
+      'currentPersonalBests',
+      JSON.stringify(currentPersonalBests)
+    );
+  }, [currentPersonalBests]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      'previousPersonalBests',
+      JSON.stringify(previousPersonalBests)
+    );
+  }, [previousPersonalBests]);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -139,11 +158,28 @@ const WorkoutApp = () => {
     setOpenDrawer(false);
   };
 
-  const handleNewPersonalBest = newPersonalBest => {
-    setPersonalBests([newPersonalBest, ...personalBests]);
-    if (personalBests.length) {
-      checkForBrokenRecords(personalBests, newPersonalBest, currentDate);
-    }
+  const handleNewBrokenRecords = newBrokenRecords => {
+    const newPreviousPersonalBests = [];
+    currentPersonalBests.forEach(personalBest => {
+      if (newBrokenRecords.includes(personalBest.Id)) {
+        newPreviousPersonalBests.push(personalBest);
+      }
+    });
+    setPreviousPersonalBests([
+      ...newPreviousPersonalBests,
+      ...previousPersonalBests
+    ]);
+    setCurrentPersonalBests(
+      currentPersonalBests.filter(
+        personalBest => !newBrokenRecords.includes(personalBest.id)
+      )
+    );
+  };
+
+  const handleNewPersonalBests = newPersonalBests => {
+    setCurrentPersonalBests([...newPersonalBests, ...currentPersonalBests]);
+    const newBrokenRecords = checkForBrokenRecords(currentPersonalBests);
+    newBrokenRecords.length && handleNewBrokenRecords(newBrokenRecords);
   };
 
   const handleNextExercise = () => {
@@ -154,10 +190,18 @@ const WorkoutApp = () => {
   };
 
   const handleSaveWorkout = () => {
+    const newPersonalBestArray = [];
     currentWorkout.forEach(exercise => {
-      const currentExercise = checkForPersonalBests(personalBests, exercise);
-      currentExercise && handleNewPersonalBest(exercise);
+      const isNewPersonalBest = checkForPersonalBest(
+        currentPersonalBests,
+        exercise
+      );
+      if (isNewPersonalBest) {
+        exercise.becamePersonalBest = currentDate;
+        newPersonalBestArray.push(exercise);
+      }
     });
+    newPersonalBestArray.length && handleNewPersonalBests(newPersonalBestArray);
     setPreviousWorkouts([
       {
         id: uuid(),
@@ -270,7 +314,8 @@ const WorkoutApp = () => {
         <Divider />
         <DrawerContent
           previousWorkouts={previousWorkouts}
-          personalBests={personalBests}
+          currentPersonalBests={currentPersonalBests}
+          previousPersonalBests={previousPersonalBests}
         />
       </Drawer>
     </div>

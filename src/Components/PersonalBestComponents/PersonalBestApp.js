@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PersonalBestApp = ({ personalBests }) => {
-  if (personalBests) {
+const PersonalBestApp = ({ currentPersonalBests, previousPersonalBests }) => {
+  if (currentPersonalBests) {
     const sortPBs = PBs => {
       return PBs.sort((a, b) => {
         const textA = a.lift.toUpperCase();
@@ -9,8 +9,8 @@ const PersonalBestApp = ({ personalBests }) => {
         return textA < textB ? -1 : textA > textB ? 1 : 0;
       });
     };
-    const currentPBs = sortPBs(personalBests.filter(PB => !PB.surpassed));
-    const formerPBs = sortPBs(personalBests.filter(PB => PB.surpassed));
+    const currentPBs = sortPBs(currentPersonalBests);
+    const formerPBs = sortPBs(previousPersonalBests);
     return (
       <div>
         {currentPBs.length > 0 && <h2>Personal Bests</h2>}

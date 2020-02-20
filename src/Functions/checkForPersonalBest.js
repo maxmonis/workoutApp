@@ -1,11 +1,11 @@
-export default (personalBests, currentExercise) => {
+export default (currentPersonalBests, currentExercise) => {
   const currentLift = currentExercise.lift;
   const currentSets = currentExercise.sets;
   const currentReps = currentExercise.reps;
   const currentWeight = currentExercise.weight;
-  const currentLiftPersonalBests = personalBests
-    .filter(personalBest => personalBest.lift === currentLift)
-    .filter(personalBest => !personalBest.surpassed);
+  const currentLiftPersonalBests = currentPersonalBests.filter(
+    personalBest => personalBest.lift === currentLift
+  );
   if (!currentLiftPersonalBests.length) return true;
   let ruledOut = false;
   if (!ruledOut) {
