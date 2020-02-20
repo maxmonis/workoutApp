@@ -6,6 +6,7 @@ import PersonalBestApp from '../PersonalBestComponents/PersonalBestApp';
 import CurrentWorkoutApp from './CurrentWorkoutApp';
 import LiftApp from '../LiftComponents/LiftApp';
 import PreviousWorkoutApp from './PreviousWorkoutApp';
+import ExerciseEntryForm from '../ExerciseComponents/ExerciseEntryForm';
 
 import checkForPersonalBests from '../../Functions/checkForPersonalBests';
 import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
@@ -17,11 +18,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -276,44 +273,13 @@ const WorkoutApp = () => {
         <div>
           <form>
             <FormControl>
-              <InputLabel id='currentLift'>Lift</InputLabel>
-              <Select
-                native
-                labelId='currentLift'
-                id='liftName'
-                value={currentLift}
-                label='Lift'
-                onChange={handleChange}
-                input={<Input id='currentLift' />}
-              >
-                {lifts.map(lift => (
-                  <option key={lift.id} value={lift.liftName}>
-                    {lift.liftName}
-                  </option>
-                ))}
-              </Select>
-
-              <TextField
-                id='numSets'
-                label='Sets'
-                type='number'
-                value={currentSets}
-                onChange={handleChange}
-              />
-              <TextField
-                id='numReps'
-                label='Reps'
-                type='number'
-                value={currentReps}
-                onChange={handleChange}
-              />
-              <TextField
-                required
-                id='currentWeight'
-                label='Weight'
-                type='number'
-                value={currentWeight}
-                onChange={handleChange}
+              <ExerciseEntryForm
+                lifts={lifts}
+                handleChange={handleChange}
+                currentLift={currentLift}
+                currentSets={currentSets}
+                currentReps={currentReps}
+                currentWeight
               />
             </FormControl>
           </form>

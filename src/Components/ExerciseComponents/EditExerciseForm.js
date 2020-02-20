@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
+
+import ExerciseEntryForm from './ExerciseEntryForm';
+
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
 const EditExerciseForm = ({
@@ -48,43 +47,13 @@ const EditExerciseForm = ({
   return (
     <form>
       <FormControl>
-        <InputLabel id='currentLift'>Lift</InputLabel>
-        <Select
-          native
-          labelId='currentLift'
-          id='liftName'
-          value={currentLift}
-          onChange={handleChange}
-          input={<Input id='currentLift' />}
-        >
-          {lifts.map(lift => (
-            <option key={lift.id} value={lift.liftName}>
-              {lift.liftName}
-            </option>
-          ))}
-        </Select>
-
-        <TextField
-          id='numSets'
-          label='Sets'
-          type='number'
-          value={currentSets}
-          onChange={handleChange}
-        />
-        <TextField
-          id='numReps'
-          label='Reps'
-          type='number'
-          value={currentReps}
-          onChange={handleChange}
-        />
-        <TextField
-          required
-          id='currentWeight'
-          label='Weight'
-          type='number'
-          value={currentWeight}
-          onChange={handleChange}
+        <ExerciseEntryForm
+          lifts={lifts}
+          handleChange={handleChange}
+          currentLift={currentLift}
+          currentSets={currentSets}
+          currentReps={currentReps}
+          currentWeight
         />
         <Button color='primary' onClick={handleCloseDialog}>
           Discard Changes
