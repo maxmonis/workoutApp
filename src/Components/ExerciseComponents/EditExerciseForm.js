@@ -14,8 +14,7 @@ const EditExerciseForm = ({
   reps,
   weight,
   handleCloseDialog,
-  lifts,
-  index
+  lifts
 }) => {
   const [currentLift, setCurrentLift] = useState(lift);
   const [currentSets, setCurrentSets] = useState(sets);
@@ -43,7 +42,7 @@ const EditExerciseForm = ({
   };
 
   const handleSaveChanges = () => {
-    editExercise(id, currentLift, currentSets, currentReps, currentWeight, index);
+    editExercise(id, currentLift, currentSets, currentReps, currentWeight);
     handleCloseDialog();
   };
   return (

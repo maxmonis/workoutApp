@@ -33,7 +33,7 @@ export default function CurrentWorkoutApp({
     handleCloseDialog();
   };
 
-  if (currentWorkout.length > 0) {
+  if (currentWorkout.length) {
     const exercises = organizeWorkout(currentWorkout);
     return (
       <div>

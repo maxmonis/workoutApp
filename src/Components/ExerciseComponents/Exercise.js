@@ -67,7 +67,6 @@ const Exercise = ({
                       weight={weight}
                       handleCloseDialog={handleCloseDialog}
                       lifts={lifts}
-                      index={index}
                     />
                   </DialogContent>
                 </Dialog>
