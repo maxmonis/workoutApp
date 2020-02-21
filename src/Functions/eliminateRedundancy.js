@@ -1,4 +1,4 @@
-import createCurrentExercise from './createCurrentExercise';
+import createNewExercise from './createNewExercise';
 
 export default currentWorkout => {
   if (currentWorkout.length > 1) {
@@ -12,12 +12,12 @@ export default currentWorkout => {
         mostRecentExercise.weight === currentExercise.weight
       ) {
         const totalSets = currentExercise.sets + mostRecentExercise.sets;
-        const newExercise = createCurrentExercise(
-          currentExercise.lift,
-          totalSets,
-          currentExercise.reps,
-          currentExercise.weight
-        );
+        const newExercise = createNewExercise({
+          lift: currentExercise.lift,
+          sets: totalSets,
+          reps: currentExercise.reps,
+          weight: currentExercise.weight
+        });
         newWorkout.pop();
         newWorkout.push(newExercise);
       } else {

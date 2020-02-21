@@ -22,8 +22,8 @@ const ExerciseList = ({
               {currentWorkout.map((exercise, i) => (
                 <Fragment key={exercise.id}>
                   <Exercise
-                    {...exercise}
                     key={exercise.id}
+                    currentExercise={exercise}
                     removeExercise={removeExercise}
                     editExercise={editExercise}
                     lifts={lifts}

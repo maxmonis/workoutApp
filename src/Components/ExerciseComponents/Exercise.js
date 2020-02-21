@@ -13,27 +13,31 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItem';
 
 const Exercise = ({
-  id,
-  lift,
-  sets,
-  reps,
-  weight,
-  printout,
+  currentExercise,
   removeExercise,
   editExercise,
   lifts,
   index
 }) => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const currentId = currentExercise.id;
+  const currentLift = currentExercise.lift;
+  const currentSets = currentExercise.sets;
+  const currentReps = currentExercise.reps;
+  const currentWeight = currentExercise.weight;
+  const currentPrintout = currentExercise.printout;
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const handleRemoveExercise = () => {
+    removeExercise(currentId);
+  };
   const handleOpenDialog = () => {
-    setOpenDialog(true);
+    setDialogIsOpen(true);
   };
   const handleCloseDialog = () => {
-    setOpenDialog(false);
+    setDialogIsOpen(false);
   };
   return (
     <div>
-      <Draggable draggableId={id} index={index}>
+      <Draggable draggableId={currentId} index={index}>
         {provided => (
           <ListItem
             innerRef={provided.innerRef}
@@ -43,10 +47,10 @@ const Exercise = ({
           >
             <Fragment>
               <ListItemText>
-                {lift}: {printout}
+                {currentLift}: {currentPrintout}
               </ListItemText>
               <ListItemSecondaryAction>
-                <IconButton onClick={() => removeExercise(id)}>
+                <IconButton onClick={handleRemoveExercise}>
                   <DeleteIcon aria-label='Delete' />
                 </IconButton>
                 <IconButton onClick={handleOpenDialog}>
@@ -55,18 +59,18 @@ const Exercise = ({
                 <Dialog
                   disableBackdropClick
                   disableEscapeKeyDown
-                  open={openDialog}
+                  open={dialogIsOpen}
                   onClose={handleCloseDialog}
                   width={'500px'}
                 >
                   <DialogContent>
                     <EditExerciseForm
+                      currentId={currentId}
+                      currentLift={currentLift}
+                      currentSets={currentSets}
+                      currentReps={currentReps}
+                      currentWeight={currentWeight}
                       editExercise={editExercise}
-                      id={id}
-                      lift={lift}
-                      sets={sets}
-                      reps={reps}
-                      weight={weight}
                       handleCloseDialog={handleCloseDialog}
                       lifts={lifts}
                     />

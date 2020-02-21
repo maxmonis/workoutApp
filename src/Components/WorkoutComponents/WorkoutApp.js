@@ -60,11 +60,11 @@ const WorkoutApp = () => {
 
   const {
     currentWorkout,
-    reorderWorkout,
+    resetCurrentWorkout,
+    reorderCurrentWorkout,
     addExercise,
     removeExercise,
-    editExercise,
-    resetCurrentWorkout
+    editExercise
   } = useWorkoutState(initialCurrentWorkout);
 
   const [currentPersonalBests, setCurrentPersonalBests] = useState(
@@ -113,33 +113,16 @@ const WorkoutApp = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [currentLift, setCurrentLift] = useState(lifts[0].liftName);
-  const [currentSets, setCurrentSets] = useState(1);
-  const [currentReps, setCurrentReps] = useState(1);
-  const [currentWeight, setCurrentWeight] = useState(135);
+  const [currentExercise, setCurrentExercise] = useState({
+    lift: lifts[0].liftName,
+    sets: 1,
+    reps: 1,
+    weight: 135
+  });
   const [currentWorkoutName, setCurrentWorkoutName] = useState('');
 
   const handleChange = e => {
-    const { id, value } = e.target;
-    switch (id) {
-      case 'liftName':
-        setCurrentLift(value);
-        break;
-      case 'numSets':
-        setCurrentSets(value);
-        break;
-      case 'numReps':
-        setCurrentReps(value);
-        break;
-      case 'currentWeight':
-        setCurrentWeight(value);
-        break;
-      case 'workoutName':
-        setCurrentWorkoutName(value);
-        break;
-      default:
-        return;
-    }
+    setCurrentExercise({ ...currentExercise, [e.target.id]: e.target.value });
   };
 
   const handleOpenDialog = () => {
@@ -183,10 +166,8 @@ const WorkoutApp = () => {
   };
 
   const handleNextExercise = () => {
-    if (currentWeight < 1) return;
-    if (currentSets < 1) setCurrentSets(1);
-    if (currentReps < 1) setCurrentReps(1);
-    addExercise(currentLift, currentSets, currentReps, currentWeight);
+    if (currentExercise.weight < 1) return;
+    addExercise(currentExercise);
   };
 
   const handleSaveWorkout = () => {
@@ -252,10 +233,7 @@ const WorkoutApp = () => {
               <ExerciseEntryForm
                 lifts={lifts}
                 handleChange={handleChange}
-                currentLift={currentLift}
-                currentSets={currentSets}
-                currentReps={currentReps}
-                currentWeight={currentWeight}
+                currentExercise={currentExercise}
               />
             </FormControl>
           </form>
@@ -286,7 +264,7 @@ const WorkoutApp = () => {
           <div>
             <CurrentWorkoutApp
               currentWorkout={currentWorkout}
-              reorderWorkout={reorderWorkout}
+              reorderCurrentWorkout={reorderCurrentWorkout}
               removeExercise={removeExercise}
               editExercise={editExercise}
               lifts={lifts}

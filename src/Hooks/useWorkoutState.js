@@ -1,13 +1,16 @@
 import { useState } from 'react';
 
-import createCurrentExercise from '../Functions/createCurrentExercise';
+import createNewExercise from '../Functions/createNewExercise';
 import eliminateRedundancy from '../Functions/eliminateRedundancy';
 
 export default initialCurrentWorkout => {
   const [currentWorkout, setCurrentWorkout] = useState(initialCurrentWorkout);
   return {
     currentWorkout,
-    reorderWorkout: newIds => {
+    resetCurrentWorkout: () => {
+      setCurrentWorkout([]);
+    },
+    reorderCurrentWorkout: newIds => {
       const newWorkout = [];
       newIds.forEach(newId => {
         currentWorkout.forEach(exercise => {
@@ -18,16 +21,9 @@ export default initialCurrentWorkout => {
       });
       setCurrentWorkout(eliminateRedundancy(newWorkout));
     },
-    addExercise: (currentLift, currentSets, currentReps, currentWeight) => {
-      const currentExercise = createCurrentExercise(
-        currentLift,
-        currentSets,
-        currentReps,
-        currentWeight
-      );
-      setCurrentWorkout(
-        eliminateRedundancy([...currentWorkout, currentExercise])
-      );
+    addExercise: currentExercise => {
+      const newExercise = createNewExercise(currentExercise);
+      setCurrentWorkout(eliminateRedundancy([...currentWorkout, newExercise]));
     },
     removeExercise: exerciseId => {
       setCurrentWorkout(
@@ -36,29 +32,15 @@ export default initialCurrentWorkout => {
         )
       );
     },
-    editExercise: (
-      exerciseId,
-      currentLift,
-      currentSets,
-      currentReps,
-      currentWeight
-    ) => {
-      const currentExercise = createCurrentExercise(
-        currentLift,
-        currentSets,
-        currentReps,
-        currentWeight
-      );
+    editExercise: (exerciseId, currentExercise) => {
+      const newExercise = createNewExercise(currentExercise);
       setCurrentWorkout(
         eliminateRedundancy(
           currentWorkout.map(exercise =>
-            exercise.id === exerciseId ? currentExercise : exercise
+            exercise.id === exerciseId ? newExercise : exercise
           )
         )
       );
-    },
-    resetCurrentWorkout: () => {
-      setCurrentWorkout([]);
     }
   };
 };

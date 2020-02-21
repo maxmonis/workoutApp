@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 
 const CurrentWorkoutApp = ({
   currentWorkout,
-  reorderWorkout,
+  reorderCurrentWorkout,
   removeExercise,
   editExercise,
   lifts,
@@ -42,7 +42,7 @@ const CurrentWorkoutApp = ({
         <div>
           <ExerciseApp
             currentWorkout={currentWorkout}
-            reorderWorkout={reorderWorkout}
+            reorderCurrentWorkout={reorderCurrentWorkout}
             removeExercise={removeExercise}
             editExercise={editExercise}
             lifts={lifts}

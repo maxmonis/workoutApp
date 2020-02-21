@@ -6,52 +6,30 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
 const EditExerciseForm = ({
+  currentId,
+  currentLift,
+  currentSets,
+  currentReps,
+  currentWeight,
   editExercise,
-  id,
-  lift,
-  sets,
-  reps,
-  weight,
   handleCloseDialog,
   lifts
 }) => {
-  const currentId = id;
-  const [currentLift, setCurrentLift] = useState(lift);
-  const [currentSets, setCurrentSets] = useState(sets);
-  const [currentReps, setCurrentReps] = useState(reps);
-  const [currentWeight, setCurrentWeight] = useState(weight);
+  const [currentExercise, setCurrentExercise] = useState({
+    lift: currentLift,
+    sets: currentSets,
+    reps: currentReps,
+    weight: currentWeight
+  });
 
   const handleChange = e => {
-    const { id, value } = e.target;
-    switch (id) {
-      case 'liftName':
-        setCurrentLift(value);
-        break;
-      case 'numSets':
-        setCurrentSets(value);
-        break;
-      case 'numReps':
-        setCurrentReps(value);
-        break;
-      case 'currentWeight':
-        setCurrentWeight(value);
-        break;
-      default:
-        return;
-    }
+    const {id, value} = e.target
+    setCurrentExercise({ ...currentExercise, [id]: value });
   };
 
   const handleSaveChanges = () => {
-    if (currentWeight < 1) return;
-    if (currentSets < 1) setCurrentSets(1);
-    if (currentReps < 1) setCurrentReps(1);
-    editExercise(
-      currentId,
-      currentLift,
-      currentSets,
-      currentReps,
-      currentWeight
-    );
+    if (currentExercise.weight < 1) return;
+    editExercise(currentId, currentExercise);
     handleCloseDialog();
   };
   return (
@@ -60,10 +38,7 @@ const EditExerciseForm = ({
         <ExerciseEntryForm
           lifts={lifts}
           handleChange={handleChange}
-          currentLift={currentLift}
-          currentSets={currentSets}
-          currentReps={currentReps}
-          currentWeight={currentWeight}
+          currentExercise={currentExercise}
         />
         <div>
           <Button onClick={handleCloseDialog}>Cancel</Button>

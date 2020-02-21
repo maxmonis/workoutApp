@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 const ExerciseApp = ({
   currentWorkout,
-  reorderWorkout,
+  reorderCurrentWorkout,
   removeExercise,
   editExercise,
   lifts
@@ -21,7 +21,7 @@ const ExerciseApp = ({
     const newOrder = currentWorkout.map(exercise => exercise.id);
     newOrder.splice(source.index, 1);
     newOrder.splice(destination.index, 0, draggableId);
-    reorderWorkout(newOrder);
+    reorderCurrentWorkout(newOrder);
   };
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
