@@ -1,14 +1,18 @@
-export default currentPersonalBests => {
+export default personalBests => {
   const brokenRecords = [];
-  currentPersonalBests.forEach(testCase => {
-    const currentLift = testCase.lift;
-    const currentSets = testCase.sets;
-    const currentReps = testCase.reps;
-    const currentWeight = testCase.weight;
-    const currentId = testCase.id;
-    const currentLiftPersonalBests = currentPersonalBests.filter(personalBest => (
-      currentId !== personalBest.id && currentLift === personalBest.lift
-    ));
+  const currentPersonalBests = personalBests.filter(
+    exercise => !exercise.surpassed
+  );
+  currentPersonalBests.forEach(exercise => {
+    const currentLift = exercise.lift;
+    const currentSets = exercise.sets;
+    const currentReps = exercise.reps;
+    const currentWeight = exercise.weight;
+    const currentId = exercise.id;
+    const currentLiftPersonalBests = currentPersonalBests.filter(
+      personalBest =>
+        currentId !== personalBest.id && currentLift === personalBest.lift
+    );
     const heavierWithMoreReps = currentLiftPersonalBests.filter(
       personalBest =>
         personalBest.weight >= currentWeight && personalBest.reps >= currentReps

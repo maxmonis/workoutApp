@@ -25,15 +25,15 @@ const Exercise = ({
   const currentReps = currentExercise.reps;
   const currentWeight = currentExercise.weight;
   const currentPrintout = currentExercise.printout;
-  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleRemoveExercise = () => {
     removeExercise(currentId);
   };
   const handleOpenDialog = () => {
-    setDialogIsOpen(true);
+    setIsDialogOpen(true);
   };
   const handleCloseDialog = () => {
-    setDialogIsOpen(false);
+    setIsDialogOpen(false);
   };
   return (
     <div>
@@ -59,7 +59,7 @@ const Exercise = ({
                 <Dialog
                   disableBackdropClick
                   disableEscapeKeyDown
-                  open={dialogIsOpen}
+                  open={isDialogOpen}
                   onClose={handleCloseDialog}
                   width={'500px'}
                 >

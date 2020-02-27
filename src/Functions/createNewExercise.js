@@ -1,16 +1,10 @@
 import uuid from 'uuid/v4';
 
 export default currentExercise => {
-  console.log(currentExercise);
   const currentLift = currentExercise.lift;
-  const currentSets =
-    parseInt(currentExercise.sets) > 1 ? parseInt(currentExercise.sets) : 1;
-  console.log(currentSets);
-  const currentReps =
-    parseInt(currentExercise.reps) > 1 ? parseInt(currentExercise.reps) : 1;
-  console.log(currentReps);
-  const currentWeight = currentExercise.weight;
-  console.log(currentWeight);
+  const currentSets = +currentExercise.sets > 1 ? +currentExercise.sets : 1;
+  const currentReps = +currentExercise.reps > 1 ? +currentExercise.reps : 1;
+  const currentWeight = +currentExercise.weight;
   const currentId = uuid();
   const currentClassification =
     currentSets > 1 ? 'multiSet' : currentReps > 1 ? 'oneSet' : 'oneRep';
@@ -23,8 +17,8 @@ export default currentExercise => {
   const currentVolume = currentSets * currentReps * currentWeight;
   const newExercise = {
     lift: currentLift,
-    sets: currentSets || 1,
-    reps: currentReps || 1,
+    sets: currentSets,
+    reps: currentReps,
     weight: currentWeight,
     volume: currentVolume,
     id: currentId,

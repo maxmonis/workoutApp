@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import createNewExercise from '../Functions/createNewExercise';
-import eliminateRedundancy from '../Functions/eliminateRedundancy';
+import createNewExercise from '../functions/createNewExercise';
+import eliminateRedundancy from '../functions/eliminateRedundancy';
 
 export default initialCurrentWorkout => {
   const [currentWorkout, setCurrentWorkout] = useState(initialCurrentWorkout);

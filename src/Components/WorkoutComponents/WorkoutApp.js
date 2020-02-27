@@ -1,60 +1,44 @@
 import React, { useState, useEffect } from 'react';
+
 import uuid from 'uuid/v4';
-import clsx from 'clsx';
 
 import CurrentWorkoutApp from './CurrentWorkoutApp';
-import DrawerContent from './DrawerContent';
-import ExerciseEntryForm from '../ExerciseComponents/ExerciseEntryForm';
-import LiftApp from '../LiftComponents/LiftApp';
+import ExerciseEntryForm from '../exerciseComponents/ExerciseEntryForm';
+import LiftApp from '../liftComponents/LiftApp';
+import PreviousWorkoutApp from './PreviousWorkoutApp';
+import PersonalBestApp from '../personalBestComponents/PersonalBestApp';
 
-import checkForBrokenRecords from '../../Functions/checkForBrokenRecords';
-import checkForPersonalBest from '../../Functions/checkForPersonalBest';
-import useStyles from '../../Functions/useStyles';
+import useLiftState from '../../hooks/useLiftState';
+import usePersonalBestState from '../../hooks/usePersonalBestState';
+import useWorkoutState from '../../hooks/useWorkoutState';
 
-import useLiftState from '../../Hooks/useLiftState';
-import useWorkoutState from '../../Hooks/useWorkoutState';
-
-import { useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
 import FormControl from '@material-ui/core/FormControl';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
 const WorkoutApp = () => {
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
   const defaultLifts = [
     { id: uuid(), liftName: 'Bench Press' },
     { id: uuid(), liftName: 'Deadlift' },
     { id: uuid(), liftName: 'Squat' }
   ];
+
   const initialLifts =
     JSON.parse(window.localStorage.getItem('lifts')) || defaultLifts;
-
-  const initialCurrentPersonalBests =
-    JSON.parse(window.localStorage.getItem('currentPersonalBests')) || [];
-
-  const initialPreviousPersonalBests =
-    JSON.parse(window.localStorage.getItem('previousPersonalBests')) || [];
 
   const initialCurrentWorkout =
     JSON.parse(window.localStorage.getItem('currentWorkout')) || [];
 
   const initialPreviousWorkouts =
     JSON.parse(window.localStorage.getItem('previousWorkouts')) || [];
+
+  const initialPersonalBests =
+    JSON.parse(window.localStorage.getItem('personalBests')) || [];
 
   const { lifts, addLift, removeLift, editLift } = useLiftState(initialLifts);
 
@@ -67,35 +51,17 @@ const WorkoutApp = () => {
     editExercise
   } = useWorkoutState(initialCurrentWorkout);
 
-  const [currentPersonalBests, setCurrentPersonalBests] = useState(
-    initialCurrentPersonalBests
-  );
-
-  const [previousPersonalBests, setPreviousPersonalBests] = useState(
-    initialPreviousPersonalBests
-  );
-
   const [previousWorkouts, setPreviousWorkouts] = useState(
     initialPreviousWorkouts
+  );
+
+  const { personalBests, updatePersonalBests } = usePersonalBestState(
+    initialPersonalBests
   );
 
   useEffect(() => {
     window.localStorage.setItem('lifts', JSON.stringify(lifts));
   }, [lifts]);
-
-  useEffect(() => {
-    window.localStorage.setItem(
-      'currentPersonalBests',
-      JSON.stringify(currentPersonalBests)
-    );
-  }, [currentPersonalBests]);
-
-  useEffect(() => {
-    window.localStorage.setItem(
-      'previousPersonalBests',
-      JSON.stringify(previousPersonalBests)
-    );
-  }, [previousPersonalBests]);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -111,8 +77,11 @@ const WorkoutApp = () => {
     );
   }, [previousWorkouts]);
 
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
+  useEffect(() => {
+    window.localStorage.setItem('personalBests', JSON.stringify(personalBests));
+  }, [personalBests]);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
     sets: 1,
@@ -121,48 +90,19 @@ const WorkoutApp = () => {
   });
   const [currentWorkoutName, setCurrentWorkoutName] = useState('');
 
-  const handleChange = e => {
-    setCurrentExercise({ ...currentExercise, [e.target.id]: e.target.value });
-  };
-
   const handleOpenDialog = () => {
-    setOpenDialog(true);
+    setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
+    setIsDialogOpen(false);
   };
 
-  const handleOpenDrawer = () => {
-    setOpenDrawer(true);
-  };
-
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
-
-  const handleNewBrokenRecords = newBrokenRecords => {
-    const newPreviousPersonalBests = [];
-    currentPersonalBests.forEach(personalBest => {
-      if (newBrokenRecords.includes(personalBest.Id)) {
-        newPreviousPersonalBests.push(personalBest);
-      }
-    });
-    setPreviousPersonalBests([
-      ...newPreviousPersonalBests,
-      ...previousPersonalBests
-    ]);
-    setCurrentPersonalBests(
-      currentPersonalBests.filter(
-        personalBest => !newBrokenRecords.includes(personalBest.id)
-      )
-    );
-  };
-
-  const handleNewPersonalBests = newPersonalBests => {
-    setCurrentPersonalBests([...newPersonalBests, ...currentPersonalBests]);
-    const newBrokenRecords = checkForBrokenRecords(currentPersonalBests);
-    newBrokenRecords.length && handleNewBrokenRecords(newBrokenRecords);
+  const handleChange = e => {
+    const { id, value } = e.target;
+    id !== 'workoutName'
+      ? setCurrentExercise({ ...currentExercise, [id]: value })
+      : setCurrentWorkoutName(value);
   };
 
   const handleNextExercise = () => {
@@ -171,18 +111,7 @@ const WorkoutApp = () => {
   };
 
   const handleSaveWorkout = () => {
-    const newPersonalBestArray = [];
-    currentWorkout.forEach(exercise => {
-      const isNewPersonalBest = checkForPersonalBest(
-        currentPersonalBests,
-        exercise
-      );
-      if (isNewPersonalBest) {
-        exercise.becamePersonalBest = currentDate;
-        newPersonalBestArray.push(exercise);
-      }
-    });
-    newPersonalBestArray.length && handleNewPersonalBests(newPersonalBestArray);
+    updatePersonalBests(currentWorkout);
     setPreviousWorkouts([
       {
         id: uuid(),
@@ -198,36 +127,10 @@ const WorkoutApp = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />
-      <AppBar
-        position='fixed'
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: openDrawer
-        })}
-      >
-        <Toolbar>
-          <Typography variant='h6' noWrap className={classes.title}>
-            maxWellness
-          </Typography>
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            edge='end'
-            onClick={handleOpenDrawer}
-            className={clsx(openDrawer && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: openDrawer
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <div>
+      <main>
+        <div style={{ marginTop: '100px' }}>
           <form>
             <FormControl>
               <ExerciseEntryForm
@@ -242,7 +145,7 @@ const WorkoutApp = () => {
           <Dialog
             disableBackdropClick
             disableEscapeKeyDown
-            open={openDialog}
+            open={isDialogOpen}
             onClose={handleCloseDialog}
             width={'500px'}
           >
@@ -273,29 +176,10 @@ const WorkoutApp = () => {
               handleSaveWorkout={handleSaveWorkout}
             />
           </div>
+          <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
+          <PersonalBestApp personalBests={personalBests} />
         </div>
       </main>
-      <Drawer
-        className={classes.drawer}
-        variant='persistent'
-        anchor='right'
-        open={openDrawer}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleCloseDrawer}>
-            <ChevronRightIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <DrawerContent
-          previousWorkouts={previousWorkouts}
-          currentPersonalBests={currentPersonalBests}
-          previousPersonalBests={previousPersonalBests}
-        />
-      </Drawer>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import ExerciseList from './ExerciseList';
+
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
@@ -29,8 +30,6 @@ const ExerciseApp = ({
         style={{
           width: '400px',
           padding: 0,
-          marginRight: 'auto',
-          marginLeft: 'auto',
           heights: '100vh',
           backgroundColor: '#fafafa'
         }}

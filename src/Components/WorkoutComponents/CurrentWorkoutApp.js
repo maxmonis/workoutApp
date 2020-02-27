@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import ExerciseApp from '../ExerciseComponents/ExerciseApp';
+import ExerciseApp from '../exerciseComponents/ExerciseApp';
 
-import organizeWorkout from '../../Functions/organizeWorkout';
+import organizeWorkout from '../../functions/organizeWorkout';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,14 +20,14 @@ const CurrentWorkoutApp = ({
   handleChange,
   handleSaveWorkout
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
-    setDialogOpen(true);
+    setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
-    setDialogOpen(false);
+    setIsDialogOpen(false);
   };
 
   const handleSave = () => {
@@ -51,7 +51,7 @@ const CurrentWorkoutApp = ({
             Save Workout
           </Button>
           <Dialog
-            open={dialogOpen}
+            open={isDialogOpen}
             onClose={handleCloseDialog}
             aria-labelledby='form-dialog-title'
           >

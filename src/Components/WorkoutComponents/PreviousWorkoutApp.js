@@ -1,9 +1,9 @@
 import React from 'react';
 
-import organizeWorkout from '../../Functions/organizeWorkout';
+import organizeWorkout from '../../functions/organizeWorkout';
 
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
-  if (previousWorkouts.length > 0) {
+  if (previousWorkouts.length) {
     return (
       <div>
         <h2>Previous Workouts</h2>

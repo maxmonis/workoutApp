@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import EditLiftForm from './EditLiftForm';
 
-import useToggle from '../../Hooks/useToggle';
+import useToggle from '../../hooks/useToggle';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
