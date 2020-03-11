@@ -4,7 +4,7 @@ export default (personalBests, currentExercise) => {
   const currentReps = currentExercise.reps;
   const currentWeight = currentExercise.weight;
   const currentLiftPersonalBests = personalBests.filter(
-    personalBest => personalBest.lift === currentLift
+    personalBest => !personalBest.surpassed && personalBest.lift === currentLift
   );
   if (!currentLiftPersonalBests.length) return true;
   let ruledOut = false;
@@ -44,5 +44,5 @@ export default (personalBests, currentExercise) => {
       }
     });
   }
-  return !ruledOut;
+  return ruledOut ? false : true;
 };

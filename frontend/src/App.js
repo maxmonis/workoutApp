@@ -13,6 +13,7 @@ import Register from './components/authComponents/Register';
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import ClientState from './context/client/ClientState';
+
 import setAuthToken from './utils/setAuthToken';
 
 if (localStorage.token) {

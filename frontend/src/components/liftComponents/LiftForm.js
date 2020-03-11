@@ -12,7 +12,7 @@ const LiftForm = ({ addLift }) => {
       <form
         onSubmit={e => {
           e.preventDefault();
-          addLift(value);
+          value && addLift(value);
           reset();
         }}
       >

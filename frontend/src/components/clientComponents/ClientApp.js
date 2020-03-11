@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Clients from './Clients';
-import ClientForm from './ClientForm';
 import ClientFilter from './ClientFilter';
+import ClientForm from './ClientForm';
+import ClientList from './ClientList';
 
 const ClientApp = () => {
   return (
     <div>
       <ClientForm />
       <ClientFilter />
-      <Clients />
+      <ClientList />
     </div>
   );
 };

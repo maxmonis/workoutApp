@@ -12,7 +12,6 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
             <h3>
               {previousWorkout.name} - {previousWorkout.date}
             </h3>
-
             {organizeWorkout(previousWorkout.workout).map(exercise => (
               <h3
                 key={exercise.id}

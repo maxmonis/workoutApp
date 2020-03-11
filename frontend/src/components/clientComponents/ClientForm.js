@@ -13,12 +13,12 @@ const ClientForm = () => {
   const {
     addClient,
     updateClient,
-    currentClient,
-    clearCurrentClient
+    editingClient,
+    clearEditingClient
   } = clientContext;
   useEffect(() => {
-    if (currentClient) {
-      setClient(currentClient);
+    if (editingClient) {
+      setClient(editingClient);
     } else {
       setClient({
         name: '',
@@ -34,7 +34,7 @@ const ClientForm = () => {
         personalBests: []
       });
     }
-  }, [clientContext, currentClient]);
+  }, [clientContext, editingClient]);
   const [client, setClient] = useState({
     name: '',
     email: '',
@@ -58,7 +58,7 @@ const ClientForm = () => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    if (!currentClient) {
+    if (!editingClient) {
       addClient(client);
     } else {
       updateClient(client);
@@ -66,7 +66,7 @@ const ClientForm = () => {
     }
   };
   const handleClear = () => {
-    clearCurrentClient();
+    clearEditingClient();
   };
   return (
     <Paper>
@@ -102,7 +102,7 @@ const ClientForm = () => {
         Active
         <div>
           <Button type='submit' variant='outlined'>
-            {currentClient ? 'Save Changes' : 'Add Client'}
+            {editingClient ? 'Save Changes' : 'Add Client'}
           </Button>
           <Button variant='outlined' onClick={handleClear}>
             Cancel

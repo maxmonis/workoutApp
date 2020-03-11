@@ -7,6 +7,7 @@ const ClientState = props => {
   const initialState = {
     clients: [],
     currentClient: null,
+    editingClient: null,
     filteredClients: [],
     error: null
   };
@@ -20,6 +21,7 @@ const ClientState = props => {
       dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
     }
   };
+
   const addClient = async client => {
     const config = {
       headers: {
@@ -56,6 +58,7 @@ const ClientState = props => {
       dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
     }
   };
+
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' });
   };
@@ -65,17 +68,25 @@ const ClientState = props => {
   const clearCurrentClient = () => {
     dispatch({ type: 'CLEAR_CURRENT_CLIENT' });
   };
+  const setEditingClient = client => {
+    dispatch({ type: 'SET_EDITING_CLIENT', payload: client });
+  };
+  const clearEditingClient = () => {
+    dispatch({ type: 'CLEAR_EDITING_CLIENT' });
+  };
   const filterClients = text => {
     dispatch({ type: 'FILTER_CLIENTS', payload: text });
   };
   const clearFilteredClients = () => {
     dispatch({ type: 'CLEAR_FILTERED_CLIENTS' });
   };
+  
   return (
     <ClientContext.Provider
       value={{
         clients: state.clients,
         currentClient: state.currentClient,
+        editingClient: state.editingClient,
         filteredClients: state.filteredClients,
         error: state.error,
         getClients,
@@ -86,6 +97,8 @@ const ClientState = props => {
         filterClients,
         setCurrentClient,
         clearCurrentClient,
+        setEditingClient,
+        clearEditingClient,
         clearFilteredClients
       }}
     >

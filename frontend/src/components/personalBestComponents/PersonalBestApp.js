@@ -1,6 +1,12 @@
 import React from 'react';
 
-const PersonalBestApp = ({ currentPersonalBests, previousPersonalBests }) => {
+const PersonalBestApp = ({ personalBests }) => {
+  const currentPersonalBests = personalBests.filter(
+    personalBest => !personalBest.surpassed
+  );
+  const previousPersonalBests = personalBests.filter(
+    personalBest => personalBest.surpassed
+  );
   if (currentPersonalBests) {
     const sortPBs = PBs => {
       return PBs.sort((a, b) => {

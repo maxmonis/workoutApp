@@ -1,7 +1,7 @@
 export default personalBests => {
   const brokenRecords = [];
   const currentPersonalBests = personalBests.filter(
-    exercise => !exercise.surpassed
+    personalBest => !personalBest.surpassed
   );
   currentPersonalBests.forEach(exercise => {
     const currentLift = exercise.lift;

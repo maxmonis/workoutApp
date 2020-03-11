@@ -44,6 +44,16 @@ export default (state, action) => {
         ...state,
         currentClient: null
       };
+    case 'SET_EDITING_CLIENT':
+      return {
+        ...state,
+        editingClient: action.payload
+      };
+    case 'CLEAR_EDITING_CLIENT':
+      return {
+        ...state,
+        editingClient: null
+      };
     case 'FILTER_CLIENTS':
       return {
         ...state,

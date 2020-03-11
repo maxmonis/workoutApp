@@ -6,27 +6,32 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const ClientItem = ({ client }) => {
   const clientContext = useContext(ClientContext);
-  const { deleteClient, setCurrentClient, clearCurrentClient } = clientContext;
   const {
-    _id,
-    name
-  } = client;
-  const handleEdit = () => {
+    deleteClient,
+    setCurrentClient,
+    setEditingClient,
+    clearEditingClient
+  } = clientContext;
+  const { _id, name } = client;
+  const handleSelect = () => {
     setCurrentClient(client);
   };
   const handleDelete = () => {
     deleteClient(_id);
-    clearCurrentClient();
+    clearEditingClient();
+  };
+  const handleEdit = () => {
+    setEditingClient(client);
   };
   return (
     <div key={_id}>
       <ListItem>
-        <ListItemText>{name}</ListItemText>
+        <Button onClick={handleSelect}>{name}</Button>
         <ListItemSecondaryAction>
           <IconButton onClick={handleDelete}>
             <DeleteIcon aria-label='Delete' />

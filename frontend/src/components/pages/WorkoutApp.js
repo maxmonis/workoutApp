@@ -19,24 +19,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControl from '@material-ui/core/FormControl';
+import { Typography } from '@material-ui/core';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
-const WorkoutApp = ({ selectedClient }) => {
-  console.log(selectedClient);
+const WorkoutApp = () => {
   const clientContext = useContext(ClientContext);
-  const { updateClient } = clientContext;
-  const { lifts, addLift, removeLift, editLift } = useLiftState(
-    selectedClient.lifts
-  );
+  const { currentClient, clearCurrentClient, updateClient } = clientContext;
+  const [client, setClient] = useState(currentClient);
+  const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
-    selectedClient.previousWorkouts
+    client.previousWorkouts
   );
   const { personalBests, updatePersonalBests } = usePersonalBestState(
-    selectedClient.personalBests
+    client.personalBests
   );
-
   const {
     currentWorkout,
     resetCurrentWorkout,
@@ -47,24 +45,19 @@ const WorkoutApp = ({ selectedClient }) => {
   } = useWorkoutState([]);
 
   useEffect(() => {
-    updateClient({ ...selectedClient, lifts: lifts });
+    setClient({ ...client, lifts, previousWorkouts, personalBests });
+    console.log('setClient', client);
     // eslint-disable-next-line
-  }, [lifts]);
+  }, [lifts, previousWorkouts, personalBests]);
   useEffect(() => {
-    updateClient({
-      ...selectedClient,
-      previousWorkouts: [currentWorkout, ...previousWorkouts]
-    });
+    console.log('updateClient', client);
+    updateClient(client);
     // eslint-disable-next-line
-  }, [previousWorkouts]);
-  useEffect(() => {
-    updateClient({ ...selectedClient, personalBests: personalBests });
-    // eslint-disable-next-line
-  }, [personalBests]);
+  }, [client]);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentExercise, setCurrentExercise] = useState({
-    lift: lifts[0],
+    lift: lifts[0].liftName,
     sets: 1,
     reps: 1,
     weight: 135
@@ -77,6 +70,10 @@ const WorkoutApp = ({ selectedClient }) => {
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
+  };
+
+  const handleClear = () => {
+    clearCurrentClient();
   };
 
   const handleChange = e => {
@@ -111,7 +108,9 @@ const WorkoutApp = ({ selectedClient }) => {
     <div>
       <CssBaseline />
       <main>
-        <div style={{ marginTop: '100px' }}>
+        <div style={{ marginTop: '50px' }}>
+          <Typography variant='h1'>{currentClient.name}</Typography>
+          <Button onClick={handleClear}>Back to Client Roster</Button>
           <form>
             <FormControl>
               <ExerciseEntryForm
@@ -160,7 +159,9 @@ const WorkoutApp = ({ selectedClient }) => {
           {previousWorkouts.length > 0 && (
             <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
           )}
-          {personalBests.length > 0 && (<PersonalBestApp personalBests={personalBests} />)}
+          {personalBests.length > 0 && (
+            <PersonalBestApp personalBests={personalBests} />
+          )}
         </div>
       </main>
     </div>
