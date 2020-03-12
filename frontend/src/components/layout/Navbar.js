@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../context/auth/authContext';
@@ -11,8 +11,14 @@ import Typography from '@material-ui/core/Typography';
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
-  const { isAuthenticated, logUserOut, user } = authContext;
+  const { isAuthenticated, logUserOut, user, loadUser } = authContext;
   const { clearClients } = clientContext;
+
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line
+  }, []);
+  
   const handleLogout = () => {
     logUserOut();
     clearClients();

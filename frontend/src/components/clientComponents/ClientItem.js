@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
+
+import { Redirect } from 'react-router-dom';
 
 import ClientContext from '../../context/client/clientContext';
 
@@ -18,8 +20,10 @@ const ClientItem = ({ client }) => {
     clearEditingClient
   } = clientContext;
   const { _id, name } = client;
+  const [redirect, setRedirect] = useState(false);
   const handleSelect = () => {
     setCurrentClient(client);
+    setRedirect(true);
   };
   const handleDelete = () => {
     deleteClient(_id);
@@ -28,21 +32,25 @@ const ClientItem = ({ client }) => {
   const handleEdit = () => {
     setEditingClient(client);
   };
-  return (
-    <div key={_id}>
-      <ListItem>
-        <Button onClick={handleSelect}>{name}</Button>
-        <ListItemSecondaryAction>
-          <IconButton onClick={handleDelete}>
-            <DeleteIcon aria-label='Delete' />
-          </IconButton>
-          <IconButton onClick={handleEdit}>
-            <EditIcon aria-label='Edit' />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-    </div>
-  );
+  if (redirect) {
+    return <Redirect to='workouts' />;
+  } else {
+    return (
+      <div key={_id}>
+        <ListItem>
+          <Button onClick={handleSelect}>{name}</Button>
+          <ListItemSecondaryAction>
+            <IconButton onClick={handleDelete}>
+              <DeleteIcon aria-label='Delete' />
+            </IconButton>
+            <IconButton onClick={handleEdit}>
+              <EditIcon aria-label='Edit' />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </div>
+    );
+  }
 };
 
 export default ClientItem;

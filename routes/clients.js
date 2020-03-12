@@ -15,6 +15,20 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// router.get('/:id', auth, async(req,res)=>{
+//   try {
+//     const client = await Client.findById(req.params.id);
+//     if (!client) return res.status(404).json({ msg: 'Client not found' });
+//     if (client.user.toString() !== req.user.id) {
+//       return res.status(401).json({ msg: 'Not authorized' });
+//     }
+//     res.json(client);
+//   } catch (err) {
+//     console.log(err.message);
+//     res.status(500).send('Server Error');
+//   }
+// })
+
 router.post(
   '/',
   [

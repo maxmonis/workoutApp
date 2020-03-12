@@ -18,7 +18,7 @@ export default (state, action) => {
       };
     case 'AUTH_ERROR':
     case 'LOG_USER_OUT':
-    case 'LOGIN_FAIL':
+    case 'LOGIN_FAILURE':
     case 'REGISTER_FAILURE':
       localStorage.removeItem('token');
       return {

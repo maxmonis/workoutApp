@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
+import { Redirect } from 'react-router-dom';
+
 import ClientContext from '../../context/client/clientContext';
 
 import uuid from 'uuid/v4';
@@ -55,6 +57,7 @@ const WorkoutApp = () => {
     // eslint-disable-next-line
   }, [client]);
 
+  const [redirect, setRedirect] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
@@ -72,8 +75,9 @@ const WorkoutApp = () => {
     setIsDialogOpen(false);
   };
 
-  const handleClear = () => {
+  const handleReturnToClients = () => {
     clearCurrentClient();
+    setRedirect(true);
   };
 
   const handleChange = e => {
@@ -103,69 +107,75 @@ const WorkoutApp = () => {
     setCurrentWorkoutName('');
     handleCloseDialog();
   };
+  if (redirect || !currentClient) {
+    return <Redirect to='/' />;
+  } else {
+    console.log(currentClient);
+    return (
+      <div>
+        <CssBaseline />
+        <main>
+          <div style={{ marginTop: '100px' }}>
+            <Typography variant='h1'>{currentClient.name}</Typography>
+            <Button onClick={handleReturnToClients}>
+              Back to Client Roster
+            </Button>
+            <form>
+              <FormControl>
+                <ExerciseEntryForm
+                  lifts={lifts}
+                  handleChange={handleChange}
+                  currentExercise={currentExercise}
+                />
+              </FormControl>
+            </form>
+            <Button onClick={handleOpenDialog}>Edit Lifts</Button>
 
-  return (
-    <div>
-      <CssBaseline />
-      <main>
-        <div style={{ marginTop: '50px' }}>
-          <Typography variant='h1'>{currentClient.name}</Typography>
-          <Button onClick={handleClear}>Back to Client Roster</Button>
-          <form>
-            <FormControl>
-              <ExerciseEntryForm
+            <Dialog
+              disableBackdropClick
+              disableEscapeKeyDown
+              open={isDialogOpen}
+              onClose={handleCloseDialog}
+              width={'500px'}
+            >
+              <DialogContent>
+                <LiftApp
+                  lifts={lifts}
+                  removeLift={removeLift}
+                  editLift={editLift}
+                  addLift={addLift}
+                />
+                <Button onClick={handleCloseDialog}>
+                  Finished Editing Lifts
+                </Button>
+              </DialogContent>
+            </Dialog>
+            <Button onClick={handleNextExercise} color='primary'>
+              Enter
+            </Button>
+            <div>
+              <CurrentWorkoutApp
+                currentWorkout={currentWorkout}
+                reorderCurrentWorkout={reorderCurrentWorkout}
+                removeExercise={removeExercise}
+                editExercise={editExercise}
                 lifts={lifts}
+                currentWorkoutName={currentWorkoutName}
                 handleChange={handleChange}
-                currentExercise={currentExercise}
+                handleSaveWorkout={handleSaveWorkout}
               />
-            </FormControl>
-          </form>
-          <Button onClick={handleOpenDialog}>Edit Lifts</Button>
-
-          <Dialog
-            disableBackdropClick
-            disableEscapeKeyDown
-            open={isDialogOpen}
-            onClose={handleCloseDialog}
-            width={'500px'}
-          >
-            <DialogContent>
-              <LiftApp
-                lifts={lifts}
-                removeLift={removeLift}
-                editLift={editLift}
-                addLift={addLift}
-              />
-              <Button onClick={handleCloseDialog}>
-                Finished Editing Lifts
-              </Button>
-            </DialogContent>
-          </Dialog>
-          <Button onClick={handleNextExercise} color='primary'>
-            Enter
-          </Button>
-          <div>
-            <CurrentWorkoutApp
-              currentWorkout={currentWorkout}
-              reorderCurrentWorkout={reorderCurrentWorkout}
-              removeExercise={removeExercise}
-              editExercise={editExercise}
-              lifts={lifts}
-              currentWorkoutName={currentWorkoutName}
-              handleChange={handleChange}
-              handleSaveWorkout={handleSaveWorkout}
-            />
+            </div>
+            {previousWorkouts.length > 0 && (
+              <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
+            )}
+            {personalBests.length > 0 && (
+              <PersonalBestApp personalBests={personalBests} />
+            )}
           </div>
-          {previousWorkouts.length > 0 && (
-            <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-          )}
-          {personalBests.length > 0 && (
-            <PersonalBestApp personalBests={personalBests} />
-          )}
-        </div>
-      </main>
-    </div>
-  );
+        </main>
+      </div>
+    );
+  }
 };
 
 export default WorkoutApp;
