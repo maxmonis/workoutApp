@@ -1,43 +1,58 @@
 import React from 'react';
 
-const PersonalBestApp = ({ personalBests }) => {
-  const currentPersonalBests = personalBests.filter(
-    personalBest => !personalBest.surpassed
+const PersonalBestApp = ({ personalBests, currentLift }) => {
+  const sortPersonalBests = personalBests => {
+    return personalBests.sort((a, b) => {
+      const textA = a.lift.toUpperCase();
+      const textB = b.lift.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+  };
+  const currentPersonalBests = sortPersonalBests(
+    personalBests.filter(personalBest => !personalBest.surpassed)
   );
-  const previousPersonalBests = personalBests.filter(
-    personalBest => personalBest.surpassed
+  const previousPersonalBests = sortPersonalBests(
+    personalBests.filter(personalBest => personalBest.surpassed)
+  );
+  const currentLiftPersonalBests = currentPersonalBests.filter(
+    personalBest => personalBest.lift === currentLift
   );
   if (currentPersonalBests) {
-    const sortPBs = PBs => {
-      return PBs.sort((a, b) => {
-        const textA = a.lift.toUpperCase();
-        const textB = b.lift.toUpperCase();
-        return textA < textB ? -1 : textA > textB ? 1 : 0;
-      });
-    };
-    const currentPBs = sortPBs(currentPersonalBests);
-    const formerPBs = sortPBs(previousPersonalBests);
     return (
       <div>
-        {currentPBs.length > 0 && <h2>Personal Bests</h2>}
-        {currentPBs.length > 0 &&
-          currentPBs.map(PB => (
-            <h3 key={PB.id}>
-              {PB.lift}: {PB.printout}
-            </h3>
-          ))}
-        {formerPBs.length > 0 && <h2>Broken Records</h2>}
-        {formerPBs.length > 0 &&
-          formerPBs.map(PB => (
-            <div key={PB.id}>
-              <h3>
-                {PB.lift}: {PB.printout}
+        {currentLiftPersonalBests.length > 0 && (
+          <div>
+            <h2>{currentLift} Personal Bests</h2>
+            {currentLiftPersonalBests.map(personalBest => (
+              <h3 key={personalBest.id}>{personalBest.printout}</h3>
+            ))}
+          </div>
+        )}
+        {currentPersonalBests.length > 0 && (
+          <div>
+            <h2>Personal Bests</h2>
+            {currentPersonalBests.map(personalBest => (
+              <h3 key={personalBest.id}>
+                {personalBest.lift}: {personalBest.printout}
               </h3>
-              <h5>
-                {PB.becamePersonalBest}-{PB.surpassed}
-              </h5>
-            </div>
-          ))}
+            ))}
+          </div>
+        )}
+        {previousPersonalBests.length > 0 && (
+          <div>
+            <h2>Broken Records</h2>
+            {previousPersonalBests.map(personalBest => (
+              <div key={personalBest.id}>
+                <h3>
+                  {personalBest.lift}: {personalBest.printout}
+                </h3>
+                <h5>
+                  {personalBest.becamePersonalBest}-{personalBest.surpassed}
+                </h5>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }

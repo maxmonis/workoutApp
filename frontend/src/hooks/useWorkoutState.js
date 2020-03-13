@@ -11,15 +11,15 @@ export default initialCurrentWorkout => {
       setCurrentWorkout([]);
     },
     reorderCurrentWorkout: newIds => {
-      const newWorkout = [];
+      const updatedWorkout = [];
       newIds.forEach(newId => {
         currentWorkout.forEach(exercise => {
           if (exercise.id === newId) {
-            newWorkout.push(exercise);
+            updatedWorkout.push(exercise);
           }
         });
       });
-      setCurrentWorkout(eliminateRedundancy(newWorkout));
+      setCurrentWorkout(eliminateRedundancy(updatedWorkout));
     },
     addExercise: currentExercise => {
       const newExercise = createNewExercise(currentExercise);

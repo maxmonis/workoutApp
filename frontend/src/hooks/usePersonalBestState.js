@@ -9,28 +9,23 @@ const currentDate = date.toLocaleDateString();
 export default initialPersonalBests => {
   const [personalBests, setPersonalBests] = useState(initialPersonalBests);
 
-  const handleNewBrokenRecords = (personalBests, newBrokenRecords) => {
-    const updatedPersonalBests = [];
-    personalBests.forEach(personalBest => {
+  const handleNewBrokenRecords = (updatedPersonalBests, newBrokenRecords) => {
+    const personalBestArray = [];
+    updatedPersonalBests.forEach(personalBest => {
       if (newBrokenRecords.includes(personalBest.id)) {
         personalBest.surpassed = currentDate;
       }
-      updatedPersonalBests.push(personalBest);
+      personalBestArray.push(personalBest);
     });
-    setPersonalBests(updatedPersonalBests);
+    setPersonalBests(personalBestArray);
   };
 
   const handleNewPersonalBests = newPersonalBests => {
-    const newBrokenRecords = checkForBrokenRecords([
-      ...newPersonalBests,
-      ...personalBests
-    ]);
-    setPersonalBests([...newPersonalBests, ...personalBests]);
+    const updatedPersonalBests = [...newPersonalBests, ...personalBests];
+    setPersonalBests(updatedPersonalBests);
+    const newBrokenRecords = checkForBrokenRecords(updatedPersonalBests);
     newBrokenRecords.length &&
-      handleNewBrokenRecords(
-        [...newPersonalBests, ...personalBests],
-        newBrokenRecords
-      );
+      handleNewBrokenRecords(updatedPersonalBests, newBrokenRecords);
   };
 
   return {

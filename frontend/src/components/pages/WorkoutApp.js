@@ -48,11 +48,9 @@ const WorkoutApp = () => {
 
   useEffect(() => {
     setClient({ ...client, lifts, previousWorkouts, personalBests });
-    console.log('setClient', client);
     // eslint-disable-next-line
   }, [lifts, previousWorkouts, personalBests]);
   useEffect(() => {
-    console.log('updateClient', client);
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
@@ -117,7 +115,7 @@ const WorkoutApp = () => {
           <div style={{ marginTop: '100px' }}>
             <Typography variant='h1'>{currentClient.name}</Typography>
             <Button onClick={handleReturnToClients}>
-              Back to Client Roster
+              Return to Client Roster
             </Button>
             <form>
               <FormControl>
@@ -129,7 +127,6 @@ const WorkoutApp = () => {
               </FormControl>
             </form>
             <Button onClick={handleOpenDialog}>Edit Lifts</Button>
-
             <Dialog
               disableBackdropClick
               disableEscapeKeyDown
@@ -164,11 +161,14 @@ const WorkoutApp = () => {
                 handleSaveWorkout={handleSaveWorkout}
               />
             </div>
+            {personalBests && personalBests.length > 0 && (
+              <PersonalBestApp
+                personalBests={personalBests}
+                currentLift={currentExercise.lift}
+              />
+            )}
             {previousWorkouts && previousWorkouts.length > 0 && (
               <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-            )}
-            {personalBests && personalBests.length > 0 && (
-              <PersonalBestApp personalBests={personalBests} />
             )}
           </div>
         </main>
