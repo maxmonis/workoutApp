@@ -21,7 +21,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControl from '@material-ui/core/FormControl';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
@@ -110,7 +110,6 @@ const WorkoutApp = () => {
   if (redirect || !currentClient) {
     return <Redirect to='/' />;
   } else {
-    console.log(currentClient);
     return (
       <div>
         <CssBaseline />
@@ -165,10 +164,10 @@ const WorkoutApp = () => {
                 handleSaveWorkout={handleSaveWorkout}
               />
             </div>
-            {previousWorkouts.length > 0 && (
+            {previousWorkouts && previousWorkouts.length > 0 && (
               <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
             )}
-            {personalBests.length > 0 && (
+            {personalBests && personalBests.length > 0 && (
               <PersonalBestApp personalBests={personalBests} />
             )}
           </div>
