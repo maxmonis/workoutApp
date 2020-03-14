@@ -18,11 +18,12 @@ const Navbar = () => {
     loadUser();
     // eslint-disable-next-line
   }, []);
-  
+
   const handleLogout = () => {
     logUserOut();
     clearClients();
   };
+
   const authLinks = (
     <Fragment>
       <li>Hello {user && user.name}</li>
@@ -33,6 +34,7 @@ const Navbar = () => {
       </li>
     </Fragment>
   );
+
   const guestLinks = (
     <Fragment>
       <li>
@@ -43,6 +45,7 @@ const Navbar = () => {
       </li>
     </Fragment>
   );
+
   return (
     <div>
       <AppBar position='fixed'>

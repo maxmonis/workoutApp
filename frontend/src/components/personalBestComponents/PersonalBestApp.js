@@ -1,18 +1,15 @@
 import React from 'react';
 
+import alphabetize from '../../functions/alphabetize';
+
 const PersonalBestApp = ({ personalBests, currentLift }) => {
-  const sortPersonalBests = personalBests => {
-    return personalBests.sort((a, b) => {
-      const textA = a.lift.toUpperCase();
-      const textB = b.lift.toUpperCase();
-      return textA < textB ? -1 : textA > textB ? 1 : 0;
-    });
-  };
-  const currentPersonalBests = sortPersonalBests(
-    personalBests.filter(personalBest => !personalBest.surpassed)
+  const currentPersonalBests = alphabetize(
+    personalBests.filter(personalBest => !personalBest.surpassed),
+    'lift'
   );
-  const previousPersonalBests = sortPersonalBests(
-    personalBests.filter(personalBest => personalBest.surpassed)
+  const previousPersonalBests = alphabetize(
+    personalBests.filter(personalBest => personalBest.surpassed),
+    'lift'
   );
   const currentLiftPersonalBests = currentPersonalBests.filter(
     personalBest => personalBest.lift === currentLift

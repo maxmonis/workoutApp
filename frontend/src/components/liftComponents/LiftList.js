@@ -11,7 +11,7 @@ const LiftList = ({ lifts, removeLift, editLift }) => {
     return (
       <Paper>
         <List>
-          {lifts.map((lift, i) => (
+          {lifts.map((lift, index) => (
             <Fragment key={lift.id}>
               <Lift
                 {...lift}
@@ -19,7 +19,7 @@ const LiftList = ({ lifts, removeLift, editLift }) => {
                 removeLift={removeLift}
                 editLift={editLift}
               />
-              {i < lifts.length - 1 && <Divider />}
+              {index < lifts.length - 1 && <Divider />}
             </Fragment>
           ))}
         </List>

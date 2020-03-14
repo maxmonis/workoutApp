@@ -22,17 +22,17 @@ const Clients = () => {
     <Paper>
       <List>
         {filteredClients.length
-          ? filteredClients.map((client, i) => (
+          ? filteredClients.map((client, index) => (
               <Fragment key={client._id}>
                 <ClientItem client={client} />
-                {i < filteredClients.length - 1 && <Divider />}
+                {index < filteredClients.length - 1 && <Divider />}
               </Fragment>
             ))
           : clients.length > 0 &&
-            clients.map((client, i) => (
+            clients.map((client, index) => (
               <Fragment key={client._id}>
                 <ClientItem client={client} />
-                {i < clients.length - 1 && <Divider />}
+                {index < clients.length - 1 && <Divider />}
               </Fragment>
             ))}
       </List>
