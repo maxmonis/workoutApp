@@ -15,9 +15,16 @@ const CurrentLiftStats = ({ currentLift, personalBests, previousWorkouts }) => {
   );
   const getRecentExercises = () => {
     const recentExercises = [];
+    const printouts = [];
     previousWorkouts.forEach(previousWorkout =>
       previousWorkout.workout.forEach(exercise => {
-        if (exercise.lift === currentLift) recentExercises.push(exercise);
+        if (
+          exercise.lift === currentLift &&
+          !printouts.includes(exercise.printout)
+        ) {
+          recentExercises.push(exercise);
+          printouts.push(exercise.printout);
+        }
       })
     );
     return organizeWorkout(recentExercises);

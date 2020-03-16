@@ -10,11 +10,9 @@ const PersonalBestApp = ({ personalBests }) => {
       'lift'
     )
   );
-  const previousPersonalBests = organizeWorkout(
-    alphabetize(
-      personalBests.filter(personalBest => personalBest.surpassed),
-      'lift'
-    )
+  const previousPersonalBests = alphabetize(
+    personalBests.filter(personalBest => personalBest.surpassed),
+    'lift'
   );
   if (currentPersonalBests) {
     return (
