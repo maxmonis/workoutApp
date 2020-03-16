@@ -117,6 +117,7 @@ const WorkoutApp = () => {
             <Button onClick={handleReturnToClients}>
               Return to Client Roster
             </Button>
+            <div style={{display:'flex', flexDirection:'row'}}>
             <form>
               <FormControl>
                 <ExerciseEntryForm
@@ -126,6 +127,14 @@ const WorkoutApp = () => {
                 />
               </FormControl>
             </form>
+            {previousWorkouts && previousWorkouts.length > 0 && (
+              <CurrentLiftStats
+                currentLift={currentExercise.lift}
+                personalBests={personalBests}
+                previousWorkouts={previousWorkouts}
+              />
+            )}
+            </div>
             <Button onClick={handleOpenDialog}>Edit Lifts</Button>
             <Dialog
               disableBackdropClick
@@ -162,19 +171,10 @@ const WorkoutApp = () => {
               />
             </div>
             {previousWorkouts && previousWorkouts.length > 0 && (
-              <CurrentLiftStats
-                currentLift={currentExercise.lift}
-                personalBests={personalBests}
-                previousWorkouts={previousWorkouts}
-              />
-            )}
-            {personalBests && personalBests.length > 0 && (
-              <PersonalBestApp
-                personalBests={personalBests}
-              />
-            )}
-            {previousWorkouts && previousWorkouts.length > 0 && (
-              <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
+              <div>
+                <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
+                <PersonalBestApp personalBests={personalBests} />
+              </div>
             )}
           </div>
         </main>
