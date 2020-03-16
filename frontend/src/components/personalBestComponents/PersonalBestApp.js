@@ -1,30 +1,24 @@
 import React from 'react';
 
 import alphabetize from '../../functions/alphabetize';
+import organizeWorkout from '../../functions/organizeWorkout';
 
-const PersonalBestApp = ({ personalBests, currentLift }) => {
-  const currentPersonalBests = alphabetize(
-    personalBests.filter(personalBest => !personalBest.surpassed),
-    'lift'
+const PersonalBestApp = ({ personalBests }) => {
+  const currentPersonalBests = organizeWorkout(
+    alphabetize(
+      personalBests.filter(personalBest => !personalBest.surpassed),
+      'lift'
+    )
   );
-  const previousPersonalBests = alphabetize(
-    personalBests.filter(personalBest => personalBest.surpassed),
-    'lift'
-  );
-  const currentLiftPersonalBests = currentPersonalBests.filter(
-    personalBest => personalBest.lift === currentLift
+  const previousPersonalBests = organizeWorkout(
+    alphabetize(
+      personalBests.filter(personalBest => personalBest.surpassed),
+      'lift'
+    )
   );
   if (currentPersonalBests) {
     return (
       <div>
-        {currentLiftPersonalBests.length > 0 && (
-          <div>
-            <h2>{currentLift} Personal Bests</h2>
-            {currentLiftPersonalBests.map(personalBest => (
-              <h3 key={personalBest.id}>{personalBest.printout}</h3>
-            ))}
-          </div>
-        )}
         {currentPersonalBests.length > 0 && (
           <div>
             <h2>Personal Bests</h2>

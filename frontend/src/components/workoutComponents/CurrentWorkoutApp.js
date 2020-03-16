@@ -25,7 +25,6 @@ const CurrentWorkoutApp = ({
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
-
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
@@ -39,55 +38,53 @@ const CurrentWorkoutApp = ({
     const exercises = organizeWorkout(currentWorkout);
     return (
       <div>
-        <div>
-          <ExerciseApp
-            currentWorkout={currentWorkout}
-            reorderCurrentWorkout={reorderCurrentWorkout}
-            removeExercise={removeExercise}
-            editExercise={editExercise}
-            lifts={lifts}
-          />
-          <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
-            Save Workout
-          </Button>
-          <Dialog
-            open={isDialogOpen}
-            onClose={handleCloseDialog}
-            aria-labelledby='form-dialog-title'
-          >
-            <DialogContent>
-              <TextField
-                required
-                id='workoutName'
-                label='Workout Name'
-                type='string'
-                variant='outlined'
-                value={currentWorkoutName}
-                onChange={handleChange}
-                autoFocus
-              />
-              {exercises.map(exercise => (
-                <h4
-                  key={exercise.id}
-                >{`${exercise.lift}: ${exercise.printout}`}</h4>
-              ))}
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialog} color='primary'>
-                Cancel
+        <ExerciseApp
+          currentWorkout={currentWorkout}
+          reorderCurrentWorkout={reorderCurrentWorkout}
+          removeExercise={removeExercise}
+          editExercise={editExercise}
+          lifts={lifts}
+        />
+        <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
+          Save Workout
+        </Button>
+        <Dialog
+          open={isDialogOpen}
+          onClose={handleCloseDialog}
+          aria-labelledby='form-dialog-title'
+        >
+          <DialogContent>
+            <TextField
+              required
+              id='workoutName'
+              label='Workout Name'
+              type='string'
+              variant='outlined'
+              value={currentWorkoutName}
+              onChange={handleChange}
+              autoFocus
+            />
+            {exercises.map(exercise => (
+              <h4
+                key={exercise.id}
+              >{`${exercise.lift}: ${exercise.printout}`}</h4>
+            ))}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color='primary'>
+              Cancel
+            </Button>
+            {currentWorkoutName ? (
+              <Button onClick={handleSave} color='primary'>
+                Save
               </Button>
-              {currentWorkoutName ? (
-                <Button onClick={handleSave} color='primary'>
-                  Save
-                </Button>
-              ) : (
-                <Button disabled color='primary'>
-                  Name is Required
-                </Button>
-              )}
-            </DialogActions>
-          </Dialog>
-        </div>
+            ) : (
+              <Button disabled color='primary'>
+                Name is Required
+              </Button>
+            )}
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

@@ -22,6 +22,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import CurrentLiftStats from '../liftComponents/CurrentLiftStats';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
@@ -57,18 +58,17 @@ const WorkoutApp = () => {
 
   const [redirect, setRedirect] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
     sets: 1,
     reps: 1,
     weight: 135
   });
-  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
-
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
@@ -161,10 +161,16 @@ const WorkoutApp = () => {
                 handleSaveWorkout={handleSaveWorkout}
               />
             </div>
+            {previousWorkouts && previousWorkouts.length > 0 && (
+              <CurrentLiftStats
+                currentLift={currentExercise.lift}
+                personalBests={personalBests}
+                previousWorkouts={previousWorkouts}
+              />
+            )}
             {personalBests && personalBests.length > 0 && (
               <PersonalBestApp
                 personalBests={personalBests}
-                currentLift={currentExercise.lift}
               />
             )}
             {previousWorkouts && previousWorkouts.length > 0 && (
