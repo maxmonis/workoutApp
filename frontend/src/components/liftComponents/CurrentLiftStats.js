@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import organizeWorkout from '../../functions/organizeWorkout';
 
 import Typography from '@material-ui/core/Typography';
 
-const CurrentLiftStats = ({ currentLift, personalBests, previousWorkouts }) => {
+const CurrentLiftStats = ({
+  currentClient,
+  currentLift,
+  personalBests,
+  previousWorkouts
+}) => {
   const currentPersonalBests = personalBests.filter(
     personalBest => !personalBest.surpassed
   );
@@ -30,22 +35,33 @@ const CurrentLiftStats = ({ currentLift, personalBests, previousWorkouts }) => {
   const currentLiftRecentExercises = getRecentExercises();
 
   return (
-    <div>
-      <Typography variant='h6'>{currentLift}</Typography>
-      <Typography variant='body1'>Personal Bests</Typography>
-      {currentLiftPersonalBests &&
-        currentLiftPersonalBests.map(personalBest => (
-          <Typography key={personalBest.id} variant='body2'>
-            {personalBest.printout}
+    <div style={{ width: '100%', marginLeft: '-10px' }}>
+      {!currentLiftPersonalBests.length ? (
+        <Typography variant='body1'>
+          {currentLift} data will be displayed here once {currentClient.name}{' '}
+          has attempted it
+        </Typography>
+      ) : (
+        <Fragment>
+          <Typography variant='h6'>
+            {currentLift.length > 15
+              ? `${currentLift.substring(0, 12).trim()}...`
+              : currentLift}
           </Typography>
-        ))}
-      <Typography variant='body1'>Recent History</Typography>
-      {currentLiftRecentExercises &&
-        currentLiftRecentExercises.map(recentExercise => (
-          <Typography key={recentExercise.id} variant='body2'>
-            {recentExercise.printout}
-          </Typography>
-        ))}
+          <Typography variant='body1'>Personal Bests</Typography>
+          {currentLiftPersonalBests.map(personalBest => (
+            <Typography key={personalBest.id} variant='body2'>
+              {personalBest.printout}
+            </Typography>
+          ))}
+          <Typography variant='body1'>Recent History</Typography>
+          {currentLiftRecentExercises.map(recentExercise => (
+            <Typography key={recentExercise.id} variant='body2'>
+              {recentExercise.printout}
+            </Typography>
+          ))}
+        </Fragment>
+      )}
     </div>
   );
 };

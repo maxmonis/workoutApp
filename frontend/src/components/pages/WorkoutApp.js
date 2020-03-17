@@ -138,6 +138,7 @@ const WorkoutApp = () => {
           </form>
           {previousWorkouts && previousWorkouts.length > 0 && (
             <CurrentLiftStats
+              currentClient={currentClient}
               currentLift={currentExercise.lift}
               personalBests={personalBests}
               previousWorkouts={previousWorkouts}
