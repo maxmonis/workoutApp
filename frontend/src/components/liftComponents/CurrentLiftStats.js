@@ -15,19 +15,17 @@ const CurrentLiftStats = ({ currentLift, personalBests, previousWorkouts }) => {
   );
   const getRecentExercises = () => {
     const recentExercises = [];
-    const printouts = [];
-    previousWorkouts.forEach(previousWorkout =>
+    previousWorkouts.forEach(previousWorkout => {
+      const currentLiftExercises = [];
       previousWorkout.workout.forEach(exercise => {
-        if (
-          exercise.lift === currentLift &&
-          !printouts.includes(exercise.printout)
-        ) {
-          recentExercises.push(exercise);
-          printouts.push(exercise.printout);
+        if (exercise.lift === currentLift) {
+          currentLiftExercises.push(exercise);
         }
-      })
-    );
-    return organizeWorkout(recentExercises);
+      });
+      currentLiftExercises.length &&
+        recentExercises.push(organizeWorkout(currentLiftExercises)[0]);
+    });
+    return recentExercises;
   };
   const currentLiftRecentExercises = getRecentExercises();
 
@@ -35,17 +33,19 @@ const CurrentLiftStats = ({ currentLift, personalBests, previousWorkouts }) => {
     <div>
       <Typography variant='h6'>{currentLift}</Typography>
       <Typography variant='body1'>Personal Bests</Typography>
-      {currentLiftPersonalBests.map(personalBest => (
-        <Typography key={personalBest.id} variant='body2'>
-          {personalBest.printout}
-        </Typography>
-      ))}
-      <Typography variant='body1'>Recently Completed</Typography>
-      {currentLiftRecentExercises.map(recentExercise => (
-        <Typography key={recentExercise.id} variant='body2'>
-          {recentExercise.printout}
-        </Typography>
-      ))}
+      {currentLiftPersonalBests &&
+        currentLiftPersonalBests.map(personalBest => (
+          <Typography key={personalBest.id} variant='body2'>
+            {personalBest.printout}
+          </Typography>
+        ))}
+      <Typography variant='body1'>Recent History</Typography>
+      {currentLiftRecentExercises &&
+        currentLiftRecentExercises.map(recentExercise => (
+          <Typography key={recentExercise.id} variant='body2'>
+            {recentExercise.printout}
+          </Typography>
+        ))}
     </div>
   );
 };
