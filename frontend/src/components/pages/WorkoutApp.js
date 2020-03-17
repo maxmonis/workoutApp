@@ -173,6 +173,8 @@ const WorkoutApp = () => {
 const styles = {
   appContainer: {
     display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
     justifyContent: 'center'
   },
   currentLiftContainer: {

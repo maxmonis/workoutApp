@@ -9,7 +9,7 @@ import Login from './components/authComponents/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Register from './components/authComponents/Register';
-import WorkoutApp from './components/pages/WorkoutApp';
+import Workouts from './components/pages/Workouts';
 
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
@@ -27,7 +27,7 @@ function App() {
                 <Alerts />
                 <Switch>
                   <PrivateRoute exact path='/' component={ClientApp} />
-                  <PrivateRoute exact path='/workouts' component={WorkoutApp} />
+                  <PrivateRoute exact path='/workouts' component={Workouts} />
                   <Route exact path='/about' component={About} />
                   <Route exact path='/register' component={Register} />
                   <Route exact path='/login' component={Login} />
