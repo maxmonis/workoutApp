@@ -8,6 +8,7 @@ import AuthContext from '../../context/auth/authContext';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const Register = props => {
   const alertContext = useContext(AlertContext);
@@ -57,7 +58,7 @@ const Register = props => {
         padding: '20px'
       }}
     >
-      <h1>Sign Up</h1>
+      <Typography variant='h3'>Sign Up</Typography>
       <form onSubmit={handleSubmit}>
         <div>
           <Input
@@ -67,6 +68,7 @@ const Register = props => {
             placeholder={'Username'}
             onChange={handleChange}
             required
+            autoFocus
           />
           <Input
             type='email'
@@ -94,10 +96,14 @@ const Register = props => {
             required
           />
         </div>
-        <Button type='submit'>Register</Button>
+        {email && password && password2 && (
+          <Button type='submit' variant='outlined'>
+            Register
+          </Button>
+        )}
       </form>
       <div>
-        <h3>Already a member?</h3>
+        <Typography variant='h6'>Already a member?</Typography>
         <Button>
           {' '}
           <Link to='login'>Sign In</Link>

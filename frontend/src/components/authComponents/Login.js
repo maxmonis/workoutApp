@@ -6,6 +6,7 @@ import AuthContext from '../../context/auth/authContext';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const Login = props => {
   const alertContext = useContext(AlertContext);
@@ -51,10 +52,12 @@ const Login = props => {
         margin: '100px auto',
         width: '300px',
         height: 'auto',
-        padding: '25px'
+        padding: '25px',
+        justifyContent: 'center',
+        alignItems: 'center'
       }}
     >
-      <h1>Sign In</h1>
+      <Typography variant='h3'>Sign In</Typography>
       <form onSubmit={handleSubmit}>
         <div>
           <Input
@@ -64,6 +67,7 @@ const Login = props => {
             placeholder={'Email'}
             onChange={handleChange}
             required
+            autoFocus
           />
           <Input
             type='password'
@@ -74,9 +78,13 @@ const Login = props => {
             required
           />
         </div>
-        <Button type='submit'>Login</Button>
+        {email && password && (
+          <Button type='submit' variant='outlined'>
+            Login
+          </Button>
+        )}
         <div>
-          <h3>Don't have an account?</h3>
+          <Typography variant='h6'>Don't have an account?</Typography>
           <Button>
             {' '}
             <Link to='register'>Sign Up</Link>
