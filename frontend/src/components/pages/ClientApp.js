@@ -6,7 +6,7 @@ import ClientList from '../clientComponents/ClientList';
 
 const ClientApp = () => {
   return (
-    <div style={{ marginTop: '100px' }}>
+    <div>
       <ClientForm />
       <ClientFilter />
       <ClientList />
