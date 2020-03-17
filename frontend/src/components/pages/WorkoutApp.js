@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Redirect } from 'react-router-dom';
-
 import ClientContext from '../../context/client/clientContext';
 
 import uuid from 'uuid/v4';
@@ -29,7 +27,7 @@ const currentDate = date.toLocaleDateString();
 
 const WorkoutApp = () => {
   const clientContext = useContext(ClientContext);
-  const { currentClient, clearCurrentClient, updateClient } = clientContext;
+  const { currentClient, updateClient } = clientContext;
   const [client, setClient] = useState(currentClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
@@ -56,7 +54,6 @@ const WorkoutApp = () => {
     // eslint-disable-next-line
   }, [client]);
 
-  const [redirect, setRedirect] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentWorkoutName, setCurrentWorkoutName] = useState('');
   const [currentExercise, setCurrentExercise] = useState({
@@ -71,11 +68,6 @@ const WorkoutApp = () => {
   };
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
-  };
-
-  const handleReturnToClients = () => {
-    clearCurrentClient();
-    setRedirect(true);
   };
 
   const handleChange = e => {
@@ -105,36 +97,20 @@ const WorkoutApp = () => {
     setCurrentWorkoutName('');
     handleCloseDialog();
   };
-  if (redirect || !currentClient) {
-    return <Redirect to='/' />;
-  } else {
-    return (
-      <div>
-        <CssBaseline />
-        <main>
-          <div style={{ marginTop: '100px' }}>
-            <Typography variant='h1'>{currentClient.name}</Typography>
-            <Button onClick={handleReturnToClients}>
-              Return to Client Roster
-            </Button>
-            <div style={{display:'flex', flexDirection:'row'}}>
-            <form>
-              <FormControl>
-                <ExerciseEntryForm
-                  lifts={lifts}
-                  handleChange={handleChange}
-                  currentExercise={currentExercise}
-                />
-              </FormControl>
-            </form>
-            {previousWorkouts && previousWorkouts.length > 0 && (
-              <CurrentLiftStats
-                currentLift={currentExercise.lift}
-                personalBests={personalBests}
-                previousWorkouts={previousWorkouts}
+  return (
+    <div style={styles.appContainer}>
+      <CssBaseline />
+      <main>
+        <Typography variant='h1'>{currentClient.name}</Typography>
+        <div style={styles.currentLiftContainer}>
+          <form>
+            <FormControl>
+              <ExerciseEntryForm
+                lifts={lifts}
+                handleChange={handleChange}
+                currentExercise={currentExercise}
               />
-            )}
-            </div>
+            </FormControl>
             <Button onClick={handleOpenDialog}>Edit Lifts</Button>
             <Dialog
               disableBackdropClick
@@ -158,28 +134,50 @@ const WorkoutApp = () => {
             <Button onClick={handleNextExercise} color='primary'>
               Enter
             </Button>
-            <div>
-              <CurrentWorkoutApp
-                currentWorkout={currentWorkout}
-                reorderCurrentWorkout={reorderCurrentWorkout}
-                removeExercise={removeExercise}
-                editExercise={editExercise}
-                lifts={lifts}
-                currentWorkoutName={currentWorkoutName}
-                handleChange={handleChange}
-                handleSaveWorkout={handleSaveWorkout}
-              />
-            </div>
-            {previousWorkouts && previousWorkouts.length > 0 && (
-              <div>
-                <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-                <PersonalBestApp personalBests={personalBests} />
-              </div>
-            )}
+          </form>
+          {previousWorkouts && previousWorkouts.length > 0 && (
+            <CurrentLiftStats
+              currentLift={currentExercise.lift}
+              personalBests={personalBests}
+              previousWorkouts={previousWorkouts}
+            />
+          )}
+        </div>
+        <div>
+          <CurrentWorkoutApp
+            currentWorkout={currentWorkout}
+            reorderCurrentWorkout={reorderCurrentWorkout}
+            removeExercise={removeExercise}
+            editExercise={editExercise}
+            lifts={lifts}
+            currentWorkoutName={currentWorkoutName}
+            handleChange={handleChange}
+            handleSaveWorkout={handleSaveWorkout}
+          />
+        </div>
+        {previousWorkouts && previousWorkouts.length > 0 && (
+          <div>
+            <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
+            <PersonalBestApp personalBests={personalBests} />
           </div>
-        </main>
-      </div>
-    );
+        )}
+      </main>
+    </div>
+  );
+};
+
+const styles = {
+  appContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: '100px',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  currentLiftContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '400px'
   }
 };
 

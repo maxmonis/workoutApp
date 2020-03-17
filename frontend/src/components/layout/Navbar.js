@@ -12,7 +12,7 @@ const Navbar = () => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
   const { isAuthenticated, logUserOut, user, loadUser } = authContext;
-  const { clearClients } = clientContext;
+  const { clearClients, clearCurrentClient } = clientContext;
 
   useEffect(() => {
     loadUser();
@@ -22,11 +22,15 @@ const Navbar = () => {
   const handleLogout = () => {
     logUserOut();
     clearClients();
+    clearCurrentClient();
   };
 
   const authLinks = (
     <Fragment>
       <li>Hello {user && user.name}</li>
+      <li>
+        <Link to='/'>Clients</Link>
+      </li>
       <li>
         <a href='#!' onClick={handleLogout}>
           Logout
