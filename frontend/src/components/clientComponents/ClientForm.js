@@ -86,11 +86,9 @@ const ClientForm = () => {
           value={phone}
           onChange={handleChange}
         />
-        {client.name !== '' && (
-          <Fragment>
-            <Button type='submit'>Save</Button>
-            <Button onClick={handleClear}>Cancel</Button>
-          </Fragment>
+        {client.name !== '' && <Button type='submit'>Save</Button>}
+        {(editingClient || client.name !== '') && (
+          <Button onClick={handleClear}>Cancel</Button>
         )}
       </form>
     </div>
