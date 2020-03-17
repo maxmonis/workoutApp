@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
 
 import uuid from 'uuid/v4';
 
+import CurrentLiftStats from '../liftComponents/CurrentLiftStats';
 import CurrentWorkoutApp from '../workoutComponents/CurrentWorkoutApp';
 import ExerciseEntryForm from '../exerciseComponents/ExerciseEntryForm';
 import LiftApp from '../liftComponents/LiftApp';
@@ -19,8 +20,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import CurrentLiftStats from '../liftComponents/CurrentLiftStats';
 
 const date = new Date();
 const currentDate = date.toLocaleDateString();
@@ -102,7 +103,7 @@ const WorkoutApp = () => {
       <CssBaseline />
       <main>
         <Typography variant='h1'>{currentClient.name}</Typography>
-        <div style={styles.currentLiftContainer}>
+        <Paper style={styles.currentLiftContainer}>
           <form>
             <FormControl>
               <ExerciseEntryForm
@@ -142,25 +143,27 @@ const WorkoutApp = () => {
               previousWorkouts={previousWorkouts}
             />
           )}
-        </div>
-        <div>
-          <CurrentWorkoutApp
-            currentWorkout={currentWorkout}
-            reorderCurrentWorkout={reorderCurrentWorkout}
-            removeExercise={removeExercise}
-            editExercise={editExercise}
-            lifts={lifts}
-            currentWorkoutName={currentWorkoutName}
-            handleChange={handleChange}
-            handleSaveWorkout={handleSaveWorkout}
-          />
-        </div>
-        {previousWorkouts && previousWorkouts.length > 0 && (
-          <div>
-            <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
-            <PersonalBestApp personalBests={personalBests} />
-          </div>
-        )}
+        </Paper>
+        <Paper style={styles.exerciseComponents}>
+          <Fragment>
+            <CurrentWorkoutApp
+              currentWorkout={currentWorkout}
+              reorderCurrentWorkout={reorderCurrentWorkout}
+              removeExercise={removeExercise}
+              editExercise={editExercise}
+              lifts={lifts}
+              currentWorkoutName={currentWorkoutName}
+              handleChange={handleChange}
+              handleSaveWorkout={handleSaveWorkout}
+            />
+          </Fragment>
+          {previousWorkouts && previousWorkouts.length > 0 && (
+            <Fragment>
+              <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
+              <PersonalBestApp personalBests={personalBests} />
+            </Fragment>
+          )}
+        </Paper>
       </main>
     </div>
   );
@@ -169,15 +172,18 @@ const WorkoutApp = () => {
 const styles = {
   appContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    marginTop: '100px',
-    marginLeft: 'auto',
-    marginRight: 'auto'
+    justifyContent: 'center'
   },
   currentLiftContainer: {
     display: 'flex',
     flexDirection: 'row',
-    width: '400px'
+    width: '400px',
+    padding: '20px'
+  },
+  exerciseComponents: {
+    width: '400px',
+    marginTop: '10px',
+    padding: '20px'
   }
 };
 

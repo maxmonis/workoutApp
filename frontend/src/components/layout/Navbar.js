@@ -51,7 +51,7 @@ const Navbar = () => {
   );
 
   return (
-    <div>
+    <div style={{ marginBottom: '100px' }}>
       <AppBar position='fixed'>
         <Toolbar>
           <Typography variant='h6' noWrap>

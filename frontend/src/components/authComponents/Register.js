@@ -7,6 +7,7 @@ import AuthContext from '../../context/auth/authContext';
 
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
+import Paper from '@material-ui/core/Paper';
 
 const Register = props => {
   const alertContext = useContext(AlertContext);
@@ -48,40 +49,47 @@ const Register = props => {
   };
 
   return (
-    <div style={{ marginTop: '200px' }}>
-      <h1>Register New Account</h1>
+    <Paper
+      style={{
+        margin: '100px auto',
+        width: '300px',
+        height: 'auto',
+        padding: '20px'
+      }}
+    >
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='name'>Name</label>
           <Input
             type='text'
             name='name'
             value={name}
+            placeholder={'Username'}
             onChange={handleChange}
             required
           />
-          <label htmlFor='email'>Email</label>
           <Input
             type='email'
             name='email'
             value={email}
+            placeholder={'Email'}
             onChange={handleChange}
             required
           />
-          <label htmlFor='password'>Password</label>
           <Input
             type='password'
             name='password'
             value={password}
+            placeholder={'Password'}
             onChange={handleChange}
             required
             minLength='6'
           />
-          <label htmlFor='password2'>Confirm Password</label>
           <Input
             type='password'
             name='password2'
             value={password2}
+            placeholder={'Confirm Password'}
             onChange={handleChange}
             required
           />
@@ -92,10 +100,10 @@ const Register = props => {
         <h3>Already a member?</h3>
         <Button>
           {' '}
-          <Link to='login'>Log In to Account</Link>
+          <Link to='login'>Sign In</Link>
         </Button>
       </div>
-    </div>
+    </Paper>
   );
 };
 

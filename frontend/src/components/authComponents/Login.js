@@ -4,6 +4,8 @@ import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import Paper from '@material-ui/core/Paper';
 
 const Login = props => {
   const alertContext = useContext(AlertContext);
@@ -44,23 +46,30 @@ const Login = props => {
   };
 
   return (
-    <div style={{ marginTop: '200px' }}>
-      <h1>Sign in to Account</h1>
+    <Paper
+      style={{
+        margin: '100px auto',
+        width: '300px',
+        height: 'auto',
+        padding: '25px'
+      }}
+    >
+      <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='email'>Email</label>
-          <input
+          <Input
             type='email'
             name='email'
             value={email}
+            placeholder={'Email'}
             onChange={handleChange}
             required
           />
-          <label htmlFor='password'>Password</label>
-          <input
+          <Input
             type='password'
             name='password'
             value={password}
+            placeholder={'Password'}
             onChange={handleChange}
             required
           />
@@ -70,11 +79,11 @@ const Login = props => {
           <h3>Don't have an account?</h3>
           <Button>
             {' '}
-            <Link to='register'>Register a New Account</Link>
+            <Link to='register'>Sign Up</Link>
           </Button>
         </div>
       </form>
-    </div>
+    </Paper>
   );
 };
 
