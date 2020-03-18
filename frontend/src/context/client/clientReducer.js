@@ -33,6 +33,23 @@ export default (state, action) => {
         filteredClients: [],
         error: null
       };
+    case 'GET_SELECTED_CLIENT':
+      return {
+        ...state,
+        selectedClient: action.payload,
+        loading: false
+      };
+    case 'SET_SELECTED_CLIENT':
+      return {
+        ...state,
+        selectedClient: action.payload,
+        loading: false
+      };
+    case 'CLEAR_SELECTED_CLIENT':
+      return {
+        ...state,
+        selectedClient: null
+      };
     case 'SET_EDITING_CLIENT':
       return {
         ...state,
@@ -56,7 +73,7 @@ export default (state, action) => {
         ...state,
         filteredClients: []
       };
-    case 'CONTACT_ERROR':
+    case 'CLIENT_ERROR':
       return {
         ...state,
         error: action.payload

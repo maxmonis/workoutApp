@@ -6,6 +6,7 @@ import clientReducer from './clientReducer';
 const ClientState = props => {
   const initialState = {
     clients: [],
+    selectedClient: null,
     editingClient: null,
     filteredClients: [],
     error: null
@@ -58,8 +59,38 @@ const ClientState = props => {
     }
   };
 
+  const getSelectedClient = async () => {
+    try {
+      const res = await axios.get('/api/clients/workouts');
+      dispatch({ type: 'GET_SELECTED_CLIENT', payload: res.data });
+    } catch (err) {
+      dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+    }
+  };
+
+  const setSelectedClient = async client => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post(
+        '/api/clients/workouts',
+        client,
+        config
+      );
+      dispatch({ type: 'SET_SELECTED_CLIENT', payload: res.data });
+    } catch (err) {
+      dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+    }
+  };
+
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' });
+  };
+  const clearSelectedClient = () => {
+    dispatch({ type: 'CLEAR_SELECTED_CLIENT' });
   };
   const setEditingClient = client => {
     dispatch({ type: 'SET_EDITING_CLIENT', payload: client });
@@ -73,11 +104,12 @@ const ClientState = props => {
   const clearFilteredClients = () => {
     dispatch({ type: 'CLEAR_FILTERED_CLIENTS' });
   };
-  
+
   return (
     <ClientContext.Provider
       value={{
         clients: state.clients,
+        selectedClient: state.selectedClient,
         editingClient: state.editingClient,
         filteredClients: state.filteredClients,
         error: state.error,
@@ -86,10 +118,13 @@ const ClientState = props => {
         deleteClient,
         updateClient,
         clearClients,
+        getSelectedClient,
+        setSelectedClient,
+        clearSelectedClient,
+        clearFilteredClients,
         filterClients,
         setEditingClient,
-        clearEditingClient,
-        clearFilteredClients
+        clearEditingClient
       }}
     >
       {props.children}
