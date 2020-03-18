@@ -52,8 +52,8 @@ const Register = props => {
   return (
     <Paper
       style={{
-        margin: '100px auto',
-        width: '300px',
+        margin: 'auto',
+        width: '250px',
         height: 'auto',
         padding: '20px'
       }}

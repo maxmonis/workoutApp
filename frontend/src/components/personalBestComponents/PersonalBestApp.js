@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import alphabetize from '../../functions/alphabetize';
 import organizeWorkout from '../../functions/organizeWorkout';
 
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -13,10 +14,19 @@ const PersonalBestApp = ({ personalBests }) => {
       'lift'
     )
   );
-  const previousPersonalBests = alphabetize(
+  const brokenRecords = alphabetize(
     personalBests.filter(personalBest => personalBest.surpassed),
     'lift'
   );
+  const [isDisplayingBrokenRecords, setIsDisplayingBrokenRecords] = useState(
+    false
+  );
+  const displayBrokenRecords = () => {
+    setIsDisplayingBrokenRecords(true);
+  };
+  const hideBrokenRecords = () => {
+    setIsDisplayingBrokenRecords(false);
+  };
   if (currentPersonalBests) {
     return (
       <div style={{ width: '450px', marginTop: '20px' }}>
@@ -31,10 +41,13 @@ const PersonalBestApp = ({ personalBests }) => {
               ))}
             </div>
           )}
-          {previousPersonalBests.length > 0 && (
+          {!isDisplayingBrokenRecords && brokenRecords.length > 0 && (
+            <Button onClick={displayBrokenRecords}>View Broken Records</Button>
+          )}
+          {isDisplayingBrokenRecords && (
             <div>
               <Typography variant='h4'>Broken Records</Typography>
-              {previousPersonalBests.map(personalBest => (
+              {brokenRecords.map(personalBest => (
                 <div key={personalBest.id}>
                   <Typography variant='h5'>
                     {personalBest.lift}: {personalBest.printout}
@@ -44,6 +57,7 @@ const PersonalBestApp = ({ personalBests }) => {
                   </Typography>
                 </div>
               ))}
+              <Button onClick={hideBrokenRecords}>Hide Broken Records</Button>
             </div>
           )}
         </Paper>
