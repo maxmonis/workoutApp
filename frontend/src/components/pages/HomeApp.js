@@ -1,12 +1,11 @@
 import React from 'react';
 
-import ClientFilter from '../clientComponents/ClientFilter';
-import ClientForm from '../clientComponents/ClientForm';
+import ClientApp from '../clientComponents/ClientApp';
 import ClientList from '../clientComponents/ClientList';
 
 import Paper from '@material-ui/core/Paper';
 
-const ClientApp = () => {
+const HomeApp = () => {
   return (
     <div
       style={{
@@ -16,13 +15,12 @@ const ClientApp = () => {
         justifyContent: 'center'
       }}
     >
-      <ClientForm />
       <Paper style={{ width: '450px' }}>
-        <ClientFilter />
+        <ClientApp />
         <ClientList />
       </Paper>
     </div>
   );
 };
 
-export default ClientApp;
+export default HomeApp;

@@ -36,7 +36,7 @@ const Exercise = ({
     setIsDialogOpen(false);
   };
   return (
-    <div>
+    <div style={{ fontSize: '20px' }}>
       <Draggable draggableId={currentId} index={index}>
         {provided => (
           <ListItem

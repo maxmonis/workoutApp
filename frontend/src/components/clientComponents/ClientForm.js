@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const ClientForm = () => {
+const ClientForm = ({ handleToggle }) => {
   const clientContext = useContext(ClientContext);
   const {
     addClient,
@@ -55,6 +55,7 @@ const ClientForm = () => {
   };
   const handleClear = () => {
     clearEditingClient();
+    handleToggle();
   };
   return (
     <Paper style={{ padding: '20px' }}>
@@ -89,9 +90,7 @@ const ClientForm = () => {
             onChange={handleChange}
           />
           {client.name !== '' && <Button type='submit'>Save</Button>}
-          {(editingClient || client.name !== '') && (
-            <Button onClick={handleClear}>Cancel</Button>
-          )}
+          <Button onClick={handleClear}>Cancel</Button>
         </form>
       </div>
     </Paper>
