@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Redirect } from 'react-router-dom';
-
-import ClientContext from '../../context/client/clientContext';
 
 import WorkoutApp from './WorkoutApp';
 
 const Workouts = () => {
-  const clientContext = useContext(ClientContext);
-  const { currentClient } = clientContext;
-  if (currentClient) return <WorkoutApp />;
+  const selectedClient = JSON.parse(
+    window.localStorage.getItem('selectedClient')
+  );
+  if (selectedClient) return <WorkoutApp />;
   return <Redirect to='/' />;
 };
 

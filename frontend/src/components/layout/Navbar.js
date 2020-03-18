@@ -12,24 +12,30 @@ const Navbar = () => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
   const { isAuthenticated, logUserOut, user, loadUser } = authContext;
-  const { clearClients, clearCurrentClient } = clientContext;
+  const { clearClients } = clientContext;
 
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
   }, []);
 
+  const clearSelectedClient = () => {
+    window.localStorage.removeItem('selectedClient');
+  };
+
   const handleLogout = () => {
     logUserOut();
+    clearSelectedClient();
     clearClients();
-    clearCurrentClient();
   };
 
   const authLinks = (
     <Fragment>
       <li>Hello {user && user.name}</li>
       <li>
-        <Link to='/'>Clients</Link>
+        <a href='#!' onClick={clearSelectedClient}>
+          Clients
+        </a>
       </li>
       <li>
         <a href='#!' onClick={handleLogout}>

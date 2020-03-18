@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { Redirect } from 'react-router-dom';
 
@@ -13,17 +13,21 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const ClientItem = ({ client }) => {
   const clientContext = useContext(ClientContext);
-  const {
-    deleteClient,
-    setCurrentClient,
-    setEditingClient,
-    clearEditingClient
-  } = clientContext;
+  const { deleteClient, setEditingClient, clearEditingClient } = clientContext;
   const { _id, name } = client;
-  const [redirect, setRedirect] = useState(false);
+  const initialSelectedClient =
+    JSON.parse(window.localStorage.getItem('selectedClient')) || null;
+  const [selectedClient, setSelectedClient] = useState(initialSelectedClient);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  useEffect(() => {
+    window.localStorage.setItem(
+      'selectedClient',
+      JSON.stringify(selectedClient)
+    );
+  }, [selectedClient]);
   const handleSelect = () => {
-    setCurrentClient(client);
-    setRedirect(true);
+    setSelectedClient(client);
+    setIsRedirecting(true);
   };
   const handleDelete = () => {
     deleteClient(_id);
@@ -32,7 +36,7 @@ const ClientItem = ({ client }) => {
   const handleEdit = () => {
     setEditingClient(client);
   };
-  if (redirect) {
+  if (isRedirecting) {
     return <Redirect to='workouts' />;
   } else {
     return (

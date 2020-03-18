@@ -18,7 +18,7 @@ const Lift = ({ id, liftName, removeLift, editLift }) => {
   };
   return (
     <div>
-      <ListItem style={{ height: '64px' }} component='div'>
+      <ListItem style={{ height: '40px' }} component='div'>
         {isEditing ? (
           <EditLiftForm
             editLift={editLift}
@@ -28,7 +28,7 @@ const Lift = ({ id, liftName, removeLift, editLift }) => {
           />
         ) : (
           <Fragment>
-            <ListItemText>{liftName}</ListItemText>
+            <ListItemText style={{ fontSize: '20px' }}>{liftName}</ListItemText>
             <ListItemSecondaryAction>
               <IconButton onClick={handleRemoveLift}>
                 <DeleteIcon aria-label='Delete' />

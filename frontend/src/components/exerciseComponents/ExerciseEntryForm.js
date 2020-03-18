@@ -10,8 +10,8 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
     <div style={{ width: '200px' }}>
       <InputLabel id='currentLift'>Lift</InputLabel>
       <Select
+        style={styles.field}
         native
-        style={{ width: '170px' }}
         labelId='currentLift'
         id='lift'
         value={currentExercise.lift}
@@ -24,8 +24,8 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
           </option>
         ))}
       </Select>
-
       <TextField
+        style={styles.field}
         id='sets'
         label='Sets'
         type='number'
@@ -33,6 +33,7 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
         onChange={handleChange}
       />
       <TextField
+        style={styles.field}
         id='reps'
         label='Reps'
         type='number'
@@ -40,6 +41,7 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
         onChange={handleChange}
       />
       <TextField
+        style={styles.field}
         required
         id='weight'
         label='Weight'
@@ -49,6 +51,13 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
       />
     </div>
   );
+};
+
+const styles = {
+  field: {
+    fontSize: '20px',
+    width: '175px'
+  }
 };
 
 export default ExerciseEntryForm;

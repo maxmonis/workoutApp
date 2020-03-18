@@ -31,18 +31,7 @@ export default (state, action) => {
         ...state,
         clients: [],
         filteredClients: [],
-        error: null,
-        currentClient: null
-      };
-    case 'SET_CURRENT_CLIENT':
-      return {
-        ...state,
-        currentClient: action.payload
-      };
-    case 'CLEAR_CURRENT_CLIENT':
-      return {
-        ...state,
-        currentClient: null
+        error: null
       };
     case 'SET_EDITING_CLIENT':
       return {

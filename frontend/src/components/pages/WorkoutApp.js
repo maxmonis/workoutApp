@@ -28,8 +28,11 @@ const currentDate = date.toLocaleDateString();
 
 const WorkoutApp = () => {
   const clientContext = useContext(ClientContext);
-  const { currentClient, updateClient } = clientContext;
-  const [client, setClient] = useState(currentClient);
+  const { updateClient } = clientContext;
+  const selectedClient = JSON.parse(
+    window.localStorage.getItem('selectedClient')
+  );
+  const [client, setClient] = useState(selectedClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
     client.previousWorkouts
@@ -55,14 +58,14 @@ const WorkoutApp = () => {
     // eslint-disable-next-line
   }, [client]);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
     sets: 1,
     reps: 1,
     weight: 135
   });
+  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -102,7 +105,19 @@ const WorkoutApp = () => {
     <div style={styles.appContainer}>
       <CssBaseline />
       <main>
-        <Typography variant='h1'>{currentClient.name}</Typography>
+        <Typography variant='h1'>{client.name}</Typography>
+        <Fragment>
+          <CurrentWorkoutApp
+            currentWorkout={currentWorkout}
+            reorderCurrentWorkout={reorderCurrentWorkout}
+            removeExercise={removeExercise}
+            editExercise={editExercise}
+            lifts={lifts}
+            currentWorkoutName={currentWorkoutName}
+            handleChange={handleChange}
+            handleSaveWorkout={handleSaveWorkout}
+          />
+        </Fragment>
         <Paper style={styles.currentLiftContainer}>
           <form>
             <FormControl>
@@ -138,7 +153,7 @@ const WorkoutApp = () => {
           </form>
           {previousWorkouts && previousWorkouts.length > 0 && (
             <CurrentLiftStats
-              currentClient={currentClient}
+              currentClient={client}
               currentLift={currentExercise.lift}
               personalBests={personalBests}
               previousWorkouts={previousWorkouts}
@@ -146,18 +161,6 @@ const WorkoutApp = () => {
           )}
         </Paper>
         <Paper style={styles.exerciseComponents}>
-          <Fragment>
-            <CurrentWorkoutApp
-              currentWorkout={currentWorkout}
-              reorderCurrentWorkout={reorderCurrentWorkout}
-              removeExercise={removeExercise}
-              editExercise={editExercise}
-              lifts={lifts}
-              currentWorkoutName={currentWorkoutName}
-              handleChange={handleChange}
-              handleSaveWorkout={handleSaveWorkout}
-            />
-          </Fragment>
           {previousWorkouts && previousWorkouts.length > 0 && (
             <Fragment>
               <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
@@ -180,7 +183,7 @@ const styles = {
   currentLiftContainer: {
     display: 'flex',
     flexDirection: 'row',
-    width: '400px',
+    width: '500px',
     padding: '20px'
   },
   exerciseComponents: {

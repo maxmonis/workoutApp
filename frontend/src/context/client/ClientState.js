@@ -6,7 +6,6 @@ import clientReducer from './clientReducer';
 const ClientState = props => {
   const initialState = {
     clients: [],
-    currentClient: null,
     editingClient: null,
     filteredClients: [],
     error: null
@@ -62,12 +61,6 @@ const ClientState = props => {
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' });
   };
-  const setCurrentClient = client => {
-    dispatch({ type: 'SET_CURRENT_CLIENT', payload: client });
-  };
-  const clearCurrentClient = () => {
-    dispatch({ type: 'CLEAR_CURRENT_CLIENT' });
-  };
   const setEditingClient = client => {
     dispatch({ type: 'SET_EDITING_CLIENT', payload: client });
   };
@@ -85,7 +78,6 @@ const ClientState = props => {
     <ClientContext.Provider
       value={{
         clients: state.clients,
-        currentClient: state.currentClient,
         editingClient: state.editingClient,
         filteredClients: state.filteredClients,
         error: state.error,
@@ -95,8 +87,6 @@ const ClientState = props => {
         updateClient,
         clearClients,
         filterClients,
-        setCurrentClient,
-        clearCurrentClient,
         setEditingClient,
         clearEditingClient,
         clearFilteredClients
