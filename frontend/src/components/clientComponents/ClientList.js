@@ -6,7 +6,7 @@ import ClientContext from '../../context/client/clientContext';
 
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const Clients = () => {
   const clientContext = useContext(ClientContext);
@@ -16,10 +16,9 @@ const Clients = () => {
     // eslint-disable-next-line
   }, []);
   if (!clients.length) {
-    return <h4>Please add a client</h4>;
+    return <Typography variant='h6'>Please add a client</Typography>;
   }
   return (
-    <Paper>
       <List>
         {filteredClients.length
           ? filteredClients.map((client, index) => (
@@ -36,7 +35,6 @@ const Clients = () => {
               </Fragment>
             ))}
       </List>
-    </Paper>
   );
 };
 

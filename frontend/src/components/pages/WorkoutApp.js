@@ -133,7 +133,7 @@ const WorkoutApp = () => {
               disableEscapeKeyDown
               open={isDialogOpen}
               onClose={handleCloseDialog}
-              width={'500px'}
+              width={'450px'}
             >
               <DialogContent>
                 <LiftApp
@@ -160,14 +160,14 @@ const WorkoutApp = () => {
             />
           )}
         </Paper>
-        <Paper style={styles.exerciseComponents}>
+        <div>
           {previousWorkouts && previousWorkouts.length > 0 && (
             <Fragment>
               <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
               <PersonalBestApp personalBests={personalBests} />
             </Fragment>
           )}
-        </Paper>
+        </div>
       </main>
     </div>
   );
@@ -183,12 +183,7 @@ const styles = {
   currentLiftContainer: {
     display: 'flex',
     flexDirection: 'row',
-    width: '500px',
-    padding: '20px'
-  },
-  exerciseComponents: {
-    width: '400px',
-    marginTop: '10px',
+    width: '450px',
     padding: '20px'
   }
 };

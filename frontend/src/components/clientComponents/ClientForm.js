@@ -5,6 +5,7 @@ import uuid from 'uuid/v4';
 import ClientContext from '../../context/client/clientContext';
 
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -56,42 +57,44 @@ const ClientForm = () => {
     clearEditingClient();
   };
   return (
-    <div style={{ width: '200px' }}>
-      {editingClient ? (
-        <Typography variant='h6'>Update {editingClient.name}</Typography>
-      ) : client.name ? (
-        <Typography variant='h6'>Add {client.name}</Typography>
-      ) : (
-        <Typography variant='h6'>Add New Client</Typography>
-      )}
-      <form onSubmit={handleSubmit}>
-        <TextField
-          type='text'
-          placeholder='Name'
-          name='name'
-          value={name}
-          onChange={handleChange}
-        />
-        <TextField
-          type='text'
-          placeholder='Email'
-          name='email'
-          value={email}
-          onChange={handleChange}
-        />
-        <TextField
-          type='text'
-          placeholder='Phone'
-          name='phone'
-          value={phone}
-          onChange={handleChange}
-        />
-        {client.name !== '' && <Button type='submit'>Save</Button>}
-        {(editingClient || client.name !== '') && (
-          <Button onClick={handleClear}>Cancel</Button>
+    <Paper style={{ padding: '20px' }}>
+      <div style={{ width: '200px' }}>
+        {editingClient ? (
+          <Typography variant='h6'>Update {editingClient.name}</Typography>
+        ) : client.name ? (
+          <Typography variant='h6'>Add {client.name}</Typography>
+        ) : (
+          <Typography variant='h6'>Add New Client</Typography>
         )}
-      </form>
-    </div>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            type='text'
+            placeholder='Name'
+            name='name'
+            value={name}
+            onChange={handleChange}
+          />
+          <TextField
+            type='text'
+            placeholder='Email'
+            name='email'
+            value={email}
+            onChange={handleChange}
+          />
+          <TextField
+            type='text'
+            placeholder='Phone'
+            name='phone'
+            value={phone}
+            onChange={handleChange}
+          />
+          {client.name !== '' && <Button type='submit'>Save</Button>}
+          {(editingClient || client.name !== '') && (
+            <Button onClick={handleClear}>Cancel</Button>
+          )}
+        </form>
+      </div>
+    </Paper>
   );
 };
 

@@ -3,6 +3,9 @@ import React from 'react';
 import alphabetize from '../../functions/alphabetize';
 import organizeWorkout from '../../functions/organizeWorkout';
 
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 const PersonalBestApp = ({ personalBests }) => {
   const currentPersonalBests = organizeWorkout(
     alphabetize(
@@ -16,32 +19,34 @@ const PersonalBestApp = ({ personalBests }) => {
   );
   if (currentPersonalBests) {
     return (
-      <div>
-        {currentPersonalBests.length > 0 && (
-          <div>
-            <h2>Personal Bests</h2>
-            {currentPersonalBests.map(personalBest => (
-              <h3 key={personalBest.id}>
-                {personalBest.lift}: {personalBest.printout}
-              </h3>
-            ))}
-          </div>
-        )}
-        {previousPersonalBests.length > 0 && (
-          <div>
-            <h2>Broken Records</h2>
-            {previousPersonalBests.map(personalBest => (
-              <div key={personalBest.id}>
-                <h3>
+      <div style={{ width: '450px', marginTop: '20px' }}>
+        <Paper style={{ padding: '20px' }}>
+          {currentPersonalBests.length > 0 && (
+            <div>
+              <Typography variant='h4'>Personal Bests</Typography>
+              {currentPersonalBests.map(personalBest => (
+                <Typography variant='h5' key={personalBest.id}>
                   {personalBest.lift}: {personalBest.printout}
-                </h3>
-                <h5>
-                  {personalBest.becamePersonalBest}-{personalBest.surpassed}
-                </h5>
-              </div>
-            ))}
-          </div>
-        )}
+                </Typography>
+              ))}
+            </div>
+          )}
+          {previousPersonalBests.length > 0 && (
+            <div>
+              <Typography variant='h4'>Broken Records</Typography>
+              {previousPersonalBests.map(personalBest => (
+                <div key={personalBest.id}>
+                  <Typography variant='h5'>
+                    {personalBest.lift}: {personalBest.printout}
+                  </Typography>
+                  <Typography variant='h6'>
+                    {personalBest.becamePersonalBest}-{personalBest.surpassed}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          )}
+        </Paper>
       </div>
     );
   }

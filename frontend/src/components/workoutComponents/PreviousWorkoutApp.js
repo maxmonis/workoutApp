@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import organizeWorkout from '../../functions/organizeWorkout';
 
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
@@ -11,27 +12,36 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
     const newDisplayedWorkouts = displayedWorkouts + 3;
     setDisplayedWorkouts(newDisplayedWorkouts);
   };
+  const displayFewerWorkouts = () => {
+    const newDisplayedWorkouts = displayedWorkouts - 3;
+    setDisplayedWorkouts(newDisplayedWorkouts);
+  };
   return (
-    <div style={{ alignItems: 'center' }}>
-      <Typography variant='h4'>Recent Workouts</Typography>
-      {previousWorkouts.slice(0, displayedWorkouts).map(previousWorkout => (
-        <div key={previousWorkout.id}>
-          <Typography variant='h5'>
-            {previousWorkout.name} - {previousWorkout.date}
-          </Typography>
-          {organizeWorkout(previousWorkout.workout).map(exercise => (
-            <Typography
-              variant='h6'
-              key={exercise.id}
-            >{`${exercise.lift}: ${exercise.printout}`}</Typography>
-          ))}
-        </div>
-      ))}
-      {previousWorkouts.length > displayedWorkouts && (
-        <Button onClick={displayAdditionalWorkouts}>
-          Show additional workouts...
-        </Button>
-      )}
+    <div style={{ width: '450px', marginTop: '20px' }}>
+      <Paper style={{ padding: '20px' }}>
+        <Typography variant='h4'>Recent Workouts</Typography>
+        {previousWorkouts.slice(0, displayedWorkouts).map(previousWorkout => (
+          <div key={previousWorkout.id}>
+            <Typography variant='h5'>
+              {previousWorkout.name} - {previousWorkout.date}
+            </Typography>
+            {organizeWorkout(previousWorkout.workout).map(exercise => (
+              <Typography
+                variant='h6'
+                key={exercise.id}
+              >{`${exercise.lift}: ${exercise.printout}`}</Typography>
+            ))}
+          </div>
+        ))}
+        {previousWorkouts.length > displayedWorkouts && (
+          <Button onClick={displayAdditionalWorkouts}>
+            Show additional workouts...
+          </Button>
+        )}
+        {displayedWorkouts > 3 && (
+          <Button onClick={displayFewerWorkouts}>Show fewer workouts...</Button>
+        )}
+      </Paper>
     </div>
   );
 };

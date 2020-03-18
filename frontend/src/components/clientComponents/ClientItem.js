@@ -41,8 +41,10 @@ const ClientItem = ({ client }) => {
   } else {
     return (
       <div key={_id}>
-        <ListItem>
-          <Button onClick={handleSelect}>{name}</Button>
+        <ListItem style={{ height: '40px' }}>
+          <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
+            {name}
+          </Button>
           <ListItemSecondaryAction>
             <IconButton onClick={handleDelete}>
               <DeleteIcon aria-label='Delete' />
