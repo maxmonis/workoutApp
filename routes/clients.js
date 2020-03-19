@@ -59,36 +59,6 @@ router.post(
   }
 );
 
-router.get('/workouts', auth, async (req, res) => {
-  try {
-    const client = await Client.findById(res.client._id);
-    if (!client) return res.status(404).json({ msg: 'Client not found' });
-    if (client.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' });
-    }
-    res.json(client);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-router.post('/workouts', auth, async (req, res) => {
-  try {
-    const selectedClient = await Client.findById(req.client._id);
-    if (!selectedClient)
-      return res.status(404).json({ msg: 'Client not found' });
-    if (selectedClient.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' });
-    }
-    const client = await selectedClient.save();
-    res.json(client);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
 router.put('/:id', auth, async (req, res) => {
   const {
     name,

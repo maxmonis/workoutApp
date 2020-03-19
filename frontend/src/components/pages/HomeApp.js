@@ -13,6 +13,7 @@ const HomeApp = () => {
   const handleHideForm = () => {
     setIsDisplayingForm(false);
   };
+  
   return (
     <div
       style={{

@@ -26,12 +26,9 @@ import Typography from '@material-ui/core/Typography';
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
-const WorkoutApp = () => {
+const WorkoutApp = ({ selectedClient }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient } = clientContext;
-  const selectedClient = JSON.parse(
-    window.localStorage.getItem('selectedClient')
-  );
   const [client, setClient] = useState(selectedClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(

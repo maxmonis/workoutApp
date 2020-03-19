@@ -9,7 +9,7 @@ export default (state, action) => {
     case 'ADD_CLIENT':
       return {
         ...state,
-        clients: [...state.clients, action.payload],
+        clients: [action.payload, ...state.clients],
         loading: false
       };
     case 'UPDATE_CLIENT':
@@ -32,23 +32,6 @@ export default (state, action) => {
         clients: [],
         filteredClients: [],
         error: null
-      };
-    case 'GET_SELECTED_CLIENT':
-      return {
-        ...state,
-        selectedClient: action.payload,
-        loading: false
-      };
-    case 'SET_SELECTED_CLIENT':
-      return {
-        ...state,
-        selectedClient: action.payload,
-        loading: false
-      };
-    case 'CLEAR_SELECTED_CLIENT':
-      return {
-        ...state,
-        selectedClient: null
       };
     case 'SET_EDITING_CLIENT':
       return {
