@@ -28,7 +28,7 @@ const currentDate = date.toLocaleDateString();
 
 const WorkoutApp = ({ selectedClient }) => {
   const clientContext = useContext(ClientContext);
-  const { updateClient } = clientContext;
+  const { updateClient, clearFilteredClients } = clientContext;
   const [client, setClient] = useState(selectedClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
@@ -46,6 +46,10 @@ const WorkoutApp = ({ selectedClient }) => {
     editExercise
   } = useWorkoutState([]);
 
+  useEffect(() => {
+    clearFilteredClients();
+    // eslint-disable-next-line
+  }, []);
   useEffect(() => {
     setClient({ ...client, lifts, previousWorkouts, personalBests });
     // eslint-disable-next-line

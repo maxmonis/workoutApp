@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const ClientForm = ({ handleHideForm }) => {
+const ClientForm = () => {
   const clientContext = useContext(ClientContext);
   const {
     addClient,
@@ -55,7 +55,6 @@ const ClientForm = ({ handleHideForm }) => {
   };
   const handleClear = () => {
     clearEditingClient();
-    handleHideForm();
   };
   return (
     <Paper style={{ padding: '20px' }}>

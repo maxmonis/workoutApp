@@ -12,9 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { Dialog } from '@material-ui/core';
 
-const ClientItem = ({ client, handleDisplayForm }) => {
+const ClientItem = ({ client }) => {
   const clientContext = useContext(ClientContext);
   const {
     deleteClient,
@@ -36,13 +35,13 @@ const ClientItem = ({ client, handleDisplayForm }) => {
   }, [selectedClient]);
   useEffect(() => {
     updateClient(currentClient);
+    // eslint-disable-next-line
   }, [currentClient]);
   const handleSelect = () => {
     setSelectedClient(client);
     setIsRedirecting(true);
   };
   const handleEdit = () => {
-    handleDisplayForm();
     setEditingClient(client);
   };
   const handleDeactivate = () => {
