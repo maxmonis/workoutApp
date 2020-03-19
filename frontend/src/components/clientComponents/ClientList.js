@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 
-const Clients = () => {
+const Clients = ({ handleDisplayForm }) => {
   const clientContext = useContext(ClientContext);
   const { clients, filteredClients, getClients } = clientContext;
   useEffect(() => {
@@ -19,22 +19,28 @@ const Clients = () => {
     return <Typography variant='h6'>Please add a client</Typography>;
   }
   return (
-      <List>
-        {filteredClients.length
-          ? filteredClients.map((client, index) => (
-              <Fragment key={client._id}>
-                <ClientItem client={client} />
-                {index < filteredClients.length - 1 && <Divider />}
-              </Fragment>
-            ))
-          : clients.length > 0 &&
-            clients.map((client, index) => (
-              <Fragment key={client._id}>
-                <ClientItem client={client} />
-                {index < clients.length - 1 && <Divider />}
-              </Fragment>
-            ))}
-      </List>
+    <List>
+      {filteredClients.length
+        ? filteredClients.map((client, index) => (
+            <Fragment key={client._id}>
+              <ClientItem
+                client={client}
+                handleDisplayForm={handleDisplayForm}
+              />
+              {index < filteredClients.length - 1 && <Divider />}
+            </Fragment>
+          ))
+        : clients.length > 0 &&
+          clients.map((client, index) => (
+            <Fragment key={client._id}>
+              <ClientItem
+                client={client}
+                handleDisplayForm={handleDisplayForm}
+              />
+              {index < clients.length - 1 && <Divider />}
+            </Fragment>
+          ))}
+    </List>
   );
 };
 

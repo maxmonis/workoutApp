@@ -11,7 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-const ClientItem = ({ client }) => {
+const ClientItem = ({ client, handleDisplayForm }) => {
   const clientContext = useContext(ClientContext);
   const { deleteClient, setEditingClient, clearEditingClient } = clientContext;
   const { _id, name } = client;
@@ -34,6 +34,7 @@ const ClientItem = ({ client }) => {
     clearEditingClient();
   };
   const handleEdit = () => {
+    handleDisplayForm();
     setEditingClient(client);
   };
   if (isRedirecting) {
@@ -43,7 +44,7 @@ const ClientItem = ({ client }) => {
       <div key={_id}>
         <ListItem style={{ height: '40px' }}>
           <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
-            {name}
+            {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
           </Button>
           <ListItemSecondaryAction>
             <IconButton onClick={handleDelete}>

@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import ClientFilter from './ClientFilter';
 import ClientForm from './ClientForm';
 import { Button } from '@material-ui/core';
 
-const ClientApp = () => {
-  const [isAddingClient, setIsAddingClient] = useState(false);
-  const handleToggle = () => {
-    isAddingClient ? setIsAddingClient(false) : setIsAddingClient(true);
-  };
+const ClientApp = ({ isDisplayingForm, handleDisplayForm, handleHideForm }) => {
   return (
     <div>
-      {isAddingClient ? (
-        <ClientForm handleToggle={handleToggle} />
+      {isDisplayingForm ? (
+        <ClientForm
+          handleHideForm={handleHideForm}
+        />
       ) : (
-        <Button onClick={handleToggle}>Add New Client</Button>
+        <Button onClick={handleDisplayForm}>Add New Client</Button>
       )}
       <ClientFilter />
     </div>

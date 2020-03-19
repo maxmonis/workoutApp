@@ -30,6 +30,7 @@ const ClientFilter = () => {
         type='text'
         placeholder='Search Clients...'
         onChange={handleChange}
+        autoFocus
       />
     </form>
   );

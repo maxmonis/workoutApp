@@ -151,14 +151,21 @@ const WorkoutApp = () => {
               Enter
             </Button>
           </form>
-          {previousWorkouts && previousWorkouts.length > 0 && (
-            <CurrentLiftStats
-              currentClient={client}
-              currentLift={currentExercise.lift}
-              personalBests={personalBests}
-              previousWorkouts={previousWorkouts}
-            />
-          )}
+          <div style={{ width: '100%' }}>
+            {previousWorkouts && previousWorkouts.length > 0 ? (
+              <CurrentLiftStats
+                currentClient={client}
+                currentLift={currentExercise.lift}
+                personalBests={personalBests}
+                previousWorkouts={previousWorkouts}
+              />
+            ) : (
+              <Typography variant='h6'>
+                {currentExercise.lift} data will be displayed here once{' '}
+                {client.name} has attempted it
+              </Typography>
+            )}
+          </div>
         </Paper>
         <div>
           {previousWorkouts && previousWorkouts.length > 0 && (

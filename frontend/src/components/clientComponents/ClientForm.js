@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const ClientForm = ({ handleToggle }) => {
+const ClientForm = ({ handleHideForm }) => {
   const clientContext = useContext(ClientContext);
   const {
     addClient,
@@ -55,7 +55,7 @@ const ClientForm = ({ handleToggle }) => {
   };
   const handleClear = () => {
     clearEditingClient();
-    handleToggle();
+    handleHideForm();
   };
   return (
     <Paper style={{ padding: '20px' }}>
@@ -74,6 +74,7 @@ const ClientForm = ({ handleToggle }) => {
             name='name'
             value={name}
             onChange={handleChange}
+            autoFocus
           />
           <TextField
             type='text'

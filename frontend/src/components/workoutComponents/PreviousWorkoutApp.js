@@ -34,12 +34,14 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
           </div>
         ))}
         {previousWorkouts.length > displayedWorkouts && (
-          <Button onClick={displayAdditionalWorkouts}>
-            Show additional workouts...
+          <Button color='primary' onClick={displayAdditionalWorkouts}>
+            Show additional workouts
           </Button>
         )}
         {displayedWorkouts > 3 && (
-          <Button onClick={displayFewerWorkouts}>Show fewer workouts...</Button>
+          <Button color='primary' onClick={displayFewerWorkouts}>
+            Show fewer workouts
+          </Button>
         )}
       </Paper>
     </div>
