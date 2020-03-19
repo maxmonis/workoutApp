@@ -4,6 +4,7 @@ import ClientContext from '../../context/client/clientContext';
 
 import uuid from 'uuid/v4';
 
+import BrokenRecordsApp from '../personalBestComponents/BrokenRecordsApp';
 import CurrentLiftStats from '../liftComponents/CurrentLiftStats';
 import CurrentWorkoutApp from '../workoutComponents/CurrentWorkoutApp';
 import ExerciseEntryForm from '../exerciseComponents/ExerciseEntryForm';
@@ -173,6 +174,7 @@ const WorkoutApp = ({ selectedClient }) => {
             <Fragment>
               <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
               <PersonalBestApp personalBests={personalBests} />
+              <BrokenRecordsApp personalBests={personalBests} />
             </Fragment>
           )}
         </div>

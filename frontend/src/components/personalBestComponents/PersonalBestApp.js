@@ -10,76 +10,58 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 const PersonalBestApp = ({ personalBests }) => {
-  const [displayedWorkouts, setDisplayedWorkouts] = useState(10);
-  const [currentLift, setCurrentLift] = useState(personalBests[0].lift);
+  const [numDisplayedPersonalBests, setNumDisplayedPersonalBests] = useState(1);
+  const [currentLift, setCurrentLift] = useState('All');
   const currentPersonalBests = organizeWorkout(
     alphabetize(
       personalBests.filter(personalBest => !personalBest.surpassed),
       'lift'
     )
   );
-  const brokenRecords = personalBests.filter(
-    personalBest => personalBest.surpassed
-  );
-  const getLiftsWithBrokenRecords = brokenRecords => {
-    const liftsWithBrokenRecords = [brokenRecords[0].lift];
-    for (let i = 1; i < brokenRecords.length; i++) {
-      if (!liftsWithBrokenRecords.includes(brokenRecords[i].lift)) {
-        liftsWithBrokenRecords.push(brokenRecords[i].lift);
+  const currentLiftPersonalBests =
+    currentLift !== 'All'
+      ? currentPersonalBests.filter(
+          personalBest => personalBest.lift === currentLift
+        )
+      : currentPersonalBests;
+
+  const getLiftsWithPersonalBests = personalBests => {
+    const liftsWithPersonalBests = ['All'];
+    for (let i = 0; i < personalBests.length; i++) {
+      if (!liftsWithPersonalBests.includes(personalBests[i].lift)) {
+        liftsWithPersonalBests.push(personalBests[i].lift);
       }
     }
-    return liftsWithBrokenRecords;
+    return liftsWithPersonalBests;
   };
-  const uniqueLifts = getLiftsWithBrokenRecords(brokenRecords);
+  const uniqueLifts = getLiftsWithPersonalBests(currentPersonalBests);
 
-  const displayAdditionalWorkouts = () => {
-    const newDisplayedWorkouts = displayedWorkouts + 3;
-    setDisplayedWorkouts(newDisplayedWorkouts);
+  const displayAdditionalPersonalBests = () => {
+    const newNumDisplayedPersonalBests = numDisplayedPersonalBests + 1;
+    setNumDisplayedPersonalBests(newNumDisplayedPersonalBests);
   };
-  const displayFewerWorkouts = () => {
-    const newDisplayedWorkouts = displayedWorkouts - 3;
-    setDisplayedWorkouts(newDisplayedWorkouts);
+  const displayFewerPersonalBests = () => {
+    const newNumDisplayedPersonalBests = numDisplayedPersonalBests - 1;
+    setNumDisplayedPersonalBests(newNumDisplayedPersonalBests);
   };
-  const [isDisplayingBrokenRecords, setIsDisplayingBrokenRecords] = useState(
-    false
+  const [isDisplayingPersonalBests, setIsDisplayingPersonalBests] = useState(
+    true
   );
+  const handleViewPersonalBests = () => {
+    setIsDisplayingPersonalBests(true);
+  };
+  const handleHidePersonalBests = () => {
+    setIsDisplayingPersonalBests(false);
+  };
   const handleChange = e => {
     setCurrentLift(e.target.value);
-  };
-  const displayBrokenRecords = () => {
-    setIsDisplayingBrokenRecords(true);
-  };
-  const hideBrokenRecords = () => {
-    setIsDisplayingBrokenRecords(false);
   };
   if (currentPersonalBests) {
     return (
       <div style={{ width: '450px', marginTop: '20px' }}>
         <Paper style={{ padding: '20px' }}>
-          {currentPersonalBests.length > 0 && (
-            <div>
-              <Typography variant='h4'>Personal Bests</Typography>
-              {currentPersonalBests
-                .slice(0, displayedWorkouts)
-                .map(personalBest => (
-                  <Typography variant='h5' key={personalBest.id}>
-                    {personalBest.lift}: {personalBest.printout}
-                  </Typography>
-                ))}
-              {currentPersonalBests.length > displayedWorkouts && (
-                <Button color='primary' onClick={displayAdditionalWorkouts}>
-                  Show additional records
-                </Button>
-              )}
-              {displayedWorkouts > 10 && (
-                <Button color='primary' onClick={displayFewerWorkouts}>
-                  Show fewer records
-                </Button>
-              )}
-            </div>
-          )}
-          <Button onClick={displayBrokenRecords}>
-            View Broken Records for{' '}
+          <Button onClick={handleViewPersonalBests}>
+            View Personal Bests for{' '}
             <Select
               style={{ marginLeft: '5px' }}
               native
@@ -95,23 +77,36 @@ const PersonalBestApp = ({ personalBests }) => {
               ))}
             </Select>
           </Button>
-          {isDisplayingBrokenRecords && (
+          {isDisplayingPersonalBests && (
             <div>
-              <Typography variant='h4'>{currentLift} Broken Records</Typography>
-              {brokenRecords
-                .filter(brokenRecord => brokenRecord.lift === currentLift)
-                .map(formerPersonalBest => (
-                  <div key={formerPersonalBest.id}>
-                    <Typography variant='h5'>
-                      {formerPersonalBest.printout}
-                    </Typography>
-                    <Typography variant='h6'>
-                      {formerPersonalBest.becamePersonalBest}-
-                      {formerPersonalBest.surpassed}
-                    </Typography>
-                  </div>
-                ))}
-              <Button onClick={hideBrokenRecords}>Hide Broken Records</Button>
+              <Typography variant='h4'>
+                {currentLift !== 'All' && currentLift} Personal Bests
+              </Typography>
+              {currentLiftPersonalBests.map(personalBest => (
+                <div key={personalBest.id}>
+                  <Typography variant='h5'>
+                    {currentLift === 'All' && `${personalBest.lift}: `}
+                    {personalBest.printout}
+                  </Typography>
+                </div>
+              ))}
+              {currentLiftPersonalBests.length > numDisplayedPersonalBests &&
+                currentLift !== 'All' && (
+                  <Button
+                    color='primary'
+                    onClick={displayAdditionalPersonalBests}
+                  >
+                    Show additional Personal Bests
+                  </Button>
+                )}
+              {numDisplayedPersonalBests > 1 && (
+                <Button color='primary' onClick={displayFewerPersonalBests}>
+                  Show fewer Personal Bests
+                </Button>
+              )}
+              <Button onClick={handleHidePersonalBests}>
+                Hide Personal Bests
+              </Button>
             </div>
           )}
         </Paper>
