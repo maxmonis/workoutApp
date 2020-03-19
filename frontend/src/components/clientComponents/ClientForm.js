@@ -21,7 +21,7 @@ const ClientForm = ({ handleHideForm }) => {
     name: '',
     email: '',
     phone: '',
-    active: true,
+    isActive: true,
     lifts: [
       { id: uuid(), liftName: 'Bench Press' },
       { id: uuid(), liftName: 'Deadlift' },
