@@ -25,16 +25,15 @@ const PersonalBestApp = ({ personalBests }) => {
         )
       : currentPersonalBests;
 
-  const getLiftsWithPersonalBests = personalBests => {
-    const liftsWithPersonalBests = ['All'];
-    for (let i = 0; i < personalBests.length; i++) {
-      if (!liftsWithPersonalBests.includes(personalBests[i].lift)) {
-        liftsWithPersonalBests.push(personalBests[i].lift);
+  const uniqueLiftNames = ['All'];
+  const populateUniqueLiftNames = () => {
+    currentPersonalBests.forEach(personalBest => {
+      if (!uniqueLiftNames.includes(personalBest.lift)) {
+        uniqueLiftNames.push(personalBest.lift);
       }
-    }
-    return liftsWithPersonalBests;
+    });
   };
-  const uniqueLifts = getLiftsWithPersonalBests(currentPersonalBests);
+  populateUniqueLiftNames();
 
   const displayAdditionalPersonalBests = () => {
     const newNumDisplayedPersonalBests = numDisplayedPersonalBests + 1;
@@ -45,12 +44,13 @@ const PersonalBestApp = ({ personalBests }) => {
     setNumDisplayedPersonalBests(newNumDisplayedPersonalBests);
   };
   const [isDisplayingPersonalBests, setIsDisplayingPersonalBests] = useState(
-    true
+    false
   );
   const handleViewPersonalBests = () => {
     setIsDisplayingPersonalBests(true);
   };
   const handleHidePersonalBests = () => {
+    setCurrentLift('All');
     setIsDisplayingPersonalBests(false);
   };
   const handleChange = e => {
@@ -61,7 +61,6 @@ const PersonalBestApp = ({ personalBests }) => {
       <div style={{ width: '450px', marginTop: '20px' }}>
         <Paper style={{ padding: '20px' }}>
           <Button onClick={handleViewPersonalBests}>
-            View Personal Bests for{' '}
             <Select
               style={{ marginLeft: '5px' }}
               native
@@ -70,18 +69,16 @@ const PersonalBestApp = ({ personalBests }) => {
               onChange={handleChange}
               input={<Input id='currentLift' />}
             >
-              {uniqueLifts.map(lift => (
+              {uniqueLiftNames.map(lift => (
                 <option key={lift} value={lift}>
                   {lift}
                 </option>
               ))}
-            </Select>
+            </Select>{' '}
+            Personal Bests
           </Button>
           {isDisplayingPersonalBests && (
             <div>
-              <Typography variant='h4'>
-                {currentLift !== 'All' && currentLift} Personal Bests
-              </Typography>
               {currentLiftPersonalBests.map(personalBest => (
                 <div key={personalBest.id}>
                   <Typography variant='h5'>

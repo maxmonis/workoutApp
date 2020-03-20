@@ -17,16 +17,15 @@ const BrokenRecords = ({ personalBests }) => {
       ? brokenRecords.filter(brokenRecord => brokenRecord.lift === currentLift)
       : brokenRecords;
 
-  const getLiftsWithBrokenRecords = brokenRecords => {
-    const liftsWithBrokenRecords = ['All'];
-    for (let i = 0; i < brokenRecords.length; i++) {
-      if (!liftsWithBrokenRecords.includes(brokenRecords[i].lift)) {
-        liftsWithBrokenRecords.push(brokenRecords[i].lift);
+  const uniqueLiftNames = ['All'];
+  const populateUniqueLiftNames = () => {
+    brokenRecords.forEach(brokenRecord => {
+      if (!uniqueLiftNames.includes(brokenRecord.lift)) {
+        uniqueLiftNames.push(brokenRecord.lift);
       }
-    }
-    return liftsWithBrokenRecords;
+    });
   };
-  const uniqueLifts = getLiftsWithBrokenRecords(brokenRecords);
+  populateUniqueLiftNames();
 
   const displayAdditionalBrokenRecords = () => {
     const newNumDisplayedBrokenRecords = numDisplayedBrokenRecords + 1;
@@ -43,6 +42,7 @@ const BrokenRecords = ({ personalBests }) => {
     setIsDisplayingBrokenRecords(true);
   };
   const handleHideBrokenRecords = () => {
+    setCurrentLift('All');
     setIsDisplayingBrokenRecords(false);
   };
   const handleChange = e => {
@@ -53,7 +53,6 @@ const BrokenRecords = ({ personalBests }) => {
       <div style={{ width: '450px', marginTop: '20px' }}>
         <Paper style={{ padding: '20px' }}>
           <Button onClick={handleDisplayBrokenRecords}>
-            View Broken Records for{' '}
             <Select
               style={{ marginLeft: '5px' }}
               native
@@ -62,18 +61,16 @@ const BrokenRecords = ({ personalBests }) => {
               onChange={handleChange}
               input={<Input id='currentLift' />}
             >
-              {uniqueLifts.map(lift => (
+              {uniqueLiftNames.map(lift => (
                 <option key={lift} value={lift}>
                   {lift}
                 </option>
               ))}
-            </Select>
+            </Select>{' '}
+            Broken Records
           </Button>
           {isDisplayingBrokenRecords && (
             <div>
-              <Typography variant='h4'>
-                {currentLift !== 'All' && currentLift} Broken Records
-              </Typography>
               {currentLiftBrokenRecords.map(brokenRecord => (
                 <div key={brokenRecord.id}>
                   <Typography variant='h5'>
