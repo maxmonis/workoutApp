@@ -15,28 +15,30 @@ const ExerciseList = ({
 }) => {
   if (currentWorkout.length)
     return (
-      <Paper>
-        <Droppable droppableId='ExerciseList'>
-          {provided => (
-            <List innerRef={provided.innerRef} {...provided.droppableProps}>
-              {currentWorkout.map((exercise, i) => (
-                <Fragment key={exercise.id}>
-                  <Exercise
-                    key={exercise.id}
-                    currentExercise={exercise}
-                    removeExercise={removeExercise}
-                    editExercise={editExercise}
-                    lifts={lifts}
-                    index={i}
-                  />
-                  {i < currentWorkout.length - 1 && <Divider />}
-                </Fragment>
-              ))}
-              {provided.placeholder}
-            </List>
-          )}
-        </Droppable>
-      </Paper>
+      <div style={{ widgth: '450px' }}>
+        <Paper>
+          <Droppable droppableId='ExerciseList'>
+            {provided => (
+              <List innerRef={provided.innerRef} {...provided.droppableProps}>
+                {currentWorkout.map((exercise, i) => (
+                  <Fragment key={exercise.id}>
+                    <Exercise
+                      key={exercise.id}
+                      currentExercise={exercise}
+                      removeExercise={removeExercise}
+                      editExercise={editExercise}
+                      lifts={lifts}
+                      index={i}
+                    />
+                    {i < currentWorkout.length - 1 && <Divider />}
+                  </Fragment>
+                ))}
+                {provided.placeholder}
+              </List>
+            )}
+          </Droppable>
+        </Paper>
+      </div>
     );
   return null;
 };

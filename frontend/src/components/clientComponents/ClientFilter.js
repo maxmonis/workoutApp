@@ -25,11 +25,12 @@ const ClientFilter = () => {
   return (
     <form>
       <input
-        style={{ width: '250px', height: '50px', fontSize: '25px' }}
+        style={{ height: '40px', fontSize: '20px' }}
         ref={text}
         type='text'
         placeholder='Search Clients...'
         onChange={handleChange}
+        autoFocus
       />
     </form>
   );

@@ -37,24 +37,21 @@ const CurrentLiftStats = ({
   return (
     <div style={{ width: '100%', marginLeft: '-10px' }}>
       {!currentLiftPersonalBests.length ? (
-        <Typography variant='body1'>
+        <Typography variant='h6'>
           {currentLift} data will be displayed here once {currentClient.name}{' '}
           has attempted it
         </Typography>
       ) : (
         <Fragment>
-          <Typography variant='h6'>
-            {currentLift.length > 15
-              ? `${currentLift.substring(0, 12).trim()}...`
-              : currentLift}
-          </Typography>
           <Typography variant='body1'>Personal Bests</Typography>
           {currentLiftPersonalBests.map(personalBest => (
             <Typography key={personalBest.id} variant='body2'>
               {personalBest.printout}
             </Typography>
           ))}
-          <Typography variant='body1'>Recent History</Typography>
+          <Typography style={{ marginTop: '5px' }} variant='body1'>
+            Recent History
+          </Typography>
           {currentLiftRecentExercises.map(recentExercise => (
             <Typography key={recentExercise.id} variant='body2'>
               {recentExercise.printout}

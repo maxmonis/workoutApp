@@ -49,12 +49,10 @@ const Login = props => {
   return (
     <Paper
       style={{
-        margin: '100px auto',
-        width: '300px',
+        margin: 'auto',
+        width: '250px',
         height: 'auto',
-        padding: '25px',
-        justifyContent: 'center',
-        alignItems: 'center'
+        padding: '25px'
       }}
     >
       <Typography variant='h3'>Sign In</Typography>

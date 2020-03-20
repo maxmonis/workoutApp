@@ -15,7 +15,7 @@ const ClientSchema = mongoose.Schema({
   phone: {
     type: String
   },
-  active: {
+  isActive: {
     type: Boolean,
     default: true
   },

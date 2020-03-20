@@ -8,7 +8,7 @@ const Workouts = () => {
   const selectedClient = JSON.parse(
     window.localStorage.getItem('selectedClient')
   );
-  if (selectedClient) return <WorkoutApp />;
+  if (selectedClient) return <WorkoutApp selectedClient={selectedClient} />;
   return <Redirect to='/' />;
 };
 

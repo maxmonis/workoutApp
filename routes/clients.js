@@ -34,7 +34,7 @@ router.post(
       name,
       email,
       phone,
-      active,
+      isActive,
       lifts,
       previousWorkouts,
       personalBests
@@ -44,7 +44,7 @@ router.post(
         name,
         email,
         phone,
-        active,
+        isActive,
         lifts,
         previousWorkouts,
         personalBests,
@@ -64,13 +64,13 @@ router.put('/:id', auth, async (req, res) => {
     name,
     email,
     phone,
-    active,
+    isActive,
     lifts,
     previousWorkouts,
     personalBests
   } = req.body;
   const clientFields = {};
-  clientFields.active = active;
+  clientFields.isActive = isActive;
   if (name) clientFields.name = name;
   if (email) clientFields.email = email;
   if (phone) clientFields.phone = phone;

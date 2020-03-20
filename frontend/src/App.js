@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import About from './components/pages/About';
 import Alerts from './components/layout/Alerts';
-import ClientApp from './components/pages/ClientApp';
+import HomeApp from './components/pages/HomeApp';
 import Login from './components/authComponents/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -26,7 +26,7 @@ function App() {
               <div>
                 <Alerts />
                 <Switch>
-                  <PrivateRoute exact path='/' component={ClientApp} />
+                  <PrivateRoute exact path='/' component={HomeApp} />
                   <PrivateRoute exact path='/workouts' component={Workouts} />
                   <Route exact path='/about' component={About} />
                   <Route exact path='/register' component={Register} />

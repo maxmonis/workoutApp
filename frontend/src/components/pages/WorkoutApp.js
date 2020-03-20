@@ -4,6 +4,7 @@ import ClientContext from '../../context/client/clientContext';
 
 import uuid from 'uuid/v4';
 
+import BrokenRecordsApp from '../personalBestComponents/BrokenRecordsApp';
 import CurrentLiftStats from '../liftComponents/CurrentLiftStats';
 import CurrentWorkoutApp from '../workoutComponents/CurrentWorkoutApp';
 import ExerciseEntryForm from '../exerciseComponents/ExerciseEntryForm';
@@ -26,12 +27,9 @@ import Typography from '@material-ui/core/Typography';
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
-const WorkoutApp = () => {
+const WorkoutApp = ({ selectedClient }) => {
   const clientContext = useContext(ClientContext);
-  const { updateClient } = clientContext;
-  const selectedClient = JSON.parse(
-    window.localStorage.getItem('selectedClient')
-  );
+  const { updateClient, clearFilteredClients } = clientContext;
   const [client, setClient] = useState(selectedClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
@@ -49,6 +47,10 @@ const WorkoutApp = () => {
     editExercise
   } = useWorkoutState([]);
 
+  useEffect(() => {
+    clearFilteredClients();
+    // eslint-disable-next-line
+  }, []);
   useEffect(() => {
     setClient({ ...client, lifts, previousWorkouts, personalBests });
     // eslint-disable-next-line
@@ -133,7 +135,7 @@ const WorkoutApp = () => {
               disableEscapeKeyDown
               open={isDialogOpen}
               onClose={handleCloseDialog}
-              width={'500px'}
+              width={'450px'}
             >
               <DialogContent>
                 <LiftApp
@@ -151,23 +153,31 @@ const WorkoutApp = () => {
               Enter
             </Button>
           </form>
-          {previousWorkouts && previousWorkouts.length > 0 && (
-            <CurrentLiftStats
-              currentClient={client}
-              currentLift={currentExercise.lift}
-              personalBests={personalBests}
-              previousWorkouts={previousWorkouts}
-            />
-          )}
+          <div style={{ width: '100%' }}>
+            {previousWorkouts && previousWorkouts.length > 0 ? (
+              <CurrentLiftStats
+                currentClient={client}
+                currentLift={currentExercise.lift}
+                personalBests={personalBests}
+                previousWorkouts={previousWorkouts}
+              />
+            ) : (
+              <Typography variant='h6'>
+                {currentExercise.lift} data will be displayed here once{' '}
+                {client.name} has attempted it
+              </Typography>
+            )}
+          </div>
         </Paper>
-        <Paper style={styles.exerciseComponents}>
+        <div>
           {previousWorkouts && previousWorkouts.length > 0 && (
             <Fragment>
               <PreviousWorkoutApp previousWorkouts={previousWorkouts} />
               <PersonalBestApp personalBests={personalBests} />
+              <BrokenRecordsApp personalBests={personalBests} />
             </Fragment>
           )}
-        </Paper>
+        </div>
       </main>
     </div>
   );
@@ -183,12 +193,7 @@ const styles = {
   currentLiftContainer: {
     display: 'flex',
     flexDirection: 'row',
-    width: '500px',
-    padding: '20px'
-  },
-  exerciseComponents: {
-    width: '400px',
-    marginTop: '10px',
+    width: '450px',
     padding: '20px'
   }
 };
