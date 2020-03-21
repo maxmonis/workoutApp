@@ -37,7 +37,8 @@ router.post(
       isActive,
       lifts,
       previousWorkouts,
-      personalBests
+      personalBests,
+      lastAccessed
     } = req.body;
     try {
       const newClient = new Client({
@@ -48,6 +49,7 @@ router.post(
         lifts,
         previousWorkouts,
         personalBests,
+        lastAccessed,
         user: req.user.id
       });
       const client = await newClient.save();
@@ -67,7 +69,8 @@ router.put('/:id', auth, async (req, res) => {
     isActive,
     lifts,
     previousWorkouts,
-    personalBests
+    personalBests,
+    lastAccessed
   } = req.body;
   const clientFields = {};
   clientFields.isActive = isActive;
@@ -77,6 +80,7 @@ router.put('/:id', auth, async (req, res) => {
   if (lifts) clientFields.lifts = lifts;
   if (previousWorkouts) clientFields.previousWorkouts = previousWorkouts;
   if (personalBests) clientFields.personalBests = personalBests;
+  if (lastAccessed) clientFields.lastAccessed = lastAccessed;
   try {
     let client = await Client.findById(req.params.id);
     if (!client) return res.status(404).json({ msg: 'Client not found' });

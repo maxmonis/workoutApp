@@ -38,6 +38,7 @@ const ClientItem = ({ client }) => {
     // eslint-disable-next-line
   }, [currentClient]);
   const handleSelect = () => {
+    setCurrentClient({ ...currentClient, lastAccessed: Date.now() });
     setSelectedClient(client);
     setIsRedirecting(true);
   };

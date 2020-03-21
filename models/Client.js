@@ -27,6 +27,9 @@ const ClientSchema = mongoose.Schema({
   },
   personalBests: {
     type: []
+  },
+  lastAccessed: {
+    type: Number
   }
 });
 

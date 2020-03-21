@@ -28,7 +28,8 @@ const ClientForm = () => {
       { id: uuid(), liftName: 'Squat' }
     ],
     previousWorkouts: [],
-    personalBests: []
+    personalBests: [],
+    lastAccessed: Date.now()
   };
   useEffect(() => {
     if (editingClient) {
