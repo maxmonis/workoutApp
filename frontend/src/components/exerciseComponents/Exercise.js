@@ -19,15 +19,9 @@ const Exercise = ({
   lifts,
   index
 }) => {
-  const currentId = currentExercise.id;
-  const currentLift = currentExercise.lift;
-  const currentSets = currentExercise.sets;
-  const currentReps = currentExercise.reps;
-  const currentWeight = currentExercise.weight;
-  const currentPrintout = currentExercise.printout;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleRemoveExercise = () => {
-    removeExercise(currentId);
+    removeExercise(currentExercise.id);
   };
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -37,7 +31,7 @@ const Exercise = ({
   };
   return (
     <div style={{ fontSize: '20px' }}>
-      <Draggable draggableId={currentId} index={index}>
+      <Draggable draggableId={currentExercise.id} index={index}>
         {provided => (
           <ListItem
             innerRef={provided.innerRef}
@@ -47,7 +41,7 @@ const Exercise = ({
           >
             <Fragment>
               <ListItemText>
-                {currentLift}: {currentPrintout}
+                {currentExercise.lift}: {currentExercise.printout}
               </ListItemText>
               <ListItemSecondaryAction>
                 <IconButton onClick={handleRemoveExercise}>
@@ -65,11 +59,11 @@ const Exercise = ({
                 >
                   <DialogContent>
                     <EditExerciseForm
-                      currentId={currentId}
-                      currentLift={currentLift}
-                      currentSets={currentSets}
-                      currentReps={currentReps}
-                      currentWeight={currentWeight}
+                      exerciseId={currentExercise.id}
+                      initialLift={currentExercise.lift}
+                      initialSets={currentExercise.sets}
+                      initialReps={currentExercise.reps}
+                      initialWeight={currentExercise.weight}
                       editExercise={editExercise}
                       handleCloseDialog={handleCloseDialog}
                       lifts={lifts}

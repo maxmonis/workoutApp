@@ -38,6 +38,9 @@ const WorkoutApp = ({ selectedClient }) => {
   const { personalBests, updatePersonalBests } = usePersonalBestState(
     client.personalBests
   );
+
+  const initialWorkout =
+    JSON.parse(window.localStorage.getItem('currentWorkout')) || [];
   const {
     currentWorkout,
     resetCurrentWorkout,
@@ -45,7 +48,7 @@ const WorkoutApp = ({ selectedClient }) => {
     addExercise,
     removeExercise,
     editExercise
-  } = useWorkoutState([]);
+  } = useWorkoutState(initialWorkout);
 
   useEffect(() => {
     clearFilteredClients();
@@ -60,15 +63,15 @@ const WorkoutApp = ({ selectedClient }) => {
     // eslint-disable-next-line
   }, [client]);
 
+  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
     sets: 1,
     reps: 1,
-    weight: 135
+    weight: 1
   });
-  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };

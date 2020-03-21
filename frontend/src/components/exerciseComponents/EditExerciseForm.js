@@ -6,30 +6,30 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
 const EditExerciseForm = ({
-  currentId,
-  currentLift,
-  currentSets,
-  currentReps,
-  currentWeight,
+  exerciseId,
+  initialLift,
+  initialSets,
+  initialReps,
+  initialWeight,
   editExercise,
   handleCloseDialog,
   lifts
 }) => {
   const [currentExercise, setCurrentExercise] = useState({
-    lift: currentLift,
-    sets: currentSets,
-    reps: currentReps,
-    weight: currentWeight
+    lift: initialLift,
+    sets: initialSets,
+    reps: initialReps,
+    weight: initialWeight
   });
 
   const handleChange = e => {
-    const {id, value} = e.target
+    const { id, value } = e.target;
     setCurrentExercise({ ...currentExercise, [id]: value });
   };
 
   const handleSaveChanges = () => {
     if (currentExercise.weight < 1) return;
-    editExercise(currentId, currentExercise);
+    editExercise(exerciseId, currentExercise);
     handleCloseDialog();
   };
   return (
