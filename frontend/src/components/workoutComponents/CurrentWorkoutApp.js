@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 const CurrentWorkoutApp = ({
   currentWorkout,
   reorderCurrentWorkout,
+  resetCurrentWorkout,
   removeExercise,
   editExercise,
   lifts,
@@ -34,19 +35,19 @@ const CurrentWorkoutApp = ({
     handleCloseDialog();
   };
 
+  const handleResetWorkout = () => {
+    resetCurrentWorkout();
+  };
+
   if (currentWorkout.length) {
     const exercises = organizeWorkout(currentWorkout);
     return (
       <div>
-        <ExerciseApp
-          currentWorkout={currentWorkout}
-          reorderCurrentWorkout={reorderCurrentWorkout}
-          removeExercise={removeExercise}
-          editExercise={editExercise}
-          lifts={lifts}
-        />
         <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
           Save Workout
+        </Button>
+        <Button onClick={handleResetWorkout}>
+          Reset Workout
         </Button>
         <Dialog
           open={isDialogOpen}
@@ -85,6 +86,13 @@ const CurrentWorkoutApp = ({
             )}
           </DialogActions>
         </Dialog>
+        <ExerciseApp
+          currentWorkout={currentWorkout}
+          reorderCurrentWorkout={reorderCurrentWorkout}
+          removeExercise={removeExercise}
+          editExercise={editExercise}
+          lifts={lifts}
+        />
       </div>
     );
   }

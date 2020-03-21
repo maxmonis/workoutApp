@@ -112,6 +112,7 @@ const WorkoutApp = ({ selectedClient }) => {
           <CurrentWorkoutApp
             currentWorkout={currentWorkout}
             reorderCurrentWorkout={reorderCurrentWorkout}
+            resetCurrentWorkout={resetCurrentWorkout}
             removeExercise={removeExercise}
             editExercise={editExercise}
             lifts={lifts}
