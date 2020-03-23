@@ -1,29 +1,28 @@
 import uuid from 'uuid/v4';
 
-export default currentExercise => {
-  const currentLift = currentExercise.lift;
-  const currentSets = +currentExercise.sets > 1 ? +currentExercise.sets : 1;
-  const currentReps = +currentExercise.reps > 1 ? +currentExercise.reps : 1;
-  const currentWeight = +currentExercise.weight;
-  const currentId = uuid();
-  const currentClassification =
-    currentSets > 1 ? 'multiSet' : currentReps > 1 ? 'oneSet' : 'oneRep';
-  const currentPrintout =
-    currentClassification === 'multiSet'
-      ? `${currentSets}(${currentReps}x${currentWeight})`
-      : currentClassification === 'oneSet'
-      ? `${currentReps}x${currentWeight}`
-      : `${currentWeight}`;
-  const currentVolume = currentSets * currentReps * currentWeight;
+export default exercise => {
+  const lift = exercise.lift;
+  const sets = +exercise.sets > 1 ? +exercise.sets : 1;
+  const reps = +exercise.reps > 1 ? +exercise.reps : 1;
+  const weight = +exercise.weight > 1 ? +exercise.weight : 1;
+  const volume = sets * reps * weight;
+  const id = uuid();
+  const classification = sets > 1 ? 'multiSet' : reps > 1 ? 'oneSet' : 'oneRep';
+  const printout =
+    classification === 'multiSet'
+      ? `${sets}(${reps}x${weight})`
+      : classification === 'oneSet'
+      ? `${reps}x${weight}`
+      : `${weight}`;
   const newExercise = {
-    lift: currentLift,
-    sets: currentSets,
-    reps: currentReps,
-    weight: currentWeight,
-    volume: currentVolume,
-    id: currentId,
-    classification: currentClassification,
-    printout: currentPrintout
+    lift,
+    sets,
+    reps,
+    weight,
+    volume,
+    id,
+    classification,
+    printout
   };
   return newExercise;
 };

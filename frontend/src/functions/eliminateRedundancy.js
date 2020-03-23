@@ -1,11 +1,11 @@
 import createNewExercise from './createNewExercise';
 
-export default currentWorkout => {
-  if (currentWorkout.length > 1) {
-    const newWorkout = [currentWorkout[0]];
-    for (let i = 1; i < currentWorkout.length; i++) {
-      const currentExercise = currentWorkout[i];
-      const mostRecentExercise = currentWorkout[i - 1];
+export default workout => {
+  if (workout.length > 1) {
+    const updatedWorkout = [workout[0]];
+    for (let i = 1; i < workout.length; i++) {
+      const currentExercise = workout[i];
+      const mostRecentExercise = workout[i - 1];
       if (
         mostRecentExercise.lift === currentExercise.lift &&
         mostRecentExercise.reps === currentExercise.reps &&
@@ -18,13 +18,13 @@ export default currentWorkout => {
           reps: currentExercise.reps,
           weight: currentExercise.weight
         });
-        newWorkout.pop();
-        newWorkout.push(newExercise);
+        updatedWorkout.pop();
+        updatedWorkout.push(newExercise);
       } else {
-        newWorkout.push(currentExercise);
+        updatedWorkout.push(currentExercise);
       }
     }
-    return newWorkout;
+    return updatedWorkout;
   }
-  return currentWorkout;
+  return workout;
 };

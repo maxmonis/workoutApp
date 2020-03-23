@@ -6,7 +6,6 @@ import clientReducer from './clientReducer';
 const ClientState = props => {
   const initialState = {
     clients: [],
-    selectedClient: null,
     editingClient: null,
     filteredClients: [],
     error: null
@@ -79,7 +78,6 @@ const ClientState = props => {
     <ClientContext.Provider
       value={{
         clients: state.clients,
-        selectedClient: state.selectedClient,
         editingClient: state.editingClient,
         filteredClients: state.filteredClients,
         error: state.error,

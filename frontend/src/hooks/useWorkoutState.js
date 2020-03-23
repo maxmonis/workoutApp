@@ -19,19 +19,19 @@ export default initialWorkout => {
       window.localStorage.removeItem('currentWorkout');
     },
     reorderCurrentWorkout: newIds => {
-      const arrayOfExercises = [];
+      const reorderedWorkout = [];
       newIds.forEach(newId => {
         currentWorkout.forEach(exercise => {
           if (exercise.id === newId) {
-            arrayOfExercises.push(exercise);
+            reorderedWorkout.push(exercise);
           }
         });
       });
-      const updatedWorkout = eliminateRedundancy(arrayOfExercises);
+      const updatedWorkout = eliminateRedundancy(reorderedWorkout);
       saveWorkout(updatedWorkout);
     },
-    addExercise: currentExercise => {
-      const newExercise = createNewExercise(currentExercise);
+    addExercise: exercise => {
+      const newExercise = createNewExercise(exercise);
       const updatedWorkout = eliminateRedundancy([
         ...currentWorkout,
         newExercise
@@ -44,8 +44,8 @@ export default initialWorkout => {
       );
       saveWorkout(updatedWorkout);
     },
-    editExercise: (exerciseId, currentExercise) => {
-      const newExercise = createNewExercise(currentExercise);
+    editExercise: (exerciseId, updatedExercise) => {
+      const newExercise = createNewExercise(updatedExercise);
       const updatedWorkout = eliminateRedundancy(
         currentWorkout.map(exercise =>
           exercise.id === exerciseId ? newExercise : exercise

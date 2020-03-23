@@ -96,7 +96,7 @@ const Register = props => {
             required
           />
         </div>
-        {email && password && password2 && (
+        {email && password && password === password2 && (
           <Button type='submit' variant='outlined'>
             Register
           </Button>

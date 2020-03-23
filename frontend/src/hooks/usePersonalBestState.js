@@ -30,9 +30,9 @@ export default initialPersonalBests => {
 
   return {
     personalBests,
-    updatePersonalBests: currentWorkout => {
+    updatePersonalBests: workout => {
       const newPersonalBests = [];
-      currentWorkout.forEach(exercise => {
+      workout.forEach(exercise => {
         const isNewPersonalBest = checkForPersonalBest(personalBests, exercise);
         if (isNewPersonalBest) {
           exercise.becamePersonalBest = currentDate;

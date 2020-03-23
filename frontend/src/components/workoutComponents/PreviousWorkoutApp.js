@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 
-import organizeWorkout from '../../functions/organizeWorkout';
+import organizeExercises from '../../functions/organizeExercises';
 
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -78,9 +78,11 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
               .map(selectedWorkout => (
                 <div key={selectedWorkout.id}>
                   <Typography variant='h5'>
-                    {selectedWorkout.name} - {selectedWorkout.date}
+                    {currentWorkoutName === 'All' &&
+                      `${selectedWorkout.name} - `}
+                    {selectedWorkout.date}
                   </Typography>
-                  {organizeWorkout(selectedWorkout.workout).map(exercise => (
+                  {organizeExercises(selectedWorkout.workout).map(exercise => (
                     <Typography
                       variant='h6'
                       key={exercise.id}

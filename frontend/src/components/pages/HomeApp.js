@@ -27,7 +27,7 @@ const HomeApp = () => {
   const [isDisplayingDeletedClients, setIsDisplayingDeletedClients] = useState(
     false
   );
-  const displayDeletedClients = () => {
+  const showDeletedClients = () => {
     setIsDisplayingDeletedClients(true);
   };
   const hideDeletedClients = () => {
@@ -51,14 +51,14 @@ const HomeApp = () => {
               <ClientList clients={activeClients} />
             </Paper>
           )}
-          {!isDisplayingDeletedClients && deletedClients.length > 0 && (
-            <Button onClick={displayDeletedClients}>
+          {deletedClients.length > 0 && !isDisplayingDeletedClients && (
+            <Button onClick={showDeletedClients}>
               Show Deleted Clients
             </Button>
           )}
         </Fragment>
-        {(filteredClients.length > 0 || isDisplayingDeletedClients) &&
-          deletedClients.length > 0 && (
+        {deletedClients.length > 0 &&
+          (filteredClients.length > 0 || isDisplayingDeletedClients) && (
             <Fragment>
               <Paper style={{ width: '450px', marginTop: '10px' }}>
                 <Typography variant='h4'>Deleted Clients</Typography>

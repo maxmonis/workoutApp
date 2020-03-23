@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import organizeWorkout from '../../functions/organizeWorkout';
+import organizeExercises from '../../functions/organizeExercises';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -13,7 +13,7 @@ const CurrentLiftStats = ({
   const currentPersonalBests = personalBests.filter(
     personalBest => !personalBest.surpassed
   );
-  const currentLiftPersonalBests = organizeWorkout(
+  const currentLiftPersonalBests = organizeExercises(
     currentPersonalBests.filter(
       personalBest => personalBest.lift === currentLift
     )
@@ -28,7 +28,7 @@ const CurrentLiftStats = ({
         }
       });
       currentLiftExercises.length &&
-        recentExercises.push(organizeWorkout(currentLiftExercises)[0]);
+        recentExercises.push(organizeExercises(currentLiftExercises)[0]);
     });
     return recentExercises;
   };

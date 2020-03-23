@@ -7,5 +7,5 @@ export default (array, property, newString) => {
       isDuplicate = true;
     }
   });
-  return isDuplicate ? true : false;
+  return isDuplicate;
 };

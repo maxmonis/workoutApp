@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import alphabetize from '../../functions/alphabetize';
-import organizeWorkout from '../../functions/organizeWorkout';
+import organizeExercises from '../../functions/organizeExercises';
 
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 const PersonalBestApp = ({ personalBests }) => {
   const [numDisplayedPersonalBests, setNumDisplayedPersonalBests] = useState(1);
   const [currentLift, setCurrentLift] = useState('All');
-  const currentPersonalBests = organizeWorkout(
+  const currentPersonalBests = organizeExercises(
     alphabetize(
       personalBests.filter(personalBest => !personalBest.surpassed),
       'lift'

@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 export default exercises => {
   if (!exercises) return;
   let currentExercise = {};
-  let exerciseArray = [];
+  let organizedExercises = [];
   for (let i = 0; i < exercises.length; i++) {
     const currentLift = exercises[i].lift;
     const currentSets = exercises[i].sets;
@@ -11,7 +11,7 @@ export default exercises => {
     const currentWeight = exercises[i].weight;
     if (i > 0) {
       if (currentLift === exercises[i - 1].lift) {
-        exerciseArray.pop();
+        organizedExercises.pop();
         if (currentSets > 1) {
           currentExercise.printout += `, ${currentSets}(${currentReps}x${currentWeight})`;
         } else if (currentReps > 1) {
@@ -19,7 +19,7 @@ export default exercises => {
         } else {
           currentExercise.printout += `, ${currentWeight}`;
         }
-        exerciseArray.push(currentExercise);
+        organizedExercises.push(currentExercise);
       } else {
         if (currentSets > 1) {
           currentExercise = {
@@ -40,7 +40,7 @@ export default exercises => {
             printout: `${currentWeight}`
           };
         }
-        exerciseArray.push(currentExercise);
+        organizedExercises.push(currentExercise);
       }
     } else {
       if (currentSets > 1) {
@@ -62,8 +62,8 @@ export default exercises => {
           printout: `${currentWeight}`
         };
       }
-      exerciseArray.push(currentExercise);
+      organizedExercises.push(currentExercise);
     }
   }
-  return exerciseArray;
+  return organizedExercises;
 };

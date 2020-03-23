@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import ExerciseApp from '../exerciseComponents/ExerciseApp';
 
-import organizeWorkout from '../../functions/organizeWorkout';
+import organizeExercises from '../../functions/organizeExercises';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -40,7 +40,7 @@ const CurrentWorkoutApp = ({
   };
 
   if (currentWorkout.length) {
-    const exercises = organizeWorkout(currentWorkout);
+    const exercises = organizeExercises(currentWorkout);
     return (
       <div>
         <Button variant='outlined' color='primary' onClick={handleOpenDialog}>

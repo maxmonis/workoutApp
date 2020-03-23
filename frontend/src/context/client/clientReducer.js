@@ -9,7 +9,7 @@ export default (state, action) => {
     case 'ADD_CLIENT':
       return {
         ...state,
-        clients: [action.payload, ...state.clients],
+        clients: [...state.clients, action.payload],
         loading: false
       };
     case 'UPDATE_CLIENT':

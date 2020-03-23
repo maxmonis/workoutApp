@@ -1,48 +1,47 @@
-export default (personalBests, currentExercise) => {
-  const currentLift = currentExercise.lift;
-  const currentSets = currentExercise.sets;
-  const currentReps = currentExercise.reps;
-  const currentWeight = currentExercise.weight;
-  const currentLiftPersonalBests = personalBests.filter(
-    personalBest => !personalBest.surpassed && personalBest.lift === currentLift
+export default (personalBests, exercise) => {
+  const currentPersonalBests = personalBests.filter(
+    personalBest => !personalBest.surpassed
   );
-  if (!currentLiftPersonalBests.length) return true;
+  const sameLiftPersonalBests = currentPersonalBests.filter(
+    personalBest => personalBest.lift === exercise.lift
+  );
+  if (!sameLiftPersonalBests.length) return true;
   let ruledOut = false;
   if (!ruledOut) {
-    const heavierWithMoreReps = currentLiftPersonalBests.filter(
+    const heavierWithMoreReps = sameLiftPersonalBests.filter(
       personalBest =>
-        personalBest.weight >= currentWeight && personalBest.reps >= currentReps
+        personalBest.weight >= exercise.weight &&
+        personalBest.reps >= exercise.reps
     );
     heavierWithMoreReps.forEach(personalBest => {
-      if (personalBest.sets >= currentSets) {
+      if (personalBest.sets >= exercise.sets) {
         ruledOut = true;
-        return;
       }
     });
   }
   if (!ruledOut) {
-    const heavierWithMoreSets = currentLiftPersonalBests.filter(
+    const heavierWithMoreSets = sameLiftPersonalBests.filter(
       personalBest =>
-        personalBest.weight >= currentWeight && personalBest.sets >= currentSets
+        personalBest.weight >= exercise.weight &&
+        personalBest.sets >= exercise.sets
     );
     heavierWithMoreSets.forEach(personalBest => {
-      if (personalBest.reps >= currentReps) {
+      if (personalBest.reps >= exercise.reps) {
         ruledOut = true;
-        return;
       }
     });
   }
   if (!ruledOut) {
-    const higherRepsAndSets = currentLiftPersonalBests.filter(
+    const higherRepsAndSets = sameLiftPersonalBests.filter(
       personalBest =>
-        personalBest.reps >= currentReps && personalBest.sets >= currentSets
+        personalBest.reps >= exercise.reps && personalBest.sets >= exercise.sets
     );
     higherRepsAndSets.forEach(personalBest => {
-      if (personalBest.weight >= currentWeight) {
+      if (personalBest.weight >= exercise.weight) {
         ruledOut = true;
-        return;
       }
     });
   }
-  return ruledOut ? false : true;
+  const isPersonalBest = !ruledOut;
+  return isPersonalBest;
 };
