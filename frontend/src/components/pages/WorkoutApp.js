@@ -27,7 +27,7 @@ import Typography from '@material-ui/core/Typography';
 const date = new Date();
 const currentDate = date.toLocaleDateString();
 
-const WorkoutApp = ({ selectedClient }) => {
+const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient, clearFilteredClients } = clientContext;
   const [client, setClient] = useState(selectedClient);
@@ -39,8 +39,6 @@ const WorkoutApp = ({ selectedClient }) => {
     client.personalBests
   );
 
-  const initialWorkout =
-    JSON.parse(window.localStorage.getItem('currentWorkout')) || [];
   const {
     currentWorkout,
     resetCurrentWorkout,
