@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const ClientForm = () => {
+const ClientForm = ({ handleCloseDialog }) => {
   const clientContext = useContext(ClientContext);
   const {
     addClient,
@@ -49,6 +49,7 @@ const ClientForm = () => {
     e.preventDefault();
     if (!editingClient) {
       addClient(client);
+      handleCloseDialog();
     } else {
       updateClient(client);
       handleClear();
@@ -56,6 +57,7 @@ const ClientForm = () => {
   };
   const handleClear = () => {
     clearEditingClient();
+    handleCloseDialog();
   };
   return (
     <Paper style={{ padding: '20px' }}>

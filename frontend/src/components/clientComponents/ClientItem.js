@@ -4,13 +4,20 @@ import { Redirect } from 'react-router-dom';
 
 import ClientContext from '../../context/client/clientContext';
 
+import standardize from '../../functions/standardize';
+
 import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
-import Button from '@material-ui/core/Button';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const ClientItem = ({ client }) => {
@@ -27,6 +34,8 @@ const ClientItem = ({ client }) => {
   const [currentClient, setCurrentClient] = useState(client);
   const { _id, name } = currentClient;
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
   useEffect(() => {
     window.localStorage.setItem(
       'selectedClient',
@@ -37,6 +46,10 @@ const ClientItem = ({ client }) => {
     updateClient(currentClient);
     // eslint-disable-next-line
   }, [currentClient]);
+
+  const handleChange = e => {
+    setInputValue(e.target.value);
+  };
   const handleSelect = () => {
     setCurrentClient({ ...currentClient, lastAccessed: Date.now() });
     setSelectedClient(client);
@@ -52,45 +65,91 @@ const ClientItem = ({ client }) => {
     setCurrentClient({ ...currentClient, isActive: true });
   };
   const handleDeleteRequest = () => {
-    handleDelete();
+    handleOpenDialog();
   };
   const handleDelete = () => {
     deleteClient(_id);
     clearEditingClient();
+    handleCloseDialog();
   };
-  const linksForActiveClient = (
-    <ListItemSecondaryAction>
-      <IconButton onClick={handleEdit}>
-        <EditIcon aria-label='Edit' />
-      </IconButton>
-      <IconButton onClick={handleDeactivate}>
-        <ClearIcon aria-label='Deactivate' />
-      </IconButton>
-    </ListItemSecondaryAction>
-  );
-  const linksForDeletedClient = (
-    <ListItemSecondaryAction>
-      <IconButton onClick={handleRecover}>
-        <AddIcon aria-label='Recover' />
-      </IconButton>
-      <IconButton onClick={handleDeleteRequest}>
-        <DeleteIcon aria-label='Delete' />
-      </IconButton>
-    </ListItemSecondaryAction>
-  );
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handleOpenDialog = () => setIsDialogOpen(true);
+  const handleCloseDialog = () => setIsDialogOpen(false);
   if (isRedirecting) {
     return <Redirect to='workouts' />;
   } else {
-    return (
-      <div key={_id}>
-        <ListItem style={{ height: '40px' }}>
-          <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
-            {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
-          </Button>
-          {client.isActive ? linksForActiveClient : linksForDeletedClient}
-        </ListItem>
-      </div>
-    );
+    if (client.isActive) {
+      return (
+        <div key={_id}>
+          <ListItem style={{ height: '40px' }}>
+            <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
+              {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
+            </Button>
+            <ListItemSecondaryAction>
+              <IconButton onClick={handleEdit}>
+                <EditIcon aria-label='Edit' />
+              </IconButton>
+              <IconButton onClick={handleDeactivate}>
+                <ClearIcon aria-label='Deactivate' />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </div>
+      );
+    } else {
+      return (
+        <div key={_id}>
+          <Dialog
+            open={isDialogOpen}
+            onClose={handleCloseDialog}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
+          >
+            <DialogTitle id='alert-dialog-title'>
+              {`Permanently delete ${client.name}?`}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id='alert-dialog-description'>
+                All associated data will be lost forever and this action cannot
+                be undone. Confirm the name of the client you wish to delete in
+                order to proceed.
+              </DialogContentText>
+              <input
+                style={{ height: '40px', fontSize: '20px' }}
+                value={inputValue}
+                type='text'
+                placeholder='Confirm Name...'
+                onChange={handleChange}
+                autoFocus
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color='primary'>
+                Cancel
+              </Button>
+              {standardize(inputValue) === standardize(client.name) && (
+                <Button onClick={handleDelete} color='primary' autoFocus>
+                  Delete
+                </Button>
+              )}
+            </DialogActions>
+          </Dialog>
+          <ListItem style={{ height: '40px' }}>
+            <Button disabled style={{ fontSize: '20px' }}>
+              {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
+            </Button>
+            <ListItemSecondaryAction>
+              <IconButton onClick={handleRecover}>
+                <AddIcon aria-label='Recover' />
+              </IconButton>
+              <IconButton onClick={handleDeleteRequest}>
+                <DeleteIcon aria-label='Delete' />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </div>
+      );
+    }
   }
 };
 

@@ -2,16 +2,24 @@ import React, { useState, useContext, useEffect, Fragment } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
 
-import ClientApp from '../clientComponents/ClientApp';
+import ClientFilter from '../clientComponents/ClientFilter';
+import ClientForm from '../clientComponents/ClientForm';
 import ClientList from '../clientComponents/ClientList';
 
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 const HomeApp = () => {
   const clientContext = useContext(ClientContext);
-  const { clients, filteredClients, getClients } = clientContext;
+  const {
+    clients,
+    filteredClients,
+    getClients,
+    editingClient,
+    clearEditingClient
+  } = clientContext;
   useEffect(() => {
     getClients();
     // eslint-disable-next-line
@@ -23,6 +31,17 @@ const HomeApp = () => {
   const deletedClients = filteredClients.length
     ? filteredClients.filter(client => !client.isActive)
     : clients.filter(client => !client.isActive);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handleOpenDialog = () => setIsDialogOpen(true);
+  const handleCloseDialog = () => setIsDialogOpen(false);
+  const handleAddNewClient = () => {
+    clearEditingClient();
+    handleOpenDialog();
+  };
+  useEffect(() => {
+    editingClient ? setIsDialogOpen(true) : setIsDialogOpen(false);
+  }, [editingClient]);
 
   const [isDisplayingDeletedClients, setIsDisplayingDeletedClients] = useState(
     false
@@ -43,30 +62,42 @@ const HomeApp = () => {
       }}
     >
       <div>
-        <ClientApp />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <ClientFilter />
+          <Button
+            variant='outlined'
+            style={{ marginLeft: 'auto', marginRight: '0' }}
+            onClick={handleAddNewClient}
+          >
+            Add New Client
+          </Button>
+        </div>
+        <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+          <DialogContent>
+            <ClientForm handleCloseDialog={handleCloseDialog} />
+          </DialogContent>
+        </Dialog>
         <Fragment>
           {activeClients.length > 0 && (
             <Paper style={{ width: '450px' }}>
-              <Typography variant='h4'>Active Clients</Typography>
               <ClientList clients={activeClients} />
             </Paper>
           )}
+          {deletedClients.length > 0 &&
+            (filteredClients.length > 0 || isDisplayingDeletedClients) && (
+              <Fragment>
+                <Paper style={{ width: '450px', marginTop: '10px' }}>
+                  <ClientList clients={deletedClients} />
+                </Paper>
+                <Button onClick={hideDeletedClients}>
+                  Hide Deleted Clients
+                </Button>
+              </Fragment>
+            )}
           {deletedClients.length > 0 && !isDisplayingDeletedClients && (
-            <Button onClick={showDeletedClients}>
-              Show Deleted Clients
-            </Button>
+            <Button onClick={showDeletedClients}>Show Deleted Clients</Button>
           )}
         </Fragment>
-        {deletedClients.length > 0 &&
-          (filteredClients.length > 0 || isDisplayingDeletedClients) && (
-            <Fragment>
-              <Paper style={{ width: '450px', marginTop: '10px' }}>
-                <Typography variant='h4'>Deleted Clients</Typography>
-                <ClientList clients={deletedClients} />
-              </Paper>
-              <Button onClick={hideDeletedClients}>Hide Deleted Clients</Button>
-            </Fragment>
-          )}
       </div>
     </div>
   );
