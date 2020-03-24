@@ -10,7 +10,6 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 const PersonalBestApp = ({ personalBests }) => {
-  const [numDisplayedPersonalBests, setNumDisplayedPersonalBests] = useState(1);
   const [currentLift, setCurrentLift] = useState('All');
   const currentPersonalBests = organizeExercises(
     alphabetize(
@@ -35,48 +34,44 @@ const PersonalBestApp = ({ personalBests }) => {
   };
   populateUniqueLiftNames();
 
-  const displayAdditionalPersonalBests = () => {
-    const newNumDisplayedPersonalBests = numDisplayedPersonalBests + 1;
-    setNumDisplayedPersonalBests(newNumDisplayedPersonalBests);
-  };
-  const displayFewerPersonalBests = () => {
-    const newNumDisplayedPersonalBests = numDisplayedPersonalBests - 1;
-    setNumDisplayedPersonalBests(newNumDisplayedPersonalBests);
-  };
   const [isDisplayingPersonalBests, setIsDisplayingPersonalBests] = useState(
     false
   );
-  const handleViewPersonalBests = () => {
+  const showPersonalBests = () => {
     setIsDisplayingPersonalBests(true);
   };
-  const handleHidePersonalBests = () => {
+  const hidePersonalBests = () => {
     setCurrentLift('All');
     setIsDisplayingPersonalBests(false);
   };
+  const handleToggle = () => {
+    isDisplayingPersonalBests ? hidePersonalBests() : showPersonalBests();
+  };
   const handleChange = e => {
     setCurrentLift(e.target.value);
+    !isDisplayingPersonalBests && showPersonalBests();
   };
   if (currentPersonalBests) {
     return (
       <div style={{ width: '450px', marginTop: '20px' }}>
         <Paper style={{ padding: '20px' }}>
-          <Button onClick={handleViewPersonalBests}>
-            <Select
-              style={{ marginLeft: '5px' }}
-              native
-              labelId='currentLift'
-              value={currentLift}
-              onChange={handleChange}
-              input={<Input id='currentLift' />}
-            >
-              {uniqueLiftNames.map(lift => (
-                <option key={lift} value={lift}>
-                  {lift}
-                </option>
-              ))}
-            </Select>{' '}
-            Personal Bests
+          <Button onClick={handleToggle}>
+            {isDisplayingPersonalBests ? 'Hide ' : 'Show '}Personal Bests
           </Button>
+          <Select
+            style={{ marginLeft: '5px' }}
+            native
+            labelId='currentLift'
+            value={currentLift}
+            onChange={handleChange}
+            input={<Input id='currentLift' />}
+          >
+            {uniqueLiftNames.map(lift => (
+              <option key={lift} value={lift}>
+                {lift}
+              </option>
+            ))}
+          </Select>
           {isDisplayingPersonalBests && (
             <div>
               {currentLiftPersonalBests.map(personalBest => (
@@ -87,23 +82,7 @@ const PersonalBestApp = ({ personalBests }) => {
                   </Typography>
                 </div>
               ))}
-              {currentLiftPersonalBests.length > numDisplayedPersonalBests &&
-                currentLift !== 'All' && (
-                  <Button
-                    color='primary'
-                    onClick={displayAdditionalPersonalBests}
-                  >
-                    Show additional Personal Bests
-                  </Button>
-                )}
-              {numDisplayedPersonalBests > 1 && (
-                <Button color='primary' onClick={displayFewerPersonalBests}>
-                  Show fewer Personal Bests
-                </Button>
-              )}
-              <Button onClick={handleHidePersonalBests}>
-                Hide Personal Bests
-              </Button>
+              <Button onClick={hidePersonalBests}>Hide Personal Bests</Button>
             </div>
           )}
         </Paper>

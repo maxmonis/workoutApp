@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 
 import organizeExercises from '../../functions/organizeExercises';
 
@@ -9,7 +9,6 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
-  const [numDisplayedWorkouts, setNumDisplayedWorkouts] = useState(1);
   const [currentWorkoutName, setCurrentWorkoutName] = useState('All');
   const [isDisplayingWorkouts, setIsDisplayingWorkouts] = useState(false);
 
@@ -32,77 +31,58 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
         )
       : previousWorkouts;
 
-  const displayAdditionalWorkouts = () => {
-    const newNumDisplayedWorkouts = numDisplayedWorkouts + 1;
-    setNumDisplayedWorkouts(newNumDisplayedWorkouts);
-  };
-  const displayFewerWorkouts = () => {
-    const newNumDisplayedWorkouts = numDisplayedWorkouts - 1;
-    setNumDisplayedWorkouts(newNumDisplayedWorkouts);
-  };
-  const handleDisplayWorkouts = () => {
+  const showWorkouts = () => {
     setIsDisplayingWorkouts(true);
   };
-  const handleHideWorkouts = () => {
+  const hideWorkouts = () => {
     setCurrentWorkoutName('All');
     setIsDisplayingWorkouts(false);
   };
+  const handleToggle = () => {
+    isDisplayingWorkouts ? hideWorkouts() : showWorkouts();
+  };
   const handleChange = e => {
     setCurrentWorkoutName(e.target.value);
+    !isDisplayingWorkouts && showWorkouts();
   };
 
   return (
     <div style={{ width: '450px', marginTop: '20px' }}>
       <Paper style={{ padding: '20px' }}>
-        <Button onClick={handleDisplayWorkouts}>
-          <Select
-            style={{ marginLeft: '5px' }}
-            native
-            labelId='workoutName'
-            value={currentWorkoutName}
-            onChange={handleChange}
-            input={<Input id='workoutName' />}
-          >
-            {uniqueWorkoutNames.map(name => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </Select>{' '}
-          Recent Workouts
+        <Button onClick={handleToggle}>
+          {isDisplayingWorkouts ? 'Hide ' : 'Show '}Previous Workouts
         </Button>
+        <Select
+          style={{ marginLeft: '5px' }}
+          native
+          labelId='workoutName'
+          value={currentWorkoutName}
+          onChange={handleChange}
+          input={<Input id='workoutName' />}
+        >
+          {uniqueWorkoutNames.map(name => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </Select>
         {isDisplayingWorkouts && (
           <div>
-            {selectedWorkouts
-              .slice(0, numDisplayedWorkouts)
-              .map(selectedWorkout => (
-                <div key={selectedWorkout.id}>
-                  <Typography variant='h5'>
-                    {currentWorkoutName === 'All' &&
-                      `${selectedWorkout.name} - `}
-                    {selectedWorkout.date}
-                  </Typography>
-                  {organizeExercises(selectedWorkout.workout).map(exercise => (
-                    <Typography
-                      variant='h6'
-                      key={exercise.id}
-                    >{`${exercise.lift}: ${exercise.printout}`}</Typography>
-                  ))}
-                </div>
-              ))}
-            {numDisplayedWorkouts > 1 && (
-              <Button color='primary' onClick={displayFewerWorkouts}>
-                Show fewer workouts
-              </Button>
-            )}
-            {selectedWorkouts.length > numDisplayedWorkouts && (
-              <Fragment>
-                <Button color='primary' onClick={displayAdditionalWorkouts}>
-                  Show additional workouts
-                </Button>
-              </Fragment>
-            )}
-            <Button onClick={handleHideWorkouts}>Hide Workouts</Button>
+            {selectedWorkouts.map(selectedWorkout => (
+              <div key={selectedWorkout.id}>
+                <Typography variant='h5'>
+                  {currentWorkoutName === 'All' && `${selectedWorkout.name} - `}
+                  {selectedWorkout.date}
+                </Typography>
+                {organizeExercises(selectedWorkout.workout).map(exercise => (
+                  <Typography
+                    variant='h6'
+                    key={exercise.id}
+                  >{`${exercise.lift}: ${exercise.printout}`}</Typography>
+                ))}
+              </div>
+            ))}
+            <Button onClick={hideWorkouts}>Hide Workouts</Button>
           </div>
         )}
       </Paper>

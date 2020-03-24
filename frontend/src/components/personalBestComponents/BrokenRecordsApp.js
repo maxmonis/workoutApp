@@ -7,7 +7,6 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 const BrokenRecords = ({ personalBests }) => {
-  const [numDisplayedBrokenRecords, setNumDisplayedBrokenRecords] = useState(1);
   const [currentLift, setCurrentLift] = useState('All');
   const brokenRecords = personalBests.filter(
     personalBest => personalBest.surpassed
@@ -27,48 +26,45 @@ const BrokenRecords = ({ personalBests }) => {
   };
   populateUniqueLiftNames();
 
-  const displayAdditionalBrokenRecords = () => {
-    const newNumDisplayedBrokenRecords = numDisplayedBrokenRecords + 1;
-    setNumDisplayedBrokenRecords(newNumDisplayedBrokenRecords);
-  };
-  const displayFewerBrokenRecords = () => {
-    const newNumDisplayedBrokenRecords = numDisplayedBrokenRecords - 1;
-    setNumDisplayedBrokenRecords(newNumDisplayedBrokenRecords);
-  };
   const [isDisplayingBrokenRecords, setIsDisplayingBrokenRecords] = useState(
     false
   );
-  const handleDisplayBrokenRecords = () => {
+  const showBrokenRecords = () => {
     setIsDisplayingBrokenRecords(true);
   };
-  const handleHideBrokenRecords = () => {
+  const hideBrokenRecords = () => {
     setCurrentLift('All');
     setIsDisplayingBrokenRecords(false);
   };
+  const handleToggle = () => {
+    isDisplayingBrokenRecords ? hideBrokenRecords() : showBrokenRecords();
+  };
   const handleChange = e => {
     setCurrentLift(e.target.value);
+    !isDisplayingBrokenRecords && showBrokenRecords();
   };
   if (brokenRecords) {
     return (
-      <div style={{ width: '450px', marginTop: '20px' }}>
+      <div style={{ width: '450px', marginTop: '20px', marginBottom: '20px' }}>
         <Paper style={{ padding: '20px' }}>
-          <Button onClick={handleDisplayBrokenRecords}>
-            <Select
-              style={{ marginLeft: '5px' }}
-              native
-              labelId='currentLift'
-              value={currentLift}
-              onChange={handleChange}
-              input={<Input id='currentLift' />}
-            >
-              {uniqueLiftNames.map(lift => (
-                <option key={lift} value={lift}>
-                  {lift}
-                </option>
-              ))}
-            </Select>{' '}
+          <Button onClick={handleToggle}>
+            {isDisplayingBrokenRecords ? 'Hide ' : 'Show '}
             Broken Records
           </Button>
+          <Select
+            style={{ marginLeft: '5px' }}
+            native
+            labelId='currentLift'
+            value={currentLift}
+            onChange={handleChange}
+            input={<Input id='currentLift' />}
+          >
+            {uniqueLiftNames.map(lift => (
+              <option key={lift} value={lift}>
+                {lift}
+              </option>
+            ))}
+          </Select>
           {isDisplayingBrokenRecords && (
             <div>
               {currentLiftBrokenRecords.map(brokenRecord => (
@@ -82,22 +78,7 @@ const BrokenRecords = ({ personalBests }) => {
                   </Typography>
                 </div>
               ))}
-              {currentLiftBrokenRecords.length > numDisplayedBrokenRecords && (
-                <Button
-                  color='primary'
-                  onClick={displayAdditionalBrokenRecords}
-                >
-                  Show additional broken records
-                </Button>
-              )}
-              {numDisplayedBrokenRecords > 1 && (
-                <Button color='primary' onClick={displayFewerBrokenRecords}>
-                  Show fewer broken records
-                </Button>
-              )}
-              <Button onClick={handleHideBrokenRecords}>
-                Hide Broken Records
-              </Button>
+              <Button onClick={hideBrokenRecords}>Hide Broken Records</Button>
             </div>
           )}
         </Paper>

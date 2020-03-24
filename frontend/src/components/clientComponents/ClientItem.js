@@ -19,6 +19,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import TextField from '@material-ui/core/TextField';
 
 const ClientItem = ({ client }) => {
   const clientContext = useContext(ClientContext);
@@ -74,7 +75,10 @@ const ClientItem = ({ client }) => {
   };
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleOpenDialog = () => setIsDialogOpen(true);
-  const handleCloseDialog = () => setIsDialogOpen(false);
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+    setInputValue('');
+  };
   if (isRedirecting) {
     return <Redirect to='workouts' />;
   } else {
@@ -114,10 +118,11 @@ const ClientItem = ({ client }) => {
                 be undone. Confirm the name of the client you wish to delete in
                 order to proceed.
               </DialogContentText>
-              <input
+              <TextField
+                required
                 style={{ height: '40px', fontSize: '20px' }}
                 value={inputValue}
-                type='text'
+                variant='outlined'
                 placeholder='Confirm Name...'
                 onChange={handleChange}
                 autoFocus

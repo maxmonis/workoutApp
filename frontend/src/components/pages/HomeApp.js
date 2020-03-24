@@ -66,6 +66,7 @@ const HomeApp = () => {
           <ClientFilter />
           <Button
             variant='outlined'
+            color='primary'
             style={{ marginLeft: 'auto', marginRight: '0' }}
             onClick={handleAddNewClient}
           >
