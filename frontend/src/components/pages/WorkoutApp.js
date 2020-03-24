@@ -78,22 +78,21 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
 
   const handleChange = e => {
     const { id, value } = e.target;
-    id !== 'workoutName'
-      ? setCurrentExercise({ ...currentExercise, [id]: value })
-      : setWorkoutName(value);
+    setCurrentExercise({ ...currentExercise, [id]: value });
   };
-
   const updateWorkoutDate = e => {
     setWorkoutDate(e.target.value);
   };
+  const updateWorkoutName = e => {
+    setWorkoutName(e.target.value);
+  };
 
   const handleNextExercise = () => {
-    if (currentExercise.weight < 1) return;
     addExercise(currentExercise);
   };
 
   const handleSaveWorkout = () => {
-    updatePersonalBests(currentWorkout);
+    updatePersonalBests(currentWorkout, workoutDate);
     setPreviousWorkouts([
       {
         id: uuid(),
@@ -121,10 +120,10 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
             editExercise={editExercise}
             lifts={lifts}
             workoutName={workoutName}
-            handleChange={handleChange}
             handleSaveWorkout={handleSaveWorkout}
             workoutDate={workoutDate}
             updateWorkoutDate={updateWorkoutDate}
+            updateWorkoutName={updateWorkoutName}
           />
         </Fragment>
         <Paper style={styles.currentLiftContainer}>

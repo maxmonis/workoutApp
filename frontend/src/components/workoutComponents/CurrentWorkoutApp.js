@@ -19,10 +19,10 @@ const CurrentWorkoutApp = ({
   editExercise,
   lifts,
   workoutName,
-  handleChange,
   handleSaveWorkout,
   workoutDate,
-  updateWorkoutDate
+  updateWorkoutDate,
+  updateWorkoutName
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleOpenDialog = () => {
@@ -61,7 +61,7 @@ const CurrentWorkoutApp = ({
               type='string'
               variant='outlined'
               value={workoutName}
-              onChange={handleChange}
+              onChange={updateWorkoutName}
               autoFocus
             />
             <DatePicker
