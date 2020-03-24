@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import alphabetize from '../../functions/alphabetize';
-import organizeExercises from '../../functions/organizeExercises';
 
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -11,12 +10,10 @@ import Typography from '@material-ui/core/Typography';
 
 const PersonalBestApp = ({ personalBests }) => {
   const [currentLift, setCurrentLift] = useState('All');
-  const currentPersonalBests = organizeExercises(
-    alphabetize(
-      personalBests.filter(personalBest => !personalBest.surpassed),
-      'lift'
-    )
+  const currentPersonalBests = personalBests.filter(
+    personalBest => !personalBest.surpassed
   );
+
   const currentLiftPersonalBests =
     currentLift !== 'All'
       ? currentPersonalBests.filter(
@@ -25,14 +22,12 @@ const PersonalBestApp = ({ personalBests }) => {
       : currentPersonalBests;
 
   const uniqueLiftNames = ['All'];
-  const populateUniqueLiftNames = () => {
-    currentPersonalBests.forEach(personalBest => {
-      if (!uniqueLiftNames.includes(personalBest.lift)) {
-        uniqueLiftNames.push(personalBest.lift);
-      }
-    });
-  };
-  populateUniqueLiftNames();
+  const sortedLiftNames = alphabetize(
+    currentPersonalBests.map(personalBest => personalBest.lift)
+  );
+  for (const liftName of sortedLiftNames) {
+    !uniqueLiftNames.includes(liftName) && uniqueLiftNames.push(liftName);
+  }
 
   const [isDisplayingPersonalBests, setIsDisplayingPersonalBests] = useState(
     false
@@ -59,7 +54,7 @@ const PersonalBestApp = ({ personalBests }) => {
             {isDisplayingPersonalBests ? 'Hide ' : 'Show '}Personal Bests
           </Button>
           <Select
-            style={{ marginLeft: '5px' }}
+            style={{ marginLeft: '5px', width: '150px' }}
             native
             labelId='currentLift'
             value={currentLift}
@@ -73,12 +68,15 @@ const PersonalBestApp = ({ personalBests }) => {
             ))}
           </Select>
           {isDisplayingPersonalBests && (
-            <div>
+            <div style={{ marginTop: '20px' }}>
               {currentLiftPersonalBests.map(personalBest => (
-                <div key={personalBest.id}>
+                <div key={personalBest.id} style={{ marginBottom: '20px' }}>
                   <Typography variant='h5'>
                     {currentLift === 'All' && `${personalBest.lift}: `}
                     {personalBest.printout}
+                  </Typography>
+                  <Typography variant='h6'>
+                    {personalBest.becamePersonalBest}
                   </Typography>
                 </div>
               ))}

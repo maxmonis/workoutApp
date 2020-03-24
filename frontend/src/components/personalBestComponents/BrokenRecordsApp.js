@@ -19,14 +19,12 @@ const BrokenRecords = ({ personalBests }) => {
       : brokenRecords;
 
   const uniqueLiftNames = ['All'];
-  const populateUniqueLiftNames = () => {
-    alphabetize(brokenRecords, 'lift').forEach(brokenRecord => {
-      if (!uniqueLiftNames.includes(brokenRecord.lift)) {
-        uniqueLiftNames.push(brokenRecord.lift);
-      }
-    });
-  };
-  populateUniqueLiftNames();
+  const sortedLiftNames = alphabetize(
+    brokenRecords.map(brokenRecord => brokenRecord.lift)
+  );
+  for (const liftName of sortedLiftNames) {
+    !uniqueLiftNames.includes(liftName) && uniqueLiftNames.push(liftName);
+  }
 
   const [isDisplayingBrokenRecords, setIsDisplayingBrokenRecords] = useState(
     false
@@ -54,7 +52,7 @@ const BrokenRecords = ({ personalBests }) => {
             Broken Records
           </Button>
           <Select
-            style={{ marginLeft: '5px' }}
+            style={{ marginLeft: '5px', width: '150px' }}
             native
             labelId='currentLift'
             value={currentLift}
@@ -68,9 +66,9 @@ const BrokenRecords = ({ personalBests }) => {
             ))}
           </Select>
           {isDisplayingBrokenRecords && (
-            <div>
+            <div style={{ marginTop: '20px' }}>
               {currentLiftBrokenRecords.map(brokenRecord => (
-                <div key={brokenRecord.id}>
+                <div key={brokenRecord.id} style={{ marginBottom: '20px' }}>
                   <Typography variant='h5'>
                     {currentLift === 'All' && `${brokenRecord.lift}: `}
                     {brokenRecord.printout}

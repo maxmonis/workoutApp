@@ -12,17 +12,15 @@ import Typography from '@material-ui/core/Typography';
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
   const [currentWorkoutName, setCurrentWorkoutName] = useState('All');
   const [isDisplayingWorkouts, setIsDisplayingWorkouts] = useState(false);
+
   const uniqueWorkoutNames = ['All'];
-  const populateUniqueWorkoutNames = () => {
-    alphabetize(previousWorkouts.map(workout => workout.name)).forEach(
-      workoutName => {
-        if (!uniqueWorkoutNames.includes(workoutName)) {
-          uniqueWorkoutNames.push(workoutName);
-        }
-      }
-    );
-  };
-  populateUniqueWorkoutNames();
+  const sortedWorkoutNames = alphabetize(
+    previousWorkouts.map(previousWorkout => previousWorkout.name)
+  );
+  for (const workoutName of sortedWorkoutNames) {
+    !uniqueWorkoutNames.includes(workoutName) &&
+      uniqueWorkoutNames.push(workoutName);
+  }
 
   const selectedWorkouts =
     currentWorkoutName !== 'All'
@@ -53,7 +51,7 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
           {isDisplayingWorkouts ? 'Hide ' : 'Show '}Previous Workouts
         </Button>
         <Select
-          style={{ marginLeft: '5px' }}
+          style={{ marginLeft: '5px', width: '150px' }}
           native
           labelId='workoutName'
           value={currentWorkoutName}
@@ -67,9 +65,9 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
           ))}
         </Select>
         {isDisplayingWorkouts && (
-          <div>
+          <div style={{ marginTop: '20px' }}>
             {selectedWorkouts.map(selectedWorkout => (
-              <div key={selectedWorkout.id}>
+              <div key={selectedWorkout.id} style={{ marginBottom: '20px' }}>
                 <Typography variant='h5'>
                   {currentWorkoutName === 'All' && `${selectedWorkout.name} - `}
                   {selectedWorkout.date}
