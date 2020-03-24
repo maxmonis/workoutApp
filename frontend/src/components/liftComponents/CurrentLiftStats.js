@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import organizeExercises from '../../functions/organizeExercises';
 
@@ -35,14 +35,21 @@ const CurrentLiftStats = ({
   const currentLiftRecentExercises = getRecentExercises();
 
   return (
-    <div style={{ width: '100%', marginLeft: '-10px' }}>
+    <div
+      style={{
+        height: '230px',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
+    >
       {!currentLiftPersonalBests.length ? (
         <Typography variant='h6'>
           {currentLift} data will be displayed here once {currentClient.name}{' '}
           has attempted it
         </Typography>
       ) : (
-        <Fragment>
+        <div style={{ overflowY: 'auto' }}>
           <Typography variant='body1'>Personal Bests</Typography>
           {currentLiftPersonalBests.map(personalBest => (
             <Typography key={personalBest.id} variant='body2'>
@@ -57,7 +64,7 @@ const CurrentLiftStats = ({
               {recentExercise.printout}
             </Typography>
           ))}
-        </Fragment>
+        </div>
       )}
     </div>
   );
