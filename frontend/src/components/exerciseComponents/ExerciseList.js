@@ -15,7 +15,7 @@ const ExerciseList = ({
 }) => {
   if (currentWorkout.length)
     return (
-      <div style={{ widgth: '450px' }}>
+      <div style={{ width: '450px' }}>
         <Paper>
           <Droppable droppableId='ExerciseList'>
             {provided => (

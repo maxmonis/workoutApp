@@ -24,9 +24,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-const date = new Date();
-const currentDate = date.toLocaleDateString();
-
 const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient, clearFilteredClients } = clientContext;
@@ -61,7 +58,9 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     // eslint-disable-next-line
   }, [client]);
 
-  const [currentWorkoutName, setCurrentWorkoutName] = useState('');
+  const today = new Date().toISOString().slice(0, 10);
+  const [workoutDate, setWorkoutDate] = useState(today);
+  const [workoutName, setWorkoutName] = useState('');
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
     sets: 1,
@@ -81,7 +80,11 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     const { id, value } = e.target;
     id !== 'workoutName'
       ? setCurrentExercise({ ...currentExercise, [id]: value })
-      : setCurrentWorkoutName(value);
+      : setWorkoutName(value);
+  };
+
+  const updateWorkoutDate = e => {
+    setWorkoutDate(e.target.value);
   };
 
   const handleNextExercise = () => {
@@ -94,14 +97,14 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     setPreviousWorkouts([
       {
         id: uuid(),
-        name: currentWorkoutName,
-        date: currentDate,
+        name: workoutName,
+        date: workoutDate,
         workout: currentWorkout
       },
       ...previousWorkouts
     ]);
     resetCurrentWorkout();
-    setCurrentWorkoutName('');
+    setWorkoutName('');
     handleCloseDialog();
   };
   return (
@@ -117,9 +120,11 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
             removeExercise={removeExercise}
             editExercise={editExercise}
             lifts={lifts}
-            currentWorkoutName={currentWorkoutName}
+            workoutName={workoutName}
             handleChange={handleChange}
             handleSaveWorkout={handleSaveWorkout}
+            workoutDate={workoutDate}
+            updateWorkoutDate={updateWorkoutDate}
           />
         </Fragment>
         <Paper style={styles.currentLiftContainer}>

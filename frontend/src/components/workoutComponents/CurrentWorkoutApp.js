@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import DatePicker from './DatePicker';
 import ExerciseApp from '../exerciseComponents/ExerciseApp';
 
 import organizeExercises from '../../functions/organizeExercises';
@@ -17,12 +18,13 @@ const CurrentWorkoutApp = ({
   removeExercise,
   editExercise,
   lifts,
-  currentWorkoutName,
+  workoutName,
   handleChange,
-  handleSaveWorkout
+  handleSaveWorkout,
+  workoutDate,
+  updateWorkoutDate
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
@@ -34,7 +36,6 @@ const CurrentWorkoutApp = ({
     handleSaveWorkout();
     handleCloseDialog();
   };
-
   const handleResetWorkout = () => {
     resetCurrentWorkout();
   };
@@ -46,9 +47,7 @@ const CurrentWorkoutApp = ({
         <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
           Save Workout
         </Button>
-        <Button onClick={handleResetWorkout}>
-          Reset Workout
-        </Button>
+        <Button onClick={handleResetWorkout}>Reset Workout</Button>
         <Dialog
           open={isDialogOpen}
           onClose={handleCloseDialog}
@@ -61,9 +60,13 @@ const CurrentWorkoutApp = ({
               label='Workout Name'
               type='string'
               variant='outlined'
-              value={currentWorkoutName}
+              value={workoutName}
               onChange={handleChange}
               autoFocus
+            />
+            <DatePicker
+              workoutDate={workoutDate}
+              updateWorkoutDate={updateWorkoutDate}
             />
             {exercises.map(exercise => (
               <h4
@@ -75,7 +78,7 @@ const CurrentWorkoutApp = ({
             <Button onClick={handleCloseDialog} color='primary'>
               Cancel
             </Button>
-            {currentWorkoutName ? (
+            {workoutName ? (
               <Button onClick={handleSave} color='primary'>
                 Save
               </Button>

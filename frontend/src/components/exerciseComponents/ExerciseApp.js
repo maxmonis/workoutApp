@@ -28,7 +28,6 @@ const ExerciseApp = ({
     <DragDropContext onDragEnd={handleDragEnd}>
       <Paper
         style={{
-          width: '400px',
           padding: 0,
           heights: '100vh',
           backgroundColor: '#fafafa'
