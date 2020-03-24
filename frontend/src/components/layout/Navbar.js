@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../context/auth/authContext';
@@ -7,11 +7,12 @@ import ClientContext from '../../context/client/clientContext';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
-  const { isAuthenticated, logUserOut, user, loadUser } = authContext;
+  const { isAuthenticated, logUserOut, loadUser } = authContext;
   const { clearClients } = clientContext;
 
   useEffect(() => {
@@ -29,41 +30,40 @@ const Navbar = () => {
     clearClients();
   };
 
-  const authLinks = (
-    <Fragment>
-      <li>Hello {user && user.name}</li>
-      <li>
-        <a href='#!' onClick={clearSelectedClient}>
-          Clients
-        </a>
-      </li>
-      <li>
-        <a href='#!' onClick={handleLogout}>
-          Logout
-        </a>
-      </li>
-    </Fragment>
+  const authLink = (
+    <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
+      <Button onClick={handleLogout} color='inherit'>
+        Logout
+      </Button>
+    </div>
   );
 
   const guestLinks = (
-    <Fragment>
-      <li>
-        <Link to='register'>Register</Link>
-      </li>
-      <li>
-        <Link to='login'>Login</Link>
-      </li>
-    </Fragment>
+    <div
+      style={{
+        marginLeft: 'auto',
+        marginRight: '10px'
+      }}
+    >
+      <Link to='login' style={{ textDecoration: 'none' }}>
+        <Button style={{ color: 'white' }}>Log In</Button>
+      </Link>
+      <Link to='register' style={{ textDecoration: 'none' }}>
+        <Button style={{ color: 'white' }}>Register</Button>
+      </Link>
+    </div>
   );
 
   return (
-    <div style={{ marginBottom: '100px' }}>
-      <AppBar position='fixed'>
+    <div style={{ marginBottom: '10px' }}>
+      <AppBar position='static'>
         <Toolbar>
-          <Typography variant='h6' noWrap>
-            maxWellness
-          </Typography>
-          <ul>{isAuthenticated ? authLinks : guestLinks}</ul>
+          <Link to='/' style={{ textDecoration: 'none', marginLeft: '10px' }}>
+            <Typography variant='h6' style={{ color: 'white' }}>
+              maxWellness
+            </Typography>
+          </Link>
+          {isAuthenticated ? authLink : guestLinks}
         </Toolbar>
       </AppBar>
     </div>
