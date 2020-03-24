@@ -26,11 +26,11 @@ const HomeApp = () => {
   }, []);
 
   const activeClients = filteredClients.length
-    ? filteredClients.filter(client => client.isActive)
-    : clients.filter(client => client.isActive);
+    ? filteredClients.filter(client => client.isActive) || []
+    : clients.filter(client => client.isActive) || [];
   const deletedClients = filteredClients.length
-    ? filteredClients.filter(client => !client.isActive)
-    : clients.filter(client => !client.isActive);
+    ? filteredClients.filter(client => !client.isActive) || []
+    : clients.filter(client => !client.isActive) || [];
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleOpenDialog = () => setIsDialogOpen(true);
@@ -42,6 +42,21 @@ const HomeApp = () => {
   useEffect(() => {
     editingClient ? setIsDialogOpen(true) : setIsDialogOpen(false);
   }, [editingClient]);
+  useEffect(() => {
+    if (filteredClients.length && !isDisplayingDeletedClients) {
+      showDeletedClients();
+    }
+    if (!filteredClients.length && isDisplayingDeletedClients) {
+      hideDeletedClients();
+    }
+    // eslint-disable-next-line
+  }, [filteredClients]);
+  useEffect(() => {
+    if (!deletedClients.length && isDisplayingDeletedClients) {
+      hideDeletedClients();
+    }
+    // eslint-disable-next-line
+  }, [deletedClients]);
 
   const [isDisplayingDeletedClients, setIsDisplayingDeletedClients] = useState(
     false
@@ -79,24 +94,20 @@ const HomeApp = () => {
           </DialogContent>
         </Dialog>
         <Fragment>
-          {activeClients.length > 0 && (
+          {!isDisplayingDeletedClients ? (
             <Paper style={{ width: '450px' }}>
               <ClientList clients={activeClients} />
             </Paper>
+          ) : (
+            <Paper style={{ width: '450px' }}>
+              <ClientList clients={[...activeClients, ...deletedClients]} />
+            </Paper>
           )}
-          {deletedClients.length > 0 &&
-            (filteredClients.length > 0 || isDisplayingDeletedClients) && (
-              <Fragment>
-                <Paper style={{ width: '450px', marginTop: '10px' }}>
-                  <ClientList clients={deletedClients} />
-                </Paper>
-                <Button onClick={hideDeletedClients}>
-                  Hide Deleted Clients
-                </Button>
-              </Fragment>
-            )}
           {deletedClients.length > 0 && !isDisplayingDeletedClients && (
             <Button onClick={showDeletedClients}>Show Deleted Clients</Button>
+          )}
+          {!filteredClients.length && isDisplayingDeletedClients && (
+            <Button onClick={hideDeletedClients}>Hide Deleted Clients</Button>
           )}
         </Fragment>
       </div>

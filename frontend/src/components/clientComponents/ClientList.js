@@ -5,7 +5,7 @@ import ClientItem from './ClientItem';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 
-const Clients = ({ clients }) => {
+const ClientList = ({ clients }) => {
   return (
     <Fragment>
       <List>
@@ -21,4 +21,4 @@ const Clients = ({ clients }) => {
   );
 };
 
-export default Clients;
+export default ClientList;
