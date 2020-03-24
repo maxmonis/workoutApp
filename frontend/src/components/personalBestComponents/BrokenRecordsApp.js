@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import alphabetize from '../../functions/alphabetize';
+
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +20,7 @@ const BrokenRecords = ({ personalBests }) => {
 
   const uniqueLiftNames = ['All'];
   const populateUniqueLiftNames = () => {
-    brokenRecords.forEach(brokenRecord => {
+    alphabetize(brokenRecords, 'lift').forEach(brokenRecord => {
       if (!uniqueLiftNames.includes(brokenRecord.lift)) {
         uniqueLiftNames.push(brokenRecord.lift);
       }

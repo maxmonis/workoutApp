@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import alphabetize from '../../functions/alphabetize';
 import organizeExercises from '../../functions/organizeExercises';
 
 import Button from '@material-ui/core/Button';
@@ -11,16 +12,15 @@ import Typography from '@material-ui/core/Typography';
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
   const [currentWorkoutName, setCurrentWorkoutName] = useState('All');
   const [isDisplayingWorkouts, setIsDisplayingWorkouts] = useState(false);
-
   const uniqueWorkoutNames = ['All'];
   const populateUniqueWorkoutNames = () => {
-    previousWorkouts
-      .map(workout => workout.name)
-      .forEach(workoutName => {
+    alphabetize(previousWorkouts.map(workout => workout.name)).forEach(
+      workoutName => {
         if (!uniqueWorkoutNames.includes(workoutName)) {
           uniqueWorkoutNames.push(workoutName);
         }
-      });
+      }
+    );
   };
   populateUniqueWorkoutNames();
 
