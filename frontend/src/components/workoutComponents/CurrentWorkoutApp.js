@@ -47,7 +47,9 @@ const CurrentWorkoutApp = ({
         <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
           Save Workout
         </Button>
-        <Button onClick={handleResetWorkout}>Reset Workout</Button>
+        <Button onClick={handleResetWorkout} style={{ float: 'right' }}>
+          Reset Workout
+        </Button>
         <Dialog
           open={isDialogOpen}
           onClose={handleCloseDialog}

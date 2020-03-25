@@ -104,10 +104,14 @@ const HomeApp = () => {
             </Paper>
           )}
           {deletedClients.length > 0 && !isDisplayingDeletedClients && (
-            <Button onClick={showDeletedClients}>Show Deleted Clients</Button>
+            <Button onClick={showDeletedClients} style={{ float: 'right' }}>
+              Show Deleted Clients
+            </Button>
           )}
           {!filteredClients.length && isDisplayingDeletedClients && (
-            <Button onClick={hideDeletedClients}>Hide Deleted Clients</Button>
+            <Button onClick={hideDeletedClients} style={{ float: 'right' }}>
+              Hide Deleted Clients
+            </Button>
           )}
         </Fragment>
       </div>
