@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { Redirect } from 'react-router-dom';
-
 import ClientContext from '../../context/client/clientContext';
 
 import standardize from '../../functions/standardize';
@@ -21,7 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
-const ClientItem = ({ client }) => {
+const ClientItem = ({ client, selectClient }) => {
   const clientContext = useContext(ClientContext);
   const {
     deleteClient,
@@ -29,20 +27,10 @@ const ClientItem = ({ client }) => {
     setEditingClient,
     clearEditingClient
   } = clientContext;
-  const initialSelectedClient =
-    JSON.parse(window.localStorage.getItem('selectedClient')) || null;
-  const [selectedClient, setSelectedClient] = useState(initialSelectedClient);
   const [currentClient, setCurrentClient] = useState(client);
   const { _id, name } = currentClient;
-  const [isRedirecting, setIsRedirecting] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    window.localStorage.setItem(
-      'selectedClient',
-      JSON.stringify(selectedClient)
-    );
-  }, [selectedClient]);
   useEffect(() => {
     updateClient(currentClient);
     // eslint-disable-next-line
@@ -52,9 +40,9 @@ const ClientItem = ({ client }) => {
     setInputValue(e.target.value);
   };
   const handleSelect = () => {
-    setCurrentClient({ ...currentClient, lastAccessed: Date.now() });
-    setSelectedClient(client);
-    setIsRedirecting(true);
+    const selectedClient = { ...currentClient, lastAccessed: Date.now() };
+    setCurrentClient(selectedClient);
+    selectClient(selectedClient);
   };
   const handleEdit = () => {
     setEditingClient(client);
@@ -79,82 +67,78 @@ const ClientItem = ({ client }) => {
     setIsDialogOpen(false);
     setInputValue('');
   };
-  if (isRedirecting) {
-    return <Redirect to='workouts' />;
+  if (client.isActive) {
+    return (
+      <div key={_id}>
+        <ListItem style={{ height: '40px' }}>
+          <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
+            {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
+          </Button>
+          <ListItemSecondaryAction>
+            <IconButton onClick={handleEdit}>
+              <EditIcon aria-label='Edit' />
+            </IconButton>
+            <IconButton onClick={handleDeactivate}>
+              <ClearIcon aria-label='Deactivate' />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </div>
+    );
   } else {
-    if (client.isActive) {
-      return (
-        <div key={_id}>
-          <ListItem style={{ height: '40px' }}>
-            <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
-              {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
+    return (
+      <div key={_id}>
+        <Dialog
+          open={isDialogOpen}
+          onClose={handleCloseDialog}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>
+            {`Permanently delete ${client.name}?`}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              All associated data will be lost forever and this action cannot be
+              undone. Confirm the name of the client you wish to delete in order
+              to proceed.
+            </DialogContentText>
+            <TextField
+              required
+              style={{ height: '40px', fontSize: '20px' }}
+              value={inputValue}
+              variant='outlined'
+              placeholder='Confirm Name...'
+              onChange={handleChange}
+              autoFocus
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color='primary'>
+              Cancel
             </Button>
-            <ListItemSecondaryAction>
-              <IconButton onClick={handleEdit}>
-                <EditIcon aria-label='Edit' />
-              </IconButton>
-              <IconButton onClick={handleDeactivate}>
-                <ClearIcon aria-label='Deactivate' />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </div>
-      );
-    } else {
-      return (
-        <div key={_id}>
-          <Dialog
-            open={isDialogOpen}
-            onClose={handleCloseDialog}
-            aria-labelledby='alert-dialog-title'
-            aria-describedby='alert-dialog-description'
-          >
-            <DialogTitle id='alert-dialog-title'>
-              {`Permanently delete ${client.name}?`}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id='alert-dialog-description'>
-                All associated data will be lost forever and this action cannot
-                be undone. Confirm the name of the client you wish to delete in
-                order to proceed.
-              </DialogContentText>
-              <TextField
-                required
-                style={{ height: '40px', fontSize: '20px' }}
-                value={inputValue}
-                variant='outlined'
-                placeholder='Confirm Name...'
-                onChange={handleChange}
-                autoFocus
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialog} color='primary'>
-                Cancel
+            {standardize(inputValue) === standardize(client.name) && (
+              <Button onClick={handleDelete} color='primary' autoFocus>
+                Delete
               </Button>
-              {standardize(inputValue) === standardize(client.name) && (
-                <Button onClick={handleDelete} color='primary' autoFocus>
-                  Delete
-                </Button>
-              )}
-            </DialogActions>
-          </Dialog>
-          <ListItem style={{ height: '40px' }}>
-            <Button disabled style={{ fontSize: '20px' }}>
-              {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
-            </Button>
-            <ListItemSecondaryAction>
-              <IconButton onClick={handleRecover}>
-                <AddIcon aria-label='Recover' />
-              </IconButton>
-              <IconButton onClick={handleDeleteRequest}>
-                <DeleteIcon aria-label='Delete' />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </div>
-      );
-    }
+            )}
+          </DialogActions>
+        </Dialog>
+        <ListItem style={{ height: '40px' }}>
+          <Button disabled style={{ fontSize: '20px' }}>
+            {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
+          </Button>
+          <ListItemSecondaryAction>
+            <IconButton onClick={handleRecover}>
+              <AddIcon aria-label='Recover' />
+            </IconButton>
+            <IconButton onClick={handleDeleteRequest}>
+              <DeleteIcon aria-label='Delete' />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </div>
+    );
   }
 };
 

@@ -28,12 +28,14 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient, clearFilteredClients } = clientContext;
   const [client, setClient] = useState(selectedClient);
-  const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
+  const { lifts, addLift, removeLift, editLift } = useLiftState(
+    selectedClient.lifts
+  );
   const [previousWorkouts, setPreviousWorkouts] = useState(
-    client.previousWorkouts
+    selectedClient.previousWorkouts
   );
   const { personalBests, updatePersonalBests } = usePersonalBestState(
-    client.personalBests
+    selectedClient.personalBests
   );
 
   const {
@@ -107,10 +109,17 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     handleCloseDialog();
   };
   return (
-    <div style={styles.appContainer}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'center'
+      }}
+    >
       <CssBaseline />
       <main>
-        <Typography variant='h1'>{client.name}</Typography>
+        <Typography variant='h3'>{client.name}</Typography>
         <Fragment>
           <CurrentWorkoutApp
             currentWorkout={currentWorkout}
@@ -126,7 +135,14 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
             updateWorkoutName={updateWorkoutName}
           />
         </Fragment>
-        <Paper style={styles.currentLiftContainer}>
+        <Paper
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '450px',
+            padding: '20px'
+          }}
+        >
           <form>
             <FormControl>
               <ExerciseEntryForm
@@ -187,21 +203,6 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
       </main>
     </div>
   );
-};
-
-const styles = {
-  appContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'center'
-  },
-  currentLiftContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '450px',
-    padding: '20px'
-  }
 };
 
 export default WorkoutApp;

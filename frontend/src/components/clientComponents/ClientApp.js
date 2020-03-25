@@ -2,28 +2,23 @@ import React, { useState, useContext, useEffect, Fragment } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
 
-import ClientFilter from '../clientComponents/ClientFilter';
-import ClientForm from '../clientComponents/ClientForm';
-import ClientList from '../clientComponents/ClientList';
+import ClientFilter from './ClientFilter';
+import ClientForm from './ClientForm';
+import ClientList from './ClientList';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 
-const HomeApp = () => {
+const ClientApp = ({ selectClient, hideRoster }) => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
     filteredClients,
-    getClients,
     editingClient,
     clearEditingClient
   } = clientContext;
-  useEffect(() => {
-    getClients();
-    // eslint-disable-next-line
-  }, []);
 
   const activeClients = filteredClients.length
     ? filteredClients.filter(client => client.isActive) || []
@@ -94,15 +89,17 @@ const HomeApp = () => {
           </DialogContent>
         </Dialog>
         <Fragment>
-          {!isDisplayingDeletedClients ? (
-            <Paper style={{ width: '450px' }}>
-              <ClientList clients={activeClients} />
-            </Paper>
-          ) : (
-            <Paper style={{ width: '450px' }}>
-              <ClientList clients={[...activeClients, ...deletedClients]} />
-            </Paper>
-          )}
+          <Paper style={{ width: '450px' }}>
+            <ClientList
+              clients={
+                isDisplayingDeletedClients
+                  ? [...activeClients, ...deletedClients]
+                  : activeClients
+              }
+              selectClient={selectClient}
+            />
+          </Paper>
+          <Button onClick={hideRoster}>Hide Roster</Button>
           {deletedClients.length > 0 && !isDisplayingDeletedClients && (
             <Button onClick={showDeletedClients} style={{ float: 'right' }}>
               Show Deleted Clients
@@ -119,4 +116,4 @@ const HomeApp = () => {
   );
 };
 
-export default HomeApp;
+export default ClientApp;
