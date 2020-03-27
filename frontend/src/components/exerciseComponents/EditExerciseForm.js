@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import ExerciseEntryForm from './ExerciseEntryForm';
 
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 import FormControl from '@material-ui/core/FormControl';
+import IconButton from '@material-ui/core/IconButton';
 
 const EditExerciseForm = ({
   exerciseId,
@@ -12,7 +14,8 @@ const EditExerciseForm = ({
   initialReps,
   initialWeight,
   editExercise,
-  handleCloseDialog,
+  deleteExercise,
+  closeDialog,
   lifts
 }) => {
   const [currentExercise, setCurrentExercise] = useState({
@@ -26,10 +29,12 @@ const EditExerciseForm = ({
     const { id, value } = e.target;
     setCurrentExercise({ ...currentExercise, [id]: value });
   };
-
-  const handleSaveChanges = () => {
+  const handleDelete = () => {
+    deleteExercise();
+  };
+  const saveChanges = () => {
     editExercise(exerciseId, currentExercise);
-    handleCloseDialog();
+    closeDialog();
   };
   return (
     <form>
@@ -40,8 +45,11 @@ const EditExerciseForm = ({
           currentExercise={currentExercise}
         />
         <div>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button color='primary' onClick={handleSaveChanges}>
+          <IconButton onClick={handleDelete}>
+            <DeleteIcon aria-label='Delete' />
+          </IconButton>
+          <Button onClick={closeDialog}>Cancel</Button>
+          <Button color='primary' onClick={saveChanges}>
             Save
           </Button>
         </div>

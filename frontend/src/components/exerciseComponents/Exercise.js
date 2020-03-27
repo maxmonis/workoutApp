@@ -4,23 +4,19 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditExerciseForm from './EditExerciseForm';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItem';
 
 const Exercise = ({ exercise, removeExercise, editExercise, lifts, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const handleRemoveExercise = () => {
+  const deleteExercise = () => {
     removeExercise(exercise.id);
   };
-  const handleOpenDialog = () => {
+  const openDialog = () => {
     setIsDialogOpen(true);
   };
-  const handleCloseDialog = () => {
+  const closeDialog = () => {
     setIsDialogOpen(false);
   };
   return (
@@ -34,36 +30,24 @@ const Exercise = ({ exercise, removeExercise, editExercise, lifts, index }) => {
             component='div'
           >
             <Fragment>
-              <ListItemText>
+              <ListItemText onClick={openDialog}>
                 {exercise.lift}: {exercise.printout}
               </ListItemText>
-              <ListItemSecondaryAction>
-                <IconButton onClick={handleRemoveExercise}>
-                  <DeleteIcon aria-label='Delete' />
-                </IconButton>
-                <IconButton onClick={handleOpenDialog}>
-                  <EditIcon aria-label='Edit' />
-                </IconButton>
-                <Dialog
-                  disableBackdropClick
-                  disableEscapeKeyDown
-                  open={isDialogOpen}
-                  onClose={handleCloseDialog}
-                >
-                  <DialogContent>
-                    <EditExerciseForm
-                      exerciseId={exercise.id}
-                      initialLift={exercise.lift}
-                      initialSets={exercise.sets}
-                      initialReps={exercise.reps}
-                      initialWeight={exercise.weight}
-                      editExercise={editExercise}
-                      handleCloseDialog={handleCloseDialog}
-                      lifts={lifts}
-                    />
-                  </DialogContent>
-                </Dialog>
-              </ListItemSecondaryAction>
+              <Dialog open={isDialogOpen} onClose={closeDialog}>
+                <DialogContent>
+                  <EditExerciseForm
+                    exerciseId={exercise.id}
+                    initialLift={exercise.lift}
+                    initialSets={exercise.sets}
+                    initialReps={exercise.reps}
+                    initialWeight={exercise.weight}
+                    editExercise={editExercise}
+                    deleteExercise={deleteExercise}
+                    closeDialog={closeDialog}
+                    lifts={lifts}
+                  />
+                </DialogContent>
+              </Dialog>
             </Fragment>
           </ListItem>
         )}

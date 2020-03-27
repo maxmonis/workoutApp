@@ -98,7 +98,9 @@ const ClientApp = ({ clients, selectClient, hideRoster }) => {
               selectClient={selectClient}
             />
           </Paper>
-          <Button onClick={hideRoster}>Hide Roster</Button>
+          <Button color='primary' onClick={hideRoster}>
+            Hide Roster
+          </Button>
           {deletedClients.length > 0 && !isDisplayingDeletedClients && (
             <Button onClick={showDeletedClients} style={{ float: 'right' }}>
               Show Deleted Clients

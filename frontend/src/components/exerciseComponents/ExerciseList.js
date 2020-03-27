@@ -14,7 +14,7 @@ const ExerciseList = ({
 }) => {
   if (currentWorkout.length)
     return (
-      <div style={{ width: '450px' }}>
+      <div>
         <Droppable droppableId='ExerciseList'>
           {provided => (
             <List innerRef={provided.innerRef} {...provided.droppableProps}>

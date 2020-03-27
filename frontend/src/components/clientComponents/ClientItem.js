@@ -71,7 +71,10 @@ const ClientItem = ({ client, selectClient }) => {
     return (
       <div key={_id}>
         <ListItem style={{ height: '40px' }}>
-          <Button onClick={handleSelect} style={{ fontSize: '20px' }}>
+          <Button
+            onClick={handleSelect}
+            style={{ fontSize: '20px' }}
+          >
             {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
           </Button>
           <ListItemSecondaryAction>
