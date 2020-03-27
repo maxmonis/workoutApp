@@ -4,6 +4,7 @@ import uuid from 'uuid/v4';
 
 import alphabetize from '../functions/alphabetize';
 import checkForDuplicate from '../functions/checkForDuplicate';
+import updateLiftName from '../functions/updateLiftName';
 
 const alphabetizeLifts = lifts => {
   return alphabetize(lifts, 'liftName');
@@ -25,6 +26,7 @@ export default initialLifts => {
     editLift: (liftId, newLift) => {
       const liftIsDuplicate = checkForDuplicate(lifts, 'liftName', newLift);
       if (!newLift || liftIsDuplicate) return;
+      const originalName = lifts.find(lift => lift.id === liftId).liftName;
       setLifts(
         alphabetizeLifts(
           lifts.map(lift =>
@@ -32,6 +34,7 @@ export default initialLifts => {
           )
         )
       );
+      updateLiftName(originalName, newLift);
     }
   };
 };

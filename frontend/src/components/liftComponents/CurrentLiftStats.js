@@ -18,21 +18,15 @@ const CurrentLiftStats = ({
       personalBest => personalBest.lift === currentLift
     )
   );
-  const getRecentExercises = () => {
-    const recentExercises = [];
-    previousWorkouts.forEach(previousWorkout => {
-      const currentLiftExercises = [];
-      previousWorkout.workout.forEach(exercise => {
-        if (exercise.lift === currentLift) {
-          currentLiftExercises.push(exercise);
-        }
-      });
-      currentLiftExercises.length &&
-        recentExercises.push(organizeExercises(currentLiftExercises)[0]);
+  const recentExercises = [];
+  previousWorkouts.forEach(previousWorkout => {
+    const currentLiftExercises = [];
+    previousWorkout.workout.forEach(exercise => {
+      exercise.lift === currentLift && currentLiftExercises.push(exercise);
     });
-    return recentExercises;
-  };
-  const currentLiftRecentExercises = getRecentExercises();
+    currentLiftExercises.length &&
+      recentExercises.push(organizeExercises(currentLiftExercises)[0]);
+  });
 
   return (
     <div
@@ -59,7 +53,7 @@ const CurrentLiftStats = ({
           <Typography style={{ marginTop: '5px' }} variant='body1'>
             Recent History
           </Typography>
-          {currentLiftRecentExercises.map(recentExercise => (
+          {recentExercises.map(recentExercise => (
             <Typography key={recentExercise.id} variant='body2'>
               {recentExercise.printout}
             </Typography>

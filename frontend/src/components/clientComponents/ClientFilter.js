@@ -25,7 +25,7 @@ const ClientFilter = () => {
   return (
     <form>
       <input
-        style={{ height: '40px', fontSize: '20px' }}
+        style={{ fontSize: '20px', padding: '10px', width:'200px' }}
         ref={text}
         type='text'
         placeholder='Search Clients...'

@@ -28,20 +28,18 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient, clearFilteredClients } = clientContext;
   const [client, setClient] = useState(selectedClient);
-  const { lifts, addLift, removeLift, editLift } = useLiftState(
-    selectedClient.lifts
-  );
+  const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
-    selectedClient.previousWorkouts
+    client.previousWorkouts
   );
   const { personalBests, updatePersonalBests } = usePersonalBestState(
-    selectedClient.personalBests
+    client.personalBests
   );
 
   const {
     currentWorkout,
-    resetCurrentWorkout,
-    reorderCurrentWorkout,
+    resetWorkout,
+    reorderWorkout,
     addExercise,
     removeExercise,
     editExercise
@@ -71,10 +69,10 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const handleOpenDialog = () => {
+  const openDialog = () => {
     setIsDialogOpen(true);
   };
-  const handleCloseDialog = () => {
+  const closeDialog = () => {
     setIsDialogOpen(false);
   };
 
@@ -92,8 +90,7 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   const handleNextExercise = () => {
     addExercise(currentExercise);
   };
-
-  const handleSaveWorkout = () => {
+  const saveWorkout = () => {
     updatePersonalBests(currentWorkout, workoutDate);
     setPreviousWorkouts([
       {
@@ -104,91 +101,95 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
       },
       ...previousWorkouts
     ]);
-    resetCurrentWorkout();
+    resetWorkout();
     setWorkoutName('');
-    handleCloseDialog();
+    closeDialog();
   };
+
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        textAlign: 'center'
       }}
     >
       <CssBaseline />
       <main>
         <Typography variant='h3'>{client.name}</Typography>
-        <Fragment>
-          <CurrentWorkoutApp
-            currentWorkout={currentWorkout}
-            reorderCurrentWorkout={reorderCurrentWorkout}
-            resetCurrentWorkout={resetCurrentWorkout}
-            removeExercise={removeExercise}
-            editExercise={editExercise}
-            lifts={lifts}
-            workoutName={workoutName}
-            handleSaveWorkout={handleSaveWorkout}
-            workoutDate={workoutDate}
-            updateWorkoutDate={updateWorkoutDate}
-            updateWorkoutName={updateWorkoutName}
-          />
-        </Fragment>
-        <Paper
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '450px',
-            padding: '20px'
-          }}
-        >
-          <form>
-            <FormControl>
-              <ExerciseEntryForm
-                lifts={lifts}
-                handleChange={handleChange}
-                currentExercise={currentExercise}
-              />
-            </FormControl>
-            <Button onClick={handleOpenDialog}>Edit Lifts</Button>
-            <Dialog
-              disableBackdropClick
-              disableEscapeKeyDown
-              open={isDialogOpen}
-              onClose={handleCloseDialog}
-              width={'450px'}
-            >
-              <DialogContent>
-                <LiftApp
+        <Paper>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              width: '450px',
+              padding: '20px'
+            }}
+          >
+            <form>
+              <FormControl>
+                <ExerciseEntryForm
                   lifts={lifts}
-                  removeLift={removeLift}
-                  editLift={editLift}
-                  addLift={addLift}
+                  handleChange={handleChange}
+                  currentExercise={currentExercise}
                 />
-                <Button onClick={handleCloseDialog}>
-                  Finished Editing Lifts
-                </Button>
-              </DialogContent>
-            </Dialog>
-            <Button onClick={handleNextExercise} color='primary'>
-              Enter
-            </Button>
-          </form>
-          <div style={{ width: '100%' }}>
-            {previousWorkouts && previousWorkouts.length > 0 ? (
-              <CurrentLiftStats
-                currentClient={client}
-                currentLift={currentExercise.lift}
-                personalBests={personalBests}
-                previousWorkouts={previousWorkouts}
-              />
-            ) : (
-              <Typography variant='h6'>
-                {currentExercise.lift} data will be displayed here once{' '}
-                {client.name} has attempted it
-              </Typography>
-            )}
+              </FormControl>
+              <Button onClick={openDialog}>Edit Lifts</Button>
+              <Dialog
+                disableBackdropClick
+                disableEscapeKeyDown
+                open={isDialogOpen}
+                onClose={closeDialog}
+                width={'450px'}
+              >
+                <DialogContent>
+                  <LiftApp
+                    lifts={lifts}
+                    removeLift={removeLift}
+                    editLift={editLift}
+                    addLift={addLift}
+                  />
+                  <Button onClick={closeDialog}>
+                    Finished Editing Lifts
+                  </Button>
+                </DialogContent>
+              </Dialog>
+              <Button onClick={handleNextExercise} color='primary'>
+                Enter
+              </Button>
+            </form>
+            <div style={{ width: '100%' }}>
+              {previousWorkouts && previousWorkouts.length > 0 ? (
+                <CurrentLiftStats
+                  currentClient={client}
+                  currentLift={currentExercise.lift}
+                  personalBests={personalBests}
+                  previousWorkouts={previousWorkouts}
+                />
+              ) : (
+                <Typography variant='h6'>
+                  {currentExercise.lift} data will be displayed here once{' '}
+                  {client.name} has attempted it
+                </Typography>
+              )}
+            </div>
+          </div>
+          <div style={{ marginBottom: '50px' }}>
+            <CurrentWorkoutApp
+              currentWorkout={currentWorkout}
+              reorderWorkout={reorderWorkout}
+              resetWorkout={resetWorkout}
+              removeExercise={removeExercise}
+              editExercise={editExercise}
+              lifts={lifts}
+              workoutName={workoutName}
+              workoutDate={workoutDate}
+              saveWorkout={saveWorkout}
+              updateWorkoutDate={updateWorkoutDate}
+              updateWorkoutName={updateWorkoutName}
+            />
           </div>
         </Paper>
         <div>

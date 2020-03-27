@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 const Home = () => {
   const clientContext = useContext(ClientContext);
-  const { getClients } = clientContext;
+  const { clients, getClients } = clientContext;
   useEffect(() => {
     getClients();
     // eslint-disable-next-line
@@ -40,15 +40,21 @@ const Home = () => {
       'selectedClient',
       JSON.stringify(selectedClient)
     );
-    hideRoster();
+    selectedClient ? hideRoster() : showRoster();
   }, [selectedClient]);
 
   return (
     <div>
       {isDisplayingRoster ? (
-        <ClientApp selectClient={selectClient} hideRoster={hideRoster} />
+        <ClientApp
+          clients={clients}
+          selectClient={selectClient}
+          hideRoster={hideRoster}
+        />
       ) : (
-        <Button onClick={showRoster}>Show Roster</Button>
+        <Button color='primary' onClick={showRoster}>
+          Show Roster
+        </Button>
       )}
       {selectedClient && (
         <WorkoutApp

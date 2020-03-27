@@ -15,7 +15,6 @@ const LiftList = ({ lifts, removeLift, editLift }) => {
             <Fragment key={lift.id}>
               <Lift
                 {...lift}
-                key={lift.id}
                 removeLift={removeLift}
                 editLift={editLift}
               />

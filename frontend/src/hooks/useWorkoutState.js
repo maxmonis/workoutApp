@@ -5,9 +5,11 @@ import eliminateRedundancy from '../functions/eliminateRedundancy';
 
 export default initialWorkout => {
   const [currentWorkout, setCurrentWorkout] = useState(initialWorkout);
-  const selectedClientName = JSON.parse(
-    window.localStorage.getItem('selectedClient')
-  ).name.replace(' ', '');
+  const selectedClient =
+    JSON.parse(window.localStorage.getItem('selectedClient')) || null;
+  const selectedClientName = selectedClient
+    ? selectedClient.name.replace(' ', '')
+    : '';
   const saveWorkout = updatedWorkout => {
     setCurrentWorkout(updatedWorkout);
     window.localStorage.setItem(
@@ -17,11 +19,11 @@ export default initialWorkout => {
   };
   return {
     currentWorkout,
-    resetCurrentWorkout: () => {
+    resetWorkout: () => {
       setCurrentWorkout([]);
       window.localStorage.removeItem(`workout${selectedClientName}`);
     },
-    reorderCurrentWorkout: newIds => {
+    reorderWorkout: newIds => {
       const reorderedWorkout = [];
       newIds.forEach(newId => {
         currentWorkout.forEach(exercise => {

@@ -13,46 +13,40 @@ import TextField from '@material-ui/core/TextField';
 
 const CurrentWorkoutApp = ({
   currentWorkout,
-  reorderCurrentWorkout,
-  resetCurrentWorkout,
+  reorderWorkout,
+  resetWorkout,
   removeExercise,
   editExercise,
   lifts,
   workoutName,
-  handleSaveWorkout,
   workoutDate,
+  saveWorkout,
   updateWorkoutDate,
   updateWorkoutName
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const handleOpenDialog = () => {
+  const openDialog = () => {
     setIsDialogOpen(true);
   };
-  const handleCloseDialog = () => {
+  const closeDialog = () => {
     setIsDialogOpen(false);
   };
 
   const handleSave = () => {
-    handleSaveWorkout();
-    handleCloseDialog();
+    saveWorkout();
+    closeDialog();
   };
-  const handleResetWorkout = () => {
-    resetCurrentWorkout();
+  const handleReset = () => {
+    resetWorkout();
   };
 
   if (currentWorkout.length) {
     const exercises = organizeExercises(currentWorkout);
     return (
       <div>
-        <Button variant='outlined' color='primary' onClick={handleOpenDialog}>
-          Save Workout
-        </Button>
-        <Button onClick={handleResetWorkout} style={{ float: 'right' }}>
-          Reset Workout
-        </Button>
         <Dialog
           open={isDialogOpen}
-          onClose={handleCloseDialog}
+          onClose={closeDialog}
           aria-labelledby='form-dialog-title'
         >
           <DialogContent>
@@ -77,7 +71,7 @@ const CurrentWorkoutApp = ({
             ))}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color='primary'>
+            <Button onClick={closeDialog} color='primary'>
               Cancel
             </Button>
             {workoutName ? (
@@ -93,11 +87,22 @@ const CurrentWorkoutApp = ({
         </Dialog>
         <ExerciseApp
           currentWorkout={currentWorkout}
-          reorderCurrentWorkout={reorderCurrentWorkout}
+          reorderWorkout={reorderWorkout}
           removeExercise={removeExercise}
           editExercise={editExercise}
           lifts={lifts}
         />
+        <Button
+          variant='outlined'
+          color='primary'
+          onClick={openDialog}
+          style={{ float: 'left' }}
+        >
+          Save Workout
+        </Button>
+        <Button onClick={handleReset} style={{ float: 'right' }}>
+          Reset Workout
+        </Button>
       </div>
     );
   }

@@ -11,29 +11,27 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 
-const ClientApp = ({ selectClient, hideRoster }) => {
+const ClientApp = ({ clients, selectClient, hideRoster }) => {
   const clientContext = useContext(ClientContext);
-  const {
-    clients,
-    filteredClients,
-    editingClient,
-    clearEditingClient
-  } = clientContext;
+  const { filteredClients, editingClient, clearEditingClient } = clientContext;
 
   const activeClients = filteredClients.length
     ? filteredClients.filter(client => client.isActive) || []
     : clients.filter(client => client.isActive) || [];
+
   const deletedClients = filteredClients.length
     ? filteredClients.filter(client => !client.isActive) || []
     : clients.filter(client => !client.isActive) || [];
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const handleOpenDialog = () => setIsDialogOpen(true);
-  const handleCloseDialog = () => setIsDialogOpen(false);
-  const handleAddNewClient = () => {
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
+
+  const addNewClient = () => {
     clearEditingClient();
-    handleOpenDialog();
+    openDialog();
   };
+
   useEffect(() => {
     editingClient ? setIsDialogOpen(true) : setIsDialogOpen(false);
   }, [editingClient]);
@@ -62,6 +60,7 @@ const ClientApp = ({ selectClient, hideRoster }) => {
   const hideDeletedClients = () => {
     setIsDisplayingDeletedClients(false);
   };
+
   return (
     <div
       style={{
@@ -78,14 +77,14 @@ const ClientApp = ({ selectClient, hideRoster }) => {
             variant='outlined'
             color='primary'
             style={{ marginLeft: 'auto', marginRight: '0' }}
-            onClick={handleAddNewClient}
+            onClick={addNewClient}
           >
             Add New Client
           </Button>
         </div>
-        <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+        <Dialog open={isDialogOpen} onClose={closeDialog}>
           <DialogContent>
-            <ClientForm handleCloseDialog={handleCloseDialog} />
+            <ClientForm closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
         <Fragment>

@@ -5,7 +5,6 @@ import EditLiftForm from './EditLiftForm';
 import useToggle from '../../hooks/useToggle';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItem';
@@ -28,13 +27,18 @@ const Lift = ({ id, liftName, removeLift, editLift }) => {
           />
         ) : (
           <Fragment>
-            <ListItemText style={{ fontSize: '20px' }}>{liftName}</ListItemText>
+            <ListItemText
+              aria-label='Edit'
+              onClick={toggle}
+              style={{ fontSize: '20px' }}
+            >
+              {liftName.length < 23
+                ? liftName
+                : `${liftName.slice(0, 23).trim()}...`}{' '}
+            </ListItemText>
             <ListItemSecondaryAction>
               <IconButton onClick={handleRemoveLift}>
                 <DeleteIcon aria-label='Delete' />
-              </IconButton>
-              <IconButton onClick={toggle}>
-                <EditIcon aria-label='Edit' />
               </IconButton>
             </ListItemSecondaryAction>
           </Fragment>

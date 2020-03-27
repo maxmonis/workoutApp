@@ -28,7 +28,6 @@ const EditExerciseForm = ({
   };
 
   const handleSaveChanges = () => {
-    if (currentExercise.weight < 1) return;
     editExercise(exerciseId, currentExercise);
     handleCloseDialog();
   };

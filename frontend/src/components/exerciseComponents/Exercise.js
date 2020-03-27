@@ -12,16 +12,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItem';
 
-const Exercise = ({
-  currentExercise,
-  removeExercise,
-  editExercise,
-  lifts,
-  index
-}) => {
+const Exercise = ({ exercise, removeExercise, editExercise, lifts, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const handleRemoveExercise = () => {
-    removeExercise(currentExercise.id);
+    removeExercise(exercise.id);
   };
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -31,7 +25,7 @@ const Exercise = ({
   };
   return (
     <div style={{ fontSize: '20px' }}>
-      <Draggable draggableId={currentExercise.id} index={index}>
+      <Draggable draggableId={exercise.id} index={index}>
         {provided => (
           <ListItem
             innerRef={provided.innerRef}
@@ -41,7 +35,7 @@ const Exercise = ({
           >
             <Fragment>
               <ListItemText>
-                {currentExercise.lift}: {currentExercise.printout}
+                {exercise.lift}: {exercise.printout}
               </ListItemText>
               <ListItemSecondaryAction>
                 <IconButton onClick={handleRemoveExercise}>
@@ -55,15 +49,14 @@ const Exercise = ({
                   disableEscapeKeyDown
                   open={isDialogOpen}
                   onClose={handleCloseDialog}
-                  width={'500px'}
                 >
                   <DialogContent>
                     <EditExerciseForm
-                      exerciseId={currentExercise.id}
-                      initialLift={currentExercise.lift}
-                      initialSets={currentExercise.sets}
-                      initialReps={currentExercise.reps}
-                      initialWeight={currentExercise.weight}
+                      exerciseId={exercise.id}
+                      initialLift={exercise.lift}
+                      initialSets={exercise.sets}
+                      initialReps={exercise.reps}
+                      initialWeight={exercise.weight}
                       editExercise={editExercise}
                       handleCloseDialog={handleCloseDialog}
                       lifts={lifts}

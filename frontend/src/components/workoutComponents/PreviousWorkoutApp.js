@@ -10,9 +10,6 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 const PreviousWorkoutApp = ({ previousWorkouts }) => {
-  const [currentWorkoutName, setCurrentWorkoutName] = useState('All');
-  const [isDisplayingWorkouts, setIsDisplayingWorkouts] = useState(false);
-
   const uniqueWorkoutNames = ['All'];
   const sortedWorkoutNames = alphabetize(
     previousWorkouts.map(previousWorkout => previousWorkout.name)
@@ -22,13 +19,7 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
       uniqueWorkoutNames.push(workoutName);
   }
 
-  const selectedWorkouts =
-    currentWorkoutName !== 'All'
-      ? previousWorkouts.filter(
-          previousWorkout => previousWorkout.name === currentWorkoutName
-        )
-      : previousWorkouts;
-
+  const [isDisplayingWorkouts, setIsDisplayingWorkouts] = useState(false);
   const showWorkouts = () => {
     setIsDisplayingWorkouts(true);
   };
@@ -39,10 +30,19 @@ const PreviousWorkoutApp = ({ previousWorkouts }) => {
   const handleToggle = () => {
     isDisplayingWorkouts ? hideWorkouts() : showWorkouts();
   };
+
+  const [currentWorkoutName, setCurrentWorkoutName] = useState('All');
   const handleChange = e => {
     setCurrentWorkoutName(e.target.value);
     !isDisplayingWorkouts && showWorkouts();
   };
+
+  const selectedWorkouts =
+    currentWorkoutName !== 'All'
+      ? previousWorkouts.filter(
+          previousWorkout => previousWorkout.name === currentWorkoutName
+        )
+      : previousWorkouts;
 
   return (
     <div style={{ width: '450px', marginTop: '20px' }}>
