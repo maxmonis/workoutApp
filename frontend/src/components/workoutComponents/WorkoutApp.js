@@ -6,10 +6,10 @@ import uuid from 'uuid/v4';
 
 import BrokenRecordsApp from '../personalBestComponents/BrokenRecordsApp';
 import CurrentLiftStats from '../liftComponents/CurrentLiftStats';
-import CurrentWorkoutApp from '../workoutComponents/CurrentWorkoutApp';
+import CurrentWorkoutApp from './CurrentWorkoutApp';
 import ExerciseEntryForm from '../exerciseComponents/ExerciseEntryForm';
 import LiftApp from '../liftComponents/LiftApp';
-import PreviousWorkoutApp from '../workoutComponents/PreviousWorkoutApp';
+import PreviousWorkoutApp from './PreviousWorkoutApp';
 import PersonalBestApp from '../personalBestComponents/PersonalBestApp';
 
 import useLiftState from '../../hooks/useLiftState';

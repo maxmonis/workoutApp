@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import ClientApp from '../clientComponents/ClientApp';
-import WorkoutApp from './WorkoutApp';
+import WorkoutApp from '../workoutComponents/WorkoutApp';
 
 import ClientContext from '../../context/client/clientContext';
 
