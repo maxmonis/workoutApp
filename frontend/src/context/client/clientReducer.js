@@ -48,7 +48,8 @@ export default (state, action) => {
         ...state,
         filteredClients: state.clients.filter(client => {
           const regexp = new RegExp(`${action.payload}`, 'gi');
-          return client.name.match(regexp) || client.email.match(regexp);
+          const clientEmail = client.email.replace(/@.*$/, '');
+          return client.name.match(regexp) || clientEmail.match(regexp);
         })
       };
     case 'CLEAR_FILTERED_CLIENTS':

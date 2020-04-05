@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 export default exercises => {
   if (!exercises) return;
   let currentExercise = {};
-  let organizedExercises = [];
+  const organizedExercises = [];
   for (let i = 0; i < exercises.length; i++) {
     const currentLift = exercises[i].lift;
     const currentSets = exercises[i].sets;

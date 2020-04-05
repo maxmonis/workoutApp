@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
 
@@ -16,12 +16,12 @@ const ClientApp = ({ clients, selectClient, hideRoster }) => {
   const { filteredClients, editingClient, clearEditingClient } = clientContext;
 
   const activeClients = filteredClients.length
-    ? filteredClients.filter(client => client.isActive) || []
-    : clients.filter(client => client.isActive) || [];
+    ? filteredClients.filter((client) => client.isActive) || []
+    : clients.filter((client) => client.isActive) || [];
 
   const deletedClients = filteredClients.length
-    ? filteredClients.filter(client => !client.isActive) || []
-    : clients.filter(client => !client.isActive) || [];
+    ? filteredClients.filter((client) => !client.isActive) || []
+    : clients.filter((client) => !client.isActive) || [];
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const openDialog = () => setIsDialogOpen(true);
@@ -67,51 +67,54 @@ const ClientApp = ({ clients, selectClient, hideRoster }) => {
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       <div>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <ClientFilter />
-          <Button
-            variant='outlined'
-            color='primary'
-            style={{ marginLeft: 'auto', marginRight: '0' }}
-            onClick={addNewClient}
+        <Paper style={{ width: '300px' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+            }}
           >
-            Add New Client
-          </Button>
-        </div>
-        <Dialog open={isDialogOpen} onClose={closeDialog}>
-          <DialogContent>
-            <ClientForm closeDialog={closeDialog} />
-          </DialogContent>
-        </Dialog>
-        <Fragment>
-          <Paper style={{ width: '450px' }}>
-            <ClientList
-              clients={
-                isDisplayingDeletedClients
-                  ? [...activeClients, ...deletedClients]
-                  : activeClients
-              }
-              selectClient={selectClient}
-            />
-          </Paper>
-          <Button color='primary' onClick={hideRoster}>
-            Hide Roster
-          </Button>
-          {deletedClients.length > 0 && !isDisplayingDeletedClients && (
-            <Button onClick={showDeletedClients} style={{ float: 'right' }}>
-              Show Deleted Clients
+            <ClientFilter />
+            <Button
+              color='primary'
+              variant='outlined'
+              style={{ marginLeft: 'auto', marginRight: '0' }}
+              onClick={addNewClient}
+            >
+              New Client
             </Button>
-          )}
-          {!filteredClients.length && isDisplayingDeletedClients && (
-            <Button onClick={hideDeletedClients} style={{ float: 'right' }}>
-              Hide Deleted Clients
-            </Button>
-          )}
-        </Fragment>
+          </div>
+          <Dialog open={isDialogOpen} onClose={closeDialog}>
+            <DialogContent>
+              <ClientForm closeDialog={closeDialog} />
+            </DialogContent>
+          </Dialog>
+          <ClientList
+            clients={
+              isDisplayingDeletedClients
+                ? [...activeClients, ...deletedClients]
+                : activeClients
+            }
+            selectClient={selectClient}
+          />
+        </Paper>
+        <Button color='primary' onClick={hideRoster}>
+          Hide Roster
+        </Button>
+        {deletedClients.length > 0 && !isDisplayingDeletedClients && (
+          <Button onClick={showDeletedClients} style={{ float: 'right' }}>
+            Show Deleted Clients
+          </Button>
+        )}
+        {!filteredClients.length && isDisplayingDeletedClients && (
+          <Button onClick={hideDeletedClients} style={{ float: 'right' }}>
+            Hide Deleted Clients
+          </Button>
+        )}
       </div>
     </div>
   );

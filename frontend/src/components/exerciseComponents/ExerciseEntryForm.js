@@ -7,10 +7,10 @@ import TextField from '@material-ui/core/TextField';
 
 const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
   return (
-    <div style={{ width: '200px' }}>
+    <div style={{ width: '180px', alignItems: 'center' }}>
       <InputLabel id='currentLift'>Lift</InputLabel>
       <Select
-        style={styles.field}
+        style={{ fontSize: '20px', width: '100%' }}
         native
         labelId='currentLift'
         id='lift'
@@ -31,6 +31,7 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
         type='number'
         value={currentExercise.sets}
         onChange={handleChange}
+        inputProps={{ style: { textAlign: 'center' } }}
       />
       <TextField
         style={styles.field}
@@ -39,15 +40,16 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
         type='number'
         value={currentExercise.reps}
         onChange={handleChange}
+        inputProps={{ style: { textAlign: 'center' } }}
       />
       <TextField
         style={styles.field}
-        required
         id='weight'
         label='Weight'
         type='number'
         value={currentExercise.weight}
         onChange={handleChange}
+        inputProps={{ style: { textAlign: 'center' } }}
       />
     </div>
   );
@@ -55,8 +57,9 @@ const ExerciseEntryForm = ({ lifts, handleChange, currentExercise }) => {
 
 const styles = {
   field: {
-    fontSize: '20px',
-    width: '175px'
+    width: '50px',
+    margin: '5px',
+    textAlign: 'center'
   }
 };
 

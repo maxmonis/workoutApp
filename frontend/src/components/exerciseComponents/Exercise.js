@@ -1,57 +1,52 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 
 import { Draggable } from 'react-beautiful-dnd';
 
+import EditExerciseForm from './EditExerciseForm';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import EditExerciseForm from './EditExerciseForm';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItem';
 
 const Exercise = ({ exercise, removeExercise, editExercise, lifts, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const deleteExercise = () => {
-    removeExercise(exercise.id);
-  };
   const openDialog = () => {
     setIsDialogOpen(true);
   };
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
+  const deleteExercise = () => {
+    removeExercise(exercise.id);
+  };
   return (
-    <div style={{ fontSize: '20px' }}>
+    <div>
       <Draggable draggableId={exercise.id} index={index}>
         {provided => (
-          <ListItem
-            innerRef={provided.innerRef}
+          <li
+            ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            component='div'
+            onClick={openDialog}
           >
-            <Fragment>
-              <ListItemText onClick={openDialog}>
-                {exercise.lift}: {exercise.printout}
-              </ListItemText>
-              <Dialog open={isDialogOpen} onClose={closeDialog}>
-                <DialogContent>
-                  <EditExerciseForm
-                    exerciseId={exercise.id}
-                    initialLift={exercise.lift}
-                    initialSets={exercise.sets}
-                    initialReps={exercise.reps}
-                    initialWeight={exercise.weight}
-                    editExercise={editExercise}
-                    deleteExercise={deleteExercise}
-                    closeDialog={closeDialog}
-                    lifts={lifts}
-                  />
-                </DialogContent>
-              </Dialog>
-            </Fragment>
-          </ListItem>
+            {exercise.lift}: {exercise.printout}
+          </li>
         )}
       </Draggable>
+      <Dialog open={isDialogOpen} onClose={closeDialog}>
+        <DialogContent>
+          <EditExerciseForm
+            exerciseId={exercise.id}
+            initialLift={exercise.lift}
+            initialSets={exercise.sets}
+            initialReps={exercise.reps}
+            initialWeight={exercise.weight}
+            editExercise={editExercise}
+            deleteExercise={deleteExercise}
+            closeDialog={closeDialog}
+            lifts={lifts}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -4,8 +4,6 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import ExerciseList from './ExerciseList';
 
-import Grid from '@material-ui/core/Grid';
-
 const ExerciseApp = ({
   currentWorkout,
   reorderWorkout,
@@ -25,16 +23,12 @@ const ExerciseApp = ({
   };
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Grid container justify='center'>
-        <Grid item xs>
-          <ExerciseList
-            currentWorkout={currentWorkout}
-            removeExercise={removeExercise}
-            editExercise={editExercise}
-            lifts={lifts}
-          />
-        </Grid>
-      </Grid>
+      <ExerciseList
+        currentWorkout={currentWorkout}
+        removeExercise={removeExercise}
+        editExercise={editExercise}
+        lifts={lifts}
+      />
     </DragDropContext>
   );
 };

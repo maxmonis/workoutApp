@@ -63,9 +63,9 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
   const [workoutName, setWorkoutName] = useState('');
   const [currentExercise, setCurrentExercise] = useState({
     lift: lifts[0].liftName,
-    sets: 1,
-    reps: 1,
-    weight: 1
+    sets: '',
+    reps: '',
+    weight: ''
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -124,7 +124,7 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              width: '450px',
+              width: '375px',
               padding: '20px'
             }}
           >
@@ -151,9 +151,7 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
                     editLift={editLift}
                     addLift={addLift}
                   />
-                  <Button onClick={closeDialog}>
-                    Finished Editing Lifts
-                  </Button>
+                  <Button onClick={closeDialog}>Finished Editing Lifts</Button>
                 </DialogContent>
               </Dialog>
               <Button onClick={handleNextExercise} color='primary'>
@@ -161,35 +159,35 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
               </Button>
             </form>
             <div style={{ width: '100%' }}>
-              {previousWorkouts && previousWorkouts.length > 0 ? (
-                <CurrentLiftStats
-                  currentClient={client}
-                  currentLift={currentExercise.lift}
-                  personalBests={personalBests}
-                  previousWorkouts={previousWorkouts}
-                />
-              ) : (
-                <Typography variant='h6'>
-                  {currentExercise.lift} data will be displayed here once{' '}
-                  {client.name} has attempted it
-                </Typography>
-              )}
+              <CurrentWorkoutApp
+                currentWorkout={currentWorkout}
+                reorderWorkout={reorderWorkout}
+                resetWorkout={resetWorkout}
+                removeExercise={removeExercise}
+                editExercise={editExercise}
+                lifts={lifts}
+                workoutName={workoutName}
+                workoutDate={workoutDate}
+                saveWorkout={saveWorkout}
+                updateWorkoutDate={updateWorkoutDate}
+                updateWorkoutName={updateWorkoutName}
+              />
             </div>
           </div>
           <div style={{ marginBottom: '50px' }}>
-            <CurrentWorkoutApp
-              currentWorkout={currentWorkout}
-              reorderWorkout={reorderWorkout}
-              resetWorkout={resetWorkout}
-              removeExercise={removeExercise}
-              editExercise={editExercise}
-              lifts={lifts}
-              workoutName={workoutName}
-              workoutDate={workoutDate}
-              saveWorkout={saveWorkout}
-              updateWorkoutDate={updateWorkoutDate}
-              updateWorkoutName={updateWorkoutName}
-            />
+            {previousWorkouts && previousWorkouts.length > 0 ? (
+              <CurrentLiftStats
+                currentClient={client}
+                currentLift={currentExercise.lift}
+                personalBests={personalBests}
+                previousWorkouts={previousWorkouts}
+              />
+            ) : (
+              <Typography variant='h6'>
+                {currentExercise.lift} data will be displayed here once{' '}
+                {client.name} has attempted it
+              </Typography>
+            )}
           </div>
         </Paper>
         <div>

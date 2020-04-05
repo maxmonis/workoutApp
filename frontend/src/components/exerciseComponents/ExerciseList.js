@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Droppable } from 'react-beautiful-dnd';
 
-import Divider from '@material-ui/core/Divider';
 import Exercise from './Exercise';
-import List from '@material-ui/core/List';
 
 const ExerciseList = ({
   currentWorkout,
@@ -14,11 +12,14 @@ const ExerciseList = ({
 }) => {
   if (currentWorkout.length)
     return (
-      <div>
+      <div style={{ textAlign: 'left' }}>
         <Droppable droppableId='ExerciseList'>
           {provided => (
-            <List innerRef={provided.innerRef} {...provided.droppableProps}>
-              <Divider />
+            <ul
+              style={{ listStyle: 'none', padding: 0 }}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
               {currentWorkout.map((exercise, index) => (
                 <Exercise
                   key={exercise.id}
@@ -30,7 +31,7 @@ const ExerciseList = ({
                 />
               ))}
               {provided.placeholder}
-            </List>
+            </ul>
           )}
         </Droppable>
       </div>

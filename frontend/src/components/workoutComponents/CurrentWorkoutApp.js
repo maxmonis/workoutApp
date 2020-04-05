@@ -92,17 +92,12 @@ const CurrentWorkoutApp = ({
           editExercise={editExercise}
           lifts={lifts}
         />
-        <Button
-          variant='outlined'
-          color='primary'
-          onClick={openDialog}
-          style={{ float: 'left' }}
-        >
-          Save Workout
-        </Button>
-        <Button onClick={handleReset} style={{ float: 'right' }}>
-          Reset Workout
-        </Button>
+        <div>
+          <Button onClick={handleReset}>Reset</Button>
+          <Button color='primary' onClick={openDialog}>
+            Save
+          </Button>
+        </div>
       </div>
     );
   }

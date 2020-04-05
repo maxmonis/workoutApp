@@ -25,10 +25,11 @@ const ClientItem = ({ client, selectClient }) => {
     deleteClient,
     updateClient,
     setEditingClient,
-    clearEditingClient
+    clearEditingClient,
   } = clientContext;
   const [currentClient, setCurrentClient] = useState(client);
   const { _id, name } = currentClient;
+  const clientName = name.length < 18 ? name : `${name.slice(0, 17).trim()}...`;
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const ClientItem = ({ client, selectClient }) => {
     // eslint-disable-next-line
   }, [currentClient]);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setInputValue(e.target.value);
   };
   const handleSelect = () => {
@@ -71,12 +72,7 @@ const ClientItem = ({ client, selectClient }) => {
     return (
       <div key={_id}>
         <ListItem style={{ height: '40px' }}>
-          <Button
-            onClick={handleSelect}
-            style={{ fontSize: '20px' }}
-          >
-            {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
-          </Button>
+          <Button onClick={handleSelect}>{clientName}</Button>
           <ListItemSecondaryAction>
             <IconButton onClick={handleEdit}>
               <EditIcon aria-label='Edit' />
@@ -128,8 +124,8 @@ const ClientItem = ({ client, selectClient }) => {
           </DialogActions>
         </Dialog>
         <ListItem style={{ height: '40px' }}>
-          <Button disabled style={{ fontSize: '20px' }}>
-            {name.length < 21 ? name : `${name.slice(0, 20).trim()}...`}
+          <Button disabled>
+            {clientName}
           </Button>
           <ListItemSecondaryAction>
             <IconButton onClick={handleRecover}>
