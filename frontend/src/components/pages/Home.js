@@ -9,7 +9,12 @@ import Button from '@material-ui/core/Button';
 
 const Home = () => {
   const clientContext = useContext(ClientContext);
-  const { clients, getClients, selectedClient } = clientContext;
+  const {
+    clients,
+    getClients,
+    selectedClient,
+    setSelectedClient,
+  } = clientContext;
   useEffect(() => {
     getClients();
     // eslint-disable-next-line
@@ -18,6 +23,7 @@ const Home = () => {
   const currentClient = selectedClient
     ? selectedClient
     : JSON.parse(window.localStorage.getItem('selectedClient')) || null;
+  if (currentClient && !selectedClient) setSelectedClient(currentClient);
   const initialWorkout = currentClient
     ? JSON.parse(
         window.localStorage.getItem(
