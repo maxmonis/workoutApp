@@ -8,13 +8,13 @@ const ExerciseList = ({
   currentWorkout,
   removeExercise,
   editExercise,
-  lifts
+  lifts,
 }) => {
   if (currentWorkout.length)
     return (
-      <div style={{ textAlign: 'left' }}>
+      <div>
         <Droppable droppableId='ExerciseList'>
-          {provided => (
+          {(provided) => (
             <ul
               style={{ listStyle: 'none', padding: 0 }}
               ref={provided.innerRef}

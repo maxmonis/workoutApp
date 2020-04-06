@@ -18,7 +18,7 @@ const Home = () => {
   const initialClient =
     JSON.parse(window.localStorage.getItem('selectedClient')) || null;
   const [selectedClient, setSelectedClient] = useState(initialClient);
-  const selectClient = client => setSelectedClient(client);
+  const selectClient = (client) => setSelectedClient(client);
   const initialWorkout = selectedClient
     ? JSON.parse(
         window.localStorage.getItem(

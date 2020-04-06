@@ -42,7 +42,7 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     reorderWorkout,
     addExercise,
     removeExercise,
-    editExercise
+    editExercise,
   } = useWorkoutState(initialWorkout);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     lift: lifts[0].liftName,
     sets: '',
     reps: '',
-    weight: ''
+    weight: '',
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -76,14 +76,14 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
     setIsDialogOpen(false);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
     setCurrentExercise({ ...currentExercise, [id]: value });
   };
-  const updateWorkoutDate = e => {
+  const updateWorkoutDate = (e) => {
     setWorkoutDate(e.target.value);
   };
-  const updateWorkoutName = e => {
+  const updateWorkoutName = (e) => {
     setWorkoutName(e.target.value);
   };
 
@@ -97,9 +97,9 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
         id: uuid(),
         name: workoutName,
         date: workoutDate,
-        workout: currentWorkout
+        workout: currentWorkout,
       },
-      ...previousWorkouts
+      ...previousWorkouts,
     ]);
     resetWorkout();
     setWorkoutName('');
@@ -113,7 +113,8 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        maxWidth: '375px',
       }}
     >
       <CssBaseline />
@@ -122,42 +123,43 @@ const WorkoutApp = ({ selectedClient, initialWorkout }) => {
         <Paper>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              width: '375px',
-              padding: '20px'
+              width: '350px',
+              padding: '20px',
             }}
           >
-            <form>
-              <FormControl>
-                <ExerciseEntryForm
-                  lifts={lifts}
-                  handleChange={handleChange}
-                  currentExercise={currentExercise}
-                />
-              </FormControl>
-              <Button onClick={openDialog}>Edit Lifts</Button>
-              <Dialog
-                disableBackdropClick
-                disableEscapeKeyDown
-                open={isDialogOpen}
-                onClose={closeDialog}
-                width={'450px'}
-              >
-                <DialogContent>
-                  <LiftApp
+            <div>
+              <form>
+                <FormControl>
+                  <ExerciseEntryForm
                     lifts={lifts}
-                    removeLift={removeLift}
-                    editLift={editLift}
-                    addLift={addLift}
+                    handleChange={handleChange}
+                    currentExercise={currentExercise}
                   />
-                  <Button onClick={closeDialog}>Finished Editing Lifts</Button>
-                </DialogContent>
-              </Dialog>
-              <Button onClick={handleNextExercise} color='primary'>
-                Enter
-              </Button>
-            </form>
+                </FormControl>
+                <Button onClick={openDialog}>Edit Lifts</Button>
+                <Dialog
+                  disableBackdropClick
+                  disableEscapeKeyDown
+                  open={isDialogOpen}
+                  onClose={closeDialog}
+                >
+                  <DialogContent>
+                    <LiftApp
+                      lifts={lifts}
+                      removeLift={removeLift}
+                      editLift={editLift}
+                      addLift={addLift}
+                    />
+                    <Button onClick={closeDialog}>
+                      Finished Editing Lifts
+                    </Button>
+                  </DialogContent>
+                </Dialog>
+                <Button onClick={handleNextExercise} color='primary'>
+                  Enter
+                </Button>
+              </form>
+            </div>
             <div style={{ width: '100%' }}>
               <CurrentWorkoutApp
                 currentWorkout={currentWorkout}

@@ -94,6 +94,7 @@ const ClientApp = ({ clients, selectClient, hideRoster }) => {
             </DialogContent>
           </Dialog>
           <ClientList
+            key={activeClients.length}
             clients={
               isDisplayingDeletedClients
                 ? [...activeClients, ...deletedClients]
