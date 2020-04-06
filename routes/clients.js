@@ -17,14 +17,7 @@ router.get('/', auth, async (req, res) => {
 
 router.post(
   '/',
-  [
-    auth,
-    [
-      check('name', 'Name is required')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check('name', 'Name is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -36,9 +29,10 @@ router.post(
       phone,
       isActive,
       lifts,
+      currentWorkout,
       previousWorkouts,
       personalBests,
-      lastAccessed
+      lastAccessed,
     } = req.body;
     try {
       const newClient = new Client({
@@ -47,10 +41,11 @@ router.post(
         phone,
         isActive,
         lifts,
+        currentWorkout,
         previousWorkouts,
         personalBests,
         lastAccessed,
-        user: req.user.id
+        user: req.user.id,
       });
       const client = await newClient.save();
       res.json(client);
@@ -68,9 +63,10 @@ router.put('/:id', auth, async (req, res) => {
     phone,
     isActive,
     lifts,
+    currentWorkout,
     previousWorkouts,
     personalBests,
-    lastAccessed
+    lastAccessed,
   } = req.body;
   const clientFields = {};
   clientFields.isActive = isActive;
@@ -78,6 +74,7 @@ router.put('/:id', auth, async (req, res) => {
   if (email) clientFields.email = email;
   if (phone) clientFields.phone = phone;
   if (lifts) clientFields.lifts = lifts;
+  if (currentWorkout) clientFields.currentWorkout = currentWorkout;
   if (previousWorkouts) clientFields.previousWorkouts = previousWorkouts;
   if (personalBests) clientFields.personalBests = personalBests;
   if (lastAccessed) clientFields.lastAccessed = lastAccessed;

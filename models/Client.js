@@ -3,34 +3,37 @@ const mongoose = require('mongoose');
 const ClientSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
-    type: String
+    type: String,
   },
   phone: {
-    type: String
+    type: String,
   },
   isActive: {
     type: Boolean,
-    default: true
+    default: true,
   },
   lifts: {
-    type: []
+    type: [],
+  },
+  currentWorkout: {
+    type: [],
   },
   previousWorkouts: {
-    type: []
+    type: [],
   },
   personalBests: {
-    type: []
+    type: [],
   },
   lastAccessed: {
-    type: Number
-  }
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('client', ClientSchema);

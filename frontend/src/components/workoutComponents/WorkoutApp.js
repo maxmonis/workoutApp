@@ -24,18 +24,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-const WorkoutApp = ({ currentClient, initialWorkout }) => {
+const WorkoutApp = ({ currentClient }) => {
   const clientContext = useContext(ClientContext);
-  const { updateClient, clearFilteredClients } = clientContext;
+  const {
+    updateClient,
+    setSelectedClient,
+  } = clientContext;
   const [client, setClient] = useState(currentClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
-  const [previousWorkouts, setPreviousWorkouts] = useState(
-    client.previousWorkouts
-  );
-  const { personalBests, updatePersonalBests } = usePersonalBestState(
-    client.personalBests
-  );
-
   const {
     currentWorkout,
     resetWorkout,
@@ -43,18 +39,28 @@ const WorkoutApp = ({ currentClient, initialWorkout }) => {
     addExercise,
     removeExercise,
     editExercise,
-  } = useWorkoutState(initialWorkout);
+  } = useWorkoutState(client.currentWorkout);
+  const [previousWorkouts, setPreviousWorkouts] = useState(
+    client.previousWorkouts
+  );
+  const { personalBests, updatePersonalBests } = usePersonalBestState(
+    client.personalBests
+  );
 
   useEffect(() => {
-    clearFilteredClients();
+    setClient({
+      ...client,
+      lifts,
+      currentWorkout,
+      previousWorkouts,
+      personalBests,
+    });
     // eslint-disable-next-line
-  }, []);
-  useEffect(() => {
-    setClient({ ...client, lifts, previousWorkouts, personalBests });
-    // eslint-disable-next-line
-  }, [lifts, previousWorkouts, personalBests]);
+  }, [lifts, currentWorkout, previousWorkouts, personalBests]);
   useEffect(() => {
     updateClient(client);
+    setSelectedClient(client);
+    console.log(client);
     // eslint-disable-next-line
   }, [client]);
 
@@ -67,6 +73,10 @@ const WorkoutApp = ({ currentClient, initialWorkout }) => {
     reps: '',
     weight: '',
   });
+  useEffect(() => {
+    setCurrentExercise({ ...currentExercise, lift: lifts[0].liftName });
+    //eslint-disable-next-line
+  }, [lifts]);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const openDialog = () => {

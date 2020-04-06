@@ -24,13 +24,6 @@ const Home = () => {
     ? selectedClient
     : JSON.parse(window.localStorage.getItem('selectedClient')) || null;
   if (currentClient && !selectedClient) setSelectedClient(currentClient);
-  const initialWorkout = currentClient
-    ? JSON.parse(
-        window.localStorage.getItem(
-          `workout${currentClient.name.replace(' ', '')}`
-        )
-      ) || []
-    : [];
 
   const [isDisplayingRoster, setIsDisplayingRoster] = useState(true);
   const showRoster = () => {
@@ -41,7 +34,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect');
     window.localStorage.setItem(
       'selectedClient',
       JSON.stringify(currentClient)
@@ -63,7 +55,6 @@ const Home = () => {
         <WorkoutApp
           key={currentClient._id}
           currentClient={currentClient}
-          initialWorkout={initialWorkout}
         />
       )}
     </div>

@@ -3,60 +3,48 @@ import { useState } from 'react';
 import createNewExercise from '../functions/createNewExercise';
 import eliminateRedundancy from '../functions/eliminateRedundancy';
 
-export default initialWorkout => {
+export default (initialWorkout) => {
   const [currentWorkout, setCurrentWorkout] = useState(initialWorkout);
-  const selectedClient =
-    JSON.parse(window.localStorage.getItem('selectedClient')) || null;
-  const selectedClientName = selectedClient
-    ? selectedClient.name.replace(' ', '')
-    : '';
-  const saveWorkout = updatedWorkout => {
-    setCurrentWorkout(updatedWorkout);
-    window.localStorage.setItem(
-      `workout${selectedClientName}`,
-      JSON.stringify(updatedWorkout)
-    );
-  };
+
   return {
     currentWorkout,
     resetWorkout: () => {
       setCurrentWorkout([]);
-      window.localStorage.removeItem(`workout${selectedClientName}`);
     },
-    reorderWorkout: newIds => {
+    reorderWorkout: (newIds) => {
       const reorderedWorkout = [];
-      newIds.forEach(newId => {
-        currentWorkout.forEach(exercise => {
+      newIds.forEach((newId) => {
+        currentWorkout.forEach((exercise) => {
           if (exercise.id === newId) {
             reorderedWorkout.push(exercise);
           }
         });
       });
       const updatedWorkout = eliminateRedundancy(reorderedWorkout);
-      saveWorkout(updatedWorkout);
+      setCurrentWorkout(updatedWorkout);
     },
-    addExercise: exercise => {
+    addExercise: (exercise) => {
       const newExercise = createNewExercise(exercise);
       const updatedWorkout = eliminateRedundancy([
         ...currentWorkout,
-        newExercise
+        newExercise,
       ]);
-      saveWorkout(updatedWorkout);
+      setCurrentWorkout(updatedWorkout);
     },
-    removeExercise: exerciseId => {
+    removeExercise: (exerciseId) => {
       const updatedWorkout = eliminateRedundancy(
-        currentWorkout.filter(exercise => exercise.id !== exerciseId)
+        currentWorkout.filter((exercise) => exercise.id !== exerciseId)
       );
-      saveWorkout(updatedWorkout);
+      setCurrentWorkout(updatedWorkout);
     },
     editExercise: (exerciseId, updatedExercise) => {
       const newExercise = createNewExercise(updatedExercise);
       const updatedWorkout = eliminateRedundancy(
-        currentWorkout.map(exercise =>
+        currentWorkout.map((exercise) =>
           exercise.id === exerciseId ? newExercise : exercise
         )
       );
-      saveWorkout(updatedWorkout);
-    }
+      setCurrentWorkout(updatedWorkout);
+    },
   };
 };

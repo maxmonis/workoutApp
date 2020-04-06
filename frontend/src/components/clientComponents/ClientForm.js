@@ -15,7 +15,7 @@ const ClientForm = ({ closeDialog }) => {
     addClient,
     updateClient,
     editingClient,
-    clearEditingClient
+    clearEditingClient,
   } = clientContext;
   const defaultClient = {
     name: '',
@@ -25,11 +25,12 @@ const ClientForm = ({ closeDialog }) => {
     lifts: [
       { id: uuid(), liftName: 'Bench Press' },
       { id: uuid(), liftName: 'Deadlift' },
-      { id: uuid(), liftName: 'Squat' }
+      { id: uuid(), liftName: 'Squat' },
     ],
+    currentWorkout: [],
     previousWorkouts: [],
     personalBests: [],
-    lastAccessed: Date.now()
+    lastAccessed: Date.now(),
   };
   useEffect(() => {
     if (editingClient) {
@@ -41,11 +42,11 @@ const ClientForm = ({ closeDialog }) => {
   }, [clientContext, editingClient]);
   const [client, setClient] = useState(defaultClient);
   const { name, email, phone } = client;
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setClient({ ...client, [name]: value });
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!editingClient) {
       addClient(client);

@@ -27,6 +27,7 @@ const ClientItem = ({ client }) => {
     setSelectedClient,
     setEditingClient,
     clearEditingClient,
+    clearFilteredClients,
   } = clientContext;
   const [currentClient, setCurrentClient] = useState(client);
   const { _id, name } = currentClient;
@@ -42,6 +43,7 @@ const ClientItem = ({ client }) => {
     setInputValue(e.target.value);
   };
   const handleSelect = () => {
+    clearFilteredClients();
     const selectedClient = { ...currentClient, lastAccessed: Date.now() };
     setCurrentClient(selectedClient);
     setSelectedClient(selectedClient);
