@@ -3,12 +3,13 @@ import axios from 'axios';
 import ClientContext from './clientContext';
 import clientReducer from './clientReducer';
 
-const ClientState = props => {
+const ClientState = (props) => {
   const initialState = {
     clients: [],
+    selectedClient: null,
     editingClient: null,
     filteredClients: [],
-    error: null
+    error: null,
   };
   const [state, dispatch] = useReducer(clientReducer, initialState);
 
@@ -21,11 +22,11 @@ const ClientState = props => {
     }
   };
 
-  const addClient = async client => {
+  const addClient = async (client) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
     try {
       const res = await axios.post('/api/clients', client, config);
@@ -35,11 +36,11 @@ const ClientState = props => {
     }
   };
 
-  const updateClient = async client => {
+  const updateClient = async (client) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
     try {
       const res = await axios.put(`/api/clients/${client._id}`, client, config);
@@ -49,7 +50,7 @@ const ClientState = props => {
     }
   };
 
-  const deleteClient = async id => {
+  const deleteClient = async (id) => {
     try {
       await axios.delete(`/api/clients/${id}`);
       dispatch({ type: 'DELETE_CLIENT', payload: id });
@@ -61,13 +62,19 @@ const ClientState = props => {
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' });
   };
-  const setEditingClient = client => {
+  const setSelectedClient = async (client) => {
+    dispatch({ type: 'SET_SELECTED_CLIENT', payload: client });
+  };
+  const clearSelectedClient = () => {
+    dispatch({ type: 'CLEAR_SELECTED_CLIENT' });
+  };
+  const setEditingClient = (client) => {
     dispatch({ type: 'SET_EDITING_CLIENT', payload: client });
   };
   const clearEditingClient = () => {
     dispatch({ type: 'CLEAR_EDITING_CLIENT' });
   };
-  const filterClients = text => {
+  const filterClients = (text) => {
     dispatch({ type: 'FILTER_CLIENTS', payload: text });
   };
   const clearFilteredClients = () => {
@@ -78,6 +85,7 @@ const ClientState = props => {
     <ClientContext.Provider
       value={{
         clients: state.clients,
+        selectedClient: state.selectedClient,
         editingClient: state.editingClient,
         filteredClients: state.filteredClients,
         error: state.error,
@@ -86,10 +94,12 @@ const ClientState = props => {
         deleteClient,
         updateClient,
         clearClients,
-        clearFilteredClients,
+        setSelectedClient,
+        clearSelectedClient,
         filterClients,
+        clearFilteredClients,
         setEditingClient,
-        clearEditingClient
+        clearEditingClient,
       }}
     >
       {props.children}

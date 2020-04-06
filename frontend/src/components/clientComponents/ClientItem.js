@@ -19,11 +19,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
-const ClientItem = ({ client, selectClient }) => {
+const ClientItem = ({ client }) => {
   const clientContext = useContext(ClientContext);
   const {
     deleteClient,
     updateClient,
+    setSelectedClient,
     setEditingClient,
     clearEditingClient,
   } = clientContext;
@@ -43,7 +44,7 @@ const ClientItem = ({ client, selectClient }) => {
   const handleSelect = () => {
     const selectedClient = { ...currentClient, lastAccessed: Date.now() };
     setCurrentClient(selectedClient);
-    selectClient(selectedClient);
+    setSelectedClient(selectedClient);
   };
   const handleEdit = () => {
     setEditingClient(client);
@@ -124,9 +125,7 @@ const ClientItem = ({ client, selectClient }) => {
           </DialogActions>
         </Dialog>
         <ListItem style={{ height: '40px' }}>
-          <Button disabled>
-            {clientName}
-          </Button>
+          <Button disabled>{clientName}</Button>
           <ListItemSecondaryAction>
             <IconButton onClick={handleRecover}>
               <AddIcon aria-label='Recover' />

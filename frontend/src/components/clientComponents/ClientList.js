@@ -5,14 +5,14 @@ import ClientItem from './ClientItem';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 
-const ClientList = ({ clients, selectClient }) => {
+const ClientList = ({ clients }) => {
   return (
     <Fragment>
       <List>
         <Divider />
         {clients.map((client, index) => (
           <Fragment key={client._id}>
-            <ClientItem client={client} selectClient={selectClient} />
+            <ClientItem client={client} />
             {index < clients.length - 1 && <Divider />}
           </Fragment>
         ))}

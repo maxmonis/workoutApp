@@ -4,63 +4,75 @@ export default (state, action) => {
       return {
         ...state,
         clients: action.payload,
-        loading: false
+        loading: false,
       };
     case 'ADD_CLIENT':
       return {
         ...state,
         clients: [...state.clients, action.payload],
-        loading: false
+        loading: false,
       };
     case 'UPDATE_CLIENT':
       return {
         ...state,
-        clients: state.clients.map(client =>
+        clients: state.clients.map((client) =>
           client._id === action.payload._id ? action.payload : client
         ),
-        loading: false
+        loading: false,
       };
     case 'DELETE_CLIENT':
       return {
         ...state,
-        clients: state.clients.filter(client => client._id !== action.payload),
-        loading: false
+        clients: state.clients.filter(
+          (client) => client._id !== action.payload
+        ),
+        loading: false,
       };
     case 'CLEAR_CLIENTS':
       return {
         ...state,
         clients: [],
         filteredClients: [],
-        error: null
+        error: null,
+      };
+    case 'SET_SELECTED_CLIENT':
+      return {
+        ...state,
+        selectedClient: action.payload,
+      };
+    case 'CLEAR_SELECTED_CLIENT':
+      return {
+        ...state,
+        selectedClient: null,
       };
     case 'SET_EDITING_CLIENT':
       return {
         ...state,
-        editingClient: action.payload
+        editingClient: action.payload,
       };
     case 'CLEAR_EDITING_CLIENT':
       return {
         ...state,
-        editingClient: null
+        editingClient: null,
       };
     case 'FILTER_CLIENTS':
       return {
         ...state,
-        filteredClients: state.clients.filter(client => {
+        filteredClients: state.clients.filter((client) => {
           const regexp = new RegExp(`${action.payload}`, 'gi');
           const clientEmail = client.email.replace(/@.*$/, '');
           return client.name.match(regexp) || clientEmail.match(regexp);
-        })
+        }),
       };
     case 'CLEAR_FILTERED_CLIENTS':
       return {
         ...state,
-        filteredClients: []
+        filteredClients: [],
       };
     case 'CLIENT_ERROR':
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     default:
       return state;

@@ -24,10 +24,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-const WorkoutApp = ({ selectedClient, initialWorkout }) => {
+const WorkoutApp = ({ currentClient, initialWorkout }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient, clearFilteredClients } = clientContext;
-  const [client, setClient] = useState(selectedClient);
+  const [client, setClient] = useState(currentClient);
   const { lifts, addLift, removeLift, editLift } = useLiftState(client.lifts);
   const [previousWorkouts, setPreviousWorkouts] = useState(
     client.previousWorkouts

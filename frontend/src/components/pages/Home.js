@@ -9,16 +9,15 @@ import Button from '@material-ui/core/Button';
 
 const Home = () => {
   const clientContext = useContext(ClientContext);
-  const { clients, getClients } = clientContext;
+  const { clients, getClients, selectedClient } = clientContext;
   useEffect(() => {
     getClients();
     // eslint-disable-next-line
   }, []);
 
-  const initialClient =
-    JSON.parse(window.localStorage.getItem('selectedClient')) || null;
-  const [selectedClient, setSelectedClient] = useState(initialClient);
-  const selectClient = (client) => setSelectedClient(client);
+  const currentClient = selectedClient
+    ? selectedClient
+    : JSON.parse(window.localStorage.getItem('selectedClient')) || null;
   const initialWorkout = selectedClient
     ? JSON.parse(
         window.localStorage.getItem(
@@ -38,17 +37,16 @@ const Home = () => {
   useEffect(() => {
     window.localStorage.setItem(
       'selectedClient',
-      JSON.stringify(selectedClient)
+      JSON.stringify(currentClient)
     );
     selectedClient ? hideRoster() : showRoster();
-  }, [selectedClient]);
+  }, [currentClient]);
 
   return (
     <div>
       {isDisplayingRoster ? (
         <ClientApp
           clients={clients}
-          selectClient={selectClient}
           hideRoster={hideRoster}
         />
       ) : (
@@ -59,7 +57,7 @@ const Home = () => {
       {selectedClient && (
         <WorkoutApp
           key={selectedClient._id}
-          selectedClient={selectedClient}
+          currentClient={currentClient}
           initialWorkout={initialWorkout}
         />
       )}

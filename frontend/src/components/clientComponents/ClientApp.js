@@ -11,7 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 
-const ClientApp = ({ clients, selectClient, hideRoster }) => {
+const ClientApp = ({ clients, hideRoster }) => {
   const clientContext = useContext(ClientContext);
   const { filteredClients, editingClient, clearEditingClient } = clientContext;
 
@@ -100,7 +100,6 @@ const ClientApp = ({ clients, selectClient, hideRoster }) => {
                 ? [...activeClients, ...deletedClients]
                 : activeClients
             }
-            selectClient={selectClient}
           />
         </Paper>
         <Button color='primary' onClick={hideRoster}>
