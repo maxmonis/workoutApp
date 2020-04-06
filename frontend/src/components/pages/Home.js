@@ -18,10 +18,10 @@ const Home = () => {
   const currentClient = selectedClient
     ? selectedClient
     : JSON.parse(window.localStorage.getItem('selectedClient')) || null;
-  const initialWorkout = selectedClient
+  const initialWorkout = currentClient
     ? JSON.parse(
         window.localStorage.getItem(
-          `workout${selectedClient.name.replace(' ', '')}`
+          `workout${currentClient.name.replace(' ', '')}`
         )
       ) || []
     : [];
@@ -35,28 +35,27 @@ const Home = () => {
   };
 
   useEffect(() => {
+    console.log('useEffect');
     window.localStorage.setItem(
       'selectedClient',
       JSON.stringify(currentClient)
     );
-    selectedClient ? hideRoster() : showRoster();
-  }, [currentClient]);
+    currentClient ? hideRoster() : showRoster();
+    // eslint-disable-next-line
+  }, [selectedClient]);
 
   return (
     <div>
       {isDisplayingRoster ? (
-        <ClientApp
-          clients={clients}
-          hideRoster={hideRoster}
-        />
+        <ClientApp clients={clients} hideRoster={hideRoster} />
       ) : (
         <Button color='primary' onClick={showRoster}>
           Show Roster
         </Button>
       )}
-      {selectedClient && (
+      {currentClient && (
         <WorkoutApp
-          key={selectedClient._id}
+          key={currentClient._id}
           currentClient={currentClient}
           initialWorkout={initialWorkout}
         />
