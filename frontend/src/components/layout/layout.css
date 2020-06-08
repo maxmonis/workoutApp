@@ -1,12 +1,17 @@
-.link-container {
-  margin-left: 'auto';
-  margin-right: '10px';
+.alert {
+  margin-top: 100px;
 }
 
 .link {
-  text-decoration: 'none';
+  text-decoration: none;
+  color: white;
+}
+
+.link-container {
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 .primary {
-  margin-left: '10px';
+  margin-left: 10px;
 }

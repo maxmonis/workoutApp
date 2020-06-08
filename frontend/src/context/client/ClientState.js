@@ -6,7 +6,7 @@ import clientReducer from './clientReducer';
 const ClientState = (props) => {
   const initialState = {
     clients: [],
-    selectedClient,
+    selectedClient: null,
     editingClient: null,
     filteredClients: [],
     error: null,

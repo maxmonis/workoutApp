@@ -51,7 +51,7 @@ const Register = (props) => {
 
   return (
     <Paper className='container'>
-      <Typography variant='h3'>Sign Up</Typography>
+      <Typography variant='h3'>Register</Typography>
       <form onSubmit={handleSubmit}>
         <div>
           <Input

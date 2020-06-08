@@ -38,27 +38,25 @@ const Navbar = () => {
   const guestLinks = (
     <div className='link-container'>
       <Link to='login' className='link'>
-        <Button color='inherit'>Sign In</Button>
+        <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
-        <Button color='inherit'>Get Started</Button>
+        <Button color='inherit'>Register</Button>
       </Link>
     </div>
   );
 
   return (
-    <div style={{ marginBottom: '10px' }}>
-      <AppBar position='static'>
-        <Toolbar>
-          <Link to='/' className='link primary'>
-            <Typography variant='h6' color='inherit'>
-              workoutApp
-            </Typography>
-          </Link>
-          {isAuthenticated ? authLink : guestLinks}
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position='static'>
+      <Toolbar>
+        <Link to='/' className='link primary'>
+          <Typography variant='h6' color='inherit'>
+            workoutApp
+          </Typography>
+        </Link>
+        {isAuthenticated ? authLink : guestLinks}
+      </Toolbar>
+    </AppBar>
   );
 };
 

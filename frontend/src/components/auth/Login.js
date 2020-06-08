@@ -52,7 +52,7 @@ const Login = (props) => {
 
   return (
     <Paper className='container'>
-      <Typography variant='h3'>Sign In</Typography>
+      <Typography variant='h3'>Login</Typography>
       <form onSubmit={handleSubmit}>
         <div>
           <Input
