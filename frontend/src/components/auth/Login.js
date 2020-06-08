@@ -75,11 +75,11 @@ const Login = (props) => {
         </div>
         {email && password ? (
           <Button type='submit' variant='outlined'>
-            Login
+            Sign In
           </Button>
         ) : (
           <Button deactivated='true' variant='outlined'>
-            Login
+            Sign In
           </Button>
         )}
         <div>

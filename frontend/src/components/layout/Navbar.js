@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './layout.css';
 
@@ -14,7 +14,7 @@ const Navbar = () => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
   const { isAuthenticated, logUserOut, loadUser } = authContext;
-  const { clearClients, clearSelectedClient } = clientContext;
+  const { clearClients } = clientContext;
 
   useEffect(() => {
     loadUser();
@@ -23,38 +23,35 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logUserOut();
-    clearSelectedClient();
     clearClients();
   };
 
   const authLink = (
-    <div className='link-container'>
-      <Button onClick={handleLogout} color='inherit'>
-        Logout
-      </Button>
-    </div>
+    <Button onClick={handleLogout} color='inherit'>
+      Logout
+    </Button>
   );
 
   const guestLinks = (
-    <div className='link-container'>
+    <Fragment>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </div>
+    </Fragment>
   );
 
   return (
     <AppBar position='static'>
       <Toolbar>
-        <Link to='/' className='link primary'>
+        <Link to='/' className='link left'>
           <Typography variant='h6' color='inherit'>
             workoutApp
           </Typography>
         </Link>
-        {isAuthenticated ? authLink : guestLinks}
+        <div className='right'>{isAuthenticated ? authLink : guestLinks}</div>
       </Toolbar>
     </AppBar>
   );

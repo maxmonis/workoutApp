@@ -2,16 +2,16 @@
   margin-top: 100px;
 }
 
+.left {
+  margin-left: 10px;
+}
+
 .link {
   text-decoration: none;
   color: white;
 }
 
-.link-container {
+.right {
   margin-left: auto;
   margin-right: 10px;
-}
-
-.primary {
-  margin-left: 10px;
 }
