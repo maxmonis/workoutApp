@@ -1,0 +1,12 @@
+.link-container {
+  margin-left: 'auto';
+  margin-right: '10px';
+}
+
+.link {
+  text-decoration: 'none';
+}
+
+.primary {
+  margin-left: '10px';
+}
