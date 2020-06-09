@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 import './App.css';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -14,7 +15,7 @@ import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import ClientState from './context/client/ClientState';
 
-function App() {
+const App = () => {
   return (
     <div className='app'>
       <AuthState>
@@ -36,6 +37,6 @@ function App() {
       </AuthState>
     </div>
   );
-}
+};
 
 export default App;

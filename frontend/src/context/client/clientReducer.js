@@ -32,6 +32,11 @@ export default (state, action) => {
         ...state,
         selectedClient: payload,
       };
+    case 'CLEAR_SELECTED_CLIENT':
+      return {
+        ...state,
+        selectedClient: null,
+      };
     case 'CLEAR_CLIENTS':
       return {
         ...state,

@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alert/alertContext';
@@ -98,7 +99,7 @@ const Register = (props) => {
       </Paper>
       <h3>Already a member?</h3>
       <Link className='link' to={'login'}>
-        SIGN IN
+        Sign in
       </Link>
     </div>
   );

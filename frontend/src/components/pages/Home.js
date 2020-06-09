@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import ClientContext from '../../context/client/clientContext';
+
+import ClientApp from '../client/ClientApp';
 
 const Home = () => {
-  return (
-    <div className='home'>
-      <h1>workoutApp</h1>
-    </div>
-  );
+  const clientContext = useContext(ClientContext);
+  const { selectedClient } = clientContext;
+  return selectedClient ? <h1>{selectedClient.name}</h1> : <ClientApp />;
 };
 
 export default Home;
