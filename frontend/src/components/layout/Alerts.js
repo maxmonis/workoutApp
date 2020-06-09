@@ -8,9 +8,9 @@ const Alerts = () => {
   return (
     alerts.length > 0 &&
     alerts.map((alert) => (
-      <h1 className='alert' key={alert.id}>
+      <h3 className='alert' key={alert.id}>
         {alert.msg}
-      </h1>
+      </h3>
     ))
   );
 };

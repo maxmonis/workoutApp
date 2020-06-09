@@ -27,33 +27,33 @@ const Navbar = () => {
   };
 
   const authLink = (
-    <Button onClick={handleLogout} color='inherit'>
-      Logout
-    </Button>
+    <div className='right'>
+      <Button onClick={handleLogout} color='inherit'>
+        Logout
+      </Button>
+    </div>
   );
 
   const guestLinks = (
-    <Fragment>
+    <div className='right'>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </Fragment>
+    </div>
   );
 
   return (
-    <AppBar position='static'>
-      <Toolbar>
-        <Link to='/' className='link left'>
-          <Typography variant='h6' color='inherit'>
-            workoutApp
-          </Typography>
-        </Link>
-        <div className='right'>{isAuthenticated ? authLink : guestLinks}</div>
-      </Toolbar>
-    </AppBar>
+    <div>
+      <AppBar position='static'>
+        <Toolbar>{isAuthenticated ? authLink : guestLinks}</Toolbar>
+      </AppBar>
+      <Typography variant='h1' className='title'>
+        workoutApp
+      </Typography>
+    </div>
   );
 };
 

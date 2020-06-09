@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-
 import './auth.css';
-
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alert/alertContext';
@@ -46,65 +44,64 @@ const Register = (props) => {
       setAlert('Please fill out all fields');
     } else if (password !== password2) {
       setAlert('Passwords must match');
+    } else if (password.length < 6) {
+      setAlert('Password must have at least 6 characters');
     } else {
       registerUser({ name, email, password });
     }
   };
 
   return (
-    <Paper className='container'>
-      <Typography variant='h3'>Register</Typography>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Input
-            type='text'
-            name='name'
-            value={name}
-            placeholder={'Username'}
-            onChange={handleChange}
-            required
-            autoFocus
-          />
-          <Input
-            type='email'
-            name='email'
-            value={email}
-            placeholder={'Email'}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            type='password'
-            name='password'
-            value={password}
-            placeholder={'Password'}
-            onChange={handleChange}
-            required
-            minLength='6'
-          />
-          <Input
-            type='password'
-            name='password2'
-            value={password2}
-            placeholder={'Confirm Password'}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {email && password && password === password2 && (
-          <Button type='submit' variant='outlined'>
-            Register
+    <div>
+      <Paper className='container'>
+        <Typography variant='h4'>Welcome!</Typography>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <Input
+              type='text'
+              name='name'
+              value={name}
+              placeholder={'Username'}
+              onChange={handleChange}
+              required
+              autoFocus={true}
+            />
+            <Input
+              type='email'
+              name='email'
+              value={email}
+              placeholder={'Email'}
+              onChange={handleChange}
+              required
+            />
+            <Input
+              type='password'
+              name='password'
+              value={password}
+              placeholder={'Password'}
+              onChange={handleChange}
+              required
+              minLength='6'
+            />
+            <Input
+              type='password'
+              name='password2'
+              value={password2}
+              placeholder={'Confirm Password'}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <Button type='submit' color='primary'>
+            Create Account
           </Button>
-        )}
-      </form>
-      <div>
-        <Typography variant='h6'>Already a member?</Typography>
-        <Button>
-          {' '}
-          <Link to='login'>Sign In</Link>
-        </Button>
-      </div>
-    </Paper>
+        </form>
+      </Paper>
+      <h3>Already a member?</h3>
+      <Link className='link' to={'login'}>
+        SIGN IN
+      </Link>
+    </div>
   );
 };
 

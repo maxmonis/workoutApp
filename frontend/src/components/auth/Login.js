@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-
 import './auth.css';
-
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alert/alertContext';
@@ -51,46 +49,39 @@ const Login = (props) => {
   };
 
   return (
-    <Paper className='container'>
-      <Typography variant='h3'>Login</Typography>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Input
-            type='email'
-            name='email'
-            value={email}
-            placeholder={'Email'}
-            onChange={handleChange}
-            required
-            autoFocus
-          />
-          <Input
-            type='password'
-            name='password'
-            value={password}
-            placeholder={'Password'}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {email && password ? (
-          <Button type='submit' variant='outlined'>
-            Sign In
+    <div>
+      <Paper className='container'>
+        <Typography variant='h4'>Welcome back!</Typography>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <Input
+              type='email'
+              name='email'
+              value={email}
+              placeholder={'Email'}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+            <Input
+              type='password'
+              name='password'
+              value={password}
+              placeholder={'Password'}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <Button type='submit' color='primary'>
+            Enter
           </Button>
-        ) : (
-          <Button deactivated='true' variant='outlined'>
-            Sign In
-          </Button>
-        )}
-        <div>
-          <Typography variant='h6'>Don't have an account?</Typography>
-          <Button>
-            {' '}
-            <Link to='register'>Get Started</Link>
-          </Button>
-        </div>
-      </form>
-    </Paper>
+        </form>
+      </Paper>
+      <h3>Need a new account?</h3>
+      <Link className='link' to={'register'}>
+        GET STARTED
+      </Link>
+    </div>
   );
 };
 
