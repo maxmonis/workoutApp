@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Alerts from './components/layout/Alerts';
-import Home from './components/pages/Home';
+import ClientApp from './components/client/ClientApp';
 import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/auth/PrivateRoute';
@@ -25,7 +25,7 @@ function App() {
                 <Navbar />
                 <Alerts />
                 <Switch>
-                  <PrivateRoute exact path='/' component={Home} />
+                  <PrivateRoute exact path='/' component={ClientApp} />
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/register' component={Register} />
                 </Switch>

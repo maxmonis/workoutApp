@@ -12,12 +12,8 @@
   padding: 20px;
 }
 
-.home {
-  margin: 20vh auto auto;
-}
-
 .link {
   text-decoration: none;
+  text-transform: uppercase;
   color: white;
 }
-

@@ -78,7 +78,7 @@ const Login = (props) => {
       </Paper>
       <h3>Need an account?</h3>
       <Link className='link' to={'register'}>
-        GET STARTED
+        Get started
       </Link>
     </div>
   );

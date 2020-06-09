@@ -49,9 +49,7 @@ const Navbar = () => {
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLink : guestLinks}</Toolbar>
       </AppBar>
-      <Typography variant='h1' className='title'>
-        workoutApp
-      </Typography>
+      <Typography variant='h1'>workoutApp</Typography>
     </Fragment>
   );
 };

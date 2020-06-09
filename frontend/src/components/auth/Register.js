@@ -98,7 +98,7 @@ const Register = (props) => {
       </Paper>
       <h3>Already a member?</h3>
       <Link className='link' to={'login'}>
-        SIGN IN
+        Sign in
       </Link>
     </div>
   );
