@@ -25,9 +25,10 @@ const ClientFilter = () => {
   return (
     <form>
       <input
+        className='filter'
         ref={text}
         type='text'
-        placeholder='Search'
+        placeholder='Search...'
         onChange={handleChange}
         autoFocus
       />

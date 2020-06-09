@@ -8,12 +8,24 @@
 
 .container {
   margin: 5vh auto auto;
-  width: 250px;
-  padding: 20px;
+  width: 300px;
+  padding: 25px;
+}
+
+.filter {
+  height: 25px;
+  width: 100px;
+  font-size: large;
+  padding: 5px 10px;
 }
 
 .link {
   text-decoration: none;
   text-transform: uppercase;
   color: white;
+}
+
+.scrollable {
+  max-height: 40vh;
+  overflow-y: scroll;
 }

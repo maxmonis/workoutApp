@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,12 +13,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
-const DeactivatedClient = (
+const DeactivatedClient = ({
   clientName,
   fullName,
   handleRecover,
-  handleDelete
-) => {
+  handleDelete,
+}) => {
   const [inputValue, setInputValue] = useState('');
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -60,9 +60,7 @@ const DeactivatedClient = (
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} color='primary'>
-            Cancel
-          </Button>
+          <Button onClick={closeDialog}>Cancel</Button>
           {standardize(inputValue) === standardize(fullName) ? (
             <Button onClick={confirmDeletion} color='primary' autoFocus>
               Delete
@@ -76,7 +74,7 @@ const DeactivatedClient = (
         <Button disabled>{clientName}</Button>
         <ListItemSecondaryAction>
           <IconButton onClick={handleRecover}>
-            <AddCircleIcon aria-label='Recover' />
+            <AddIcon aria-label='Recover' />
           </IconButton>
           <IconButton onClick={openDialog}>
             <DeleteIcon aria-label='Delete' />
@@ -88,7 +86,7 @@ const DeactivatedClient = (
 };
 
 function standardize(string) {
-  return string.filter((char) => char.match(/[a-z]/i));
+  return string.replace(/[^a-z]+/gi, '').toUpperCase();
 }
 
 export default DeactivatedClient;

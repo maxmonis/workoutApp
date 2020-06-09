@@ -28,11 +28,18 @@ const ClientState = (props) => {
         'Content-Type': 'application/json',
       },
     };
-    try {
-      const res = await axios.post('/api/clients', client, config);
-      dispatch({ type: 'ADD_CLIENT', payload: res.data });
-    } catch (err) {
-      dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+    if (state.clients.some((c) => c.name === client.name)) {
+      dispatch({
+        type: 'CLIENT_ERROR',
+        payload: `${client.name} already exists`,
+      });
+    } else {
+      try {
+        const res = await axios.post('/api/clients', client, config);
+        dispatch({ type: 'ADD_CLIENT', payload: res.data });
+      } catch (err) {
+        dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+      }
     }
   };
 
@@ -42,11 +49,24 @@ const ClientState = (props) => {
         'Content-Type': 'application/json',
       },
     };
-    try {
-      const res = await axios.put(`/api/clients/${client._id}`, client, config);
-      dispatch({ type: 'UPDATE_CLIENT', payload: res.data });
-    } catch (err) {
-      dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+    if (
+      state.clients.some((c) => c.name === client.name && c._id !== client._id)
+    ) {
+      dispatch({
+        type: 'CLIENT_ERROR',
+        payload: `${client.name} already exists`,
+      });
+    } else {
+      try {
+        const res = await axios.put(
+          `/api/clients/${client._id}`,
+          client,
+          config
+        );
+        dispatch({ type: 'UPDATE_CLIENT', payload: res.data });
+      } catch (err) {
+        dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+      }
     }
   };
 

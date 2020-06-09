@@ -13,41 +13,50 @@ const ClientApp = () => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
+    getClients,
     filteredClients,
     editingClient,
     clearEditingClient,
+    clearFilteredClients,
   } = clientContext;
+  useEffect(() => {
+    getClients();
+    // eslint-disable-next-line
+  }, []);
   const activeClients = filteredClients.length
     ? filteredClients.filter((client) => client.isActive)
     : clients.filter((client) => client.isActive);
-  const deletedClients = filteredClients.length
+  const deactivatedClients = filteredClients.length
     ? filteredClients.filter((client) => !client.isActive)
     : clients.filter((client) => !client.isActive);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => setIsFormOpen(false);
+  const reset = () => {
+    closeForm();
+    clearEditingClient();
+    clearFilteredClients();
+  };
   const addNewClient = () => {
     clearEditingClient();
     openForm();
   };
   useEffect(() => {
-    editingClient ? openForm() : closeForm();
+    editingClient ? openForm() : reset();
+    // eslint-disable-next-line
   }, [editingClient]);
   return (
     <div>
       <Paper className='container'>
         {isFormOpen || clients.length === 0 ? (
-          <ClientForm closeForm={closeForm} />
+          <ClientForm reset={reset} />
         ) : (
           <Fragment>
-            <Button color='primary' variant='outlined' onClick={addNewClient}>
-              New Client
-            </Button>
             <ClientFilter />
-            <ClientList
-              key={activeClients.length}
-              clients={[...activeClients, ...deletedClients]}
-            />
+            <Button color='primary' onClick={addNewClient}>
+              Add New Client
+            </Button>
+            <ClientList clients={[...activeClients, ...deactivatedClients]} />
           </Fragment>
         )}
       </Paper>

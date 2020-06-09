@@ -1,19 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
+
+import { capitalize } from '../../functions/helpers';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const ClientForm = ({ closeForm }) => {
+const ClientForm = ({ reset }) => {
   const clientContext = useContext(ClientContext);
-  const {
-    addClient,
-    updateClient,
-    editingClient,
-    clearEditingClient,
-  } = clientContext;
+  const { addClient, updateClient, editingClient } = clientContext;
   const defaultClient = {
     name: '',
     email: '',
@@ -24,15 +21,8 @@ const ClientForm = ({ closeForm }) => {
     workouts: [],
     records: [],
   };
-  useEffect(() => {
-    if (editingClient) {
-      setClient(editingClient);
-    } else {
-      setClient(defaultClient);
-    }
-    // eslint-disable-next-line
-  }, [clientContext, editingClient]);
-  const [client, setClient] = useState(defaultClient);
+  const initialClient = editingClient ? editingClient : defaultClient;
+  const [client, setClient] = useState(initialClient);
   const { name, email, phone } = client;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,16 +31,11 @@ const ClientForm = ({ closeForm }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!editingClient) {
-      addClient(client);
-      closeForm();
+      addClient({ ...client, name: capitalize(name) });
     } else {
-      updateClient(client);
-      handleClear();
+      updateClient({ ...client, name: capitalize(name) });
     }
-  };
-  const handleClear = () => {
-    clearEditingClient();
-    closeForm();
+    reset();
   };
   return (
     <div>
@@ -85,7 +70,7 @@ const ClientForm = ({ closeForm }) => {
           <Button color='primary' type='submit'>
             Save
           </Button>
-          <Button onClick={handleClear}>Cancel</Button>
+          <Button onClick={reset}>Cancel</Button>
         </div>
       </form>
     </div>

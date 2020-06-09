@@ -7,16 +7,17 @@ import List from '@material-ui/core/List';
 
 const ClientList = ({ clients }) => {
   return (
-    <Fragment>
+    <div className='scrollable'>
       <List>
-        {clients.map((client, index) => (
-          <Fragment key={client._id}>
+        <Divider />
+        {clients.map((client) => (
+          <Fragment key={client.name}>
             <ClientItem client={client} />
-            {index < clients.length - 1 && <Divider />}
+            <Divider />
           </Fragment>
         ))}
       </List>
-    </Fragment>
+    </div>
   );
 };
 
