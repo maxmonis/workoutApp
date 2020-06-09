@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "0.1.0",
-  "description": "backend for myClients",
+  "description": "backend for workoutApp",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

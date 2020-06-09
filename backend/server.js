@@ -8,7 +8,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => {
-  res.json({ msg: 'myClients API' });
+  res.json({ msg: 'workoutApp API' });
 });
 
 app.use('/api/users', require('./routes/users'));
