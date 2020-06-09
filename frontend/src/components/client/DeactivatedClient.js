@@ -35,41 +35,6 @@ const DeactivatedClient = ({
   };
   return (
     <div>
-      <Dialog
-        open={isDialogOpen}
-        onClose={closeDialog}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <DialogTitle id='alert-dialog-title'>
-          {`Permanently delete ${fullName}?`}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id='alert-dialog-description'>
-            All associated data will be lost forever and this action cannot be
-            undone. Confirm the name of the client you wish to delete in order
-            to proceed.
-          </DialogContentText>
-          <TextField
-            required
-            value={inputValue}
-            variant='outlined'
-            placeholder='Confirm Name...'
-            onChange={handleChange}
-            autoFocus
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog}>Cancel</Button>
-          {standardize(inputValue) === standardize(fullName) ? (
-            <Button onClick={confirmDeletion} color='primary' autoFocus>
-              Delete
-            </Button>
-          ) : (
-            <Button disabled>Delete</Button>
-          )}
-        </DialogActions>
-      </Dialog>
       <ListItem>
         <Button disabled>{clientName}</Button>
         <ListItemSecondaryAction>
@@ -81,6 +46,33 @@ const DeactivatedClient = ({
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
+      <Dialog open={isDialogOpen} onClose={closeDialog}>
+        <DialogTitle>{`Permanently delete ${fullName}?`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            All associated data will be lost forever and this action cannot be
+            undone. Confirm the name of the client you wish to delete in order
+            to proceed.
+          </DialogContentText>
+          <TextField
+            value={inputValue}
+            variant='outlined'
+            placeholder='Confirm Name...'
+            onChange={handleChange}
+            autoFocus
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog}>Cancel</Button>
+          {standardize(inputValue).includes(standardize(fullName)) ? (
+            <Button onClick={confirmDeletion} color='primary' autofocus>
+              Delete
+            </Button>
+          ) : (
+            <Button disabled>Delete</Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

@@ -10,6 +10,7 @@ const ClientItem = ({ client }) => {
   const {
     deleteClient,
     updateClient,
+    selectClient,
     setEditingClient,
     clearFilteredClients,
   } = clientContext;
@@ -17,6 +18,7 @@ const ClientItem = ({ client }) => {
   const clientName = name.length > 16 ? `${name.slice(0, 15).trim()}...` : name;
   const handleSelect = () => {
     clearFilteredClients();
+    selectClient(client);
   };
   const handleEdit = () => {
     setEditingClient(client);

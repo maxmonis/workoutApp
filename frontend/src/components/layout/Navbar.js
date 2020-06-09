@@ -14,7 +14,7 @@ const Navbar = () => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
   const { isAuthenticated, logUserOut, loadUser } = authContext;
-  const { clearClients } = clientContext;
+  const { clearClients, clearSelectedClient } = clientContext;
 
   useEffect(() => {
     loadUser();
@@ -24,12 +24,16 @@ const Navbar = () => {
   const handleLogout = () => {
     logUserOut();
     clearClients();
+    clearSelectedClient();
   };
 
-  const authLink = (
+  const authLinks = (
     <Fragment>
       <Button onClick={handleLogout} color='inherit'>
         Logout
+      </Button>
+      <Button onClick={clearSelectedClient} color='inherit'>
+        Clients
       </Button>
     </Fragment>
   );
@@ -48,7 +52,7 @@ const Navbar = () => {
   return (
     <Fragment>
       <AppBar position='static'>
-        <Toolbar>{isAuthenticated ? authLink : guestLinks}</Toolbar>
+        <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
       <Typography variant='h1'>workoutApp</Typography>
     </Fragment>

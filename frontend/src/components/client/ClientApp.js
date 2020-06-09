@@ -45,6 +45,10 @@ const ClientApp = () => {
     editingClient ? openForm() : reset();
     // eslint-disable-next-line
   }, [editingClient]);
+  useEffect(() => {
+    clearFilteredClients();
+    // eslint-disable-next-line
+  }, [clients]);
   return (
     <div>
       <Paper className='container'>
