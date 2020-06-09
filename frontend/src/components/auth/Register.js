@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import './auth.css';
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alert/alertContext';

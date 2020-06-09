@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import './layout.css';
 
 import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
@@ -27,33 +26,33 @@ const Navbar = () => {
   };
 
   const authLink = (
-    <div className='right'>
+    <Fragment>
       <Button onClick={handleLogout} color='inherit'>
         Logout
       </Button>
-    </div>
+    </Fragment>
   );
 
   const guestLinks = (
-    <div className='right'>
+    <Fragment>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </div>
+    </Fragment>
   );
 
   return (
-    <div>
+    <Fragment>
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLink : guestLinks}</Toolbar>
       </AppBar>
       <Typography variant='h1' className='title'>
         workoutApp
       </Typography>
-    </div>
+    </Fragment>
   );
 };
 

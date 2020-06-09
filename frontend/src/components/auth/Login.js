@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import './auth.css';
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alert/alertContext';
@@ -77,7 +76,7 @@ const Login = (props) => {
           </Button>
         </form>
       </Paper>
-      <h3>Need a new account?</h3>
+      <h3>Need an account?</h3>
       <Link className='link' to={'register'}>
         GET STARTED
       </Link>

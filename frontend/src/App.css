@@ -6,6 +6,15 @@
   min-height: 100vh;
 }
 
+.container {
+  margin: 5vh auto auto;
+  width: 250px;
+  padding: 20px;
+}
+
+.home {
+  margin: 20vh auto auto;
+}
 
 .link {
   text-decoration: none;
