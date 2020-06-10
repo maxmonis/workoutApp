@@ -7,17 +7,16 @@ import updateWorkouts from '../functions/updateWorkouts';
 
 const useClientState = (initialClient) => {
   const [client, setClient] = useState(initialClient);
-  const { lifts, exercises, workouts, records } = client;
   return {
     client,
     updateLifts: (newName, oldName) => {
       const updated = updateLifts(
         capitalize(newName),
         oldName,
-        lifts,
-        exercises,
-        workouts,
-        records
+        client.lifts,
+        client.exercises,
+        client.workouts,
+        client.records
       );
       if (updated) {
         if (updated.length) {
@@ -31,10 +30,12 @@ const useClientState = (initialClient) => {
     updateExercises: (value) =>
       setClient({
         ...client,
-        exercises: eliminateRedundancy(updateExercises(value, exercises)),
+        exercises: eliminateRedundancy(
+          updateExercises(value, client.exercises)
+        ),
       }),
     updateWorkouts: (value) => {
-      const updated = updateWorkouts(value, workouts, records);
+      const updated = updateWorkouts(value, client.workouts, client.records);
       const { workouts, records } = updated;
       setClient({ ...client, workouts, records });
     },
