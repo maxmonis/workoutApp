@@ -10,21 +10,24 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const Navbar = () => {
+const Navbar = (props) => {
   const authContext = useContext(AuthContext);
   const clientContext = useContext(ClientContext);
-  const { isAuthenticated, logUserOut, loadUser } = authContext;
-  const { clearClients, clearSelectedClient } = clientContext;
+  const { isAuthenticated, logUserOut, loadUser, user } = authContext;
+  const { getClients, clearClients } = clientContext;
 
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    if (user) getClients();
+    // eslint-disable-next-line
+  }, [user]);
 
   const handleLogout = () => {
     logUserOut();
     clearClients();
-    clearSelectedClient();
   };
 
   const authLinks = (
@@ -32,9 +35,9 @@ const Navbar = () => {
       <Button onClick={handleLogout} color='inherit'>
         Logout
       </Button>
-      <Button onClick={clearSelectedClient} color='inherit'>
-        Clients
-      </Button>
+      <Link to='/' className='link'>
+        <Button color='inherit'>Clients</Button>
+      </Link>
     </Fragment>
   );
 

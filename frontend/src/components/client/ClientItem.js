@@ -5,20 +5,13 @@ import ClientContext from '../../context/client/clientContext';
 import ActiveClient from './ActiveClient';
 import DeactivatedClient from './DeactivatedClient';
 
-const ClientItem = ({ client }) => {
+const ClientItem = ({ client, selectClient }) => {
   const clientContext = useContext(ClientContext);
-  const {
-    deleteClient,
-    updateClient,
-    selectClient,
-    setEditingClient,
-    clearFilteredClients,
-  } = clientContext;
+  const { deleteClient, updateClient, setEditingClient } = clientContext;
   const { _id, name } = client;
   const clientName = name.length > 16 ? `${name.slice(0, 15).trim()}...` : name;
   const handleSelect = () => {
-    clearFilteredClients();
-    selectClient(client);
+    selectClient(_id);
   };
   const handleEdit = () => {
     setEditingClient(client);

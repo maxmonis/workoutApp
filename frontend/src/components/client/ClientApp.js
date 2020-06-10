@@ -9,20 +9,15 @@ import ClientList from './ClientList';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
-const ClientApp = () => {
+const ClientApp = (props) => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
-    getClients,
     filteredClients,
     editingClient,
     clearEditingClient,
     clearFilteredClients,
   } = clientContext;
-  useEffect(() => {
-    getClients();
-    // eslint-disable-next-line
-  }, []);
   const activeClients = filteredClients.length
     ? filteredClients.filter((client) => client.isActive)
     : clients.filter((client) => client.isActive);
@@ -36,6 +31,10 @@ const ClientApp = () => {
     closeForm();
     clearEditingClient();
     clearFilteredClients();
+  };
+  const selectClient = (id) => {
+    reset();
+    props.history.push(`/${id}`);
   };
   const addNewClient = () => {
     clearEditingClient();
@@ -60,7 +59,10 @@ const ClientApp = () => {
             <Button color='primary' onClick={addNewClient}>
               Add New Client
             </Button>
-            <ClientList clients={[...activeClients, ...deactivatedClients]} />
+            <ClientList
+              clients={[...activeClients, ...deactivatedClients]}
+              selectClient={selectClient}
+            />
           </Fragment>
         )}
       </Paper>

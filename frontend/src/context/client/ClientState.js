@@ -79,12 +79,6 @@ const ClientState = (props) => {
     }
   };
 
-  const selectClient = (client) => {
-    dispatch({ type: 'SELECT_CLIENT', payload: client });
-  };
-  const clearSelectedClient = () => {
-    dispatch({ type: 'CLEAR_SELECTED_CLIENT' });
-  };
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' });
   };
@@ -105,7 +99,6 @@ const ClientState = (props) => {
     <ClientContext.Provider
       value={{
         clients: state.clients,
-        selectedClient: state.selectedClient,
         editingClient: state.editingClient,
         filteredClients: state.filteredClients,
         error: state.error,
@@ -114,8 +107,6 @@ const ClientState = (props) => {
         deleteClient,
         updateClient,
         clearClients,
-        selectClient,
-        clearSelectedClient,
         setEditingClient,
         clearEditingClient,
         filterClients,

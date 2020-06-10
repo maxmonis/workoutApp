@@ -27,16 +27,6 @@ export default (state, action) => {
         clients: state.clients.filter((client) => client._id !== payload),
         loading: false,
       };
-    case 'SELECT_CLIENT':
-      return {
-        ...state,
-        selectedClient: payload,
-      };
-    case 'CLEAR_SELECTED_CLIENT':
-      return {
-        ...state,
-        selectedClient: null,
-      };
     case 'CLEAR_CLIENTS':
       return {
         ...state,

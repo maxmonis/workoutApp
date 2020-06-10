@@ -5,6 +5,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Alerts from './components/layout/Alerts';
+import ClientApp from './components/client/ClientApp';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
@@ -26,9 +27,10 @@ const App = () => {
                 <Navbar />
                 <Alerts />
                 <Switch>
-                  <PrivateRoute exact path='/' component={Home} />
+                  <PrivateRoute exact path='/' component={ClientApp} />
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/register' component={Register} />
+                  <PrivateRoute exact path='/:id' component={Home} />
                 </Switch>
               </Fragment>
             </Router>
