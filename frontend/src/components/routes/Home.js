@@ -2,14 +2,14 @@ import React, { useState, useContext, useEffect, Fragment } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
 
-import ClientFilter from './ClientFilter';
-import ClientForm from './ClientForm';
-import ClientList from './ClientList';
+import ClientFilter from '../client/ClientFilter';
+import ClientForm from '../client/ClientForm';
+import ClientList from '../client/ClientList';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
-const ClientApp = (props) => {
+const Home = (props) => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
@@ -71,4 +71,4 @@ const ClientApp = (props) => {
   );
 };
 
-export default ClientApp;
+export default Home;
