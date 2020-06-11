@@ -21,14 +21,6 @@ const Controller = ({ selectedClient }) => {
     selectedClient
   );
   const { lifts, _id } = client;
-  const getRoutine = () => window.localStorage.getItem(`${_id}`) || [];
-  const [routine, setRoutine] = useState(getRoutine());
-  window.localStorage.setItem(`${_id}`, routine);
-  const defaultWorkout = {
-    name: '',
-    date: new Date().toISOString().slice(0, 10),
-  };
-  const [workout, setWorkout] = useState(defaultWorkout);
   const defaultExercise = {
     lift: lifts[0],
     sets: '',
@@ -36,6 +28,12 @@ const Controller = ({ selectedClient }) => {
     weight: '',
   };
   const [exercise, setExercise] = useState(defaultExercise);
+  const [routine, setRoutine] = useState([]);
+  const defaultWorkout = {
+    name: '',
+    date: new Date().toISOString().slice(0, 10),
+  };
+  const [workout, setWorkout] = useState(defaultWorkout);
   const [isFormOpen, toggle] = useToggle(false);
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -56,15 +54,26 @@ const Controller = ({ selectedClient }) => {
     setRoutine([]);
   };
   useEffect(() => {
+    const res = window.localStorage.getItem(`_id`);
+    res && setRoutine(JSON.parse(res));
+    // eslint-disable-next-line
+  }, []);
+  useEffect(() => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
   useEffect(() => {
-    window.localStorage.setItem(`${_id}`, routine);
+    if (routine.length) {
+      window.localStorage.setItem(`${_id}`, JSON.stringify(routine));
+    } else {
+      window.localStorage.removeItem(`${_id}`);
+    }
     // eslint-disable-next-line
   }, [routine]);
   useEffect(() => {
-    setRoutine(getRoutine());
+    if (routine.length) {
+      setRoutine(JSON.parse(window.localStorage.getItem(`${_id}`)));
+    }
     // eslint-disable-next-line
   }, [lifts]);
   return (

@@ -21,8 +21,10 @@ const updateLifts = (newName, oldName, client) => {
       exercises.map((exercise) =>
         exercise.lift === oldName ? { ...exercise, lift: newName } : exercise
       );
-    const routine = window.localStorage.getItem(`${_id}`) || [];
-    if (routine.length) window.localStorage.setItem(`${_id}`, mapName(routine));
+    const routine = JSON.parse(window.localStorage.getItem(`${_id}`)) || [];
+    if (routine.length) {
+      window.localStorage.setItem(`${_id}`, JSON.stringify(mapName(routine)));
+    }
     return {
       lifts: alphabetize(
         lifts.map((lift) => (lift === oldName ? newName : lift))

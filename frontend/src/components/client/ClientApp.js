@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
+
+import useToggle from '../../hooks/useToggle';
 
 import ClientContext from '../../context/client/clientContext';
 
@@ -8,13 +10,13 @@ import ClientList from './ClientList';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-const ClientApp = (props) => {
-  const { clients, handleSelect } = props;
+const ClientApp = ({ clients, handleSelect }) => {
   const clientContext = useContext(ClientContext);
   const {
-    filteredClients,
     editingClient,
+    filteredClients,
     clearEditingClient,
     clearFilteredClients,
   } = clientContext;
@@ -24,9 +26,9 @@ const ClientApp = (props) => {
   const deactivatedClients = filteredClients.length
     ? filteredClients.filter((client) => !client.isActive)
     : clients.filter((client) => !client.isActive);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, toggle, closeForm] = useToggle(false);
   const reset = () => {
-    setIsFormOpen(false);
+    closeForm();
     clearEditingClient();
     clearFilteredClients();
   };
@@ -34,12 +36,9 @@ const ClientApp = (props) => {
     reset();
     handleSelect(id);
   };
-  const addNewClient = () => {
-    clearEditingClient();
-    setIsFormOpen(true);
-  };
   useEffect(() => {
-    editingClient ? setIsFormOpen(true) : reset();
+    closeForm();
+    editingClient && toggle();
     // eslint-disable-next-line
   }, [editingClient]);
   useEffect(() => {
@@ -48,13 +47,14 @@ const ClientApp = (props) => {
   }, [clients]);
   return (
     <div>
+      <Typography variant='h3'>Clients</Typography>
       <Paper className='container'>
         {isFormOpen || clients.length === 0 ? (
           <ClientForm reset={reset} />
         ) : (
           <Fragment>
             <ClientFilter />
-            <Button color='primary' onClick={addNewClient}>
+            <Button color='primary' onClick={toggle}>
               Add New Client
             </Button>
             <ClientList

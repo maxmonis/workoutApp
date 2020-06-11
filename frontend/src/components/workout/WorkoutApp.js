@@ -39,7 +39,7 @@ const WorkoutApp = ({
         addExercise={addExercise}
       />
       <Button color='primary' onClick={toggle}>
-        Save Workout
+        Next Exercise
       </Button>
     </Paper>
   );

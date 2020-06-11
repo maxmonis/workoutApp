@@ -1,23 +1,20 @@
 import React from 'react';
 
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 
 const ExerciseEntryForm = ({ lifts, handleChange, exercise }) => {
   const { lift, sets, reps, weight } = exercise;
   return (
-    <div>
-      <InputLabel id='currentLift'>Lift</InputLabel>
+    <form className='exercise-form'>
       <Select
         className='select'
         native
-        labelId='currentLift'
         id='lift'
         value={lift}
         onChange={handleChange}
-        input={<Input id='currentLift' />}
+        input={<Input />}
       >
         {lifts.map((lift) => (
           <option key={lift} value={lift}>
@@ -32,6 +29,7 @@ const ExerciseEntryForm = ({ lifts, handleChange, exercise }) => {
         type='number'
         value={sets}
         onChange={handleChange}
+        autoFocus
       />
       <TextField
         className='field'
@@ -49,7 +47,7 @@ const ExerciseEntryForm = ({ lifts, handleChange, exercise }) => {
         value={weight}
         onChange={handleChange}
       />
-    </div>
+    </form>
   );
 };
 

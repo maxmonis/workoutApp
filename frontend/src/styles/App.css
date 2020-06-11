@@ -12,6 +12,15 @@
   padding: 25px;
 }
 
+.exercise-form {
+  display: flex;
+  flex: row;
+}
+
+.field {
+  width: 75px;
+}
+
 .filter {
   height: 25px;
   width: 100px;
@@ -30,3 +39,6 @@
   overflow-y: scroll;
 }
 
+.select {
+  width: 150px;
+}
