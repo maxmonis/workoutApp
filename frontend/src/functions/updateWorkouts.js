@@ -6,26 +6,26 @@ const updateWorkouts = (value, client) => {
   // ------------------- Dispatcher -------------------
   // If value is a string instead of an object
   if (typeof value === 'string') {
-    // that string is the id of a workout flagged for deletion.
+    // it's the id of a workout flagged for deletion.
     return saveWorkouts(removeWorkout(value));
   } else {
     // If the object already has an id
     return value.id
       ? // it's an updated version of the existing workout with that id.
         saveWorkouts(editWorkout(value))
-      : // Otherwise it's a new workout.
-        saveWorkouts(addWorkout(value));
+      : // Otherwise it's a new workout and needs a new id.
+        saveWorkouts(addWorkout((value.id = uuid())));
   }
   // ------------------- Methods -------------------
   function editWorkout(newWorkout) {
-    // It's important to find the original workout so as to compare dates.
-    const oldWorkout = workouts.find((workout) => workout.id === newWorkout.id);
+    // Store the original date of the workout.
+    const date = workouts.find((workout) => workout.id === newWorkout.id).date;
     // Map newWorkout onto oldWorkout.
     const updatedWorkouts = workouts.map((workout) =>
-      workout.id === oldWorkout.id ? newWorkout : workout
+      workout.id === newWorkout.id ? newWorkout : workout
     );
     // If newWorkout's date has been changed
-    return newWorkout.date !== oldWorkout.date
+    return newWorkout.date !== date
       ? // the workouts must be sorted by date.
         chronologize(updatedWorkouts)
       : // Otherwise the order is still correct.
@@ -36,20 +36,18 @@ const updateWorkouts = (value, client) => {
     return workouts.filter((workout) => workout.id !== workoutId);
   }
   function addWorkout(newWorkout) {
-    // Add a unique id.
-    newWorkout.id = uuid();
     // If newWorkout's date is not later than all others
     return workouts.length &&
       newWorkout.date < workouts[workouts.length - 1].date
       ? // workouts need to be sorted by date.
         chronologize([...workouts, newWorkout])
-      : // Otherwise pass saveWorkouts an array of only newWorkout
+      : // Otherwise pass saveWorkouts an array containing only newWorkout
         [newWorkout];
   }
   function saveWorkouts(pendingWorkouts) {
     // because when newWorkout is the only pendingWorkout
     if (pendingWorkouts.length === 1) {
-      // records is still accurate and can be passed to updateRecords
+      // records are still accurate and can be passed to updateRecords
       const updated = updateRecords(pendingWorkouts, records);
       // which returns { workouts, records }
       return {

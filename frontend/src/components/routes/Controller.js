@@ -52,6 +52,7 @@ const Controller = ({ selectedClient }) => {
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
     setWorkout(defaultWorkout);
+    setRoutine([]);
   };
   useEffect(() => {
     updateClient(client);
