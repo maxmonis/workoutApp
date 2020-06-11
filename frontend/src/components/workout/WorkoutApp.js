@@ -18,7 +18,7 @@ const WorkoutApp = ({
 }) => {
   const [isFormOpen, toggle] = useToggle(false);
   const handleSave = () => {
-    saveWorkout();
+    // saveWorkout();
     toggle();
   };
   if (isFormOpen) {

@@ -23,6 +23,7 @@ const Controller = ({ selectedClient }) => {
   const { lifts, _id } = client;
   const getRoutine = () => window.localStorage.getItem(`${_id}`) || [];
   const [routine, setRoutine] = useState(getRoutine());
+  window.localStorage.setItem(`${_id}`, routine);
   const defaultWorkout = {
     name: '',
     date: new Date().toISOString().slice(0, 10),
@@ -83,7 +84,7 @@ const Controller = ({ selectedClient }) => {
           />
           <ExerciseApp
             lifts={lifts}
-            exercises={routine}
+            routine={routine}
             updateRoutine={updateRoutine}
           />
         </div>
