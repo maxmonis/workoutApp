@@ -19,7 +19,7 @@ const Router = (props) => {
   ) : selectedClient ? (
     <Controller selectedClient={selectedClient} />
   ) : (
-    <Spinner duration={5000} />
+    <Spinner duration={3000} />
   );
 };
 

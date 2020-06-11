@@ -4,30 +4,26 @@ import { Redirect } from 'react-router-dom';
 
 import '../../styles/Spinner.css';
 
-const Spinner = ({ duration = 10000 }) => {
+const Spinner = ({ duration }) => {
   const [isTimedOut, setIsTimedOut] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
   useEffect(() => {
-    setTimeout(() => {
-      setIsTimedOut(true);
-      handleRedirect();
-    }, duration);
+    if (duration) {
+      setTimeout(() => {
+        setIsTimedOut(true);
+        setTimeout(() => {
+          setIsRedirecting(true);
+        }, 2000);
+      }, duration);
+    }
     // eslint-disable-next-line
   }, []);
-  const handleRedirect = () => {
-    setTimeout(() => {
-      setIsRedirecting(true);
-    }, 3000);
-  };
   return isRedirecting ? (
     <Redirect to='/' />
   ) : isTimedOut ? (
     <h1>Request timed out</h1>
   ) : (
-    <div>
-      <div className='spinner' />
-      <h1>Loading...</h1>
-    </div>
+    <div className='spinner' />
   );
 };
 
