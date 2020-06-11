@@ -9,6 +9,7 @@ const ClientState = (props) => {
     selectedClient: null,
     editingClient: null,
     filteredClients: [],
+    loading: true,
     error: null,
   };
   const [state, dispatch] = useReducer(clientReducer, initialState);
@@ -101,6 +102,7 @@ const ClientState = (props) => {
         clients: state.clients,
         editingClient: state.editingClient,
         filteredClients: state.filteredClients,
+        loading: state.loading,
         error: state.error,
         getClients,
         addClient,
