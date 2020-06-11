@@ -1,6 +1,6 @@
-import createNewExercise from '../functions/createNewExercise';
+import createNewExercise from './createNewExercise';
 
-const updateExercises = (value, exercises) => {
+const UpdateRoutine = (value, exercises) => {
   // ------------------- Dispatcher -------------------
   // If value is a string...
   if (typeof value === 'string') {
@@ -56,4 +56,4 @@ const updateExercises = (value, exercises) => {
   }
 };
 
-export default updateExercises;
+export default UpdateRoutine;

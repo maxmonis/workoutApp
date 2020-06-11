@@ -8,13 +8,7 @@ const useClientState = (initialClient) => {
   return {
     client,
     updateLifts: (newName, oldName) => {
-      const updated = updateLifts(
-        capitalize(newName),
-        oldName,
-        client.lifts,
-        client.workouts,
-        client.records
-      );
+      const updated = updateLifts(capitalize(newName), oldName, client);
       if (updated) {
         if (updated.length) {
           setClient({ ...client, lifts: updated });
@@ -25,7 +19,7 @@ const useClientState = (initialClient) => {
       }
     },
     updateWorkouts: (value) => {
-      const updated = updateWorkouts(value, client.workouts, client.records);
+      const updated = updateWorkouts(value, client);
       const { workouts, records } = updated;
       setClient({ ...client, workouts, records });
     },

@@ -4,29 +4,19 @@ import { Droppable } from 'react-beautiful-dnd';
 
 import Exercise from './Exercise';
 
-const ExerciseList = ({
-  exercises,
-  removeExercise,
-  editExercise,
-  lifts,
-}) => {
-  if (exercises.length)
+const ExerciseList = ({ lifts, routine, updateRoutine }) => {
+  if (routine.length)
     return (
       <div>
         <Droppable droppableId='ExerciseList'>
           {(provided) => (
-            <ul
-              style={{ listStyle: 'none', padding: 0 }}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {exercises.map((exercise, index) => (
+            <ul ref={provided.innerRef} {...provided.droppableProps}>
+              {routine.map((exercise, index) => (
                 <Exercise
                   key={exercise.id}
-                  exercise={exercise}
-                  removeExercise={removeExercise}
-                  editExercise={editExercise}
                   lifts={lifts}
+                  exercise={exercise}
+                  updateRoutine={updateRoutine}
                   index={index}
                 />
               ))}

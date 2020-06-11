@@ -4,17 +4,16 @@ import useInputState from '../../hooks/useInputState';
 
 import TextField from '@material-ui/core/TextField';
 
-const EditLiftForm = ({ name, updateLifts, toggleEditForm }) => {
-  const [value, handleChange, reset] = useInputState(name);
+const EditLiftForm = ({ lift, toggle, updateLifts }) => {
+  const [value, handleChange, reset] = useInputState(lift);
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        updateLifts(value, name);
+        updateLifts(value, lift);
         reset();
-        toggleEditForm();
+        toggle();
       }}
-      style={{ marginLeft: '1 rem', width: '100%' }}
     >
       <TextField
         margin='normal'

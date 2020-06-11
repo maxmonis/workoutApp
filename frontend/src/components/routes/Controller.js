@@ -7,7 +7,7 @@ import LiftApp from '../lift/LiftApp';
 import WorkoutApp from '../workout/WorkoutApp';
 
 import eliminateRedundancy from '../../functions/eliminateRedundancy';
-import updateExercises from '../../functions/updateExercises';
+import updateRoutine from '../../functions/updateRoutine';
 
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
@@ -20,13 +20,9 @@ const Controller = ({ selectedClient }) => {
   const { client, updateLifts, updateWorkouts } = useClientState(
     selectedClient
   );
-  const { lifts } = client;
-  useEffect(() => {
-    updateClient(client);
-    // eslint-disable-next-line
-  }, [client]);
-  const defaultRoutine = window.localStorage.getItem(`${client._id}`) || [];
-  const [routine, setRoutine] = useState(defaultRoutine);
+  const { lifts, _id } = client;
+  const getRoutine = () => window.localStorage.getItem(`${_id}`) || [];
+  const [routine, setRoutine] = useState(getRoutine());
   const defaultWorkout = {
     name: '',
     date: new Date().toISOString().slice(0, 10),
@@ -51,12 +47,24 @@ const Controller = ({ selectedClient }) => {
     }
   };
   const addExercise = () => {
-    setRoutine(eliminateRedundancy(updateExercises(exercise)));
+    setRoutine(eliminateRedundancy(updateRoutine(exercise)));
   };
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
     setWorkout(defaultWorkout);
   };
+  useEffect(() => {
+    updateClient(client);
+    // eslint-disable-next-line
+  }, [client]);
+  useEffect(() => {
+    window.localStorage.setItem(`${_id}`, routine);
+    // eslint-disable-next-line
+  }, [routine]);
+  useEffect(() => {
+    setRoutine(getRoutine());
+    // eslint-disable-next-line
+  }, [lifts]);
   return (
     <div>
       <Typography variant='h3'>{client.name}</Typography>
@@ -75,7 +83,7 @@ const Controller = ({ selectedClient }) => {
           <ExerciseApp
             lifts={lifts}
             exercises={routine}
-            updateExercises={updateExercises}
+            updateRoutine={updateRoutine}
           />
         </div>
       )}

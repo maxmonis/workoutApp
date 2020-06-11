@@ -7,7 +7,7 @@ import EditExerciseForm from './EditExerciseForm';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
-const Exercise = ({ exercise, updateExercise, lifts, index }) => {
+const Exercise = ({ lifts, exercise, updateRoutine, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const openDialog = () => {
     setIsDialogOpen(true);
@@ -33,7 +33,7 @@ const Exercise = ({ exercise, updateExercise, lifts, index }) => {
         <DialogContent>
           <EditExerciseForm
             exercise={exercise}
-            updateExercise={updateExercise}
+            updateRoutine={updateRoutine}
             closeDialog={closeDialog}
             lifts={lifts}
           />

@@ -1,7 +1,8 @@
 import updateRecords from './updateRecords';
 import uuid from 'uuid/v4';
 
-const updateWorkouts = (value, workouts, records) => {
+const updateWorkouts = (value, client) => {
+  const { workouts, records } = client;
   // ------------------- Dispatcher -------------------
   // If value is a string instead of an object
   if (typeof value === 'string') {

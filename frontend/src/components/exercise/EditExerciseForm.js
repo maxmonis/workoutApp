@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 const UpdateExerciseForm = ({
   exercise,
-  updateExercise,
+  updateRoutine,
   closeDialog,
   lifts,
 }) => {
@@ -19,10 +19,10 @@ const UpdateExerciseForm = ({
     setCurrentExercise({ ...currentExercise, [id]: value });
   };
   const handleDelete = () => {
-    updateExercise(currentExercise.id);
+    updateRoutine(currentExercise.id);
   };
   const handleSave = () => {
-    updateExercise(currentExercise);
+    updateRoutine(currentExercise);
     closeDialog();
   };
   return (

@@ -15,9 +15,9 @@ const Lift = ({ lift, updateLifts }) => {
       <ListItem style={{ padding: 0 }} component='div'>
         {isEditing ? (
           <EditLiftForm
-            updateLifts={updateLifts}
-            lift={lift}
-            toggleEditForm={toggle}
+          lift={lift}
+          toggle={toggle}
+          updateLifts={updateLifts}
           />
         ) : (
           <ListItemText aria-label={label} onClick={toggle}>
