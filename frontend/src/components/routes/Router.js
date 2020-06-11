@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import ClientContext from '../../context/client/clientContext';
 
 import Spinner from '../layout/Spinner';
-import WorkoutApp from '../workout/WorkoutApp';
+import Controller from './Controller';
 
 const Router = (props) => {
   const clientContext = useContext(ClientContext);
@@ -12,7 +12,7 @@ const Router = (props) => {
     (client) => client._id === props.match.params.id
   );
   return selectedClient ? (
-    <WorkoutApp selectedClient={selectedClient} />
+    <Controller selectedClient={selectedClient} />
   ) : (
     <Spinner />
   );

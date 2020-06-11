@@ -5,7 +5,7 @@ import ClientContext from '../../context/client/clientContext';
 import ActiveClient from './ActiveClient';
 import DeactivatedClient from './DeactivatedClient';
 
-const ClientItem = ({ client, selectClient }) => {
+const Client = ({ client, selectClient }) => {
   const clientContext = useContext(ClientContext);
   const { deleteClient, updateClient, setEditingClient } = clientContext;
   const { _id, name } = client;
@@ -42,4 +42,4 @@ const ClientItem = ({ client, selectClient }) => {
   );
 };
 
-export default ClientItem;
+export default Client;

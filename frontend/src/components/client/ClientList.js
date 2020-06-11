@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import ClientItem from './ClientItem';
+import Client from './Client';
 
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -12,7 +12,7 @@ const ClientList = ({ clients, selectClient }) => {
         <Divider />
         {clients.map((client) => (
           <Fragment key={client.name}>
-            <ClientItem client={client} selectClient={selectClient} />
+            <Client client={client} selectClient={selectClient} />
             <Divider />
           </Fragment>
         ))}

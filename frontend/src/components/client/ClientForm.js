@@ -17,7 +17,6 @@ const ClientForm = ({ reset }) => {
     phone: '',
     isActive: true,
     lifts: ['Bench Press', 'Deadlift', 'Squat'],
-    exercises: [],
     workouts: [],
     records: [],
   };
