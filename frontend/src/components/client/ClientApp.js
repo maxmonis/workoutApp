@@ -1,27 +1,23 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 
 import ClientContext from '../../context/client/clientContext';
-import AuthContext from '../../context/auth/authContext';
 
-import ClientFilter from '../client/ClientFilter';
-import ClientForm from '../client/ClientForm';
-import ClientList from '../client/ClientList';
-import Spinner from '../layout/Spinner';
+import ClientFilter from './ClientFilter';
+import ClientForm from './ClientForm';
+import ClientList from './ClientList';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
-const Home = (props) => {
+const ClientApp = (props) => {
+  const { clients, handleSelect } = props;
   const clientContext = useContext(ClientContext);
   const {
-    clients,
     filteredClients,
     editingClient,
     clearEditingClient,
     clearFilteredClients,
   } = clientContext;
-  const authContext = useContext(AuthContext);
-  const { loading } = authContext;
   const activeClients = filteredClients.length
     ? filteredClients.filter((client) => client.isActive)
     : clients.filter((client) => client.isActive);
@@ -36,7 +32,7 @@ const Home = (props) => {
   };
   const selectClient = (id) => {
     reset();
-    props.history.push(`/${id}`);
+    handleSelect(id);
   };
   const addNewClient = () => {
     clearEditingClient();
@@ -50,7 +46,6 @@ const Home = (props) => {
     clearFilteredClients();
     // eslint-disable-next-line
   }, [clients]);
-  if (loading) return <Spinner />;
   return (
     <div>
       <Paper className='container'>
@@ -74,4 +69,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default ClientApp;

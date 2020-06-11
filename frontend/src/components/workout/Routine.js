@@ -6,7 +6,7 @@ import organizeExercises from '../../functions/organizeExercises';
 
 import Button from '@material-ui/core/Button';
 
-const Routine = ({ lifts, workout, saveWorkout, updateWorkout }) => {
+const Routine = ({ lifts, workout, saveWorkout, updateRoutine }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleSave = () => {
@@ -14,8 +14,9 @@ const Routine = ({ lifts, workout, saveWorkout, updateWorkout }) => {
     setIsFormOpen(false);
   };
   const handleReset = () => {
-    updateExercises([]);
+    updateRoutine([]);
   };
+  const handleCancel = () => setIsFormOpen(false);
 
   if (workout.routine.length) {
     return (
@@ -23,7 +24,7 @@ const Routine = ({ lifts, workout, saveWorkout, updateWorkout }) => {
         {organizeExercises(exercises).map((exercise) => (
           <h4 key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</h4>
         ))}
-        <Button onClick={closeDialog} color='primary'>
+        <Button onClick={handleCancel} color='primary'>
           Cancel
         </Button>
         <Button onClick={handleSave} color='primary'>
