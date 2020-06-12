@@ -1,20 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-
-import ClientContext from '../../context/client/clientContext';
-
+import Typography from '@material-ui/core/Typography';
+import Workout from './Workout';
 import ExerciseApp from '../exercise/ExerciseApp';
 import LiftApp from '../lift/LiftApp';
-import Workout from './Workout';
-
+import ClientContext from '../../context/client/clientContext';
+import useClientState from '../../hooks/useClientState';
+import useToggle from '../../hooks/useToggle';
 import eliminateRedundancy from '../../functions/eliminateRedundancy';
 import updateRoutine from '../../functions/updateRoutine';
 
-import useClientState from '../../hooks/useClientState';
-import useToggle from '../../hooks/useToggle';
-
-import Typography from '@material-ui/core/Typography';
-
-const Controller = ({ selectedClient }) => {
+const WorkoutApp = ({ selectedClient }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient } = clientContext;
   const { client, updateLifts, updateWorkouts } = useClientState(
@@ -109,4 +104,4 @@ const Controller = ({ selectedClient }) => {
   );
 };
 
-export default Controller;
+export default WorkoutApp;

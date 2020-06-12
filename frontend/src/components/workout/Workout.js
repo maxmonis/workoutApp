@@ -1,12 +1,9 @@
 import React from 'react';
-
-import AddExercise from '../exercise/AddExercise';
-import WorkoutForm from './WorkoutForm';
-
-import useToggle from '../../hooks/useToggle';
-
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import AddExercise from '../exercise/AddExercise';
+import WorkoutForm from './WorkoutForm';
+import useToggle from '../../hooks/useToggle';
 
 const Workout = ({
   exercise,
