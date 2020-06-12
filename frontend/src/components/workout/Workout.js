@@ -24,7 +24,7 @@ const Workout = ({
   if (isFormOpen) {
     return (
       <WorkoutForm
-        workout={workout}
+        {...workout}
         handleChange={handleChange}
         handleSave={handleSave}
       />

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -13,12 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
-const InactiveClient = ({
-  clientName,
-  fullName,
-  handleRecover,
-  handleDelete,
-}) => {
+const InactiveClient = ({ name, fullName, handleRecover, handleDelete }) => {
   const [inputValue, setInputValue] = useState('');
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -36,7 +30,7 @@ const InactiveClient = ({
   return (
     <div>
       <ListItem>
-        <Button disabled>{clientName}</Button>
+        <Button disabled>{name}</Button>
         <ListItemSecondaryAction>
           <IconButton onClick={handleRecover}>
             <AddIcon aria-label='Recover' />

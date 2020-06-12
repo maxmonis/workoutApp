@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef } from 'react';
-
 import ClientContext from '../../context/client/clientContext';
 
 const ClientFilter = () => {
@@ -14,7 +13,7 @@ const ClientFilter = () => {
     if (!filteredClients.length) {
       text.current.value = '';
     }
-  });
+  }, [filteredClients.length]);
   const handleChange = (e) => {
     if (text.current.value !== '') {
       filterClients(e.target.value);
@@ -35,4 +34,5 @@ const ClientFilter = () => {
     </form>
   );
 };
+
 export default ClientFilter;

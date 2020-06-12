@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
-
-import Client from './Client';
-
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
+import Client from './Client';
 
 const ClientList = ({ clients, selectClient }) => {
   return (

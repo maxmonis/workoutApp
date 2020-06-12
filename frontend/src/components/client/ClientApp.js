@@ -1,16 +1,12 @@
 import React, { useContext, useEffect, Fragment } from 'react';
-
-import useToggle from '../../hooks/useToggle';
-
-import ClientContext from '../../context/client/clientContext';
-
-import ClientFilter from './ClientFilter';
-import ClientForm from './ClientForm';
-import ClientList from './ClientList';
-
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import ClientFilter from './ClientFilter';
+import ClientForm from './ClientForm';
+import ClientList from './ClientList';
+import useToggle from '../../hooks/useToggle';
+import ClientContext from '../../context/client/clientContext';
 
 const ClientApp = ({ clients, handleSelect }) => {
   const clientContext = useContext(ClientContext);

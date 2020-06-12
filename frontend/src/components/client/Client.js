@@ -25,14 +25,14 @@ const Client = ({ client, selectClient }) => {
   };
   return client.isActive ? (
     <ActiveClient
-      clientName={clientName}
+      name={clientName}
       handleSelect={handleSelect}
       handleEdit={handleEdit}
       handleDeactivate={handleDeactivate}
     />
   ) : (
     <InactiveClient
-      clientName={clientName}
+      name={clientName}
       fullName={client.name}
       handleRecover={handleRecover}
       handleDelete={handleDelete}
