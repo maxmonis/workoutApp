@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import IconButton from '@material-ui/core/IconButton';
 import AddExercise from './AddExercise';
 
-const EditExerciseForm = ({ exercise, updateRoutine, closeDialog, lifts }) => {
+const EditExercise = ({ exercise, updateRoutine, closeDialog, lifts }) => {
   const [currentExercise, setCurrentExercise] = useState(exercise);
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -40,4 +40,4 @@ const EditExerciseForm = ({ exercise, updateRoutine, closeDialog, lifts }) => {
   );
 };
 
-export default EditExerciseForm;
+export default EditExercise;

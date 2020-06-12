@@ -13,7 +13,7 @@ const ClientFilter = () => {
     if (!filteredClients.length) {
       text.current.value = '';
     }
-  }, [filteredClients.length]);
+  });
   const handleChange = (e) => {
     if (text.current.value !== '') {
       filterClients(e.target.value);

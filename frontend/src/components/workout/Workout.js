@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AddExercise from '../exercise/AddExercise';
-import WorkoutForm from './WorkoutForm';
+import SaveWorkout from './SaveWorkout';
 import useToggle from '../../hooks/useToggle';
 
 const Workout = ({
@@ -20,7 +20,7 @@ const Workout = ({
   };
   if (isFormOpen) {
     return (
-      <WorkoutForm
+      <SaveWorkout
         {...workout}
         handleChange={handleChange}
         handleSave={handleSave}

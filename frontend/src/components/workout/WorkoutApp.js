@@ -82,6 +82,7 @@ const WorkoutApp = ({ selectedClient }) => {
         <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
       ) : (
         <div>
+          <Typography variant='h4'>New Workout</Typography>
           <Workout
             exercise={exercise}
             workout={workout}

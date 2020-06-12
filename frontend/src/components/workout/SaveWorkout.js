@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
-const WorkoutForm = ({ name, date, handleChange, handleSave }) => {
+const SaveWorkout = ({ name, date, handleChange, handleSave }) => {
   return (
     <Paper className='container'>
       <form noValidate>
@@ -38,4 +38,4 @@ const WorkoutForm = ({ name, date, handleChange, handleSave }) => {
   );
 };
 
-export default WorkoutForm;
+export default SaveWorkout;

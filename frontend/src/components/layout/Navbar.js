@@ -17,12 +17,11 @@ const Navbar = () => {
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    if (user) getClients();
+    user ? getClients() : clearClients();
     // eslint-disable-next-line
   }, [user]);
   const handleLogout = () => {
     logUserOut();
-    clearClients();
   };
   const authLinks = (
     <Fragment>
@@ -49,7 +48,7 @@ const Navbar = () => {
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
-      <Typography variant='h1'>workoutApp</Typography>
+      <Typography variant='h2'>workoutApp</Typography>
     </Fragment>
   );
 };
