@@ -2,8 +2,8 @@
   text-align: center;
   background-color: #282c34;
   color: white;
-  min-width: 100vw;
   min-height: 100vh;
+  overflow: scroll;
 }
 
 .container {
@@ -12,11 +12,24 @@
   padding: 25px;
 }
 
+.exercise-form {
+  display: flex;
+  flex: row;
+}
+
+.field {
+  width: 60px;
+}
+
 .filter {
   height: 25px;
   width: 100px;
   font-size: large;
   padding: 5px 10px;
+}
+
+li {
+  list-style: none;
 }
 
 .link {
@@ -28,4 +41,8 @@
 .scrollable {
   max-height: 40vh;
   overflow-y: scroll;
+}
+
+.select {
+  width: 180px;
 }

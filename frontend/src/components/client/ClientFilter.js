@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef } from 'react';
-
 import ClientContext from '../../context/client/clientContext';
 
 const ClientFilter = () => {
@@ -35,4 +34,5 @@ const ClientFilter = () => {
     </form>
   );
 };
+
 export default ClientFilter;

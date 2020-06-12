@@ -1,24 +1,15 @@
 import React, { useContext } from 'react';
-
+import ActiveClient from './ActiveClient';
+import InactiveClient from './InactiveClient';
 import ClientContext from '../../context/client/clientContext';
 
-import ActiveClient from './ActiveClient';
-import DeactivatedClient from './DeactivatedClient';
-
-const ClientItem = ({ client }) => {
+const Client = ({ client, selectClient }) => {
   const clientContext = useContext(ClientContext);
-  const {
-    deleteClient,
-    updateClient,
-    selectClient,
-    setEditingClient,
-    clearFilteredClients,
-  } = clientContext;
+  const { deleteClient, updateClient, setEditingClient } = clientContext;
   const { _id, name } = client;
   const clientName = name.length > 16 ? `${name.slice(0, 15).trim()}...` : name;
   const handleSelect = () => {
-    clearFilteredClients();
-    selectClient(client);
+    selectClient(_id);
   };
   const handleEdit = () => {
     setEditingClient(client);
@@ -34,14 +25,14 @@ const ClientItem = ({ client }) => {
   };
   return client.isActive ? (
     <ActiveClient
-      clientName={clientName}
+      name={clientName}
       handleSelect={handleSelect}
       handleEdit={handleEdit}
       handleDeactivate={handleDeactivate}
     />
   ) : (
-    <DeactivatedClient
-      clientName={clientName}
+    <InactiveClient
+      name={clientName}
       fullName={client.name}
       handleRecover={handleRecover}
       handleDelete={handleDelete}
@@ -49,4 +40,4 @@ const ClientItem = ({ client }) => {
   );
 };
 
-export default ClientItem;
+export default Client;

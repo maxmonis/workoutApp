@@ -27,16 +27,6 @@ export default (state, action) => {
         clients: state.clients.filter((client) => client._id !== payload),
         loading: false,
       };
-    case 'SELECT_CLIENT':
-      return {
-        ...state,
-        selectedClient: payload,
-      };
-    case 'CLEAR_SELECTED_CLIENT':
-      return {
-        ...state,
-        selectedClient: null,
-      };
     case 'CLEAR_CLIENTS':
       return {
         ...state,
@@ -59,9 +49,9 @@ export default (state, action) => {
         ...state,
         filteredClients: state.clients.filter((client) => {
           const regexp = new RegExp(`${payload}`, 'gi');
-          const clientName = client.name.replace(/ /g, '');
-          const clientEmail = client.email.replace(/@.*$/, '');
-          return clientName.match(regexp) || clientEmail.match(regexp);
+          const name = client.name.replace(/ /g, '');
+          const email = client.email.replace(/@.*$/, '');
+          return name.match(regexp) || email.match(regexp);
         }),
       };
     case 'CLEAR_FILTERED_CLIENTS':

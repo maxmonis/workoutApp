@@ -22,9 +22,6 @@ const ClientSchema = mongoose.Schema({
   lifts: {
     type: [],
   },
-  exercises: {
-    type: [],
-  },
   workouts: {
     type: [],
   },

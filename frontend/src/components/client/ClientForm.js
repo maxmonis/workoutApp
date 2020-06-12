@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react';
-
-import ClientContext from '../../context/client/clientContext';
-
-import { capitalize } from '../../functions/helpers';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { capitalize } from '../../functions/helpers';
+import ClientContext from '../../context/client/clientContext';
+
+
 
 const ClientForm = ({ reset }) => {
   const clientContext = useContext(ClientContext);
@@ -17,7 +16,6 @@ const ClientForm = ({ reset }) => {
     phone: '',
     isActive: true,
     lifts: ['Bench Press', 'Deadlift', 'Squat'],
-    exercises: [],
     workouts: [],
     records: [],
   };

@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
-
+const auth = require('../middleware/auth');
 const Client = require('../models/Client');
 
 router.get('/', auth, async (req, res) => {
@@ -29,7 +28,6 @@ router.post(
       phone,
       isActive,
       lifts,
-      exercises,
       workouts,
       records,
     } = req.body;
@@ -40,7 +38,6 @@ router.post(
         phone,
         isActive,
         lifts,
-        exercises,
         workouts,
         records,
         user: req.user.id,
@@ -61,7 +58,6 @@ router.put('/:id', auth, async (req, res) => {
     phone,
     isActive,
     lifts,
-    exercises,
     workouts,
     records,
   } = req.body;
@@ -71,7 +67,6 @@ router.put('/:id', auth, async (req, res) => {
   if (email) clientFields.email = email;
   if (phone) clientFields.phone = phone;
   if (lifts) clientFields.lifts = lifts;
-  if (exercises) clientFields.exercises = exercises;
   if (workouts) clientFields.workouts = workouts;
   if (records) clientFields.records = records;
   try {

@@ -1,16 +1,12 @@
 import React, { Fragment } from 'react';
-
-import './App.css';
-
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './styles/App.css';
 import Alerts from './components/layout/Alerts';
-import Home from './components/pages/Home';
-import Login from './components/auth/Login';
+import Login from './components/routes/Login';
 import Navbar from './components/layout/Navbar';
-import PrivateRoute from './components/auth/PrivateRoute';
-import Register from './components/auth/Register';
-
+import PrivateRoute from './components/routes/PrivateRoute';
+import Register from './components/routes/Register';
+import Router from './components/routes/Router';
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import ClientState from './context/client/ClientState';
@@ -21,17 +17,18 @@ const App = () => {
       <AuthState>
         <ClientState>
           <AlertState>
-            <Router>
+            <BrowserRouter>
               <Fragment>
                 <Navbar />
                 <Alerts />
                 <Switch>
-                  <PrivateRoute exact path='/' component={Home} />
+                  <PrivateRoute exact path='/' component={Router} />
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/register' component={Register} />
+                  <PrivateRoute exact path='/:id' component={Router} />
                 </Switch>
               </Fragment>
-            </Router>
+            </BrowserRouter>
           </AlertState>
         </ClientState>
       </AuthState>

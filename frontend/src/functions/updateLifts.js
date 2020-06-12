@@ -1,6 +1,7 @@
 import { alphabetize } from './helpers';
 
-const updateLifts = (newName, oldName, lifts, exercises, workouts, records) => {
+const updateLifts = (newName, oldName, client) => {
+  const { lifts, workouts, records, _id } = client;
   // If newName is '' and oldName isn't the only lift
   if (!newName && oldName && lifts.length > 1) {
     // oldName can safely be deleted
@@ -16,16 +17,21 @@ const updateLifts = (newName, oldName, lifts, exercises, workouts, records) => {
   }
   function updateName(newName) {
     // so it can map newName onto oldName everywhere it appears.
-    const mapName = (routine) =>
-      routine.map((exercise) =>
+    const mapName = (exercises) =>
+      exercises.map((exercise) =>
         exercise.lift === oldName ? { ...exercise, lift: newName } : exercise
       );
+    const routine = JSON.parse(window.localStorage.getItem(`${_id}`)) || [];
+    if (routine.length) {
+      window.localStorage.setItem(`${_id}`, JSON.stringify(mapName(routine)));
+    }
     return {
       lifts: alphabetize(
         lifts.map((lift) => (lift === oldName ? newName : lift))
       ),
-      exercises: mapName(exercises),
-      workouts: workouts.map((workout) => mapName(workout.routine)),
+      workouts: workouts.length
+        ? workouts.map((workout) => mapName(workout.routine))
+        : [],
       records: mapName(records),
     };
   }
