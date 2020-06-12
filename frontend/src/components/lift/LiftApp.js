@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import AddLift from './AddLift';
 import LiftList from './LiftList';
 
-
 const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
     <Paper className='container'>

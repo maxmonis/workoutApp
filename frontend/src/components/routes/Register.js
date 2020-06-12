@@ -1,14 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-
 import { Link } from 'react-router-dom';
-
-import AlertContext from '../../context/alert/alertContext';
-import AuthContext from '../../context/auth/authContext';
-
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -32,12 +29,9 @@ const Register = (props) => {
     password2: '',
   });
   const { name, email, password, password2 } = user;
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
@@ -50,7 +44,6 @@ const Register = (props) => {
       registerUser({ name, email, password });
     }
   };
-
   return (
     <div>
       <Typography variant='h5'>Welcome!</Typography>

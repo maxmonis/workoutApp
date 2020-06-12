@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
-
-import ClientContext from '../../context/client/clientContext';
-import AuthContext from '../../context/auth/authContext';
-
 import ClientApp from '../client/ClientApp';
 import WorkoutApp from '../workout/WorkoutApp';
 import Spinner from '../layout/Spinner';
+import ClientContext from '../../context/client/clientContext';
+import AuthContext from '../../context/auth/authContext';
 
 const Router = (props) => {
   const clientContext = useContext(ClientContext);
