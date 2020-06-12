@@ -12,9 +12,8 @@ const AuthState = (props) => {
     user: null,
     error: null,
   };
-
   const [state, dispatch] = useReducer(authReducer, initialState);
-
+  const { token, isAuthenticated, loading, user, error } = state;
   const loadUser = async () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
@@ -26,7 +25,6 @@ const AuthState = (props) => {
       dispatch({ type: 'AUTH_ERROR' });
     }
   };
-
   const registerUser = async (formData) => {
     const config = {
       headers: {
@@ -41,7 +39,6 @@ const AuthState = (props) => {
       dispatch({ type: 'REGISTER_FAILURE', payload: err.response.data.msg });
     }
   };
-
   const logUserIn = async (formData) => {
     const config = {
       headers: {
@@ -56,21 +53,18 @@ const AuthState = (props) => {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.response.data.msg });
     }
   };
-
   const logUserOut = () => {
     dispatch({ type: 'LOG_USER_OUT' });
   };
-
   const clearErrors = () => dispatch({ type: 'CLEAR_ERRORS' });
-
   return (
     <AuthContext.Provider
       value={{
-        token: state.token,
-        isAuthenticated: state.isAuthenticated,
-        loading: state.loading,
-        user: state.user,
-        error: state.error,
+        token,
+        isAuthenticated,
+        loading,
+        user,
+        error,
         loadUser,
         registerUser,
         logUserIn,

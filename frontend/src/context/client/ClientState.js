@@ -6,14 +6,13 @@ import clientReducer from './clientReducer';
 const ClientState = (props) => {
   const initialState = {
     clients: [],
-    selectedClient: null,
     editingClient: null,
     filteredClients: [],
     loading: true,
     error: null,
   };
   const [state, dispatch] = useReducer(clientReducer, initialState);
-
+  const { clients, editingClient, filteredClients, loading, error } = state;
   const getClients = async () => {
     try {
       const res = await axios.get('/api/clients');
@@ -22,14 +21,13 @@ const ClientState = (props) => {
       dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
     }
   };
-
   const addClient = async (client) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    if (state.clients.some((c) => c.name === client.name)) {
+    if (clients.some((c) => c.name === client.name)) {
       dispatch({
         type: 'CLIENT_ERROR',
         payload: `${client.name} already exists`,
@@ -43,16 +41,13 @@ const ClientState = (props) => {
       }
     }
   };
-
   const updateClient = async (client) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    if (
-      state.clients.some((c) => c.name === client.name && c._id !== client._id)
-    ) {
+    if (clients.some((c) => c.name === client.name && c._id !== client._id)) {
       dispatch({
         type: 'CLIENT_ERROR',
         payload: `${client.name} already exists`,
@@ -70,7 +65,6 @@ const ClientState = (props) => {
       }
     }
   };
-
   const deleteClient = async (id) => {
     try {
       await axios.delete(`/api/clients/${id}`);
@@ -79,7 +73,6 @@ const ClientState = (props) => {
       dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
     }
   };
-
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' });
   };
@@ -95,15 +88,14 @@ const ClientState = (props) => {
   const clearFilteredClients = () => {
     dispatch({ type: 'CLEAR_FILTERED_CLIENTS' });
   };
-
   return (
     <ClientContext.Provider
       value={{
-        clients: state.clients,
-        editingClient: state.editingClient,
-        filteredClients: state.filteredClients,
-        loading: state.loading,
-        error: state.error,
+        clients,
+        editingClient,
+        filteredClients,
+        loading,
+        error,
         getClients,
         addClient,
         deleteClient,
