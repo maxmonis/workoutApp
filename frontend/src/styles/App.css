@@ -2,7 +2,6 @@
   text-align: center;
   background-color: #282c34;
   color: white;
-  min-width: 100vw;
   min-height: 100vh;
 }
 
@@ -26,6 +25,10 @@
   width: 100px;
   font-size: large;
   padding: 5px 10px;
+}
+
+li {
+  list-style: none;
 }
 
 .link {

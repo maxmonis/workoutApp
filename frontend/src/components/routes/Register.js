@@ -53,8 +53,8 @@ const Register = (props) => {
 
   return (
     <div>
+      <Typography variant='h5'>Welcome!</Typography>
       <Paper className='container'>
-        <Typography variant='h4'>Welcome!</Typography>
         <form onSubmit={handleSubmit}>
           <div>
             <Input

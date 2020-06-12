@@ -65,7 +65,7 @@ const DeactivatedClient = ({
         <DialogActions>
           <Button onClick={closeDialog}>Cancel</Button>
           {standardize(inputValue).includes(standardize(fullName)) ? (
-            <Button onClick={confirmDeletion} color='primary' autofocus>
+            <Button onClick={confirmDeletion} color='primary' autoFocus>
               Delete
             </Button>
           ) : (

@@ -33,12 +33,11 @@ const WorkoutApp = ({
   return (
     <Paper className='container'>
       <ExerciseEntryForm
-        lifts={[...lifts, '<<< Edit Lifts >>>']}
+        lifts={[...lifts, '<<< Exercises >>>']}
         handleChange={handleChange}
         exercise={exercise}
-        addExercise={addExercise}
       />
-      <Button color='primary' onClick={toggle}>
+      <Button color='primary' onClick={addExercise}>
         Next Exercise
       </Button>
     </Paper>

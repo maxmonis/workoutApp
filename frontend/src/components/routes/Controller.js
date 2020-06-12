@@ -40,13 +40,17 @@ const Controller = ({ selectedClient }) => {
     if (id === 'name' || id === 'date') {
       setWorkout({ ...workout, [id]: value });
     } else {
-      value !== '<<< Edit Lifts >>>'
+      value !== '<<< Exercises >>>'
         ? setExercise({ ...exercise, [id]: value })
         : toggle();
     }
   };
   const addExercise = () => {
-    setRoutine(eliminateRedundancy(updateRoutine(exercise)));
+    setRoutine(eliminateRedundancy(updateRoutine(exercise, routine)));
+  };
+  const selectExercise = (id) => {
+    setExercise(routine.find((exercise) => exercise.id === id));
+    setRoutine(eliminateRedundancy(updateRoutine(id, routine)));
   };
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
@@ -69,7 +73,7 @@ const Controller = ({ selectedClient }) => {
       window.localStorage.removeItem(`${_id}`);
     }
     // eslint-disable-next-line
-  }, [routine]);
+  }, [routine.length]);
   useEffect(() => {
     if (routine.length) {
       setRoutine(JSON.parse(window.localStorage.getItem(`${_id}`)));
@@ -91,11 +95,14 @@ const Controller = ({ selectedClient }) => {
             addExercise={addExercise}
             saveWorkout={saveWorkout}
           />
-          <ExerciseApp
-            lifts={lifts}
-            routine={routine}
-            updateRoutine={updateRoutine}
-          />
+          {routine.length > 0 && (
+            <ExerciseApp
+              lifts={lifts}
+              routine={routine}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
+            />
+          )}
         </div>
       )}
     </div>

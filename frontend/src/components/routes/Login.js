@@ -50,8 +50,8 @@ const Login = (props) => {
 
   return (
     <div>
+      <Typography variant='h5'>Welcome back!</Typography>
       <Paper className='container'>
-        <Typography variant='h4'>Welcome back!</Typography>
         <form onSubmit={handleSubmit}>
           <div>
             <Input

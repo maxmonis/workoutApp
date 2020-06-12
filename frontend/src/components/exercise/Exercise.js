@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Draggable } from 'react-beautiful-dnd';
 
-import EditExerciseForm from './EditExerciseForm';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-
-const Exercise = ({ lifts, exercise, updateRoutine, index }) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const openDialog = () => {
-    setIsDialogOpen(true);
-  };
-  const closeDialog = () => {
-    setIsDialogOpen(false);
+const Exercise = ({ exercise, index, selectExercise }) => {
+  const handleClick = () => {
+    selectExercise(exercise.id);
   };
   return (
     <div>
@@ -23,22 +14,12 @@ const Exercise = ({ lifts, exercise, updateRoutine, index }) => {
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            onClick={openDialog}
+            onClick={handleClick}
           >
             {exercise.lift}: {exercise.printout}
           </li>
         )}
       </Draggable>
-      <Dialog open={isDialogOpen} onClose={closeDialog}>
-        <DialogContent>
-          <EditExerciseForm
-            exercise={exercise}
-            updateRoutine={updateRoutine}
-            closeDialog={closeDialog}
-            lifts={lifts}
-          />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
