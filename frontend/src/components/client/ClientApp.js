@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ClientFilter from './ClientFilter';
 import ClientForm from './ClientForm';
 import ClientList from './ClientList';
-import useToggle from '../../hooks/useToggle';
 import ClientContext from '../../context/client/clientContext';
 
 const ClientApp = ({ clients, handleSelect }) => {
@@ -22,9 +21,10 @@ const ClientApp = ({ clients, handleSelect }) => {
   const deactivatedClients = filteredClients.length
     ? filteredClients.filter((client) => !client.isActive)
     : clients.filter((client) => !client.isActive);
-  const [isFormOpen, toggle, closeForm] = useToggle(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const openForm = () => setIsFormOpen(true);
   const reset = () => {
-    closeForm();
+    setIsFormOpen(false);
     clearEditingClient();
     clearFilteredClients();
   };
@@ -33,8 +33,7 @@ const ClientApp = ({ clients, handleSelect }) => {
     handleSelect(id);
   };
   useEffect(() => {
-    closeForm();
-    editingClient && toggle();
+    editingClient ? openForm() : reset();
     // eslint-disable-next-line
   }, [editingClient]);
   useEffect(() => {
@@ -50,7 +49,7 @@ const ClientApp = ({ clients, handleSelect }) => {
         ) : (
           <Fragment>
             <ClientFilter />
-            <Button color='primary' onClick={toggle}>
+            <Button color='primary' onClick={openForm}>
               Add New Client
             </Button>
             <ClientList
