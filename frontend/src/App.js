@@ -1,16 +1,12 @@
 import React, { Fragment } from 'react';
-
-import './styles/App.css';
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+import './styles/App.css';
 import Alerts from './components/layout/Alerts';
 import Login from './components/routes/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/routes/PrivateRoute';
 import Register from './components/routes/Register';
 import Router from './components/routes/Router';
-
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import ClientState from './context/client/ClientState';

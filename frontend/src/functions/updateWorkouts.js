@@ -1,5 +1,5 @@
-import updateRecords from './updateRecords';
 import uuid from 'uuid/v4';
+import updateRecords from './updateRecords';
 
 const updateWorkouts = (value, client) => {
   const { workouts, records } = client;
