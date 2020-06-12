@@ -35,7 +35,7 @@ const WorkoutApp = ({ selectedClient }) => {
     if (id === 'name' || id === 'date') {
       setWorkout({ ...workout, [id]: value });
     } else {
-      value !== '<<< Exercises >>>'
+      value !== '<<< Edit Exercises >>>'
         ? setExercise({ ...exercise, [id]: value })
         : toggle();
     }
@@ -79,7 +79,10 @@ const WorkoutApp = ({ selectedClient }) => {
     <div>
       <Typography variant='h3'>{client.name}</Typography>
       {isFormOpen ? (
-        <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
+        <div>
+          <Typography variant='h4'>Edit Exercises</Typography>
+          <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
+        </div>
       ) : (
         <div>
           <Typography variant='h4'>New Workout</Typography>
