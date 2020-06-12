@@ -1,10 +1,9 @@
 import React from 'react';
-
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 
-const AddExerciseForm = ({ lifts, handleChange, exercise }) => {
+const AddExercise = ({ lifts, handleChange, exercise }) => {
   const { lift, sets, reps, weight } = exercise;
   return (
     <form className='exercise-form'>
@@ -51,4 +50,4 @@ const AddExerciseForm = ({ lifts, handleChange, exercise }) => {
   );
 };
 
-export default AddExerciseForm;
+export default AddExercise;

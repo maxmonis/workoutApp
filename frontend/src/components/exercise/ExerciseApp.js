@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { DragDropContext } from 'react-beautiful-dnd';
-
 import ExerciseList from './ExerciseList';
 
 const ExerciseApp = ({ lifts, routine, updateRoutine, selectExercise }) => {

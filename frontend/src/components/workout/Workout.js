@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ExerciseEntryForm from '../exercise/AddExerciseForm';
+import AddExercise from '../exercise/AddExercise';
 import WorkoutForm from './WorkoutForm';
 
 import useToggle from '../../hooks/useToggle';
@@ -32,7 +32,7 @@ const Workout = ({
   }
   return (
     <Paper className='container'>
-      <ExerciseEntryForm
+      <AddExercise
         lifts={[...lifts, '<<< Exercises >>>']}
         handleChange={handleChange}
         exercise={exercise}

@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Droppable } from 'react-beautiful-dnd';
-
 import Exercise from './Exercise';
 
 const ExerciseList = ({ routine, selectExercise }) => {
