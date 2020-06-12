@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
-const SaveWorkout = ({ name, date, handleChange, handleSave }) => {
+const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
   return (
     <Paper className='container'>
       <form noValidate>
@@ -34,6 +34,7 @@ const SaveWorkout = ({ name, date, handleChange, handleSave }) => {
       ) : (
         <Button deactivated>Save Workout</Button>
       )}
+      <Button onClick={toggle}>Cancel</Button>
     </Paper>
   );
 };
