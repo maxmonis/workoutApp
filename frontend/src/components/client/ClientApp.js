@@ -37,7 +37,7 @@ const ClientApp = ({ clients, handleSelect }) => {
     // eslint-disable-next-line
   }, [editingClient]);
   useEffect(() => {
-    clearFilteredClients();
+    reset();
     // eslint-disable-next-line
   }, [clients]);
   return (
