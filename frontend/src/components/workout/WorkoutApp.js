@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Workout from './Workout';
+import NewWorkout from './NewWorkout';
 import ExerciseApp from '../exercise/ExerciseApp';
 import LiftApp from '../lift/LiftApp';
 import ClientContext from '../../context/client/clientContext';
@@ -83,7 +83,7 @@ const WorkoutApp = ({ selectedClient }) => {
       ) : (
         <div>
           <Typography variant='h4'>New Workout</Typography>
-          <Workout
+          <NewWorkout
             exercise={exercise}
             workout={workout}
             lifts={lifts}

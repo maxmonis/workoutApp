@@ -5,7 +5,7 @@ import AddExercise from '../exercise/AddExercise';
 import SaveWorkout from './SaveWorkout';
 import useToggle from '../../hooks/useToggle';
 
-const Workout = ({
+const NewWorkout = ({
   exercise,
   workout,
   lifts,
@@ -41,4 +41,4 @@ const Workout = ({
   );
 };
 
-export default Workout;
+export default NewWorkout;
