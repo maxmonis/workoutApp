@@ -1,29 +1,27 @@
 import React from 'react';
-
+import TextField from '@material-ui/core/TextField';
 import useInputState from '../../hooks/useInputState';
 
-import TextField from '@material-ui/core/TextField';
-
-const LiftForm = ({ updateLifts }) => {
-  const [value, handleChange, reset] = useInputState('');
+const EditLift = ({ lift, toggle, updateLifts }) => {
+  const [value, handleChange, reset] = useInputState(lift);
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        value && updateLifts(value);
+        updateLifts(value, lift);
         reset();
+        toggle();
       }}
     >
       <TextField
+        margin='normal'
         value={value}
         onChange={handleChange}
-        margin='normal'
-        label='Add New Exercise'
         fullWidth
-        autoFocus={true}
+        autoFocus
       />
     </form>
   );
 };
 
-export default LiftForm;
+export default EditLift;

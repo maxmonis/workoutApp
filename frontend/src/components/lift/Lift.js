@@ -1,11 +1,8 @@
 import React from 'react';
-
-import EditLiftForm from './EditLiftForm';
-
-import useToggle from '../../hooks/useToggle';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItem';
+import EditLift from './EditLift';
+import useToggle from '../../hooks/useToggle';
 
 const Lift = ({ lift, updateLifts }) => {
   const [isEditing, toggle] = useToggle(false);
@@ -14,7 +11,7 @@ const Lift = ({ lift, updateLifts }) => {
     <div>
       <ListItem style={{ padding: 0 }} component='div'>
         {isEditing ? (
-          <EditLiftForm
+          <EditLift
           lift={lift}
           toggle={toggle}
           updateLifts={updateLifts}

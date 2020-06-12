@@ -5,12 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
 const WorkoutForm = ({ workout, handleChange, handleSave }) => {
+  const { name, date } = workout;
   return (
     <Paper className='container'>
       <form noValidate>
         <TextField
           id='date'
-          label='Date'
+          label='Workout Date'
           type='date'
           value={workout.date}
           onChange={handleChange}
@@ -28,9 +29,13 @@ const WorkoutForm = ({ workout, handleChange, handleSave }) => {
         autoFocus
         required
       />
-      <Button color='primary' onClick={handleSave}>
-        Save Workout
-      </Button>
+      {name ? (
+        <Button color='primary' onClick={handleSave}>
+          Save Workout
+        </Button>
+      ) : (
+        <Button deactivated>Save Workout</Button>
+      )}
     </Paper>
   );
 };
