@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LiftForm from './LiftForm';
+import AddLiftForm from './AddLiftForm';
 import LiftList from './LiftList';
 
 import Button from '@material-ui/core/Button';
@@ -12,7 +12,7 @@ const LiftApp = ({ lifts, updateLifts, toggle }) => {
     <Paper className='container'>
       <Grid container justify='center'>
         <Grid item xs>
-          <LiftForm updateLifts={updateLifts} />
+          <AddLiftForm updateLifts={updateLifts} />
           <LiftList lifts={lifts} updateLifts={updateLifts} />
         </Grid>
       </Grid>

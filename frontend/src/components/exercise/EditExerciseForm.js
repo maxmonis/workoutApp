@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 
-import ExerciseEntryForm from './ExerciseEntryForm';
+import AddExerciseForm from './AddExerciseForm';
 
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControl from '@material-ui/core/FormControl';
 import IconButton from '@material-ui/core/IconButton';
 
-const UpdateExerciseForm = ({
-  exercise,
-  updateRoutine,
-  closeDialog,
-  lifts,
-}) => {
+const EditExerciseForm = ({ exercise, updateRoutine, closeDialog, lifts }) => {
   const [currentExercise, setCurrentExercise] = useState(exercise);
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -28,7 +23,7 @@ const UpdateExerciseForm = ({
   return (
     <form>
       <FormControl>
-        <ExerciseEntryForm
+        <AddExerciseForm
           lifts={lifts}
           handleChange={handleChange}
           exercise={currentExercise}
@@ -47,4 +42,4 @@ const UpdateExerciseForm = ({
   );
 };
 
-export default UpdateExerciseForm;
+export default EditExerciseForm;

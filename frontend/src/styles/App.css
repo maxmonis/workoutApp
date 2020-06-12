@@ -17,7 +17,7 @@
 }
 
 .field {
-  width: 75px;
+  width: 60px;
 }
 
 .filter {
@@ -43,5 +43,5 @@ li {
 }
 
 .select {
-  width: 150px;
+  width: 180px;
 }

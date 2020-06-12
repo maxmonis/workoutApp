@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
-const SaveWorkout = ({ workout, handleChange, handleSave }) => {
+const WorkoutForm = ({ workout, handleChange, handleSave }) => {
   return (
     <Paper className='container'>
       <form noValidate>
@@ -35,4 +35,4 @@ const SaveWorkout = ({ workout, handleChange, handleSave }) => {
   );
 };
 
-export default SaveWorkout;
+export default WorkoutForm;

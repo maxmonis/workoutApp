@@ -18,7 +18,7 @@ const LiftForm = ({ updateLifts }) => {
         value={value}
         onChange={handleChange}
         margin='normal'
-        label='Add New Lift'
+        label='Add New Exercise'
         fullWidth
         autoFocus={true}
       />

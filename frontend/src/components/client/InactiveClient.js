@@ -13,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 
-const DeactivatedClient = ({
+const InactiveClient = ({
   clientName,
   fullName,
   handleRecover,
@@ -81,4 +81,4 @@ function standardize(string) {
   return string.replace(/[^a-z]+/gi, '').toUpperCase();
 }
 
-export default DeactivatedClient;
+export default InactiveClient;

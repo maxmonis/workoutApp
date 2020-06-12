@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
-
-import ClientContext from '../../context/client/clientContext';
-
 import ActiveClient from './ActiveClient';
-import DeactivatedClient from './DeactivatedClient';
+import InactiveClient from './InactiveClient';
+import ClientContext from '../../context/client/clientContext';
 
 const Client = ({ client, selectClient }) => {
   const clientContext = useContext(ClientContext);
@@ -33,7 +31,7 @@ const Client = ({ client, selectClient }) => {
       handleDeactivate={handleDeactivate}
     />
   ) : (
-    <DeactivatedClient
+    <InactiveClient
       clientName={clientName}
       fullName={client.name}
       handleRecover={handleRecover}

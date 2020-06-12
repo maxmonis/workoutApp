@@ -4,7 +4,7 @@ import ClientContext from '../../context/client/clientContext';
 import AuthContext from '../../context/auth/authContext';
 
 import ClientApp from '../client/ClientApp';
-import Controller from './Controller';
+import WorkoutApp from '../workout/WorkoutApp';
 import Spinner from '../layout/Spinner';
 
 const Router = (props) => {
@@ -20,7 +20,7 @@ const Router = (props) => {
   return loading || authContext.loading ? (
     <Spinner />
   ) : selectedClient ? (
-    <Controller selectedClient={selectedClient} />
+    <WorkoutApp selectedClient={selectedClient} />
   ) : (
     <ClientApp clients={clients} handleSelect={handleSelect} />
   );
