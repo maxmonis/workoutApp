@@ -29,6 +29,9 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           label='Sets'
           value={getNumStr(sets)}
           onChange={handleChange}
+          inputProps={{
+            pattern: '[0-9]*',
+          }}
           InputLabelProps={{ shrink: !!sets }}
           autoFocus
         />
@@ -38,6 +41,9 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           label='Reps'
           value={getNumStr(reps)}
           onChange={handleChange}
+          inputProps={{
+            pattern: '[0-9]*',
+          }}
           InputLabelProps={{ shrink: !!reps }}
         />
         <TextField
@@ -46,6 +52,9 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           label='Weight'
           value={getNumStr(weight)}
           onChange={handleChange}
+          inputProps={{
+            pattern: '[0-9]*',
+          }}
           InputLabelProps={{ shrink: !!weight }}
           required
         />
@@ -61,7 +70,7 @@ function getNumStr(value) {
   if (!value) return '';
   return typeof value === 'string'
     ? value.replace(/[^\d]/g, '')
-    : value.toString();
+    : value.toString().replace(/[^\d]/g, '');
 }
 
 export default AddExercise;

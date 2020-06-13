@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Spinner from '../layout/Spinner';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -11,7 +12,13 @@ const Login = (props) => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
   const { setAlert } = alertContext;
-  const { logUserIn, error, clearErrors, isAuthenticated } = authContext;
+  const {
+    logUserIn,
+    error,
+    clearErrors,
+    isAuthenticated,
+    loading,
+  } = authContext;
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/');
@@ -41,6 +48,7 @@ const Login = (props) => {
       });
     }
   };
+  if (loading) return <Spinner />;
   return (
     <div>
       <Typography variant='h5'>Welcome back!</Typography>
