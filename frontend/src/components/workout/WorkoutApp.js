@@ -6,16 +6,18 @@ import LiftApp from '../lift/LiftApp';
 import ClientContext from '../../context/client/clientContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
-import eliminateRedundancy from '../../functions/eliminateRedundancy';
-import updateRoutine from '../../functions/updateRoutine';
 
-const WorkoutApp = ({ selectedClient }) => {
+const WorkoutApp = ({ selectedClient, defaultRoutine }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient } = clientContext;
-  const { client, updateLifts, updateWorkouts } = useClientState(
-    selectedClient
-  );
-  const { lifts, _id } = client;
+  const {
+    client,
+    routine,
+    updateRoutine,
+    updateLifts,
+    updateWorkouts,
+  } = useClientState(selectedClient, []);
+  const { lifts } = client;
   const defaultExercise = {
     lift: lifts[0],
     sets: '',
@@ -23,7 +25,6 @@ const WorkoutApp = ({ selectedClient }) => {
     weight: '',
   };
   const [exercise, setExercise] = useState(defaultExercise);
-  const [routine, setRoutine] = useState([]);
   const defaultWorkout = {
     name: '',
     date: new Date().toISOString().slice(0, 10),
@@ -41,40 +42,21 @@ const WorkoutApp = ({ selectedClient }) => {
     }
   };
   const addExercise = () => {
-    setRoutine(eliminateRedundancy(updateRoutine(exercise, routine)));
+    updateRoutine(exercise);
   };
   const selectExercise = (id) => {
     setExercise(routine.find((exercise) => exercise.id === id));
-    setRoutine(eliminateRedundancy(updateRoutine(id, routine)));
+    updateRoutine(id);
   };
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
     setWorkout(defaultWorkout);
-    setRoutine([]);
+    updateRoutine([]);
   };
-  useEffect(() => {
-    const res = window.localStorage.getItem(`_id`);
-    res && setRoutine(JSON.parse(res));
-    // eslint-disable-next-line
-  }, []);
   useEffect(() => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
-  useEffect(() => {
-    if (routine.length) {
-      window.localStorage.setItem(`${_id}`, JSON.stringify(routine));
-    } else {
-      window.localStorage.removeItem(`${_id}`);
-    }
-    // eslint-disable-next-line
-  }, [routine.length]);
-  useEffect(() => {
-    if (routine.length) {
-      setRoutine(JSON.parse(window.localStorage.getItem(`${_id}`)));
-    }
-    // eslint-disable-next-line
-  }, [lifts]);
   return (
     <div>
       <Typography variant='h3'>{client.name}</Typography>

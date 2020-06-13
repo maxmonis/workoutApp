@@ -9,15 +9,13 @@ const ExerciseApp = ({ lifts, routine, updateRoutine, selectExercise }) => {
       const exerciseIds = routine.map((exercise) => exercise.id);
       exerciseIds.splice(source.index, 1);
       exerciseIds.splice(destination.index, 0, draggableId);
-      updateRoutine(exerciseIds, routine);
+      updateRoutine(exerciseIds);
     }
   };
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <ExerciseList
-        lifts={lifts}
         routine={routine}
-        updateRoutine={updateRoutine}
         selectExercise={selectExercise}
       />
     </DragDropContext>

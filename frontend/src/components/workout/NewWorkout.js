@@ -10,7 +10,7 @@ const NewWorkout = ({
   lifts,
   handleChange,
   addExercise,
-  saveWorkout,
+  // saveWorkout,
 }) => {
   const [isFormOpen, toggle] = useToggle(false);
   const handleSave = () => {
