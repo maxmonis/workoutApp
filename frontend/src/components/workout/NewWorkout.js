@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AddExercise from '../exercise/AddExercise';
 import SaveWorkout from './SaveWorkout';
@@ -33,10 +32,8 @@ const NewWorkout = ({
         lifts={[...lifts, '<<< Edit Exercises >>>']}
         handleChange={handleChange}
         exercise={exercise}
+        addExercise={addExercise}
       />
-      <Button color='primary' onClick={addExercise}>
-        Next Exercise
-      </Button>
     </Paper>
   );
 };

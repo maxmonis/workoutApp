@@ -24,8 +24,7 @@ const createNewExercise = (exercise) => {
 };
 
 function getNum(value) {
-  const num = parseInt(value);
-  return num > 0 ? num : 1;
+  return parseInt(value) || 1;
 }
 
 export default createNewExercise;

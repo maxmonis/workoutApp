@@ -12,11 +12,6 @@
   padding: 25px;
 }
 
-.exercise-form {
-  display: flex;
-  flex: row;
-}
-
 .field {
   width: 60px;
 }
