@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
-import ExerciseApp from '../exercise/ExerciseApp';
 import LiftApp from '../lift/LiftApp';
 import ClientContext from '../../context/client/clientContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
 
-const WorkoutApp = ({ selectedClient, defaultRoutine }) => {
+const WorkoutApp = ({ selectedClient }) => {
   const clientContext = useContext(ClientContext);
   const { updateClient } = clientContext;
   const {
@@ -16,7 +15,7 @@ const WorkoutApp = ({ selectedClient, defaultRoutine }) => {
     updateRoutine,
     updateLifts,
     updateWorkouts,
-  } = useClientState(selectedClient, []);
+  } = useClientState(selectedClient);
   const { lifts } = client;
   const defaultExercise = {
     lift: lifts[0],
@@ -72,18 +71,13 @@ const WorkoutApp = ({ selectedClient, defaultRoutine }) => {
             exercise={exercise}
             workout={workout}
             lifts={lifts}
+            routine={routine}
             handleChange={handleChange}
             addExercise={addExercise}
             saveWorkout={saveWorkout}
+            updateRoutine={updateRoutine}
+            selectExercise={selectExercise}
           />
-          {routine.length > 0 && (
-            <ExerciseApp
-              lifts={lifts}
-              routine={routine}
-              updateRoutine={updateRoutine}
-              selectExercise={selectExercise}
-            />
-          )}
         </div>
       )}
     </div>

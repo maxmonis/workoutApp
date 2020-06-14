@@ -67,10 +67,9 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
 };
 
 function getNumStr(value) {
-  if (!value) return '';
-  return typeof value === 'string'
-    ? value.replace(/[^\d]/g, '')
-    : value.toString().replace(/[^\d]/g, '');
+  return typeof value === 'number'
+    ? value.toString()
+    : value.replace(/[^\d]/g, '');
 }
 
 export default AddExercise;

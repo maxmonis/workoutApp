@@ -2,7 +2,7 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ExerciseList from './ExerciseList';
 
-const ExerciseApp = ({ lifts, routine, updateRoutine, selectExercise }) => {
+const ExerciseApp = ({ routine, updateRoutine, selectExercise }) => {
   const handleDragEnd = (result) => {
     const { destination, source, draggableId } = result;
     if (destination && destination.index !== source.index) {
@@ -14,10 +14,7 @@ const ExerciseApp = ({ lifts, routine, updateRoutine, selectExercise }) => {
   };
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <ExerciseList
-        routine={routine}
-        selectExercise={selectExercise}
-      />
+      <ExerciseList routine={routine} selectExercise={selectExercise} />
     </DragDropContext>
   );
 };
