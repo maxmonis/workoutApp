@@ -24,17 +24,22 @@ const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
         type='string'
         value={name}
         onChange={handleChange}
+        InputLabelProps={{
+          shrink: !!name,
+        }}
         autoFocus
         required
       />
-      {name ? (
-        <Button color='primary' onClick={handleSave}>
-          Save Workout
-        </Button>
-      ) : (
-        <Button deactivated>Save Workout</Button>
-      )}
-      <Button onClick={toggle}>Cancel</Button>
+      <div>
+        <Button onClick={toggle}>Cancel</Button>
+        {name ? (
+          <Button color='primary' onClick={handleSave}>
+            Save
+          </Button>
+        ) : (
+          <Button disabled>Save</Button>
+        )}
+      </div>
     </Paper>
   );
 };

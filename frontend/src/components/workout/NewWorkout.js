@@ -27,6 +27,7 @@ const NewWorkout = ({
       {...workout}
       handleChange={handleChange}
       handleSave={handleSave}
+      toggle={toggle}
     />
   ) : (
     <div>
