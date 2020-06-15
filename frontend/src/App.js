@@ -7,7 +7,6 @@ import Login from './components/routes/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/routes/PrivateRoute';
 import Register from './components/routes/Register';
-import Router from './components/routes/Router';
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import ClientState from './context/client/ClientState';
@@ -23,10 +22,14 @@ const App = () => {
                 <Navbar />
                 <Alerts />
                 <Switch>
-                  <PrivateRoute exact path='/' component={ClientApp} />
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/register' component={Register} />
-                  <PrivateRoute exact path='/workouts/:id' component={Router} />
+                  <PrivateRoute
+                    exact
+                    path='/workouts/:id'
+                    component={ClientApp}
+                  />
+                  <PrivateRoute component={ClientApp} />
                 </Switch>
               </Fragment>
             </BrowserRouter>

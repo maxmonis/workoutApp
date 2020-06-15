@@ -5,16 +5,20 @@ import Typography from '@material-ui/core/Typography';
 import ClientFilter from './ClientFilter';
 import ClientForm from './ClientForm';
 import ClientList from './ClientList';
+import Spinner from '../layout/Spinner';
+import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
 const ClientApp = (props) => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
+    updateClient,
     editingClient,
     filteredClients,
     clearEditingClient,
     clearFilteredClients,
+    loading,
   } = clientContext;
   const activeClients = filteredClients.length
     ? filteredClients.filter((client) => client.isActive)
@@ -22,17 +26,12 @@ const ClientApp = (props) => {
   const deactivatedClients = filteredClients.length
     ? filteredClients.filter((client) => !client.isActive)
     : clients.filter((client) => !client.isActive);
-
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   const reset = () => {
     setIsFormOpen(false);
     clearEditingClient();
     clearFilteredClients();
-  };
-  const selectClient = (id) => {
-    reset();
-    props.history.push(`workouts/${id}`);
   };
   useEffect(() => {
     editingClient ? openForm() : reset();
@@ -42,7 +41,17 @@ const ClientApp = (props) => {
     reset();
     // eslint-disable-next-line
   }, [clients]);
-  return (
+  const selectClient = (id) => {
+    props.history.push(`workouts/${id}`);
+  };
+  const selectedClient = clients.find(
+    (client) => client._id === props.match.params.id
+  );
+  return loading ? (
+    <Spinner />
+  ) : selectedClient ? (
+    <WorkoutApp selectedClient={selectedClient} updateClient={updateClient} />
+  ) : (
     <div>
       <Typography variant='h3'>Clients</Typography>
       <Paper className='container'>
