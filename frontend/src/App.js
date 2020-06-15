@@ -24,11 +24,7 @@ const App = () => {
                 <Switch>
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/register' component={Register} />
-                  <PrivateRoute
-                    exact
-                    path='/workouts/:id'
-                    component={ClientApp}
-                  />
+                  <PrivateRoute path='/:id' component={ClientApp} />
                   <PrivateRoute component={ClientApp} />
                 </Switch>
               </Fragment>

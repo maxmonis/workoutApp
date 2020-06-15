@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -42,15 +43,16 @@ const ClientApp = (props) => {
     // eslint-disable-next-line
   }, [clients]);
   const selectClient = (id) => {
-    props.history.push(`workouts/${id}`);
+    props.history.push(`${id}`);
   };
-  const selectedClient = clients.find(
-    (client) => client._id === props.match.params.id
-  );
+  const { id } = props.match.params;
+  const selectedClient = clients.find((client) => client._id === id);
   return loading ? (
     <Spinner />
   ) : selectedClient ? (
     <WorkoutApp selectedClient={selectedClient} updateClient={updateClient} />
+  ) : id ? (
+    <Redirect to='/' />
   ) : (
     <div>
       <Typography variant='h3'>Clients</Typography>
@@ -59,7 +61,7 @@ const ClientApp = (props) => {
           <ClientForm reset={reset} />
         ) : (
           <Fragment>
-            <ClientFilter />
+            {clients.length > 1 && <ClientFilter />}
             <Button color='primary' onClick={openForm}>
               Add New Client
             </Button>

@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
-import Workouts from './Workouts';
+import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
-import ClientContext from '../../context/client/clientContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
 
-const WorkoutApp = ({ selectedClient }) => {
-  const clientContext = useContext(ClientContext);
-  const { updateClient } = clientContext;
+const WorkoutApp = ({ selectedClient, updateClient }) => {
   const {
     client,
     routine,
@@ -17,7 +14,7 @@ const WorkoutApp = ({ selectedClient }) => {
     updateLifts,
     updateWorkouts,
   } = useClientState(selectedClient);
-  const { lifts, workouts } = client;
+  const { lifts, workouts, records } = client;
   const defaultExercise = {
     lift: lifts[0],
     sets: '',
@@ -67,7 +64,6 @@ const WorkoutApp = ({ selectedClient }) => {
         </div>
       ) : (
         <div>
-          <Typography variant='h4'>New Workout</Typography>
           <NewWorkout
             exercise={exercise}
             workout={workout}
@@ -79,7 +75,11 @@ const WorkoutApp = ({ selectedClient }) => {
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
           />
-          {workouts.length > 0 && <Workouts workouts={workouts} />}
+          {workouts.length > 0 ? (
+            <StatsApp workouts={workouts} records={records} />
+          ) : (
+            <h3>Please add a new workout</h3>
+          )}
         </div>
       )}
     </div>
