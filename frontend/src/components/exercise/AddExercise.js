@@ -6,8 +6,12 @@ import TextField from '@material-ui/core/TextField';
 
 const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
   const { lift, sets, reps, weight } = exercise;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addExercise();
+  };
   return (
-    <form onSubmit={addExercise}>
+    <form onSubmit={handleSubmit}>
       <Select
         className='select'
         native
