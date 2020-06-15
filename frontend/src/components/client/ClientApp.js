@@ -7,9 +7,10 @@ import ClientForm from './ClientForm';
 import ClientList from './ClientList';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientApp = ({ clients, handleSelect }) => {
+const ClientApp = (props) => {
   const clientContext = useContext(ClientContext);
   const {
+    clients,
     editingClient,
     filteredClients,
     clearEditingClient,
@@ -21,6 +22,7 @@ const ClientApp = ({ clients, handleSelect }) => {
   const deactivatedClients = filteredClients.length
     ? filteredClients.filter((client) => !client.isActive)
     : clients.filter((client) => !client.isActive);
+
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   const reset = () => {
@@ -30,7 +32,7 @@ const ClientApp = ({ clients, handleSelect }) => {
   };
   const selectClient = (id) => {
     reset();
-    handleSelect(id);
+    props.history.push(`workouts/${id}`);
   };
   useEffect(() => {
     editingClient ? openForm() : reset();

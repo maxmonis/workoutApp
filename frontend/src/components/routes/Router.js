@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import ClientApp from '../client/ClientApp';
 import WorkoutApp from '../workout/WorkoutApp';
 import Spinner from '../layout/Spinner';
 import ClientContext from '../../context/client/clientContext';
@@ -12,15 +11,10 @@ const Router = (props) => {
   const selectedClient = clients.find(
     (client) => client._id === props.match.params.id
   );
-  const handleSelect = (id) => {
-    props.history.push(`/${id}`);
-  };
   return loading || authContext.loading ? (
     <Spinner />
-  ) : selectedClient ? (
-    <WorkoutApp selectedClient={selectedClient} />
   ) : (
-    <ClientApp clients={clients} handleSelect={handleSelect} />
+    <WorkoutApp selectedClient={selectedClient} />
   );
 };
 
