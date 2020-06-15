@@ -11,6 +11,7 @@ const Exercise = ({ exercise, index, selectExercise }) => {
       <Draggable draggableId={id} index={index}>
         {(provided) => (
           <li
+            className='exercise'
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}

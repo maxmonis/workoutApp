@@ -8,7 +8,7 @@ const updateWorkouts = (value, client) => {
   } else {
     return value.id
       ? saveWorkouts(editWorkout(value))
-      : saveWorkouts(addWorkout((value.id = uuid())));
+      : saveWorkouts(addWorkout(value));
   }
   function editWorkout(newWorkout) {
     const date = workouts.find((workout) => workout.id === newWorkout.id).date;
@@ -23,6 +23,7 @@ const updateWorkouts = (value, client) => {
     return workouts.filter((workout) => workout.id !== workoutId);
   }
   function addWorkout(newWorkout) {
+    newWorkout.id = uuid();
     return workouts.length &&
       newWorkout.date < workouts[workouts.length - 1].date
       ? chronologize([...workouts, newWorkout])

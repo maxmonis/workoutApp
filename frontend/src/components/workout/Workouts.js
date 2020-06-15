@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { alphabetize } from '../../functions/helpers';
-import organizeExercises from '../../functions/organizeExercises';
+import organizeRoutine from '../../functions/organizeRoutine';
 
 const Workouts = ({ workouts }) => {
   const [selected, setSelected] = useState('All');
@@ -23,6 +22,7 @@ const Workouts = ({ workouts }) => {
     <Paper className='container'>
       <Select
         native
+        className='select'
         labelId='selected'
         value={selected}
         onChange={handleChange}
@@ -37,20 +37,20 @@ const Workouts = ({ workouts }) => {
       <div className='scrollable'>
         {filtered.map((workout) => (
           <div key={workout.id}>
-            <Typography variant='h5'>
-              {selected === 'All' && `${workout.name} - `}
+            <Typography variant='h6'>
+              {selected === 'All' && `${workout.name} `}
               {workout.date}
             </Typography>
-            {organizeExercises(workout.routine).map((exercise) => (
-              <Typography
-                variant='h6'
-                key={exercise.id}
-              >{`${exercise.lift}: ${exercise.printout}`}</Typography>
-            ))}
+            <ul className='left'>
+              {organizeRoutine(workout.routine).map((exercise) => (
+                <li
+                  key={exercise.id}
+                >{`${exercise.lift}: ${exercise.printout}`}</li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
-      <Button onClick={hideWorkouts}>Hide Workouts</Button>
     </Paper>
   );
 };

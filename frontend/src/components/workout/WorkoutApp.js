@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
+import Workouts from './Workouts';
 import LiftApp from '../lift/LiftApp';
 import ClientContext from '../../context/client/clientContext';
 import useClientState from '../../hooks/useClientState';
@@ -16,7 +17,7 @@ const WorkoutApp = ({ selectedClient }) => {
     updateLifts,
     updateWorkouts,
   } = useClientState(selectedClient);
-  const { lifts } = client;
+  const { lifts, workouts } = client;
   const defaultExercise = {
     lift: lifts[0],
     sets: '',
@@ -78,6 +79,7 @@ const WorkoutApp = ({ selectedClient }) => {
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
           />
+          {workouts.length > 0 && <Workouts workouts={workouts} />}
         </div>
       )}
     </div>
