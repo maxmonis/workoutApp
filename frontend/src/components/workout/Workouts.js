@@ -8,13 +8,12 @@ import { alphabetize } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
 const Workouts = ({ workouts }) => {
-  const [selected, setSelected] = useState('All');
-  const filtered =
-    selected !== 'All'
-      ? workouts.filter((workout) => workout.name === selected)
-      : workouts;
+  const [selected, setSelected] = useState('');
+  const filtered = selected
+    ? workouts.filter((workout) => workout.name === selected)
+    : workouts;
   const names = alphabetize([
-    ...new Set(['All', ...workouts.map((workout) => workout.name)]),
+    ...new Set([...workouts.map((workout) => workout.name)]),
   ]);
   const handleChange = (e) => {
     setSelected(e.target.value);
@@ -29,6 +28,9 @@ const Workouts = ({ workouts }) => {
         onChange={handleChange}
         input={<Input id='selected' />}
       >
+        <option key={'All'} value=''>
+          All
+        </option>
         {names.map((name) => (
           <option key={name} value={name}>
             {name}
@@ -39,7 +41,7 @@ const Workouts = ({ workouts }) => {
         {filtered.map((workout, i) => (
           <div key={workout.id}>
             <Typography variant='h6'>
-              {selected === 'All' && `${workout.name} `}
+              {!selected && `${workout.name} `}
               {workout.date}
             </Typography>
             <ul className='left'>

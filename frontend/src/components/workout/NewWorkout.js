@@ -33,7 +33,7 @@ const NewWorkout = ({
     <div>
       <Paper className='container'>
         <AddExercise
-          lifts={[...lifts, '<<< Edit Exercises >>>']}
+          lifts={lifts}
           handleChange={handleChange}
           exercise={exercise}
           addExercise={addExercise}

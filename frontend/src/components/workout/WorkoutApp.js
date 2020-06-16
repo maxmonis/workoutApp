@@ -34,9 +34,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     if (id === 'name' || id === 'date') {
       setWorkout({ ...workout, [id]: value });
     } else {
-      value !== '<<< Edit Exercises >>>'
-        ? setExercise({ ...exercise, [id]: value })
-        : toggle();
+      value ? setExercise({ ...exercise, [id]: value }) : toggle();
     }
   };
   const addExercise = () => {

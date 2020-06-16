@@ -25,7 +25,7 @@ const Records = ({ records, selected }) => {
             </Typography>
             <ul className='left'>
               <li key={record.id}>
-                {selected === 'All' && `${record.lift}: `}
+                {!selected && `${record.lift}: `}
                 {record.printout}
               </li>
             </ul>

@@ -6,13 +6,12 @@ import Records from './Records';
 import { alphabetize } from '../../functions/helpers';
 
 const RecordApp = ({ records }) => {
-  const [selected, setSelected] = useState('All');
-  const filtered =
-    selected !== 'All'
-      ? records.filter((record) => record.lift === selected)
-      : records;
+  const [selected, setSelected] = useState('');
+  const filtered = selected
+    ? records.filter((record) => record.lift === selected)
+    : records;
   const lifts = alphabetize([
-    ...new Set(['All', ...records.map((record) => record.lift)]),
+    ...new Set([...records.map((record) => record.lift)]),
   ]);
   const handleChange = (e) => {
     setSelected(e.target.value);
@@ -27,6 +26,9 @@ const RecordApp = ({ records }) => {
         onChange={handleChange}
         input={<Input id='selected' />}
       >
+        <option key={'All'} value=''>
+          All
+        </option>
         {lifts.map((lift) => (
           <option key={lift} value={lift}>
             {lift}
