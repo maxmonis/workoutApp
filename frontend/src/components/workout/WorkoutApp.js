@@ -76,7 +76,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             selectExercise={selectExercise}
           />
           {workouts.length > 0 ? (
-            <StatsApp workouts={workouts} records={records} />
+            <StatsApp
+              workouts={workouts}
+              records={records}
+              lift={exercise.lift}
+            />
           ) : (
             <h3>Please add a new workout</h3>
           )}
