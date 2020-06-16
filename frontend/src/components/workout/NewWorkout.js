@@ -43,13 +43,17 @@ const NewWorkout = ({
     </div>
   ) : (
     <div>
-      <Exercises workouts={workouts} lift={lift} autopopulate={autopopulate} />
-      <Paper className='container'>
+      <Paper className='container flex-row'>
         <AddExercise
           lifts={lifts}
           handleChange={handleChange}
           exercise={exercise}
           addExercise={addExercise}
+        />
+        <Exercises
+          workouts={workouts}
+          lift={lift}
+          autopopulate={autopopulate}
         />
       </Paper>
       {routine.length > 0 && (

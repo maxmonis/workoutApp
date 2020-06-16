@@ -20,6 +20,11 @@ li {
   font-size: 20px;
 }
 
+.exercises {
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
 .field {
   width: 60px;
 }
@@ -29,6 +34,11 @@ li {
   width: 100px;
   font-size: large;
   padding: 5px 10px;
+}
+
+.flex-row {
+  display: flex;
+  flex: row;
 }
 
 .footer {

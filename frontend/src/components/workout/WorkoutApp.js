@@ -77,14 +77,12 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             lift={exercise.lift}
             autopopulate={autopopulate}
           />
-          {workouts.length > 0 ? (
+          {workouts.length > 0 && (
             <StatsApp
               workouts={workouts}
               records={records}
               lift={exercise.lift}
             />
-          ) : (
-            <h3>Please add a new workout</h3>
           )}
         </div>
       )}
