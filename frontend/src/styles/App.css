@@ -31,6 +31,10 @@ li {
   padding: 5px 10px;
 }
 
+.footer {
+  margin: 4rem auto 2rem;
+}
+
 .left {
   text-align: left;
 }

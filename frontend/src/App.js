@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './styles/App.css';
 import Alerts from './components/layout/Alerts';
 import ClientApp from './components/client/ClientApp';
+import Footer from './components/layout/Footer';
 import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/auth/PrivateRoute';
@@ -27,6 +28,7 @@ const App = () => {
                   <PrivateRoute path='/:id' component={ClientApp} />
                   <PrivateRoute component={ClientApp} />
                 </Switch>
+                <Footer />
               </Fragment>
             </Router>
           </AlertState>
