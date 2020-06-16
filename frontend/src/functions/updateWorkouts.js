@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import { chronologize } from './helpers';
 import updateRecords from './updateRecords';
 
 const updateWorkouts = (value, workouts) => {
@@ -9,18 +10,14 @@ const updateWorkouts = (value, workouts) => {
     return workouts.filter((workout) => workout.id !== workoutId);
   }
   function addWorkout(newWorkout) {
-    newWorkout.id = uuid();
-    return workouts.length &&
-      newWorkout.date < workouts[workouts.length - 1].date
-      ? chronologize([...workouts, newWorkout])
-      : [...workouts, newWorkout];
+    return chronologize([...workouts, { ...newWorkout, id: uuid() }]);
   }
   function saveWorkouts(
     pendingWorkouts,
     updatedWorkouts = [],
-    initialRecords = []
+    updatedRecords = []
   ) {
-    const updated = updateRecords(pendingWorkouts[0], initialRecords);
+    const updated = updateRecords(pendingWorkouts[0], updatedRecords);
     return pendingWorkouts.length > 1
       ? saveWorkouts(
           pendingWorkouts.slice(1),
@@ -33,9 +30,5 @@ const updateWorkouts = (value, workouts) => {
         };
   }
 };
-
-function chronologize(workouts) {
-  return workouts.sort((a, b) => a.date - b.date);
-}
 
 export default updateWorkouts;

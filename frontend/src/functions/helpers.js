@@ -16,4 +16,11 @@ const capitalize = (string) =>
         .join(' ')
     : '';
 
-export { alphabetize, capitalize };
+const chronologize = (array) =>
+  array.sort((a, b) => {
+    const dateA = parseInt(a.date.replace(/-/g, ''));
+    const dateB = parseInt(b.date.replace(/-/g, ''));
+    return dateA - dateB;
+  });
+
+export { alphabetize, capitalize, chronologize };

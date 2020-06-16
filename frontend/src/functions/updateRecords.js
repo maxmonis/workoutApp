@@ -1,8 +1,11 @@
 import isRecord from './isRecord';
 
-const updateRecords = (workout, records = []) => {
-  const { routine, date } = workout;
-  for (const exercise of routine) {
+const updateRecords = (initialWorkout, initialRecords) => {
+  const records = [...initialRecords];
+  const updatedRoutine = [];
+  const { routine, date } = initialWorkout;
+  for (const initialExercise of routine) {
+    const exercise = { ...initialExercise };
     if (isRecord(exercise, records)) {
       exercise.becameRecord = date;
       const { lift, sets, reps, weight } = exercise;
@@ -17,13 +20,14 @@ const updateRecords = (workout, records = []) => {
         }
       }
     }
+    updatedRoutine.push(exercise);
     if (exercise.becameRecord)
       records.push({
         ...exercise,
         id: exercise.id.split('').reverse().join(''),
       });
   }
-  return { workout, records };
+  return { workout: { ...initialWorkout, routine }, records };
 };
 
 export default updateRecords;
