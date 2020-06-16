@@ -13,6 +13,11 @@ const StatsApp = ({ workouts, records }) => {
   };
   return (
     <div>
+      {display === 'workouts' ? (
+        <Workouts workouts={[...workouts].reverse()} />
+      ) : (
+        <RecordApp records={[...records].reverse()} />
+      )}
       <FormControl component='fieldset'>
         <RadioGroup
           row
@@ -33,11 +38,6 @@ const StatsApp = ({ workouts, records }) => {
           />
         </RadioGroup>
       </FormControl>
-      {display === 'workouts' ? (
-        <Workouts workouts={workouts} />
-      ) : (
-        <RecordApp records={records} />
-      )}
     </div>
   );
 };

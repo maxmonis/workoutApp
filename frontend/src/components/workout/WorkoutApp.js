@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
-import Exercises from '../stats/Exercises';
 import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
 import useClientState from '../../hooks/useClientState';
@@ -34,7 +33,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     if (id === 'name' || id === 'date') {
       setWorkout({ ...workout, [id]: value });
     } else {
-      value ? setExercise({ ...exercise, [id]: value }) : toggle();
+      value === 'Edit' ? toggle() : setExercise({ ...exercise, [id]: value });
     }
   };
   const addExercise = () => {
@@ -64,11 +63,6 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         </div>
       ) : (
         <div>
-          <Exercises
-            workouts={workouts}
-            lift={exercise.lift}
-            autopopulate={autopopulate}
-          />
           <NewWorkout
             exercise={exercise}
             workout={workout}
@@ -79,6 +73,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             saveWorkout={saveWorkout}
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
+            workouts={workouts}
+            lift={exercise.lift}
+            autopopulate={autopopulate}
           />
           {workouts.length > 0 ? (
             <StatsApp

@@ -13,21 +13,20 @@ const Exercises = ({ workouts, lift, autopopulate }) => {
         exercises.push(exercise);
     }
   }
+  if (!exercises.length) return null;
   return (
-    exercises.length > 0 && (
-      <div>
-        <h3>{lift} History:</h3>
-        {exercises.map((exercise) => (
-          <Button
-            key={exercise.id}
-            color='inherit'
-            onClick={() => autopopulate(exercise)}
-          >
-            {exercise.printout}
-          </Button>
-        ))}
-      </div>
-    )
+    <div>
+      <h3>{lift} History:</h3>
+      {exercises.map((exercise) => (
+        <Button
+          key={exercise.id}
+          color='inherit'
+          onClick={() => autopopulate(exercise)}
+        >
+          {exercise.printout}
+        </Button>
+      ))}
+    </div>
   );
 };
 

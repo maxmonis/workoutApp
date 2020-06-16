@@ -29,7 +29,7 @@ const Workouts = ({ workouts }) => {
         input={<Input id='selected' />}
       >
         <option key={'All'} value=''>
-          All
+          All Workouts
         </option>
         {names.map((name) => (
           <option key={name} value={name}>

@@ -27,7 +27,7 @@ const RecordApp = ({ records }) => {
         input={<Input id='selected' />}
       >
         <option key={'All'} value=''>
-          All
+          All Records
         </option>
         {lifts.map((lift) => (
           <option key={lift} value={lift}>
