@@ -3,7 +3,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Records from './Records';
+import RecordApp from './RecordApp';
 import Workouts from '../workout/Workouts';
 
 const StatsApp = ({ workouts, records }) => {
@@ -36,7 +36,7 @@ const StatsApp = ({ workouts, records }) => {
       {display === 'workouts' ? (
         <Workouts workouts={workouts} />
       ) : (
-        <Records records={records} />
+        <RecordApp records={records} />
       )}
     </div>
   );

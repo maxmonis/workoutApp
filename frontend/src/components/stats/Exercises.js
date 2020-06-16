@@ -3,10 +3,11 @@ import Button from '@material-ui/core/Button';
 
 const Exercises = ({ workouts, lift, autopopulate }) => {
   const exercises = [];
-  for (const workout of workouts) {
-    for (const exercise of workout.routine) {
+  for (let i = workouts.length - 1; i > 0; i--) {
+    for (const exercise of workouts[i].routine) {
       if (
         exercise.lift === lift &&
+        exercises.length < 4 &&
         !exercises.some((item) => item.printout === exercise.printout)
       )
         exercises.push(exercise);

@@ -1,46 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Input from '@material-ui/core/Input';
-import Paper from '@material-ui/core/Paper';
-import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-import { alphabetize } from '../../functions/helpers';
 import useToggle from '../../hooks/useToggle';
 
-const Records = ({ records }) => {
-  const [selected, setSelected] = useState('All');
+const Records = ({ records, selected }) => {
   const [displaySurpassed, toggle] = useToggle(false);
-  const sorted = displaySurpassed
-    ? records.filter((record) => record.surpassed)
-    : records.filter((record) => !record.surpassed);
-  const filtered =
-    selected !== 'All'
-      ? sorted.filter((record) => record.lift === selected)
-      : sorted;
-  const lifts = alphabetize([
-    ...new Set(['All', ...records.map((record) => record.lift)]),
-  ]);
-  const handleChange = (e) => {
-    setSelected(e.target.value);
-  };
+  const brokenRecords = records.filter((record) => record.surpassed);
+  const standingRecords = records.filter((record) => !record.surpassed);
+  const filtered = displaySurpassed ? brokenRecords : standingRecords;
+  useEffect(() => {
+    if (!brokenRecords.length && displaySurpassed) toggle();
+    // eslint-disable-next-line
+  }, [records]);
   return (
-    <Paper className='container'>
-      <Select
-        native
-        className='select'
-        labelId='selected'
-        value={selected}
-        onChange={handleChange}
-        input={<Input id='selected' />}
-      >
-        {lifts.map((lift) => (
-          <option key={lift} value={lift}>
-            {lift}
-          </option>
-        ))}
-      </Select>
+    <div>
       <div className='scrollable'>
         {filtered.map((record, i) => (
           <div key={record.id}>
@@ -58,22 +33,22 @@ const Records = ({ records }) => {
           </div>
         ))}
       </div>
-      {records.some(
-        (record) =>
-          record.surpassed && (record.lift === selected || selected === 'All')
-      ) && (
-        <FormControlLabel
-          control={
-            <Switch
-              checked={displaySurpassed}
-              onChange={toggle}
-              color='primary'
-            />
-          }
-          label='Broken Records'
-        />
+      {brokenRecords.length > 0 && (
+        <div>
+          <Divider />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={displaySurpassed}
+                onChange={toggle}
+                color='primary'
+              />
+            }
+            label='Broken Records'
+          />
+        </div>
       )}
-    </Paper>
+    </div>
   );
 };
 
