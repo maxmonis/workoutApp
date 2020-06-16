@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Divider from '@material-ui/core/Divider';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -34,12 +35,13 @@ const Records = ({ records }) => {
         ))}
       </Select>
       <div className='scrollable'>
-        {filtered.map((record) => (
+        {filtered.map((record, i) => (
           <div key={record.id}>
-            <Typography variant='h6'>{record.date}</Typography>
+            <Typography variant='h6'>{record.becameRecord}</Typography>
             <ul className='left'>
               <li key={record.id}>{`${record.lift}: ${record.printout}`}</li>
             </ul>
+            {i < filtered.length - 1 && <Divider />}
           </div>
         ))}
       </div>

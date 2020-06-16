@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Divider from '@material-ui/core/Divider';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -35,7 +36,7 @@ const Workouts = ({ workouts }) => {
         ))}
       </Select>
       <div className='scrollable'>
-        {filtered.map((workout) => (
+        {filtered.map((workout, i) => (
           <div key={workout.id}>
             <Typography variant='h6'>
               {selected === 'All' && `${workout.name} `}
@@ -48,6 +49,7 @@ const Workouts = ({ workouts }) => {
                 >{`${exercise.lift}: ${exercise.printout}`}</li>
               ))}
             </ul>
+            {i < filtered.length - 1 && <Divider />}
           </div>
         ))}
       </div>
