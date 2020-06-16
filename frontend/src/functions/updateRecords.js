@@ -1,27 +1,29 @@
-const updateRecords = (workouts, records) => {
-  for (const workout of workouts) {
-    const { routine, date } = workout;
-    for (const exercise of routine) {
+import isRecord from './isRecord';
+
+const updateRecords = (workout, records = []) => {
+  const { routine, date } = workout;
+  for (const exercise of routine) {
+    if (isRecord(exercise, records)) {
+      exercise.becameRecord = date;
       const { lift, sets, reps, weight } = exercise;
-      const liftRecords = records.filter(
-        (record) => record.lift === lift && !record.surpassed
-      );
-      if (!liftRecords.length) exercise.becameRecord = date;
-      for (const record of liftRecords) {
+      for (const record of records) {
         if (
+          lift === record.lift &&
           sets >= record.sets &&
           reps >= record.reps &&
-          weight >= record.weight &&
-          (sets > record.sets || reps > record.reps || weight > record.weight)
+          weight >= record.weight
         ) {
-          exercise.becameRecord = date;
           record.surpassed = date;
         }
       }
-      if (exercise.becameRecord) records.push(exercise);
     }
+    if (exercise.becameRecord)
+      records.push({
+        ...exercise,
+        id: exercise.id.split('').reverse().join(''),
+      });
   }
-  return { workouts, records };
+  return { workout, records };
 };
 
 export default updateRecords;

@@ -32,7 +32,7 @@ const useClientState = (initialClient) => {
       }
     },
     updateWorkouts: (value) => {
-      const updated = updateWorkouts(value, client);
+      const updated = updateWorkouts(value, client.workouts);
       const { workouts, records } = updated;
       setClient({ ...client, workouts, records });
     },

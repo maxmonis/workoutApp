@@ -1,24 +1,10 @@
 import uuid from 'uuid/v4';
 import updateRecords from './updateRecords';
 
-const updateWorkouts = (value, client) => {
-  const { workouts, records } = client;
-  if (typeof value === 'string') {
-    return saveWorkouts(removeWorkout(value));
-  } else {
-    return value.id
-      ? saveWorkouts(editWorkout(value))
-      : saveWorkouts(addWorkout(value));
-  }
-  function editWorkout(newWorkout) {
-    const date = workouts.find((workout) => workout.id === newWorkout.id).date;
-    const updatedWorkouts = workouts.map((workout) =>
-      workout.id === newWorkout.id ? newWorkout : workout
-    );
-    return newWorkout.date !== date
-      ? chronologize(updatedWorkouts)
-      : updatedWorkouts;
-  }
+const updateWorkouts = (value, workouts) => {
+  return saveWorkouts(
+    typeof value === 'string' ? removeWorkout(value) : addWorkout(value)
+  );
   function removeWorkout(workoutId) {
     return workouts.filter((workout) => workout.id !== workoutId);
   }
@@ -27,17 +13,24 @@ const updateWorkouts = (value, client) => {
     return workouts.length &&
       newWorkout.date < workouts[workouts.length - 1].date
       ? chronologize([...workouts, newWorkout])
-      : [newWorkout];
+      : [...workouts, newWorkout];
   }
-  function saveWorkouts(pendingWorkouts) {
-    if (pendingWorkouts.length === 1) {
-      const updated = updateRecords(pendingWorkouts, records);
-      return {
-        workouts: [...workouts, updated.workouts[0]],
-        records: updated.records,
-      };
-    }
-    return updateRecords(pendingWorkouts, []);
+  function saveWorkouts(
+    pendingWorkouts,
+    updatedWorkouts = [],
+    initialRecords = []
+  ) {
+    const updated = updateRecords(pendingWorkouts[0], initialRecords);
+    return pendingWorkouts.length > 1
+      ? saveWorkouts(
+          pendingWorkouts.slice(1),
+          [...updatedWorkouts, updated.workout],
+          updated.records
+        )
+      : {
+          workouts: [...updatedWorkouts, updated.workout],
+          records: updated.records,
+        };
   }
 };
 
