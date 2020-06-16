@@ -1,16 +1,30 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-const Exercises = ({ exercises, lift }) => {
+const Exercises = ({ workouts, lift, autopopulate }) => {
+  const exercises = [];
+  for (const workout of workouts) {
+    for (const exercise of workout.routine) {
+      if (
+        exercise.lift === lift &&
+        !exercises.some((item) => item.printout === exercise.printout)
+      )
+        exercises.push(exercise);
+    }
+  }
+  if (!exercises.length) return null;
   return (
-    <Paper className='container'>
-      <Typography variant='h6'>
-        {exercises.length > 0
-          ? exercises
-          : `${lift} data will be displayed here once it has been attempted by this client`}
-      </Typography>
-    </Paper>
+    <div>
+      {exercises.map((exercise) => (
+        <Button
+          key={exercise.id}
+          color='inherit'
+          onClick={() => autopopulate(exercise)}
+        >
+          {exercise.printout}
+        </Button>
+      ))}
+    </div>
   );
 };
 
