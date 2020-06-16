@@ -2,20 +2,22 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Exercise = ({ exercise, index, selectExercise }) => {
+  const { id, lift, printout } = exercise;
   const handleClick = () => {
-    selectExercise(exercise.id);
+    selectExercise(id);
   };
   return (
     <div>
-      <Draggable draggableId={exercise.id} index={index}>
+      <Draggable draggableId={id} index={index}>
         {(provided) => (
           <li
+            className='exercise'
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             onClick={handleClick}
           >
-            {exercise.lift}: {exercise.printout}
+            {lift}: {printout}
           </li>
         )}
       </Draggable>

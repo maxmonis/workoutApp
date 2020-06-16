@@ -4,49 +4,69 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Spinner from '../layout/Spinner';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
-const Login = (props) => {
+const Register = (props) => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
   const { setAlert } = alertContext;
-  const { logUserIn, error, clearErrors, isAuthenticated } = authContext;
+  const {
+    registerUser,
+    error,
+    clearErrors,
+    isAuthenticated,
+    loading,
+  } = authContext;
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/');
     }
-    if (error === 'Invalid Credentials') {
+    if (error === 'User already exists') {
       setAlert(error);
       clearErrors();
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
   const [user, setUser] = useState({
+    name: '',
     email: '',
     password: '',
+    password2: '',
   });
-  const { email, password } = user;
+  const { name, email, password, password2 } = user;
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      setAlert('Please fill in all fields');
+    if (!name || !email || !password) {
+      setAlert('Please fill out all fields');
+    } else if (password !== password2) {
+      setAlert('Passwords must match');
+    } else if (password.length < 6) {
+      setAlert('Password must have at least 6 characters');
     } else {
-      logUserIn({
-        email,
-        password,
-      });
+      registerUser({ name, email, password });
     }
   };
+  if (loading) return <Spinner />;
   return (
     <div>
-      <Typography variant='h5'>Welcome back!</Typography>
+      <Typography variant='h5'>Welcome!</Typography>
       <Paper className='container'>
         <form onSubmit={handleSubmit}>
           <div>
+            <Input
+              type='text'
+              name='name'
+              value={name}
+              placeholder={'Username'}
+              onChange={handleChange}
+              required
+              autoFocus={true}
+            />
             <Input
               type='email'
               name='email'
@@ -54,7 +74,6 @@ const Login = (props) => {
               placeholder={'Email'}
               onChange={handleChange}
               required
-              autoFocus
             />
             <Input
               type='password'
@@ -63,19 +82,28 @@ const Login = (props) => {
               placeholder={'Password'}
               onChange={handleChange}
               required
+              minLength='6'
+            />
+            <Input
+              type='password'
+              name='password2'
+              value={password2}
+              placeholder={'Confirm Password'}
+              onChange={handleChange}
+              required
             />
           </div>
           <Button type='submit' color='primary'>
-            Enter
+            Create Account
           </Button>
         </form>
       </Paper>
-      <h3>Need an account?</h3>
-      <Link className='link' to={'register'}>
-        Get started
+      <h3>Already a member?</h3>
+      <Link className='link' to={'login'}>
+        Sign in
       </Link>
     </div>
   );
 };
 
-export default Login;
+export default Register;

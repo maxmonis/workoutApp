@@ -7,18 +7,13 @@ const alphabetize = (array, property) =>
 
 const capitalize = (string) =>
   string.match(/[a-z]/gi)
-    ? // If string contains at least one letter
-      string
-        // filter out everything except letters and whitespace
+    ? string
         .replace(/[^a-z\s]+/gi, '')
-        // remove excessive whitespace
         .trim()
         .replace(/[\s]+/g, ' ')
-        // and capitalize the first letter of each word.
         .split(' ')
         .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
         .join(' ')
-    : // Otherwise return an empty string.
-      '';
+    : '';
 
 export { alphabetize, capitalize };

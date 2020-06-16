@@ -5,8 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import { capitalize } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
-
-
 const ClientForm = ({ reset }) => {
   const clientContext = useContext(ClientContext);
   const { addClient, updateClient, editingClient } = clientContext;

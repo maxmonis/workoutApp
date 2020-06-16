@@ -1,20 +1,25 @@
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ClientFilter from './ClientFilter';
 import ClientForm from './ClientForm';
 import ClientList from './ClientList';
-import useToggle from '../../hooks/useToggle';
+import Spinner from '../layout/Spinner';
+import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientApp = ({ clients, handleSelect }) => {
+const ClientApp = (props) => {
   const clientContext = useContext(ClientContext);
   const {
+    clients,
+    updateClient,
     editingClient,
     filteredClients,
     clearEditingClient,
     clearFilteredClients,
+    loading,
   } = clientContext;
   const activeClients = filteredClients.length
     ? filteredClients.filter((client) => client.isActive)
@@ -22,26 +27,33 @@ const ClientApp = ({ clients, handleSelect }) => {
   const deactivatedClients = filteredClients.length
     ? filteredClients.filter((client) => !client.isActive)
     : clients.filter((client) => !client.isActive);
-  const [isFormOpen, toggle, closeForm] = useToggle(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const openForm = () => setIsFormOpen(true);
   const reset = () => {
-    closeForm();
+    setIsFormOpen(false);
     clearEditingClient();
     clearFilteredClients();
   };
-  const selectClient = (id) => {
-    reset();
-    handleSelect(id);
-  };
   useEffect(() => {
-    closeForm();
-    editingClient && toggle();
+    editingClient ? openForm() : reset();
     // eslint-disable-next-line
   }, [editingClient]);
   useEffect(() => {
-    clearFilteredClients();
+    reset();
     // eslint-disable-next-line
   }, [clients]);
-  return (
+  const selectClient = (id) => {
+    props.history.push(`${id}`);
+  };
+  const { id } = props.match.params;
+  const selectedClient = clients.find((client) => client._id === id);
+  return loading ? (
+    <Spinner />
+  ) : selectedClient ? (
+    <WorkoutApp selectedClient={selectedClient} updateClient={updateClient} />
+  ) : id ? (
+    <Redirect to='/' />
+  ) : (
     <div>
       <Typography variant='h3'>Clients</Typography>
       <Paper className='container'>
@@ -49,8 +61,8 @@ const ClientApp = ({ clients, handleSelect }) => {
           <ClientForm reset={reset} />
         ) : (
           <Fragment>
-            <ClientFilter />
-            <Button color='primary' onClick={toggle}>
+            {clients.length > 1 && <ClientFilter />}
+            <Button color='primary' onClick={openForm}>
               Add New Client
             </Button>
             <ClientList

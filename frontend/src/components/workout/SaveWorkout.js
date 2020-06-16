@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
-const SaveWorkout = ({ name, date, handleChange, handleSave }) => {
+const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
   return (
     <Paper className='container'>
       <form noValidate>
@@ -24,16 +24,22 @@ const SaveWorkout = ({ name, date, handleChange, handleSave }) => {
         type='string'
         value={name}
         onChange={handleChange}
+        InputLabelProps={{
+          shrink: !!name,
+        }}
         autoFocus
         required
       />
-      {name ? (
-        <Button color='primary' onClick={handleSave}>
-          Save Workout
-        </Button>
-      ) : (
-        <Button deactivated>Save Workout</Button>
-      )}
+      <div>
+        <Button onClick={toggle}>Cancel</Button>
+        {name ? (
+          <Button color='primary' onClick={handleSave}>
+            Save
+          </Button>
+        ) : (
+          <Button disabled>Save</Button>
+        )}
+      </div>
     </Paper>
   );
 };
