@@ -54,7 +54,7 @@ const Login = (props) => {
     <div>
       <Typography variant='h3'>Login</Typography>
       <Paper className='paper'>
-        <form onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <div>
             <Input
               type='email'
@@ -80,7 +80,7 @@ const Login = (props) => {
         </form>
       </Paper>
       <h3>Need an account?</h3>
-      <Link className='link' to={'register'}>
+      <Link className='link' to='register'>
         Get started
       </Link>
     </div>

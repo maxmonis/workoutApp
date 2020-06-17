@@ -39,9 +39,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   const addExercise = () => {
     updateRoutine(exercise);
   };
-  const selectExercise = (id) => {
-    setExercise(routine.find((exercise) => exercise.id === id));
-    updateRoutine(id);
+  const selectExercise = (exercise) => {
+    setExercise(exercise);
+    updateRoutine(exercise.id);
   };
   const autopopulate = (exercise) => setExercise(exercise);
   const saveWorkout = () => {

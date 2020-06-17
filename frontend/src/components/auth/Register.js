@@ -58,7 +58,7 @@ const Register = (props) => {
     <div>
       <Typography variant='h3'>Register</Typography>
       <Paper className='paper'>
-        <form onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <div>
             <Input
               type='text'
@@ -101,7 +101,7 @@ const Register = (props) => {
         </form>
       </Paper>
       <h3>Already a member?</h3>
-      <Link className='link' to={'login'}>
+      <Link className='link' to='login'>
         Sign in
       </Link>
     </div>
