@@ -20,7 +20,12 @@ const useClientState = (initialClient) => {
     updateRoutine: (value) =>
       saveRoutine(eliminateRedundancy(updateRoutine(value, routine))),
     updateLifts: (newName, oldName) => {
-      const updated = updateLifts(capitalize(newName), oldName, client);
+      const updated = updateLifts(
+        capitalize(newName),
+        oldName,
+        client,
+        routine
+      );
       if (updated) {
         if (updated.length) {
           setClient({ ...client, lifts: updated });
@@ -32,7 +37,7 @@ const useClientState = (initialClient) => {
       }
     },
     updateWorkouts: (value) => {
-      const updated = updateWorkouts(value, client);
+      const updated = updateWorkouts(value, client.workouts);
       const { workouts, records } = updated;
       setClient({ ...client, workouts, records });
     },

@@ -7,7 +7,7 @@ import LiftList from './LiftList';
 
 const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
-    <Paper className='container'>
+    <Paper className='paper'>
       <Grid container justify='center'>
         <Grid item xs>
           <AddLift updateLifts={updateLifts} />

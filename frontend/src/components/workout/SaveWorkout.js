@@ -1,23 +1,24 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
 const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSave();
+  };
   return (
-    <Paper className='container'>
-      <form noValidate>
-        <TextField
-          id='date'
-          label='Workout Date'
-          type='date'
-          value={date}
-          onChange={handleChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      </form>
+    <form onSubmit={handleSubmit}>
+      <TextField
+        id='date'
+        label='Workout Date'
+        type='date'
+        value={date}
+        onChange={handleChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
       <TextField
         id='name'
         label='Workout Name'
@@ -32,15 +33,11 @@ const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
       />
       <div>
         <Button onClick={toggle}>Cancel</Button>
-        {name ? (
-          <Button color='primary' onClick={handleSave}>
-            Save
-          </Button>
-        ) : (
-          <Button disabled>Save</Button>
-        )}
+        <Button color='primary' type='submit'>
+          Save
+        </Button>
       </div>
-    </Paper>
+    </form>
   );
 };
 

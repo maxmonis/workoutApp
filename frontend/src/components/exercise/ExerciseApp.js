@@ -13,9 +13,11 @@ const ExerciseApp = ({ routine, updateRoutine, selectExercise }) => {
     }
   };
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <ExerciseList routine={routine} selectExercise={selectExercise} />
-    </DragDropContext>
+    <div className='exercise-app'>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <ExerciseList routine={routine} selectExercise={selectExercise} />
+      </DragDropContext>
+    </div>
   );
 };
 

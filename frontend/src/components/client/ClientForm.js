@@ -38,7 +38,7 @@ const ClientForm = ({ reset }) => {
       <Typography variant='h6'>
         {editingClient ? 'Edit Client' : 'New Client'}
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form className='form' onSubmit={handleSubmit}>
         <TextField
           type='text'
           placeholder='Name'
@@ -63,10 +63,10 @@ const ClientForm = ({ reset }) => {
           onChange={handleChange}
         />
         <div>
+          <Button onClick={reset}>Cancel</Button>
           <Button color='primary' type='submit'>
             Save
           </Button>
-          <Button onClick={reset}>Cancel</Button>
         </div>
       </form>
     </div>

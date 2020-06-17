@@ -10,14 +10,19 @@ li {
   overflow: scroll;
 }
 
-.container {
-  margin: 5vh auto auto;
-  width: 300px;
-  padding: 25px;
-}
-
 .exercise {
   font-size: 20px;
+}
+
+.exercises {
+  max-height: 100px;
+  overflow-y: scroll;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.exercise-app {
+  margin-right: 40px;
 }
 
 .field {
@@ -31,20 +36,75 @@ li {
   padding: 5px 10px;
 }
 
-.left {
+.form {
+  width: 200px;
+  margin: auto;
+}
+
+.flex-row {
+  display: flex;
+  flex: row;
+}
+
+.footer {
+  margin: 5vh;
+}
+
+.left-align {
   text-align: left;
 }
+
+.lift-form {
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .link {
   text-decoration: none;
   text-transform: uppercase;
   color: white;
 }
 
+.paper {
+  margin: 5vh auto auto;
+  width: 300px;
+  padding: 25px;
+}
+
 .scrollable {
-  max-height: 40vh;
+  max-height: 60vh;
   overflow-y: scroll;
 }
 
 .select {
   width: 180px;
+}
+
+@media (min-width: 750px) {
+  .container {
+    display: flex;
+    flex: row;
+  }
+  .item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 975px) {
+  .left {
+    padding-left: 100px;
+  }
+  .right {
+    padding-right: 100px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .left {
+    padding-left: 200px;
+  }
+  .right {
+    padding-right: 200px;
+  }
 }
