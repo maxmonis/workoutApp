@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 import { alphabetize } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
-const Workouts = ({ workouts }) => {
+const Workouts = ({ workouts, updateWorkouts }) => {
   const [selected, setSelected] = useState('');
+  const [flagged, setFlagged] = useState(null);
   const filtered = selected
     ? workouts.filter((workout) => workout.name === selected)
     : workouts;
@@ -18,6 +20,11 @@ const Workouts = ({ workouts }) => {
   const handleChange = (e) => {
     setSelected(e.target.value);
   };
+  const handleClick = (e) => {
+    const { value } = e.target;
+    flagged === value ? setFlagged(null) : setFlagged(value);
+  };
+  const handleDelete = () => updateWorkouts(flagged);
   return (
     <Paper className='paper'>
       <Select
@@ -28,7 +35,7 @@ const Workouts = ({ workouts }) => {
         onChange={handleChange}
         input={<Input id='selected' />}
       >
-        <option key={'All'} value=''>
+        <option key={'#'} value=''>
           All Workouts
         </option>
         {names.map((name) => (
@@ -40,10 +47,15 @@ const Workouts = ({ workouts }) => {
       <div className='scrollable'>
         {filtered.map((workout, i) => (
           <div key={workout.id}>
-            <Typography variant='h6'>
+            <button value={workout.id} onClick={handleClick}>
               {!selected && `${workout.name} `}
               {workout.date}
-            </Typography>
+            </button>
+            {flagged === workout.id && (
+              <IconButton onClick={handleDelete}>
+                <DeleteIcon aria-label='Delete' />
+              </IconButton>
+            )}
             <ul className='left-align'>
               {organizeRoutine(workout.routine).map((exercise) => (
                 <li

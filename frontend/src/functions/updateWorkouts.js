@@ -17,6 +17,7 @@ const updateWorkouts = (value, workouts) => {
     updatedWorkouts = [],
     updatedRecords = []
   ) {
+    if (!pendingWorkouts.length) return { workouts: [], records: [] };
     const updated = updateRecords(pendingWorkouts[0], updatedRecords);
     return pendingWorkouts.length > 1
       ? saveWorkouts(
