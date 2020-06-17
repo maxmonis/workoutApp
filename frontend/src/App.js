@@ -28,12 +28,12 @@ const App = () => {
                   <PrivateRoute path='/:id' component={ClientApp} />
                   <PrivateRoute component={ClientApp} />
                 </Switch>
-                <Footer />
               </Fragment>
             </Router>
           </AlertState>
         </ClientState>
       </AuthState>
+      <Footer />
     </div>
   );
 };

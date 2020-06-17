@@ -12,21 +12,25 @@ const Exercises = ({ workouts, lift, autopopulate }) => {
         exercises.push(exercise);
     }
   }
-  return exercises.length ? (
+  return (
     <div className='exercises'>
-      {exercises.map((exercise) => (
-        <Button
-          style={{ textTransform: 'lowercase' }}
-          key={exercise.id}
-          color='primary'
-          onClick={() => autopopulate(exercise)}
-        >
-          {exercise.printout}
-        </Button>
-      ))}
+      {!exercises.length ? (
+        <h5>No recent {lift} stats for this client</h5>
+      ) : (
+        <div>
+          {exercises.map((exercise) => (
+            <Button
+              style={{ textTransform: 'lowercase' }}
+              key={exercise.id}
+              color='primary'
+              onClick={() => autopopulate(exercise)}
+            >
+              {exercise.printout}
+            </Button>
+          ))}
+        </div>
+      )}
     </div>
-  ) : (
-    <h5>No recent {lift} stats for this client</h5>
   );
 };
 

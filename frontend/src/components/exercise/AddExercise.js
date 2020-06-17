@@ -26,7 +26,7 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           </option>
         ))}
         <option key={'Edit'} value='Edit'>
-          {'<<<Edit Exercises>>>'}
+          {'<<< Edit Exercises >>>'}
         </option>
       </Select>
       <div>

@@ -52,7 +52,7 @@ const Login = (props) => {
     <Spinner />
   ) : (
     <div>
-      <Typography variant='h5'>Welcome back!</Typography>
+      <Typography variant='h3'>Login</Typography>
       <Paper className='paper'>
         <form onSubmit={handleSubmit}>
           <div>

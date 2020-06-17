@@ -17,6 +17,12 @@ li {
 .exercises {
   max-height: 100px;
   overflow-y: scroll;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.exercise-app {
+  margin-right: 40px;
 }
 
 .field {
@@ -36,11 +42,17 @@ li {
 }
 
 .footer {
-  margin: 8rem auto 2rem;
+  margin: 5vh;
 }
 
 .left-align {
   text-align: left;
+}
+
+.lift-form {
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .link {
@@ -56,7 +68,7 @@ li {
 }
 
 .scrollable {
-  max-height: 50vh;
+  max-height: 60vh;
   overflow-y: scroll;
 }
 
@@ -76,18 +88,18 @@ li {
 
 @media (min-width: 975px) {
   .left {
-    padding-left: 10vw;
+    padding-left: 100px;
   }
   .right {
-    padding-right: 10vw;
+    padding-right: 100px;
   }
 }
 
 @media (min-width: 1200px) {
   .left {
-    padding-left: 15vw;
+    padding-left: 200px;
   }
   .right {
-    padding-right: 15vw;
+    padding-right: 200px;
   }
 }

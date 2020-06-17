@@ -56,7 +56,7 @@ const Register = (props) => {
     <Spinner />
   ) : (
     <div>
-      <Typography variant='h5'>Welcome!</Typography>
+      <Typography variant='h3'>Register</Typography>
       <Paper className='paper'>
         <form onSubmit={handleSubmit}>
           <div>

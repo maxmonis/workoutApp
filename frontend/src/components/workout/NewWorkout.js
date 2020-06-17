@@ -70,7 +70,7 @@ const NewWorkout = ({
           </Button>
         </div>
       ) : (
-        <div>{workouts.length === 0 && <h3>Please add a workout</h3>}</div>
+        <h3>Please add a new workout</h3>
       )}
     </div>
   );
