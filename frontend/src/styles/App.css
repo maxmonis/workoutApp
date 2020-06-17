@@ -10,12 +10,6 @@ li {
   overflow: scroll;
 }
 
-.container {
-  margin: 5vh auto auto;
-  width: 300px;
-  padding: 25px;
-}
-
 .exercise {
   font-size: 20px;
 }
@@ -53,6 +47,12 @@ li {
   text-decoration: none;
   text-transform: uppercase;
   color: white;
+}
+
+.paper {
+  margin: 5vh auto auto;
+  width: 300px;
+  padding: 25px;
 }
 
 .scrollable {

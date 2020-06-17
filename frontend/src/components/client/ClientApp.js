@@ -56,7 +56,7 @@ const ClientApp = (props) => {
   ) : (
     <div>
       <Typography variant='h3'>Clients</Typography>
-      <Paper className='container'>
+      <Paper className='paper'>
         {isFormOpen || clients.length === 0 ? (
           <ClientForm reset={reset} />
         ) : (

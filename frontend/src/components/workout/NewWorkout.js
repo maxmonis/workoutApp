@@ -43,7 +43,7 @@ const NewWorkout = ({
     </div>
   ) : (
     <div>
-      <Paper className='container flex-row'>
+      <Paper className='paper flex-row'>
         <AddExercise
           lifts={lifts}
           handleChange={handleChange}

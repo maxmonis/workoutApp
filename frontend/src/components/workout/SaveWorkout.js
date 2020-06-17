@@ -9,7 +9,7 @@ const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
     handleSave();
   };
   return (
-    <Paper className='container'>
+    <Paper className='paper'>
       <form onSubmit={handleSubmit}>
         <TextField
           id='date'

@@ -48,11 +48,12 @@ const Login = (props) => {
       });
     }
   };
-  if (loading) return <Spinner />;
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div>
       <Typography variant='h5'>Welcome back!</Typography>
-      <Paper className='container'>
+      <Paper className='paper'>
         <form onSubmit={handleSubmit}>
           <div>
             <Input

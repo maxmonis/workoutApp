@@ -51,11 +51,13 @@ const Register = (props) => {
       registerUser({ name, email, password });
     }
   };
-  if (loading) return <Spinner />;
-  return (
+
+  return loading ? (
+    <Spinner />
+  ) : (
     <div>
       <Typography variant='h5'>Welcome!</Typography>
-      <Paper className='container'>
+      <Paper className='paper'>
         <form onSubmit={handleSubmit}>
           <div>
             <Input
