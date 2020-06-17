@@ -36,10 +36,10 @@ li {
 }
 
 .footer {
-  margin: 4rem auto 2rem;
+  margin: 8rem auto 2rem;
 }
 
-.left {
+.left-align {
   text-align: left;
 }
 
@@ -56,10 +56,38 @@ li {
 }
 
 .scrollable {
-  max-height: 40vh;
+  max-height: 50vh;
   overflow-y: scroll;
 }
 
 .select {
   width: 180px;
+}
+
+@media (min-width: 750px) {
+  .container {
+    display: flex;
+    flex: row;
+  }
+  .item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 975px) {
+  .left {
+    padding-left: 10vw;
+  }
+  .right {
+    padding-right: 10vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .left {
+    padding-left: 15vw;
+  }
+  .right {
+    padding-right: 15vw;
+  }
 }

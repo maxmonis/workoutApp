@@ -23,7 +23,7 @@ const Records = ({ records, selected }) => {
               {record.becameRecord}
               {record.surpassed && ` - ${record.surpassed}`}
             </Typography>
-            <ul className='left'>
+            <ul className='left-align'>
               <li key={record.id}>
                 {!selected && `${record.lift}: `}
                 {record.printout}

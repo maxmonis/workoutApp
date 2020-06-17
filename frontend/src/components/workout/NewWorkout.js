@@ -29,12 +29,14 @@ const NewWorkout = ({
   };
   return isFormOpen ? (
     <div>
-      <SaveWorkout
-        {...workout}
-        handleChange={handleChange}
-        handleSave={handleSave}
-        toggle={toggle}
-      />
+      <Paper className='paper'>
+        <SaveWorkout
+          {...workout}
+          handleChange={handleChange}
+          handleSave={handleSave}
+          toggle={toggle}
+        />
+      </Paper>
       {organizeRoutine(routine).map((exercise) => (
         <h4 key={exercise.id}>
           {exercise.lift}: {exercise.printout}
@@ -56,7 +58,7 @@ const NewWorkout = ({
           autopopulate={autopopulate}
         />
       </Paper>
-      {routine.length > 0 && (
+      {routine.length > 0 ? (
         <div>
           <ExerciseApp
             routine={routine}
@@ -67,6 +69,8 @@ const NewWorkout = ({
             Save Workout
           </Button>
         </div>
+      ) : (
+        <div>{workouts.length === 0 && <h3>Please add a workout</h3>}</div>
       )}
     </div>
   );

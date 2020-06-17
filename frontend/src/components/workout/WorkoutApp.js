@@ -56,36 +56,39 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   return (
     <div>
       <Typography variant='h3'>{client.name}</Typography>
-      {isFormOpen ? (
-        <div>
-          <Typography variant='h4'>Edit Exercises</Typography>
+      <div>
+        {isFormOpen ? (
           <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
-        </div>
-      ) : (
-        <div>
-          <NewWorkout
-            exercise={exercise}
-            workout={workout}
-            lifts={lifts}
-            routine={routine}
-            handleChange={handleChange}
-            addExercise={addExercise}
-            saveWorkout={saveWorkout}
-            updateRoutine={updateRoutine}
-            selectExercise={selectExercise}
-            workouts={workouts}
-            lift={exercise.lift}
-            autopopulate={autopopulate}
-          />
-          {workouts.length > 0 && (
-            <StatsApp
-              workouts={workouts}
-              records={records}
-              lift={exercise.lift}
-            />
-          )}
-        </div>
-      )}
+        ) : (
+          <div className={workouts.length ? 'container' : ''}>
+            <div className={workouts.length ? 'item left' : ''}>
+              <NewWorkout
+                exercise={exercise}
+                workout={workout}
+                lifts={lifts}
+                routine={routine}
+                handleChange={handleChange}
+                addExercise={addExercise}
+                saveWorkout={saveWorkout}
+                updateRoutine={updateRoutine}
+                selectExercise={selectExercise}
+                workouts={workouts}
+                lift={exercise.lift}
+                autopopulate={autopopulate}
+              />
+            </div>
+            {workouts.length > 0 && (
+              <div className={workouts.length ? 'item right' : ''}>
+                <StatsApp
+                  workouts={workouts}
+                  records={records}
+                  lift={exercise.lift}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

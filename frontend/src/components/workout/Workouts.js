@@ -44,7 +44,7 @@ const Workouts = ({ workouts }) => {
               {!selected && `${workout.name} `}
               {workout.date}
             </Typography>
-            <ul className='left'>
+            <ul className='left-align'>
               {organizeRoutine(workout.routine).map((exercise) => (
                 <li
                   key={exercise.id}
