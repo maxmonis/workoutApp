@@ -23,7 +23,7 @@ const Records = ({ records, selected }) => {
                 {record.becameRecord}
                 {record.surpassed && ` - ${record.surpassed}`}
                 <br />
-                {!selected && `${record.lift}: `}
+                {selected === '#' && `${record.lift}: `}
                 {record.printout}
               </li>
             </ul>

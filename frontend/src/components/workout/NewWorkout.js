@@ -70,7 +70,14 @@ const NewWorkout = ({
           </Button>
         </div>
       )}
-      {!workouts.length && !routine.length && <h3>Please add a new workout</h3>}
+      {!routine.length && (
+        <div>
+          <h1 style={{ padding: '0 15%' }}>
+            "Be the change you want to see in the world"
+          </h1>
+          <h2>-Gandhi</h2>
+        </div>
+      )}
     </div>
   );
 };

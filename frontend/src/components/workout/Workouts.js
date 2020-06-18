@@ -1,19 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import { alphabetize, getWeekday } from '../../functions/helpers';
+import { alphabetize } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
 const Workouts = ({ workouts, updateWorkouts }) => {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState('#');
   const [flagged, setFlagged] = useState(null);
-  const filtered = selected
-    ? workouts.filter((workout) => workout.name === selected)
-    : workouts;
+  const filtered =
+    selected !== '#'
+      ? workouts.filter((workout) => workout.name === selected)
+      : workouts;
   const names = alphabetize([
     ...new Set([...workouts.map((workout) => workout.name)]),
   ]);
@@ -35,7 +36,7 @@ const Workouts = ({ workouts, updateWorkouts }) => {
         onChange={handleChange}
         input={<Input id='selected' />}
       >
-        <option key={'#'} value=''>
+        <option key='#' value='#'>
           All Workouts
         </option>
         {names.map((name) => (
@@ -51,14 +52,10 @@ const Workouts = ({ workouts, updateWorkouts }) => {
           return (
             <div key={id}>
               <button className='button' value={id} onClick={handleClick}>
-                {!selected && (
-                  <Fragment>
-                    {name}
-                    <br />
-                  </Fragment>
-                )}
                 {weekday && `${weekday} `}
                 {printout}
+                <br />
+                {selected === '#' && name}
               </button>
               <div>
                 {flagged === id && (
@@ -83,5 +80,22 @@ const Workouts = ({ workouts, updateWorkouts }) => {
     </Paper>
   );
 };
+
+function getWeekday(date) {
+  const year = date.slice(0, 4);
+  const month = parseInt(date.slice(5, 7));
+  const day = parseInt(date.slice(8));
+  const weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const dayNum = new Date(`${month}-${day}-${year}`).getDay();
+  return weekdays[dayNum];
+}
 
 export default Workouts;

@@ -1,5 +1,4 @@
 import uuid from 'uuid/v4';
-import { chronologize, getDate } from './helpers';
 import updateRecords from './updateRecords';
 
 const updateWorkouts = (value, workouts) => {
@@ -37,5 +36,20 @@ const updateWorkouts = (value, workouts) => {
         };
   }
 };
+
+function getDate(date) {
+  const year = date.slice(2, 4);
+  const month = parseInt(date.slice(5, 7));
+  const day = parseInt(date.slice(8));
+  return `${month}/${day}/${year}`;
+}
+
+function chronologize(array) {
+  return array.sort((a, b) => {
+    const dateA = parseInt(a.date.replace(/-/g, ''));
+    const dateB = parseInt(b.date.replace(/-/g, ''));
+    return dateA - dateB;
+  });
+}
 
 export default updateWorkouts;
