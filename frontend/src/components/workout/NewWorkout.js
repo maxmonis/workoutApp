@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AddExercise from '../exercise/AddExercise';
 import ExerciseApp from '../exercise/ExerciseApp';
-import Exercises from '../stats/Exercises';
+import ExerciseHistory from '../exercise/ExerciseHistory';
 import SaveWorkout from './SaveWorkout';
 import useToggle from '../../hooks/useToggle';
 import organizeRoutine from '../../functions/organizeRoutine';
@@ -52,7 +52,7 @@ const NewWorkout = ({
           exercise={exercise}
           addExercise={addExercise}
         />
-        <Exercises
+        <ExerciseHistory
           workouts={workouts}
           lift={lift}
           autopopulate={autopopulate}

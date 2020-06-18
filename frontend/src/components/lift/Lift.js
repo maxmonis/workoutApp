@@ -6,7 +6,6 @@ import useToggle from '../../hooks/useToggle';
 
 const Lift = ({ lift, updateLifts }) => {
   const [isEditing, toggle] = useToggle(false);
-
   return (
     <div>
       <ListItem style={{ padding: 0 }} component='div'>

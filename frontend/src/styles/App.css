@@ -26,7 +26,7 @@ li {
   font-size: 20px;
 }
 
-.exercises {
+.exercise-history {
   max-height: 100px;
   overflow-y: scroll;
   width: 100%;
@@ -66,10 +66,6 @@ li {
   margin: auto;
 }
 
-.lift {
-  padding: 0;
-}
-
 .lift-form {
   width: 80%;
   padding-left: 10%;
@@ -97,12 +93,12 @@ li {
   max-height: 40vh;
 }
 
-.small {
-  max-height: 35vh;
-}
-
 .select {
   width: 180px;
+}
+
+.small {
+  max-height: 35vh;
 }
 
 @media (min-width: 750px) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-const Exercises = ({ workouts, lift, autopopulate }) => {
+const ExerciseHistory = ({ workouts, lift, autopopulate }) => {
   const exercises = [];
   for (let i = workouts.length - 1; i >= 0; i--) {
     for (const exercise of workouts[i].routine) {
@@ -13,7 +13,7 @@ const Exercises = ({ workouts, lift, autopopulate }) => {
     }
   }
   return (
-    <div className='exercises'>
+    <div className='exercise-history'>
       {!exercises.length ? (
         <h5>No {lift} stats for this client</h5>
       ) : (
@@ -34,4 +34,4 @@ const Exercises = ({ workouts, lift, autopopulate }) => {
   );
 };
 
-export default Exercises;
+export default ExerciseHistory;
