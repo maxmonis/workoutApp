@@ -8,7 +8,7 @@ const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
     handleSave();
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='form' onSubmit={handleSubmit}>
       <TextField
         id='date'
         label='Workout Date'

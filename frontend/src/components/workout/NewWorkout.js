@@ -58,7 +58,7 @@ const NewWorkout = ({
           autopopulate={autopopulate}
         />
       </Paper>
-      {routine.length > 0 ? (
+      {routine.length > 0 && (
         <div>
           <ExerciseApp
             routine={routine}
@@ -69,7 +69,8 @@ const NewWorkout = ({
             Save Workout
           </Button>
         </div>
-      ) : (
+      )}
+      {!workouts.length && !routine.length && (
         <h3>Please add a new workout</h3>
       )}
     </div>

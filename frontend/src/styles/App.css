@@ -5,6 +5,7 @@ button {
   text-decoration: none;
   cursor: pointer;
   font-size: 20px;
+  margin-top: 15px;
 }
 
 li {
@@ -16,7 +17,9 @@ li {
   background-color: #282c34;
   color: white;
   min-height: 100vh;
+  height: 100%;
   overflow: scroll;
+  position: relative;
 }
 
 .exercise {
@@ -30,10 +33,6 @@ li {
   margin-left: 20px;
 }
 
-.exercise-app {
-  margin-right: 40px;
-}
-
 .field {
   width: 60px;
 }
@@ -45,22 +44,25 @@ li {
   padding: 5px 10px;
 }
 
-.form {
-  width: 200px;
-  margin: auto;
-}
-
 .flex-row {
   display: flex;
   flex: row;
 }
 
 .footer {
-  margin: 5vh;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
-.left-align {
-  text-align: left;
+.footer-container {
+  margin: 50px;
+}
+
+.form {
+  width: 200px;
+  margin: auto;
 }
 
 .lift-form {
@@ -75,6 +77,10 @@ li {
   color: white;
 }
 
+.move-left {
+  margin-right: 40px;
+}
+
 .paper {
   margin: 5vh auto auto;
   width: 300px;
@@ -82,8 +88,12 @@ li {
 }
 
 .scrollable {
-  max-height: 60vh;
   overflow-y: scroll;
+  max-height: 50vh;
+}
+
+.small {
+  max-height: 44vh;
 }
 
 .select {
@@ -102,18 +112,18 @@ li {
 
 @media (min-width: 975px) {
   .left {
-    padding-left: 100px;
+    padding-left: 10vw;
   }
   .right {
-    padding-right: 100px;
+    padding-right: 10vw;
   }
 }
 
 @media (min-width: 1200px) {
   .left {
-    padding-left: 200px;
+    padding-left: 15vw;
   }
   .right {
-    padding-right: 200px;
+    padding-right: 15vw;
   }
 }

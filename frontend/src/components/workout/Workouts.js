@@ -59,6 +59,7 @@ const Workouts = ({ workouts, updateWorkouts }) => {
             <ul className='left-align'>
               {organizeRoutine(workout.routine).map((exercise) => (
                 <li
+                  className='move-left'
                   key={exercise.id}
                 >{`${exercise.lift}: ${exercise.printout}`}</li>
               ))}

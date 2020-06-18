@@ -4,14 +4,10 @@ import updateRecords from './updateRecords';
 
 const updateWorkouts = (value, workouts) => {
   return saveWorkouts(
-    typeof value === 'string' ? removeWorkout(value) : addWorkout(value)
+    typeof value === 'string'
+      ? workouts.filter((workout) => workout.id !== value)
+      : chronologize([...workouts, { ...value, id: uuid() }])
   );
-  function removeWorkout(workoutId) {
-    return workouts.filter((workout) => workout.id !== workoutId);
-  }
-  function addWorkout(newWorkout) {
-    return chronologize([...workouts, { ...newWorkout, id: uuid() }]);
-  }
   function saveWorkouts(
     pendingWorkouts,
     updatedWorkouts = [],
