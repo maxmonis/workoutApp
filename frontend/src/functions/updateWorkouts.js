@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import { chronologize, getDate, getWeekday } from './helpers';
+import { chronologize, getDate } from './helpers';
 import updateRecords from './updateRecords';
 
 const updateWorkouts = (value, workouts) => {
@@ -12,7 +12,6 @@ const updateWorkouts = (value, workouts) => {
             ...value,
             id: uuid(),
             printout: getDate(value.date),
-            weekday: getWeekday(value.date),
           },
         ])
   );

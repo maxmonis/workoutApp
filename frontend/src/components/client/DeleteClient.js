@@ -23,7 +23,7 @@ const DeleteClient = ({ fullName, toggle, handleDelete }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <DialogTitle>{`Permanently delete ${fullName}?`}</DialogTitle>
+      <DialogTitle>Permanently delete {fullName}?</DialogTitle>
       <DialogContent>
         <DialogContentText>
           All associated data will be lost forever and this action cannot be

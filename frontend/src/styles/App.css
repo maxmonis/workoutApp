@@ -1,13 +1,3 @@
-button {
-  background: none;
-  border: none;
-  padding: 0;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 20px;
-  margin-top: 15px;
-}
-
 li {
   list-style: none;
 }
@@ -20,6 +10,16 @@ li {
   height: 100%;
   overflow: scroll;
   position: relative;
+}
+
+.button {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 15px;
 }
 
 .exercise {
@@ -55,10 +55,6 @@ li {
   left: 0;
   bottom: 0;
   right: 0;
-}
-
-.footer-container {
-  margin: 50px;
 }
 
 .form {
