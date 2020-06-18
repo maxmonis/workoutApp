@@ -3,14 +3,14 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ClientFilter from './ClientFilter';
-import ClientForm from './ClientForm';
-import ClientList from './ClientList';
+import ClientFilter from '../client/ClientFilter';
+import ClientForm from '../client/ClientForm';
+import ClientList from '../client/ClientList';
 import Spinner from '../layout/Spinner';
 import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientApp = (props) => {
+const Home = (props) => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
@@ -72,9 +72,9 @@ const ClientApp = (props) => {
           </Fragment>
         )}
       </Paper>
-      {clients.length === 0 && <h3>Please add your first client</h3>}
+      {!clients.length && <h3>Please add your first client</h3>}
     </div>
   );
 };
 
-export default ClientApp;
+export default Home;
