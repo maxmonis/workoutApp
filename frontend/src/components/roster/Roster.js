@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import Client from './Client';
+import Client from '../client/Client';
 
-const ClientList = ({ clients, selectClient }) => {
+const Roster = ({ clients, selectClient }) => {
   return (
     <div className='scrollable'>
       <List>
@@ -19,4 +19,4 @@ const ClientList = ({ clients, selectClient }) => {
   );
 };
 
-export default ClientList;
+export default Roster;

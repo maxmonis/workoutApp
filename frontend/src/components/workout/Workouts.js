@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import { alphabetize } from '../../functions/helpers';
+import { alphabetize, getWeekday } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
 const Workouts = ({ workouts, updateWorkouts }) => {
@@ -45,28 +45,40 @@ const Workouts = ({ workouts, updateWorkouts }) => {
         ))}
       </Select>
       <div className='scrollable'>
-        {filtered.map((workout, i) => (
-          <div key={workout.id}>
-            <button value={workout.id} onClick={handleClick}>
-              {!selected && `${workout.name} `}
-              {workout.date}
-            </button>
-            {flagged === workout.id && (
-              <IconButton onClick={handleDelete}>
-                <DeleteIcon aria-label='Delete' />
-              </IconButton>
-            )}
-            <ul className='left-align'>
-              {organizeRoutine(workout.routine).map((exercise) => (
-                <li
-                  className='move-left'
-                  key={exercise.id}
-                >{`${exercise.lift}: ${exercise.printout}`}</li>
-              ))}
-            </ul>
-            {i < filtered.length - 1 && <Divider />}
-          </div>
-        ))}
+        {filtered.map((workout, i) => {
+          const { id, name, date, printout, routine } = workout;
+          const weekday = getWeekday(date);
+          return (
+            <div key={id}>
+              <button className='button' value={id} onClick={handleClick}>
+                {!selected && (
+                  <Fragment>
+                    {name}
+                    <br />
+                  </Fragment>
+                )}
+                {weekday && `${weekday} `}
+                {printout}
+              </button>
+              <div>
+                {flagged === id && (
+                  <IconButton onClick={handleDelete}>
+                    <DeleteIcon aria-label='Delete' />
+                  </IconButton>
+                )}
+              </div>
+              <ul>
+                {organizeRoutine(routine).map((exercise) => (
+                  <li
+                    className='move-left'
+                    key={exercise.id}
+                  >{`${exercise.lift}: ${exercise.printout}`}</li>
+                ))}
+              </ul>
+              {i < filtered.length - 1 && <Divider />}
+            </div>
+          );
+        })}
       </div>
     </Paper>
   );

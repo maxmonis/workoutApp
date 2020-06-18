@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { capitalize } from '../functions/helpers';
 import eliminateRedundancy from '../functions/eliminateRedundancy';
 import updateLifts from '../functions/updateLifts';
 import updateRoutine from '../functions/updateRoutine';
@@ -20,12 +19,7 @@ const useClientState = (initialClient) => {
     updateRoutine: (value) =>
       saveRoutine(eliminateRedundancy(updateRoutine(value, routine))),
     updateLifts: (newName, oldName) => {
-      const updated = updateLifts(
-        capitalize(newName),
-        oldName,
-        client,
-        routine
-      );
+      const updated = updateLifts(newName, oldName, client, routine);
       if (updated) {
         if (updated.length) {
           setClient({ ...client, lifts: updated });
@@ -37,8 +31,7 @@ const useClientState = (initialClient) => {
       }
     },
     updateWorkouts: (value) => {
-      const updated = updateWorkouts(value, client.workouts);
-      const { workouts, records } = updated;
+      const { workouts, records } = updateWorkouts(value, client.workouts);
       setClient({ ...client, workouts, records });
     },
   };

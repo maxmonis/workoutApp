@@ -1,12 +1,19 @@
 import uuid from 'uuid/v4';
-import { chronologize } from './helpers';
+import { chronologize, getDate } from './helpers';
 import updateRecords from './updateRecords';
 
 const updateWorkouts = (value, workouts) => {
   return saveWorkouts(
     typeof value === 'string'
       ? workouts.filter((workout) => workout.id !== value)
-      : chronologize([...workouts, { ...value, id: uuid() }])
+      : chronologize([
+          ...workouts,
+          {
+            ...value,
+            id: uuid(),
+            printout: getDate(value.date),
+          },
+        ])
   );
   function saveWorkouts(
     pendingWorkouts,
@@ -14,16 +21,19 @@ const updateWorkouts = (value, workouts) => {
     updatedRecords = []
   ) {
     if (!pendingWorkouts.length) return { workouts: [], records: [] };
-    const updated = updateRecords(pendingWorkouts[0], updatedRecords);
+    const { workout, records } = updateRecords(
+      pendingWorkouts[0],
+      updatedRecords
+    );
     return pendingWorkouts.length > 1
       ? saveWorkouts(
           pendingWorkouts.slice(1),
-          [...updatedWorkouts, updated.workout],
-          updated.records
+          [...updatedWorkouts, workout],
+          records
         )
       : {
-          workouts: [...updatedWorkouts, updated.workout],
-          records: updated.records,
+          workouts: [...updatedWorkouts, workout],
+          records: records,
         };
   }
 };

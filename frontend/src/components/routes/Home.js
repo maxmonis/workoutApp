@@ -3,14 +3,14 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ClientFilter from './ClientFilter';
-import ClientForm from './ClientForm';
-import ClientList from './ClientList';
+import FilterRoster from '../roster/FilterRoster';
+import EditRoster from '../roster/EditRoster';
+import Roster from '../roster/Roster';
 import Spinner from '../layout/Spinner';
 import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientApp = (props) => {
+const Home = (props) => {
   const clientContext = useContext(ClientContext);
   const {
     clients,
@@ -58,23 +58,23 @@ const ClientApp = (props) => {
       <Typography variant='h3'>Clients</Typography>
       <Paper className='paper'>
         {isFormOpen || clients.length === 0 ? (
-          <ClientForm reset={reset} />
+          <EditRoster reset={reset} />
         ) : (
           <Fragment>
-            {clients.length > 1 && <ClientFilter />}
-            <Button color='primary' onClick={openForm}>
-              Add New Client
-            </Button>
-            <ClientList
+            {clients.length > 1 && <FilterRoster />}
+            <Roster
               clients={[...activeClients, ...deactivatedClients]}
               selectClient={selectClient}
             />
+            <Button color='primary' onClick={openForm}>
+              Add New Client
+            </Button>
           </Fragment>
         )}
       </Paper>
-      {clients.length === 0 && <h3>Please add your first client</h3>}
+      {!clients.length && <h3>Please add your first client</h3>}
     </div>
   );
 };
 
-export default ClientApp;
+export default Home;

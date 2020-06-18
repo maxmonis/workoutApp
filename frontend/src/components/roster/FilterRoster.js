@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientFilter = () => {
+const FilterRoster = () => {
   const clientContext = useContext(ClientContext);
   const text = useRef('');
   const {
@@ -35,4 +35,4 @@ const ClientFilter = () => {
   );
 };
 
-export default ClientFilter;
+export default FilterRoster;

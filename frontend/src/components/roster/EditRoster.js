@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { strInput } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientForm = ({ reset }) => {
+const EditRoster = ({ reset }) => {
   const clientContext = useContext(ClientContext);
   const { addClient, updateClient, editingClient } = clientContext;
   const defaultClient = {
@@ -26,9 +27,9 @@ const ClientForm = ({ reset }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!editingClient) {
-      addClient({ ...client, name: name.trim() });
+      addClient(client);
     } else {
-      updateClient({ ...client, name: name.trim() });
+      updateClient(client);
     }
     reset();
   };
@@ -42,7 +43,7 @@ const ClientForm = ({ reset }) => {
           type='text'
           placeholder='Name'
           name='name'
-          value={standardize(name)}
+          value={strInput(name)}
           onChange={handleChange}
           autoFocus
           required
@@ -72,8 +73,4 @@ const ClientForm = ({ reset }) => {
   );
 };
 
-function standardize(string) {
-  return string.replace(/[^a-z\s]/gi, '').replace(/[\s]+/, ' ');
-}
-
-export default ClientForm;
+export default EditRoster;

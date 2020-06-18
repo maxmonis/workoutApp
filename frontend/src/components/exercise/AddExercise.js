@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import { numInput } from '../../functions/helpers';
 
 const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
   const { lift, sets, reps, weight } = exercise;
@@ -25,7 +26,7 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
             {lift}
           </option>
         ))}
-        <option key='#' value='Edit'>
+        <option key='#' value='#'>
           {'<<< Edit Exercises >>>'}
         </option>
       </Select>
@@ -34,7 +35,7 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           className='field'
           id='sets'
           label='Sets'
-          value={getNumStr(sets)}
+          value={numInput(sets)}
           onChange={handleChange}
           inputProps={{
             pattern: '[0-9]*',
@@ -46,7 +47,7 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           className='field'
           id='reps'
           label='Reps'
-          value={getNumStr(reps)}
+          value={numInput(reps)}
           onChange={handleChange}
           inputProps={{
             pattern: '[0-9]*',
@@ -57,7 +58,7 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
           className='field'
           id='weight'
           label='Weight'
-          value={getNumStr(weight)}
+          value={numInput(weight)}
           onChange={handleChange}
           inputProps={{
             pattern: '[0-9]*',
@@ -72,11 +73,5 @@ const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
     </form>
   );
 };
-
-function getNumStr(value) {
-  return typeof value === 'number'
-    ? value.toString()
-    : value.replace(/[^\d]/g, '');
-}
 
 export default AddExercise;

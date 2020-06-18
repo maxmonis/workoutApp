@@ -3,20 +3,21 @@ import isRecord from './isRecord';
 const updateRecords = (initialWorkout, initialRecords) => {
   const records = [...initialRecords];
   const updatedRoutine = [];
-  const { routine, date } = initialWorkout;
+  const { routine, printout } = initialWorkout;
   for (const initialExercise of routine) {
     const exercise = { ...initialExercise };
     if (isRecord(exercise, records)) {
-      exercise.becameRecord = date;
+      exercise.becameRecord = printout;
       const { lift, sets, reps, weight } = exercise;
       for (const record of records) {
         if (
+          !record.surpassed &&
           lift === record.lift &&
           sets >= record.sets &&
           reps >= record.reps &&
           weight >= record.weight
         ) {
-          record.surpassed = date;
+          record.surpassed = printout;
         }
       }
     }

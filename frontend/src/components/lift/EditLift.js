@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import useInputState from '../../hooks/useInputState';
+import { strInput } from '../../functions/helpers';
 
 const EditLift = ({ lift, toggle, updateLifts }) => {
   const [value, handleChange, reset] = useInputState(lift);
@@ -9,14 +10,14 @@ const EditLift = ({ lift, toggle, updateLifts }) => {
       className='lift-form'
       onSubmit={(e) => {
         e.preventDefault();
-        updateLifts(value, lift);
+        updateLifts(value.trim(), lift);
         reset();
         toggle();
       }}
     >
       <TextField
         margin='normal'
-        value={value}
+        value={strInput(value)}
         onChange={handleChange}
         fullWidth
         autoFocus
