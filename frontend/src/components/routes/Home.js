@@ -3,9 +3,9 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ClientFilter from '../client/ClientFilter';
-import ClientForm from '../client/ClientForm';
-import ClientList from '../client/ClientList';
+import FilterRoster from '../roster/FilterRoster';
+import EditRoster from '../roster/EditRoster';
+import Roster from '../roster/Roster';
 import Spinner from '../layout/Spinner';
 import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
@@ -58,11 +58,11 @@ const Home = (props) => {
       <Typography variant='h3'>Clients</Typography>
       <Paper className='paper'>
         {isFormOpen || clients.length === 0 ? (
-          <ClientForm reset={reset} />
+          <EditRoster reset={reset} />
         ) : (
           <Fragment>
-            {clients.length > 1 && <ClientFilter />}
-            <ClientList
+            {clients.length > 1 && <FilterRoster />}
+            <Roster
               clients={[...activeClients, ...deactivatedClients]}
               selectClient={selectClient}
             />

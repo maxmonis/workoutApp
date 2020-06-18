@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { strInput } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
-const ClientForm = ({ reset }) => {
+const EditRoster = ({ reset }) => {
   const clientContext = useContext(ClientContext);
   const { addClient, updateClient, editingClient } = clientContext;
   const defaultClient = {
@@ -73,4 +73,4 @@ const ClientForm = ({ reset }) => {
   );
 };
 
-export default ClientForm;
+export default EditRoster;
