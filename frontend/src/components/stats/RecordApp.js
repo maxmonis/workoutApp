@@ -26,7 +26,7 @@ const RecordApp = ({ records }) => {
         onChange={handleChange}
         input={<Input id='selected' />}
       >
-        <option key={'All'} value=''>
+        <option key='#' value=''>
           All Records
         </option>
         {lifts.map((lift) => (
@@ -35,7 +35,7 @@ const RecordApp = ({ records }) => {
           </option>
         ))}
       </Select>
-      <Records records={filtered} selected={selected} />
+      <Records records={filtered} selected={selected || null} />
     </Paper>
   );
 };
