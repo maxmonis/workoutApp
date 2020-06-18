@@ -51,14 +51,17 @@ const Workouts = ({ workouts, updateWorkouts }) => {
               {!selected && `${workout.name} `}
               {workout.date}
             </button>
-            {flagged === workout.id && (
-              <IconButton onClick={handleDelete}>
-                <DeleteIcon aria-label='Delete' />
-              </IconButton>
-            )}
+            <div>
+              {flagged === workout.id && (
+                <IconButton onClick={handleDelete}>
+                  <DeleteIcon aria-label='Delete' />
+                </IconButton>
+              )}
+            </div>
             <ul className='left-align'>
               {organizeRoutine(workout.routine).map((exercise) => (
                 <li
+                  className='move-left'
                   key={exercise.id}
                 >{`${exercise.lift}: ${exercise.printout}`}</li>
               ))}

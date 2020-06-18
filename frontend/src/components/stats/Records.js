@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
 import useToggle from '../../hooks/useToggle';
 
 const Records = ({ records, selected }) => {
@@ -16,15 +15,14 @@ const Records = ({ records, selected }) => {
   }, [records]);
   return (
     <div>
-      <div className='scrollable'>
+      <div className='scrollable small'>
         {filtered.map((record, i) => (
           <div key={record.id}>
-            <Typography variant='h6'>
-              {record.becameRecord}
-              {record.surpassed && ` - ${record.surpassed}`}
-            </Typography>
-            <ul className='left-align'>
-              <li key={record.id}>
+            <ul>
+              <li key={record.id} className='move-left'>
+                {record.becameRecord}
+                {record.surpassed && ` - ${record.surpassed}`}
+                <br />
                 {!selected && `${record.lift}: `}
                 {record.printout}
               </li>

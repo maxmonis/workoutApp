@@ -11,6 +11,7 @@ const updateRecords = (initialWorkout, initialRecords) => {
       const { lift, sets, reps, weight } = exercise;
       for (const record of records) {
         if (
+          !record.surpassed &&
           lift === record.lift &&
           sets >= record.sets &&
           reps >= record.reps &&
