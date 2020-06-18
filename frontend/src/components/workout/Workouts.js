@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import { alphabetize, getDate } from '../../functions/helpers';
+import { alphabetize } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
 const Workouts = ({ workouts, updateWorkouts }) => {
@@ -48,9 +48,10 @@ const Workouts = ({ workouts, updateWorkouts }) => {
         {filtered.map((workout, i) => (
           <div key={workout.id}>
             <button value={workout.id} onClick={handleClick}>
-              {!selected && `${workout.name} `}
+              {!selected && workout.name}
               {!selected && <br />}
-              {getDate(workout.date)}
+              {workout.weekday && `${workout.weekday} - `}
+              {workout.printout}
             </button>
             <div>
               {flagged === workout.id && (

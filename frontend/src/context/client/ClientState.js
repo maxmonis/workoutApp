@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ClientContext from './clientContext';
 import clientReducer from './clientReducer';
+import { standardize } from '../../functions/helpers';
 
 const ClientState = (props) => {
   const initialState = {
@@ -27,9 +28,7 @@ const ClientState = (props) => {
         'Content-Type': 'application/json',
       },
     };
-    if (
-      clients.some((c) => c.name.toUpperCase() === client.name.toUpperCase())
-    ) {
+    if (clients.some((c) => standardize(c.name) === standardize(client.name))) {
       dispatch({
         type: 'CLIENT_ERROR',
         payload: `${client.name} already exists`,
@@ -52,7 +51,7 @@ const ClientState = (props) => {
     if (
       clients.some(
         (c) =>
-          c.name.toUpperCase() === client.name.toUpperCase() &&
+          standardize(c.name) === standardize(client.name) &&
           c._id !== client._id
       )
     ) {

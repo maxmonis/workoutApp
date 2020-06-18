@@ -70,9 +70,7 @@ const NewWorkout = ({
           </Button>
         </div>
       )}
-      {!workouts.length && !routine.length && (
-        <h3>Please add a new workout</h3>
-      )}
+      {!workouts.length && !routine.length && <h3>Please add a new workout</h3>}
     </div>
   );
 };

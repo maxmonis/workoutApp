@@ -1,15 +1,13 @@
-import { getDate } from './helpers';
 import isRecord from './isRecord';
 
 const updateRecords = (initialWorkout, initialRecords) => {
   const records = [...initialRecords];
   const updatedRoutine = [];
-  const { routine, date } = initialWorkout;
-  const dateString = getDate(date);
+  const { routine, printout } = initialWorkout;
   for (const initialExercise of routine) {
     const exercise = { ...initialExercise };
     if (isRecord(exercise, records)) {
-      exercise.becameRecord = dateString;
+      exercise.becameRecord = printout;
       const { lift, sets, reps, weight } = exercise;
       for (const record of records) {
         if (
@@ -19,7 +17,7 @@ const updateRecords = (initialWorkout, initialRecords) => {
           reps >= record.reps &&
           weight >= record.weight
         ) {
-          record.surpassed = dateString;
+          record.surpassed = printout;
         }
       }
     }

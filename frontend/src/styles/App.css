@@ -66,6 +66,10 @@ li {
   margin: auto;
 }
 
+.lift {
+  padding: 0;
+}
+
 .lift-form {
   width: 80%;
   padding-left: 10%;

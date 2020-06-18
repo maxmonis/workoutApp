@@ -5,19 +5,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import { standardize, strInput } from '../../functions/helpers';
+import useInputState from '../../hooks/useInputState';
 
 const DeleteClient = ({ fullName, toggle, handleDelete }) => {
-  const [inputValue, setInputValue] = useState('');
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
+  const [value, handleChange] = useInputState('');
   const [isMatch, setIsMatch] = useState(false);
   useEffect(() => {
-    standardize(inputValue).includes(standardize(fullName))
+    standardize(value).includes(standardize(fullName))
       ? setIsMatch(true)
       : setIsMatch(false);
     // eslint-disable-next-line
-  }, [inputValue]);
+  }, [value]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isMatch) handleDelete();
@@ -32,7 +31,7 @@ const DeleteClient = ({ fullName, toggle, handleDelete }) => {
           proceed.
         </DialogContentText>
         <TextField
-          value={inputValue}
+          value={strInput(value)}
           variant='outlined'
           placeholder='Confirm Name...'
           onChange={handleChange}
@@ -52,9 +51,5 @@ const DeleteClient = ({ fullName, toggle, handleDelete }) => {
     </form>
   );
 };
-
-function standardize(string) {
-  return string.replace(/[^a-z]+/gi, '').toUpperCase();
-}
 
 export default DeleteClient;

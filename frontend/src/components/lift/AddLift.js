@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import useInputState from '../../hooks/useInputState';
+import { strInput } from '../../functions/helpers';
 
 const AddLift = ({ updateLifts }) => {
   const [value, handleChange, reset] = useInputState('');
@@ -8,12 +9,12 @@ const AddLift = ({ updateLifts }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        value && updateLifts(value);
+        value && updateLifts(value.trim());
         reset();
       }}
     >
       <TextField
-        value={value}
+        value={strInput(value)}
         onChange={handleChange}
         margin='normal'
         label='Add New Exercise'
