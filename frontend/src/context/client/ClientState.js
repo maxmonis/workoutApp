@@ -27,7 +27,9 @@ const ClientState = (props) => {
         'Content-Type': 'application/json',
       },
     };
-    if (clients.some((c) => c.name === client.name)) {
+    if (
+      clients.some((c) => c.name.toUpperCase() === client.name.toUpperCase())
+    ) {
       dispatch({
         type: 'CLIENT_ERROR',
         payload: `${client.name} already exists`,
@@ -47,7 +49,13 @@ const ClientState = (props) => {
         'Content-Type': 'application/json',
       },
     };
-    if (clients.some((c) => c.name === client.name && c._id !== client._id)) {
+    if (
+      clients.some(
+        (c) =>
+          c.name.toUpperCase() === client.name.toUpperCase() &&
+          c._id !== client._id
+      )
+    ) {
       dispatch({
         type: 'CLIENT_ERROR',
         payload: `${client.name} already exists`,

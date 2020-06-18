@@ -75,7 +75,7 @@ const Login = (props) => {
             />
           </div>
           <Button type='submit' color='primary'>
-            Enter
+            Sign In
           </Button>
         </form>
       </Paper>

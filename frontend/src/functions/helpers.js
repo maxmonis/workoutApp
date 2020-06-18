@@ -23,4 +23,14 @@ const chronologize = (array) =>
     return dateA - dateB;
   });
 
-export { alphabetize, capitalize, chronologize };
+const getDate = (date) => {
+  const year = date.slice(0, 4);
+  const month = parseInt(date.slice(5, 7));
+  const day = parseInt(date.slice(8));
+  return `${month}/${day}/${year}`;
+};
+
+const standardize = (string) =>
+  string.replace(/[^a-z\s]/gi, '').replace(/[\s]+/, ' ');
+
+export { alphabetize, capitalize, chronologize, getDate, standardize };

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { standardize } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
 const ClientForm = ({ reset }) => {
@@ -26,9 +27,9 @@ const ClientForm = ({ reset }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!editingClient) {
-      addClient({ ...client, name: name.trim() });
+      addClient(client);
     } else {
-      updateClient({ ...client, name: name.trim() });
+      updateClient(client);
     }
     reset();
   };
@@ -71,9 +72,5 @@ const ClientForm = ({ reset }) => {
     </div>
   );
 };
-
-function standardize(string) {
-  return string.replace(/[^a-z\s]/gi, '').replace(/[\s]+/, ' ');
-}
 
 export default ClientForm;

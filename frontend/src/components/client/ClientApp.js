@@ -62,13 +62,13 @@ const ClientApp = (props) => {
         ) : (
           <Fragment>
             {clients.length > 1 && <ClientFilter />}
-            <Button color='primary' onClick={openForm}>
-              Add New Client
-            </Button>
             <ClientList
               clients={[...activeClients, ...deactivatedClients]}
               selectClient={selectClient}
             />
+            <Button color='primary' onClick={openForm}>
+              Add New Client
+            </Button>
           </Fragment>
         )}
       </Paper>

@@ -15,7 +15,7 @@ const Exercises = ({ workouts, lift, autopopulate }) => {
   return (
     <div className='exercises'>
       {!exercises.length ? (
-        <h5>No recent {lift} stats for this client</h5>
+        <h5>No {lift} stats for this client</h5>
       ) : (
         <div>
           {exercises.map((exercise) => (

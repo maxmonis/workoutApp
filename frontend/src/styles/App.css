@@ -42,6 +42,7 @@ li {
   width: 100px;
   font-size: large;
   padding: 5px 10px;
+  margin-bottom: 10px;
 }
 
 .flex-row {
@@ -89,11 +90,11 @@ li {
 
 .scrollable {
   overflow-y: scroll;
-  max-height: 50vh;
+  max-height: 40vh;
 }
 
 .small {
-  max-height: 44vh;
+  max-height: 35vh;
 }
 
 .select {

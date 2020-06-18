@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import { alphabetize } from '../../functions/helpers';
+import { alphabetize, getDate } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
 const Workouts = ({ workouts, updateWorkouts }) => {
@@ -49,13 +49,16 @@ const Workouts = ({ workouts, updateWorkouts }) => {
           <div key={workout.id}>
             <button value={workout.id} onClick={handleClick}>
               {!selected && `${workout.name} `}
-              {workout.date}
+              {!selected && <br />}
+              {getDate(workout.date)}
             </button>
-            {flagged === workout.id && (
-              <IconButton onClick={handleDelete}>
-                <DeleteIcon aria-label='Delete' />
-              </IconButton>
-            )}
+            <div>
+              {flagged === workout.id && (
+                <IconButton onClick={handleDelete}>
+                  <DeleteIcon aria-label='Delete' />
+                </IconButton>
+              )}
+            </div>
             <ul className='left-align'>
               {organizeRoutine(workout.routine).map((exercise) => (
                 <li
