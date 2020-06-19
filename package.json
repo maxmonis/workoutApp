@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix app && yarn run build --prefix app"
   },
   "keywords": [],
   "author": "Max Monis",
