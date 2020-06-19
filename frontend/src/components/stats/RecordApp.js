@@ -6,10 +6,11 @@ import Records from './Records';
 import { alphabetize } from '../../functions/helpers';
 
 const RecordApp = ({ records }) => {
-  const [selected, setSelected] = useState('');
-  const filtered = selected
-    ? records.filter((record) => record.lift === selected)
-    : records;
+  const [selected, setSelected] = useState('#');
+  const filtered =
+    selected !== '#'
+      ? records.filter((record) => record.lift === selected)
+      : records;
   const lifts = alphabetize([
     ...new Set([...records.map((record) => record.lift)]),
   ]);
@@ -26,7 +27,7 @@ const RecordApp = ({ records }) => {
         onChange={handleChange}
         input={<Input id='selected' />}
       >
-        <option key='#' value=''>
+        <option key='#' value='#'>
           All Records
         </option>
         {lifts.map((lift) => (
@@ -35,7 +36,7 @@ const RecordApp = ({ records }) => {
           </option>
         ))}
       </Select>
-      <Records records={filtered} selected={selected || null} />
+      <Records records={filtered} selected={selected} />
     </Paper>
   );
 };

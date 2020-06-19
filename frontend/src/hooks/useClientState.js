@@ -7,10 +7,10 @@ import updateWorkouts from '../functions/updateWorkouts';
 const useClientState = (initialClient) => {
   const [client, setClient] = useState(initialClient);
   const defaultRoutine =
-    JSON.parse(window.localStorage.getItem(`${client._id}`)) || [];
+    JSON.parse(window.localStorage.getItem(client._id)) || [];
   const [routine, setRoutine] = useState(defaultRoutine);
   const saveRoutine = (updated) => {
-    window.localStorage.setItem(`${client._id}`, JSON.stringify(updated));
+    window.localStorage.setItem(client._id, JSON.stringify(updated));
     setRoutine(updated);
   };
   return {

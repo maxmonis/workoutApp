@@ -36,14 +36,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       value === '#' ? toggle() : setExercise({ ...exercise, [id]: value });
     }
   };
-  const addExercise = () => {
-    updateRoutine(exercise);
-  };
   const selectExercise = (exercise) => {
     setExercise(exercise);
     updateRoutine(exercise.id);
   };
-  const autopopulate = (exercise) => setExercise(exercise);
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
     setWorkout(defaultWorkout);
@@ -68,13 +64,12 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 lifts={lifts}
                 routine={routine}
                 handleChange={handleChange}
-                addExercise={addExercise}
                 saveWorkout={saveWorkout}
                 updateRoutine={updateRoutine}
                 selectExercise={selectExercise}
                 workouts={workouts}
                 lift={exercise.lift}
-                autopopulate={autopopulate}
+                setExercise={setExercise}
               />
             </div>
             {workouts.length > 0 && (

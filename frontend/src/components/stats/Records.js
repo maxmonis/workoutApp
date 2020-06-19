@@ -19,11 +19,11 @@ const Records = ({ records, selected }) => {
         {filtered.map((record, i) => (
           <div key={record.id}>
             <ul>
-              <li key={record.id} className='move-left'>
+              <li key={record.id} className='record move-left'>
                 {record.becameRecord}
                 {record.surpassed && ` - ${record.surpassed}`}
                 <br />
-                {!selected && `${record.lift}: `}
+                {selected === '#' && `${record.lift}: `}
                 {record.printout}
               </li>
             </ul>

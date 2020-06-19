@@ -84,6 +84,11 @@ li {
   padding: 25px;
 }
 
+.quote {
+  cursor: pointer;
+  padding: 0 15%;
+}
+
 .scrollable {
   overflow-y: scroll;
   max-height: 40vh;
@@ -91,6 +96,10 @@ li {
 
 .select {
   width: 180px;
+}
+
+.record {
+  font-size: 18px;
 }
 
 .small {
@@ -109,18 +118,18 @@ li {
 
 @media (min-width: 975px) {
   .left {
-    padding-left: 10vw;
+    padding-left: 10%;
   }
   .right {
-    padding-right: 10vw;
+    padding-right: 10%;
   }
 }
 
 @media (min-width: 1200px) {
   .left {
-    padding-left: 15vw;
+    padding-left: 15%;
   }
   .right {
-    padding-right: 15vw;
+    padding-right: 15%;
   }
 }

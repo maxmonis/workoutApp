@@ -5,11 +5,11 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import { numInput } from '../../functions/helpers';
 
-const AddExercise = ({ lifts, handleChange, exercise, addExercise }) => {
+const AddExercise = ({ lifts, handleChange, exercise, updateRoutine }) => {
   const { lift, sets, reps, weight } = exercise;
   const handleSubmit = (e) => {
     e.preventDefault();
-    addExercise();
+    updateRoutine(exercise);
   };
   return (
     <form onSubmit={handleSubmit}>

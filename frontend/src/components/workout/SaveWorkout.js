@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { strInput } from '../../functions/helpers';
 
 const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
   const handleSubmit = (e) => {
@@ -22,8 +23,7 @@ const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
       <TextField
         id='name'
         label='Workout Name'
-        type='string'
-        value={name}
+        value={strInput(name)}
         onChange={handleChange}
         InputLabelProps={{
           shrink: !!name,

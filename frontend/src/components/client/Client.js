@@ -17,7 +17,7 @@ const Client = ({ client, selectClient }) => {
   const handleDeactivate = () => {
     updateClient({ ...client, isActive: false });
   };
-  const handleRecover = () => {
+  const handleActivate = () => {
     updateClient({ ...client, isActive: true });
   };
   const handleDelete = () => {
@@ -34,7 +34,7 @@ const Client = ({ client, selectClient }) => {
     <InactiveClient
       name={clientName}
       fullName={client.name}
-      handleRecover={handleRecover}
+      handleActivate={handleActivate}
       handleDelete={handleDelete}
     />
   );

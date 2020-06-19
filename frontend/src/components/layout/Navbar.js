@@ -20,12 +20,9 @@ const Navbar = () => {
     user ? getClients() : clearClients();
     // eslint-disable-next-line
   }, [user]);
-  const handleLogout = () => {
-    logUserOut();
-  };
   const authLinks = (
     <Fragment>
-      <Button onClick={handleLogout} color='inherit'>
+      <Button onClick={logUserOut} color='inherit'>
         Logout
       </Button>
       <Link to='/' className='link'>

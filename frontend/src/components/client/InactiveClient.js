@@ -9,14 +9,14 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteClient from './DeleteClient';
 import useToggle from '../../hooks/useToggle';
 
-const InactiveClient = ({ name, fullName, handleRecover, handleDelete }) => {
+const InactiveClient = ({ name, fullName, handleActivate, handleDelete }) => {
   const [isDialogOpen, toggle] = useToggle(false);
   return (
     <div>
       <ListItem>
         <Button disabled>{name}</Button>
         <ListItemSecondaryAction>
-          <IconButton onClick={handleRecover}>
+          <IconButton onClick={handleActivate}>
             <AddIcon aria-label='Recover' />
           </IconButton>
           <IconButton onClick={toggle}>
