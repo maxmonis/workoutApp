@@ -84,6 +84,11 @@ li {
   padding: 25px;
 }
 
+.quote {
+  cursor: pointer;
+  padding: 0 15%;
+}
+
 .scrollable {
   overflow-y: scroll;
   max-height: 40vh;

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import FilterRoster from '../roster/FilterRoster';
 import EditRoster from '../roster/EditRoster';
 import Roster from '../roster/Roster';
+import Quote from '../layout/Quote';
 import Spinner from '../layout/Spinner';
 import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
@@ -72,7 +73,7 @@ const Home = (props) => {
           </Fragment>
         )}
       </Paper>
-      {!clients.length && <h3>Please add your first client</h3>}
+      <Quote />
     </div>
   );
 };

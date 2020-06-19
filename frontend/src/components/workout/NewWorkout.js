@@ -5,6 +5,7 @@ import AddExercise from '../exercise/AddExercise';
 import ExerciseApp from '../exercise/ExerciseApp';
 import ExerciseHistory from '../exercise/ExerciseHistory';
 import SaveWorkout from './SaveWorkout';
+import Quote from '../layout/Quote';
 import useToggle from '../../hooks/useToggle';
 import organizeRoutine from '../../functions/organizeRoutine';
 
@@ -70,14 +71,7 @@ const NewWorkout = ({
           </Button>
         </div>
       )}
-      {!routine.length && (
-        <div>
-          <h1 style={{ padding: '0 15%' }}>
-            "Be the change you want to see in the world"
-          </h1>
-          <h2>-Gandhi</h2>
-        </div>
-      )}
+      {!routine.length && <Quote />}
     </div>
   );
 };
