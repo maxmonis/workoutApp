@@ -2,26 +2,34 @@ import React, { useState, useEffect } from 'react';
 import Spinner from './Spinner';
 
 const Quote = () => {
-  const [quotes, setQuotes] = useState([]);
-  const randomize = () => Math.floor(Math.random() * 1643);
-  const [index, setIndex] = useState(randomize());
-  const handleClick = () => setIndex(randomize);
-  useEffect(() => {
-    const getQuotes = async () => {
+  const [quote, setQuote] = useState(null);
+  const getIndex = (length) => Math.floor(Math.random() * length);
+  const getQuote = async () => {
+    setQuote(null);
+    try {
       const proxy = 'https://cors-anywhere.herokuapp.com/';
       const target = 'https://type.fit/api/quotes';
-      const api = await fetch(proxy + target);
-      const quotes = await api.json();
-      setQuotes(quotes);
-    };
-    getQuotes();
+      const res = await fetch(proxy + target);
+      const quotes = await res.json();
+      setQuote(quotes[getIndex(quotes.length)]);
+    } catch (err) {
+      console.log(err);
+      setQuote({
+        text: 'Be the change you want to see in the world',
+        author: 'Gandhi',
+      });
+    }
+  };
+  useEffect(() => {
+    getQuote();
+    // eslint-disable-next-line
   }, []);
-  return !quotes.length ? (
+  return !quote ? (
     <Spinner />
   ) : (
-    <div className='quote' onClick={handleClick}>
-      <h3>{quotes[index].text}</h3>
-      <h4>-{quotes[index].author || 'Anonymous'}</h4>
+    <div className='quote' onClick={getQuote}>
+      <h3>{quote.text}</h3>
+      <h4>-{quote.author || 'Anonymous'}</h4>
     </div>
   );
 };
