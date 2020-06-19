@@ -47,8 +47,7 @@ const Workouts = ({ workouts, updateWorkouts }) => {
       </Select>
       <div className='scrollable'>
         {filtered.map((workout, i) => {
-          const { id, name, date, printout, routine } = workout;
-          const weekday = getWeekday(date);
+          const { id, name, weekday, printout, routine } = workout;
           return (
             <div key={id}>
               <button className='button' value={id} onClick={handleClick}>
@@ -80,22 +79,5 @@ const Workouts = ({ workouts, updateWorkouts }) => {
     </Paper>
   );
 };
-
-function getWeekday(date) {
-  const year = date.slice(0, 4);
-  const month = parseInt(date.slice(5, 7));
-  const day = parseInt(date.slice(8));
-  const weekdays = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  const dayNum = new Date(`${month}-${day}-${year}`).getDay();
-  return weekdays[dayNum];
-}
 
 export default Workouts;

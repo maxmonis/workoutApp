@@ -3,7 +3,6 @@ import Spinner from './Spinner';
 
 const Quote = () => {
   const [quote, setQuote] = useState(null);
-  const getIndex = (length) => Math.floor(Math.random() * length);
   const getQuote = async () => {
     setQuote(null);
     try {
@@ -11,7 +10,8 @@ const Quote = () => {
       const target = 'https://type.fit/api/quotes';
       const res = await fetch(proxy + target);
       const quotes = await res.json();
-      setQuote(quotes[getIndex(quotes.length)]);
+      const index = Math.floor(Math.random() * quotes.length);
+      setQuote(quotes[index]);
     } catch (err) {
       console.log(err);
       setQuote({

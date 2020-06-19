@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-const ExerciseHistory = ({ workouts, lift, autopopulate }) => {
+const ExerciseHistory = ({ workouts, lift, setExercise }) => {
   const exercises = [];
   for (let i = workouts.length - 1; i >= 0; i--) {
     for (const exercise of workouts[i].routine) {
@@ -23,7 +23,7 @@ const ExerciseHistory = ({ workouts, lift, autopopulate }) => {
               style={{ textTransform: 'lowercase' }}
               key={exercise.id}
               color='primary'
-              onClick={() => autopopulate(exercise)}
+              onClick={() => setExercise(exercise)}
             >
               {exercise.printout}
             </Button>

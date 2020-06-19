@@ -4,8 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import AddExercise from '../exercise/AddExercise';
 import ExerciseApp from '../exercise/ExerciseApp';
 import ExerciseHistory from '../exercise/ExerciseHistory';
-import SaveWorkout from './SaveWorkout';
 import Quote from '../layout/Quote';
+import SaveWorkout from './SaveWorkout';
 import useToggle from '../../hooks/useToggle';
 import organizeRoutine from '../../functions/organizeRoutine';
 
@@ -15,13 +15,12 @@ const NewWorkout = ({
   lifts,
   routine,
   handleChange,
-  addExercise,
   saveWorkout,
   updateRoutine,
   selectExercise,
   workouts,
   lift,
-  autopopulate,
+  setExercise,
 }) => {
   const [isFormOpen, toggle] = useToggle(false);
   const handleSave = () => {
@@ -51,12 +50,12 @@ const NewWorkout = ({
           lifts={lifts}
           handleChange={handleChange}
           exercise={exercise}
-          addExercise={addExercise}
+          updateRoutine={updateRoutine}
         />
         <ExerciseHistory
           workouts={workouts}
           lift={lift}
-          autopopulate={autopopulate}
+          setExercise={setExercise}
         />
       </Paper>
       {routine.length > 0 && (
