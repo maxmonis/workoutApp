@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "workout-app",
   "version": "0.1.0",
-  "description": "backend for workoutApp",
+  "description": "MERN stack fitness tracker",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
