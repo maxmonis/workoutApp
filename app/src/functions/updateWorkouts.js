@@ -10,8 +10,7 @@ const updateWorkouts = (value, workouts) => {
           {
             ...value,
             id: uuid(),
-            printout: getPrintout(value.date),
-            weekday: getWeekday(value.date),
+            fullDate: getFullDate(value.date),
           },
         ])
   );
@@ -47,15 +46,8 @@ function chronologize(array) {
   });
 }
 
-function getPrintout(date) {
-  const year = date.slice(2, 4);
-  const month = parseInt(date.slice(5, 7));
-  const day = parseInt(date.slice(8));
-  return `${month}/${day}/${year}`;
-}
-
-function getWeekday(date) {
-  const weekdays = [
+function getFullDate(date) {
+  const days = [
     'Sunday',
     'Monday',
     'Tuesday',
@@ -64,7 +56,11 @@ function getWeekday(date) {
     'Friday',
     'Saturday',
   ];
-  return weekdays[new Date(`${date.replace(/-/g, '/')}`).getDay()];
+  const weekday = days[new Date(`${date.replace(/-/g, '/')}`).getDay()];
+  const year = date.slice(0, 4);
+  const month = parseInt(date.slice(5, 7));
+  const day = parseInt(date.slice(8));
+  return `${weekday} ${month}/${day}/${year.slice(2)}`;
 }
 
 export default updateWorkouts;

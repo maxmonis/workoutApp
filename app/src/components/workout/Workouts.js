@@ -47,12 +47,11 @@ const Workouts = ({ workouts, updateWorkouts }) => {
       </Select>
       <div className='scrollable'>
         {filtered.map((workout, i) => {
-          const { id, name, weekday, printout, routine } = workout;
+          const { id, name, fullDate, routine } = workout;
           return (
             <div key={id}>
               <button className='button' value={id} onClick={handleClick}>
-                {weekday && `${weekday} `}
-                {printout}
+                {fullDate.slice(0, -3)}
                 <br />
                 {selected === '#' && name}
               </button>

@@ -1,11 +1,16 @@
 {
-  "name": "backend",
+  "name": "workout-app",
+  "description": "MERN stack fitness tracker",
   "version": "0.1.0",
-  "description": "backend for workoutApp",
+  "engines": {
+    "node": "12.x",
+    "yarn": "1.x"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix app && yarn run build --prefix app"
   },
   "keywords": [],
   "author": "Max Monis",
