@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Spinner from './Spinner';
 
 const Quote = () => {
   const [quote, setQuote] = useState(null);
@@ -16,7 +15,7 @@ const Quote = () => {
       console.log(err);
       setQuote({
         text: 'Be the change you want to see in the world',
-        author: 'Gandhi',
+        author: 'Mohandas Gandhi',
       });
     }
   };
@@ -25,7 +24,9 @@ const Quote = () => {
     // eslint-disable-next-line
   }, []);
   return !quote ? (
-    <Spinner />
+    <div>
+      <h3>Loading quote...</h3>
+    </div>
   ) : (
     <div className='quote' onClick={getQuote}>
       <h3>{quote.text}</h3>
