@@ -58,7 +58,7 @@ const NewWorkout = ({
           setExercise={setExercise}
         />
       </Paper>
-      {routine.length > 0 && (
+      {routine.length ? (
         <div>
           <ExerciseApp
             routine={routine}
@@ -69,8 +69,9 @@ const NewWorkout = ({
             Save Workout
           </Button>
         </div>
+      ) : (
+        <Quote />
       )}
-      {!routine.length && <Quote />}
     </div>
   );
 };

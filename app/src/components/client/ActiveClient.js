@@ -12,10 +12,10 @@ const ActiveClient = ({ name, handleSelect, handleEdit, handleDeactivate }) => {
       <ListItem>
         <Button onClick={handleSelect}>{name}</Button>
         <ListItemSecondaryAction>
-          <IconButton onClick={handleEdit}>
+          <IconButton color='inherit' onClick={handleEdit}>
             <EditIcon aria-label='Edit' />
           </IconButton>
-          <IconButton onClick={handleDeactivate}>
+          <IconButton color='inherit' onClick={handleDeactivate}>
             <ClearIcon aria-label='Deactivate' />
           </IconButton>
         </ListItemSecondaryAction>

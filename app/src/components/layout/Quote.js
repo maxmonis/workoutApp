@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Quote = () => {
   const [quote, setQuote] = useState(null);
   const getQuote = async () => {
     setQuote(null);
     try {
-      const proxy = 'https://cors-anywhere.herokuapp.com/';
-      const target = 'https://type.fit/api/quotes';
-      const res = await fetch(proxy + target);
-      const quotes = await res.json();
-      const index = Math.floor(Math.random() * quotes.length);
-      setQuote(quotes[index]);
+      const { data } = await axios.get(
+        'https://cors-anywhere.herokuapp.com/https://type.fit/api/quotes'
+      );
+      const index = Math.floor(Math.random() * data.length);
+      setQuote(data[index]);
     } catch (err) {
       console.log(err);
       setQuote({
