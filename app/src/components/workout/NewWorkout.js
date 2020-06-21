@@ -38,9 +38,9 @@ const NewWorkout = ({
         />
       </Paper>
       {organizeRoutine(routine).map((exercise) => (
-        <h4 key={exercise.id}>
+        <h2 key={exercise.id}>
           {exercise.lift}: {exercise.printout}
-        </h4>
+        </h2>
       ))}
     </div>
   ) : (
