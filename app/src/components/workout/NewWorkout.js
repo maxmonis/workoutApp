@@ -38,9 +38,9 @@ const NewWorkout = ({
         />
       </Paper>
       {organizeRoutine(routine).map((exercise) => (
-        <h4 key={exercise.id}>
+        <h2 key={exercise.id}>
           {exercise.lift}: {exercise.printout}
-        </h4>
+        </h2>
       ))}
     </div>
   ) : (
@@ -58,7 +58,7 @@ const NewWorkout = ({
           setExercise={setExercise}
         />
       </Paper>
-      {routine.length > 0 && (
+      {routine.length ? (
         <div>
           <ExerciseApp
             routine={routine}
@@ -69,8 +69,9 @@ const NewWorkout = ({
             Save Workout
           </Button>
         </div>
+      ) : (
+        <Quote />
       )}
-      {!routine.length && <Quote />}
     </div>
   );
 };

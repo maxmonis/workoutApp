@@ -7,7 +7,7 @@ const Client = ({ client, selectClient }) => {
   const clientContext = useContext(ClientContext);
   const { deleteClient, updateClient, setEditingClient } = clientContext;
   const { _id, name } = client;
-  const clientName = name.length > 16 ? `${name.slice(0, 15).trim()}...` : name;
+  const clientName = name.length > 17 ? `${name.slice(0, 16).trim()}...` : name;
   const handleSelect = () => {
     selectClient(_id);
   };

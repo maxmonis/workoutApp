@@ -1,8 +1,8 @@
 import uuid from 'uuid/v4';
 import updateRecords from './updateRecords';
 
-const updateWorkouts = (value, workouts) => {
-  return saveWorkouts(
+const updateWorkouts = (value, workouts) =>
+  saveWorkouts(
     typeof value === 'string'
       ? workouts.filter((workout) => workout.id !== value)
       : chronologize([
@@ -14,28 +14,12 @@ const updateWorkouts = (value, workouts) => {
           },
         ])
   );
-};
 
-function saveWorkouts(
-  pendingWorkouts,
-  updatedWorkouts = [],
-  updatedRecords = []
-) {
-  if (!pendingWorkouts.length) return { workouts: [], records: [] };
-  const { workout, records } = updateRecords(
-    pendingWorkouts[0],
-    updatedRecords
-  );
-  return pendingWorkouts.length > 1
-    ? saveWorkouts(
-        pendingWorkouts.slice(1),
-        [...updatedWorkouts, workout],
-        records
-      )
-    : {
-        workouts: [...updatedWorkouts, workout],
-        records: records,
-      };
+function saveWorkouts(pending, workouts = [], records = []) {
+  if (!pending.length) return { workouts, records };
+  const workout = pending.shift();
+  const updated = updateRecords(workout, records);
+  return saveWorkouts(pending, [...workouts, workout], updated);
 }
 
 function chronologize(array) {
@@ -57,10 +41,10 @@ function getFullDate(date) {
     'Saturday',
   ];
   const weekday = days[new Date(`${date.replace(/-/g, '/')}`).getDay()];
-  const year = date.slice(0, 4);
+  const year = date.slice(2, 4);
   const month = parseInt(date.slice(5, 7));
   const day = parseInt(date.slice(8));
-  return `${weekday} ${month}/${day}/${year.slice(2)}`;
+  return `${weekday} ${month}/${day}/${year}`;
 }
 
 export default updateWorkouts;

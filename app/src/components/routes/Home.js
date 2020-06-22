@@ -22,12 +22,6 @@ const Home = (props) => {
     clearFilteredClients,
     loading,
   } = clientContext;
-  const activeClients = filteredClients.length
-    ? filteredClients.filter((client) => client.isActive)
-    : clients.filter((client) => client.isActive);
-  const deactivatedClients = filteredClients.length
-    ? filteredClients.filter((client) => !client.isActive)
-    : clients.filter((client) => !client.isActive);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   const reset = () => {
@@ -64,7 +58,7 @@ const Home = (props) => {
           <Fragment>
             {clients.length > 1 && <FilterRoster />}
             <Roster
-              clients={[...activeClients, ...deactivatedClients]}
+              clients={filteredClients.length ? filteredClients : clients}
               selectClient={selectClient}
             />
             <Button color='primary' onClick={openForm}>
