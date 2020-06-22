@@ -1,35 +1,39 @@
-import isRecord from './isRecord';
-
-const updateRecords = (initialWorkout, initialRecords) => {
+const updateRecords = (workout, initialRecords) => {
   const records = [...initialRecords];
-  const updatedRoutine = [];
-  const { routine, fullDate } = initialWorkout;
+  const { routine, fullDate } = workout;
   const date = fullDate.split(' ')[1];
   for (const initialExercise of routine) {
     const exercise = { ...initialExercise };
-    if (isRecord(exercise, records)) {
-      exercise.becameRecord = date;
-      const { lift, sets, reps, weight } = exercise;
-      for (const record of records) {
+    const { lift, sets, reps, weight, printout } = exercise;
+    let isRecord = true;
+    for (const record of records) {
+      if (record.lift === lift && !record.surpassed) {
         if (
-          !record.surpassed &&
-          lift === record.lift &&
+          record.sets >= sets &&
+          record.reps >= reps &&
+          record.weight >= weight
+        ) {
+          isRecord = false;
+          break;
+        } else if (
           sets >= record.sets &&
           reps >= record.reps &&
-          weight >= record.weight
+          weight >= record.weight &&
+          printout !== record.printout
         ) {
           record.surpassed = date;
         }
       }
     }
-    updatedRoutine.push(exercise);
-    if (exercise.becameRecord)
+    if (isRecord) {
       records.push({
         ...exercise,
+        becameRecord: date,
         id: exercise.id.split('').reverse().join(''),
       });
+    }
   }
-  return { workout: { ...initialWorkout, routine }, records };
+  return records;
 };
 
 export default updateRecords;

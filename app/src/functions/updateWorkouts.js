@@ -15,26 +15,11 @@ const updateWorkouts = (value, workouts) =>
         ])
   );
 
-function saveWorkouts(
-  pendingWorkouts,
-  updatedWorkouts = [],
-  updatedRecords = []
-) {
-  if (!pendingWorkouts.length) return { workouts: [], records: [] };
-  const { workout, records } = updateRecords(
-    pendingWorkouts[0],
-    updatedRecords
-  );
-  return pendingWorkouts.length > 1
-    ? saveWorkouts(
-        pendingWorkouts.slice(1),
-        [...updatedWorkouts, workout],
-        records
-      )
-    : {
-        workouts: [...updatedWorkouts, workout],
-        records: records,
-      };
+function saveWorkouts(pending, workouts = [], records = []) {
+  if (!pending.length) return { workouts, records };
+  const workout = pending.shift();
+  const updated = updateRecords(workout, records);
+  return saveWorkouts(pending, [...workouts, workout], updated);
 }
 
 function chronologize(array) {
