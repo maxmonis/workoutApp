@@ -18,6 +18,8 @@ const NewWorkout = ({
   saveWorkout,
   updateRoutine,
   selectExercise,
+  isEditing,
+  reset,
   workouts,
   lift,
   setExercise,
@@ -65,6 +67,11 @@ const NewWorkout = ({
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
           />
+          {isEditing && (
+            <Button color='inherit' onClick={reset}>
+              Discard Changes
+            </Button>
+          )}
           <Button variant='outlined' color='inherit' onClick={toggle}>
             Save Workout
           </Button>

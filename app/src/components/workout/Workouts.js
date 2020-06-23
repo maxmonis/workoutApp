@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -8,7 +9,7 @@ import Select from '@material-ui/core/Select';
 import { alphabetize } from '../../functions/helpers';
 import organizeRoutine from '../../functions/organizeRoutine';
 
-const Workouts = ({ workouts, updateWorkouts }) => {
+const Workouts = ({ workouts, updateWorkouts, selectWorkout }) => {
   const [selected, setSelected] = useState('#');
   const [flagged, setFlagged] = useState(null);
   const filtered =
@@ -26,6 +27,7 @@ const Workouts = ({ workouts, updateWorkouts }) => {
     flagged === value ? setFlagged(null) : setFlagged(value);
   };
   const handleDelete = () => updateWorkouts(flagged);
+  const handleEdit = () => selectWorkout(flagged);
   return (
     <Paper className='paper'>
       <Select
@@ -57,9 +59,20 @@ const Workouts = ({ workouts, updateWorkouts }) => {
               </button>
               <div>
                 {flagged === id && (
-                  <IconButton onClick={handleDelete}>
-                    <DeleteIcon aria-label='Delete' />
-                  </IconButton>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flex: 'row',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <IconButton onClick={handleDelete}>
+                      <DeleteIcon aria-label='Delete' />
+                    </IconButton>
+                    <IconButton onClick={handleEdit}>
+                      <EditIcon aria-label='Edit' />
+                    </IconButton>
+                  </div>
                 )}
               </div>
               <ul>

@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import RecordApp from './RecordApp';
 import Workouts from '../workout/Workouts';
 
-const StatsApp = ({ workouts, records, updateWorkouts }) => {
+const StatsApp = ({ workouts, records, updateWorkouts, selectWorkout }) => {
   const [display, setDisplay] = useState('workouts');
   const handleChange = (e) => {
     setDisplay(e.target.value);
@@ -17,6 +17,7 @@ const StatsApp = ({ workouts, records, updateWorkouts }) => {
         <Workouts
           workouts={[...workouts].reverse()}
           updateWorkouts={updateWorkouts}
+          selectWorkout={selectWorkout}
         />
       ) : (
         <RecordApp records={[...records].reverse()} />
