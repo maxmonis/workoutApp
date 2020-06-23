@@ -62,8 +62,7 @@
 
 .lift-form {
   width: 80%;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 0 10%;
 }
 
 .link {
@@ -84,7 +83,7 @@
 
 .quote {
   cursor: pointer;
-  padding: 0 15%;
+  margin: 0 15%;
 }
 
 .scrollable {
@@ -110,9 +109,7 @@
     display: flex;
     flex: row;
   }
-  .left {
-    width: 50%;
-  }
+  .left,
   .right {
     width: 50%;
   }

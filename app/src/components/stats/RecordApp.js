@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import Records from './Records';
+import RecordList from './RecordList';
 import { alphabetize } from '../../functions/helpers';
 
 const RecordApp = ({ records }) => {
@@ -36,7 +36,7 @@ const RecordApp = ({ records }) => {
           </option>
         ))}
       </Select>
-      <Records records={filtered} selected={selected} />
+      <RecordList records={filtered} selected={selected} />
     </Paper>
   );
 };
