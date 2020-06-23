@@ -109,7 +109,10 @@
     display: flex;
     flex: row;
   }
-  .item {
+  .left {
+    width: 50%;
+  }
+  .right {
     width: 50%;
   }
 }

@@ -2,12 +2,11 @@ const updateRecords = (workout, initialRecords) => {
   const records = [...initialRecords];
   const { routine, fullDate } = workout;
   const date = fullDate.split(' ')[1];
-  for (const initialExercise of routine) {
-    const exercise = { ...initialExercise };
-    const { lift, sets, reps, weight, printout } = exercise;
+  for (const exercise of routine) {
+    const { lift, sets, reps, weight } = exercise;
     let isRecord = true;
     for (const record of records) {
-      if (record.lift === lift && !record.surpassed) {
+      if (!record.surpassed && record.lift === lift) {
         if (
           record.sets >= sets &&
           record.reps >= reps &&
@@ -18,8 +17,7 @@ const updateRecords = (workout, initialRecords) => {
         } else if (
           sets >= record.sets &&
           reps >= record.reps &&
-          weight >= record.weight &&
-          printout !== record.printout
+          weight >= record.weight
         ) {
           record.surpassed = date;
         }
