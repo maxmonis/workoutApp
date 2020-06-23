@@ -40,8 +40,13 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     setExercise(exercise);
     updateRoutine(exercise.id);
   };
+  const selectWorkout = (workout) => {
+    setWorkout(workout);
+    updateRoutine(workout.routine);
+  };
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
+    setExercise(defaultExercise);
     setWorkout(defaultWorkout);
     updateRoutine([]);
   };
@@ -56,8 +61,8 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         {isFormOpen ? (
           <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
         ) : (
-          <div className={!workouts.length ? '' : 'container'}>
-            <div className={!workouts.length ? '' : 'item left'}>
+          <div className={workouts.length ? 'container' : ''}>
+            <div className={workouts.length ? 'left' : ''}>
               <NewWorkout
                 exercise={exercise}
                 workout={workout}
@@ -73,11 +78,12 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
               />
             </div>
             {workouts.length > 0 && (
-              <div className={!workouts.length ? '' : 'item right'}>
+              <div className={workouts.length ? 'right' : ''}>
                 <StatsApp
                   workouts={workouts}
                   records={records}
                   updateWorkouts={updateWorkouts}
+                  selectWorkout={selectWorkout}
                 />
               </div>
             )}

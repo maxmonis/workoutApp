@@ -5,7 +5,9 @@ const UpdateRoutine = (value, routine) =>
     ? routine.filter((exercise) => exercise.id !== value)
     : value.lift
     ? [...routine, createNewExercise(value)]
-    : reorderExercises(value, routine);
+    : typeof value[0] === 'string'
+    ? reorderExercises(value, routine)
+    : value;
 
 function reorderExercises(exerciseIds, routine) {
   const updatedRoutine = [];
