@@ -5,6 +5,14 @@ const updateWorkouts = (value, workouts) =>
   saveWorkouts(
     typeof value === 'string'
       ? workouts.filter((workout) => workout.id !== value)
+      : value.id
+      ? chronologize(
+          workouts.map((workout) =>
+            workout.id === value.id
+              ? { ...value, fullDate: getFullDate(value.date) }
+              : workout
+          )
+        )
       : chronologize([
           ...workouts,
           {

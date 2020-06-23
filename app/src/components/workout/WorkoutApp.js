@@ -28,7 +28,6 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   };
   const [workout, setWorkout] = useState(defaultWorkout);
   const [isFormOpen, toggle] = useToggle(false);
-  const [isEditing, setIsEditing] = useState(false);
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === 'name' || id === 'date') {
@@ -37,27 +36,19 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       value === '#' ? toggle() : setExercise({ ...exercise, [id]: value });
     }
   };
-  const reset = () => {
-    setIsEditing(false);
-    setExercise(defaultExercise);
-    setWorkout(defaultWorkout);
-    updateRoutine([]);
-  };
   const selectExercise = (exercise) => {
     setExercise(exercise);
     updateRoutine(exercise.id);
   };
-  const selectWorkout = (id) => {
-    const workout = workouts.find((workout) => workout.id === id);
-    if (workout) {
-      setIsEditing(true);
-      setWorkout({ ...workout });
-      updateRoutine(workout.routine);
-    }
+  const selectWorkout = (workout) => {
+    setWorkout(workout);
+    updateRoutine(workout.routine);
   };
   const saveWorkout = () => {
     updateWorkouts({ ...workout, routine });
-    reset();
+    setExercise(defaultExercise);
+    setWorkout(defaultWorkout);
+    updateRoutine([]);
   };
   useEffect(() => {
     updateClient(client);
@@ -81,8 +72,6 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 saveWorkout={saveWorkout}
                 updateRoutine={updateRoutine}
                 selectExercise={selectExercise}
-                isEditing={isEditing}
-                reset={reset}
                 workouts={workouts}
                 lift={exercise.lift}
                 setExercise={setExercise}
