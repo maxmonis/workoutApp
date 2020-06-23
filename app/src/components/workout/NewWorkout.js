@@ -14,12 +14,11 @@ const NewWorkout = ({
   workout,
   lifts,
   routine,
+  workouts,
   handleChange,
   saveWorkout,
   updateRoutine,
   selectExercise,
-  workouts,
-  lift,
   setExercise,
 }) => {
   const [isFormOpen, toggle] = useToggle(false);
@@ -54,7 +53,7 @@ const NewWorkout = ({
         />
         <ExerciseHistory
           workouts={workouts}
-          lift={lift}
+          lift={exercise.lift}
           setExercise={setExercise}
         />
       </Paper>

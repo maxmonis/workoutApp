@@ -54,6 +54,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
+  useEffect(() => {
+    const bottom = document.querySelector('.bottom');
+    bottom.scrollIntoView({ behavior: 'smooth' });
+  }, []);
   return (
     <div>
       <Typography variant='h3'>{client.name}</Typography>
@@ -68,12 +72,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 workout={workout}
                 lifts={lifts}
                 routine={routine}
+                workouts={workouts}
                 handleChange={handleChange}
                 saveWorkout={saveWorkout}
                 updateRoutine={updateRoutine}
                 selectExercise={selectExercise}
-                workouts={workouts}
-                lift={exercise.lift}
                 setExercise={setExercise}
               />
             </div>
@@ -90,6 +93,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           </div>
         )}
       </div>
+      <div className='bottom' />
     </div>
   );
 };
