@@ -47,9 +47,12 @@ const Workout = ({
             </div>
             {displayMessage && (
               <h5>
-                Double-click
+                Click here
                 <br />
-                <DeleteIcon onDoubleClick={handleDelete} />
+                <DeleteIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleDelete}
+                />
                 <br />
                 to delete workout
               </h5>

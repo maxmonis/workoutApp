@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import AddExercise from '../exercise/AddExercise';
 import ExerciseApp from '../exercise/ExerciseApp';
 import ExerciseHistory from '../exercise/ExerciseHistory';
-import Quote from '../layout/Quote';
 import SaveWorkout from './SaveWorkout';
 import useToggle from '../../hooks/useToggle';
 import organizeRoutine from '../../functions/organizeRoutine';
@@ -57,7 +56,7 @@ const NewWorkout = ({
           setExercise={setExercise}
         />
       </Paper>
-      {routine.length ? (
+      {routine.length > 0 && (
         <div>
           <ExerciseApp
             routine={routine}
@@ -68,8 +67,6 @@ const NewWorkout = ({
             Save Workout
           </Button>
         </div>
-      ) : (
-        <Quote />
       )}
     </div>
   );
