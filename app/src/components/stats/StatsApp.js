@@ -4,7 +4,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import RecordApp from './RecordApp';
-import Workouts from '../workout/Workouts';
+import WorkoutList from '../workout/WorkoutList';
 
 const StatsApp = ({ workouts, records, updateWorkouts, selectWorkout }) => {
   const [display, setDisplay] = useState('workouts');
@@ -14,7 +14,7 @@ const StatsApp = ({ workouts, records, updateWorkouts, selectWorkout }) => {
   return (
     <div>
       {display === 'workouts' ? (
-        <Workouts
+        <WorkoutList
           workouts={[...workouts].reverse()}
           updateWorkouts={updateWorkouts}
           selectWorkout={selectWorkout}

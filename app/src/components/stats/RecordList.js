@@ -4,7 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import useToggle from '../../hooks/useToggle';
 
-const Records = ({ records, selected }) => {
+const RecordList = ({ records, selected }) => {
   const [displaySurpassed, toggle] = useToggle(false);
   const brokenRecords = records.filter((record) => record.surpassed);
   const standingRecords = records.filter((record) => !record.surpassed);
@@ -50,4 +50,4 @@ const Records = ({ records, selected }) => {
   );
 };
 
-export default Records;
+export default RecordList;
