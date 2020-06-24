@@ -28,11 +28,14 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     date: new Date().toISOString().slice(0, 10),
   };
   const [workout, setWorkout] = useState(defaultWorkout);
+  const [editingWorkout, setEditingWorkout] = useState(null);
   const [isFormOpen, toggle] = useToggle(false);
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === 'name' || id === 'date') {
-      setWorkout({ ...workout, [id]: value });
+      editingWorkout
+        ? setEditingWorkout({ ...editingWorkout, [id]: value })
+        : setWorkout({ ...workout, [id]: value });
     } else {
       value === '#' ? toggle() : setExercise({ ...exercise, [id]: value });
     }
@@ -42,13 +45,21 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateRoutine(exercise.id);
   };
   const selectWorkout = (workout) => {
-    setWorkout(workout);
-    updateRoutine(workout.routine);
+    if (workout) {
+      setEditingWorkout(workout);
+      updateRoutine(workout.routine);
+    } else {
+      setEditingWorkout(null);
+    }
   };
   const saveWorkout = () => {
-    updateWorkouts({ ...workout, routine });
+    const updated = editingWorkout
+      ? { ...editingWorkout, routine }
+      : { ...workout, routine };
+    updateWorkouts(updated);
     setExercise(defaultExercise);
     setWorkout(defaultWorkout);
+    setEditingWorkout(null);
     updateRoutine([]);
   };
   useEffect(() => {
@@ -62,11 +73,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         {isFormOpen ? (
           <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
         ) : (
-          <Grid container direction='row' style={{ padding: '0 10%' }}>
+          <Grid container direction='row' className='container'>
             <Grid item xs={12} md={workouts.length ? 6 : 12}>
               <NewWorkout
                 exercise={exercise}
-                workout={workout}
+                workout={editingWorkout ? editingWorkout : workout}
                 lifts={lifts}
                 routine={routine}
                 workouts={workouts}
@@ -84,6 +95,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                   records={records}
                   updateWorkouts={updateWorkouts}
                   selectWorkout={selectWorkout}
+                  editingWorkout={editingWorkout}
                 />
               </Grid>
             )}

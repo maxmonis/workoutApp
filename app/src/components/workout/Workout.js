@@ -10,7 +10,7 @@ const Workout = ({
   workout,
   selected,
   flagged,
-  editing,
+  editingWorkout,
   handleClick,
   handleSelect,
   handleDelete,
@@ -60,7 +60,9 @@ const Workout = ({
             )}
           </div>
         )}
-        {editing === id && <h3>Editing...</h3>}
+        {editingWorkout && editingWorkout.id === id && (
+          <h3 style={{ margin: '0' }}>Currently Editing</h3>
+        )}
       </div>
       <ul>
         {organizeRoutine(routine).map((exercise) => (
