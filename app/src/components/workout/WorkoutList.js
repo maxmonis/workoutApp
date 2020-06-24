@@ -8,6 +8,7 @@ import Workout from './Workout';
 const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
   const [selected, setSelected] = useState('#');
   const [flagged, setFlagged] = useState(null);
+  const [editing, setEditing] = useState(null);
   const filtered =
     selected !== '#'
       ? workouts.filter((workout) => workout.name === selected)
@@ -20,8 +21,13 @@ const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
   };
   const handleDelete = () => updateWorkouts(flagged);
   const handleSelect = () => {
-    const workout = workouts.find((workout) => workout.id === flagged);
-    selectWorkout(workout);
+    if (editing === flagged) {
+      setEditing(null);
+    } else {
+      const workout = workouts.find((workout) => workout.id === flagged);
+      setEditing(flagged);
+      selectWorkout(workout);
+    }
   };
   const handleClick = (e) => {
     const { value } = e.target;
@@ -53,6 +59,7 @@ const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
             workout={workout}
             selected={selected}
             flagged={flagged}
+            editing={editing}
             handleSelect={handleSelect}
             handleClick={handleClick}
             handleDelete={handleDelete}
