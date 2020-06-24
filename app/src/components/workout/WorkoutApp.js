@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
 import StatsApp from '../stats/StatsApp';
@@ -61,8 +62,8 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         {isFormOpen ? (
           <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
         ) : (
-          <div className={workouts.length ? 'container' : ''}>
-            <div className={workouts.length ? 'left' : ''}>
+          <Grid container direction='row' style={{ padding: '0 10%' }}>
+            <Grid item xs={12} md={workouts.length ? 6 : 12}>
               <NewWorkout
                 exercise={exercise}
                 workout={workout}
@@ -75,18 +76,18 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 selectExercise={selectExercise}
                 setExercise={setExercise}
               />
-            </div>
+            </Grid>
             {workouts.length > 0 && (
-              <div className={workouts.length ? 'right' : ''}>
+              <Grid item xs={12} md={6}>
                 <StatsApp
                   workouts={workouts}
                   records={records}
                   updateWorkouts={updateWorkouts}
                   selectWorkout={selectWorkout}
                 />
-              </div>
+              </Grid>
             )}
-          </div>
+          </Grid>
         )}
       </div>
     </div>
