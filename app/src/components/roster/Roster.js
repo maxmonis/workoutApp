@@ -50,6 +50,16 @@ const Roster = (props) => {
   const selectClient = (id) => {
     props.history.push(`${id}`);
   };
+  useEffect(() => {
+    if (!loading) {
+      const timer = setTimeout(() => {
+        const bottom = document.querySelector('.bottom');
+        bottom.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line
+  }, [sorted]);
   return loading ? (
     <Spinner />
   ) : (
@@ -79,6 +89,7 @@ const Roster = (props) => {
         )}
       </Paper>
       <Quote />
+      <div className='bottom' />
     </div>
   );
 };
