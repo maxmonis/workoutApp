@@ -12,15 +12,14 @@ const updateLifts = (newName, oldName, client, routine) => {
       exercises.map((exercise) =>
         exercise.lift === oldName ? { ...exercise, lift: newName } : exercise
       );
-    const updated = [];
-    for (const workout of workouts) {
-      updated.push({ ...workout, routine: mapName(workout.routine) });
-    }
     return {
       lifts: alphabetize(
         lifts.map((lift) => (lift === oldName ? newName : lift))
       ),
-      workouts: updated,
+      workouts: workouts.map((workout) => ({
+        ...workout,
+        routine: mapName(workout.routine),
+      })),
       records: mapName(records),
       routine: mapName(routine),
     };
