@@ -103,32 +103,3 @@
 .small {
   max-height: 40vh;
 }
-
-@media (min-width: 750px) {
-  .container {
-    display: flex;
-    flex: row;
-  }
-  .left,
-  .right {
-    width: 50%;
-  }
-}
-
-@media (min-width: 975px) {
-  .left {
-    padding-left: 10%;
-  }
-  .right {
-    padding-right: 10%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .left {
-    padding-left: 15%;
-  }
-  .right {
-    padding-right: 15%;
-  }
-}
