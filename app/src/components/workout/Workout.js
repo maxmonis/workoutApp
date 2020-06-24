@@ -10,6 +10,7 @@ const Workout = ({
   workout,
   selected,
   flagged,
+  editingWorkout,
   handleClick,
   handleSelect,
   handleDelete,
@@ -58,6 +59,9 @@ const Workout = ({
               </h5>
             )}
           </div>
+        )}
+        {editingWorkout && editingWorkout.id === id && (
+          <h3 style={{ margin: '0' }}>Currently Editing</h3>
         )}
       </div>
       <ul>

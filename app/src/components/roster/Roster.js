@@ -52,11 +52,8 @@ const Roster = (props) => {
   };
   useEffect(() => {
     if (!loading) {
-      const timer = setTimeout(() => {
-        const bottom = document.querySelector('.bottom');
-        bottom.scrollIntoView({ behavior: 'smooth' });
-      }, 500);
-      return () => clearTimeout(timer);
+      const bottom = document.querySelector('.bottom');
+      bottom.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line
   }, [sorted]);

@@ -103,3 +103,9 @@
 .small {
   max-height: 40vh;
 }
+
+@media (min-width: 960px) {
+  .container {
+    padding: 0 10%;
+  }
+}

@@ -5,7 +5,12 @@ import Select from '@material-ui/core/Select';
 import { alphabetize } from '../../functions/helpers';
 import Workout from './Workout';
 
-const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
+const WorkoutList = ({
+  workouts,
+  updateWorkouts,
+  selectWorkout,
+  editingWorkout,
+}) => {
   const [selected, setSelected] = useState('#');
   const [flagged, setFlagged] = useState(null);
   const filtered =
@@ -20,8 +25,12 @@ const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
   };
   const handleDelete = () => updateWorkouts(flagged);
   const handleSelect = () => {
-    const workout = workouts.find((workout) => workout.id === flagged);
-    selectWorkout(workout);
+    if (editingWorkout && editingWorkout.id === flagged) {
+      selectWorkout(null);
+    } else {
+      const workout = workouts.find((workout) => workout.id === flagged);
+      selectWorkout(workout);
+    }
   };
   const handleClick = (e) => {
     const { value } = e.target;
@@ -53,6 +62,7 @@ const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
             workout={workout}
             selected={selected}
             flagged={flagged}
+            editingWorkout={editingWorkout}
             handleSelect={handleSelect}
             handleClick={handleClick}
             handleDelete={handleDelete}
