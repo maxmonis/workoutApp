@@ -8,10 +8,10 @@ import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
 
 const Navbar = () => {
-  const authContext = useContext(AuthContext);
-  const clientContext = useContext(ClientContext);
-  const { isAuthenticated, logUserOut, loadUser, user } = authContext;
-  const { getClients, clearClients } = clientContext;
+  const { isAuthenticated, logUserOut, loadUser, user } = useContext(
+    AuthContext
+  );
+  const { getClients, clearClients } = useContext(ClientContext);
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line

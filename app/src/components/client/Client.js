@@ -4,8 +4,9 @@ import InactiveClient from './InactiveClient';
 import ClientContext from '../../context/client/clientContext';
 
 const Client = ({ client, selectClient }) => {
-  const clientContext = useContext(ClientContext);
-  const { deleteClient, updateClient, setEditingClient } = clientContext;
+  const { deleteClient, updateClient, setEditingClient } = useContext(
+    ClientContext
+  );
   const { _id, name } = client;
   const clientName = name.length > 17 ? `${name.slice(0, 16).trim()}...` : name;
   const handleSelect = () => {

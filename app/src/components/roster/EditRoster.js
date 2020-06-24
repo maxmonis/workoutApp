@@ -6,8 +6,7 @@ import { strInput } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
 const EditRoster = ({ reset }) => {
-  const clientContext = useContext(ClientContext);
-  const { addClient, updateClient, editingClient } = clientContext;
+  const { addClient, updateClient, editingClient } = useContext(ClientContext);
   const defaultClient = {
     name: '',
     email: '',
