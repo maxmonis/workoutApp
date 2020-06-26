@@ -6,11 +6,16 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-const ActiveClient = ({ name, handleSelect, handleEdit, handleDeactivate }) => {
+const ActiveClient = ({
+  clientName,
+  handleSelect,
+  handleEdit,
+  handleDeactivate,
+}) => {
   return (
     <div>
       <ListItem>
-        <Button onClick={handleSelect}>{name}</Button>
+        <Button onClick={handleSelect}>{clientName}</Button>
         <ListItemSecondaryAction>
           <IconButton color='inherit' onClick={handleEdit}>
             <EditIcon aria-label='Edit' />

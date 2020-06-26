@@ -8,11 +8,11 @@ import TextField from '@material-ui/core/TextField';
 import { standardize, strInput } from '../../functions/helpers';
 import useInputState from '../../hooks/useInputState';
 
-const DeleteClient = ({ fullName, toggle, handleDelete }) => {
+const DeleteClient = ({ name, toggle, handleDelete }) => {
   const [value, handleChange] = useInputState('');
   const [isMatch, setIsMatch] = useState(false);
   useEffect(() => {
-    standardize(value).includes(standardize(fullName))
+    standardize(value).includes(standardize(name))
       ? setIsMatch(true)
       : setIsMatch(false);
     // eslint-disable-next-line
@@ -23,7 +23,7 @@ const DeleteClient = ({ fullName, toggle, handleDelete }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <DialogTitle>Permanently delete {fullName}?</DialogTitle>
+      <DialogTitle>Permanently delete {name}?</DialogTitle>
       <DialogContent>
         <DialogContentText>
           All associated data will be lost forever and this action cannot be
