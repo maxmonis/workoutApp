@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
@@ -7,14 +6,6 @@ import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      md: 750,
-    },
-  },
-});
 
 const WorkoutApp = ({ selectedClient, updateClient }) => {
   const {
@@ -76,13 +67,13 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <ThemeProvider theme={theme}>
+    <div className='container'>
       <Typography variant='h3'>{client.name}</Typography>
       <div>
         {isFormOpen ? (
           <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
         ) : (
-          <Grid container direction='row' className='container'>
+          <Grid container direction='row'>
             <Grid item xs={12} md={workouts.length ? 6 : 12}>
               <NewWorkout
                 exercise={exercise}
@@ -111,7 +102,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           </Grid>
         )}
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 

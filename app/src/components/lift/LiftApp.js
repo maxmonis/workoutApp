@@ -9,7 +9,7 @@ const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
     <Paper className='paper'>
       <Grid container justify='center'>
-        <Grid item xs>
+        <Grid item>
           <AddLift updateLifts={updateLifts} />
           <LiftList lifts={lifts} updateLifts={updateLifts} />
         </Grid>
