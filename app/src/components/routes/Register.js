@@ -9,16 +9,14 @@ import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
 const Register = (props) => {
-  const alertContext = useContext(AlertContext);
-  const authContext = useContext(AuthContext);
-  const { setAlert } = alertContext;
+  const { setAlert } = useContext(AlertContext);
   const {
     registerUser,
     error,
     clearErrors,
     isAuthenticated,
     loading,
-  } = authContext;
+  } = useContext(AuthContext);
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/');

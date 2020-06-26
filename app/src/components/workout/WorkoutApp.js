@@ -67,13 +67,13 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <div>
+    <div className='container'>
       <Typography variant='h3'>{client.name}</Typography>
       <div>
         {isFormOpen ? (
           <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
         ) : (
-          <Grid container direction='row' className='container'>
+          <Grid container direction='row'>
             <Grid item xs={12} md={workouts.length ? 6 : 12}>
               <NewWorkout
                 exercise={exercise}

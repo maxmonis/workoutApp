@@ -13,7 +13,6 @@ import { alphabetize } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
 const Roster = (props) => {
-  const clientContext = useContext(ClientContext);
   const {
     clients,
     editingClient,
@@ -21,7 +20,7 @@ const Roster = (props) => {
     clearEditingClient,
     clearFilteredClients,
     loading,
-  } = clientContext;
+  } = useContext(ClientContext);
   const active = filteredClients.length
     ? filteredClients.filter((client) => client.isActive)
     : clients.filter((client) => client.isActive);

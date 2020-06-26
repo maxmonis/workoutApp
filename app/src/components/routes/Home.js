@@ -5,8 +5,7 @@ import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
 const Home = (props) => {
-  const clientContext = useContext(ClientContext);
-  const { clients, updateClient, loading } = clientContext;
+  const { clients, updateClient, loading } = useContext(ClientContext);
   const { id } = props.match.params;
   const selectedClient = clients.find((client) => client._id === id);
   return loading ? (
