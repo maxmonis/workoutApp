@@ -71,6 +71,11 @@
   color: white;
 }
 
+.link-title {
+  text-decoration: none;
+  color: white;
+}
+
 .move-left {
   margin-right: 40px;
 }

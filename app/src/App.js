@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './styles/App.css';
+import About from './components/routes/About';
 import Alerts from './components/layout/Alerts';
 import Footer from './components/layout/Footer';
 import Home from './components/routes/Home';
@@ -35,6 +36,7 @@ const App = () => {
                   <Alerts />
                   <Switch>
                     <PrivateRoute exact path='/' component={Roster} />
+                    <Route exact path='/about' component={About} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/register' component={Register} />
                     <PrivateRoute path='/:id' component={Home} />
