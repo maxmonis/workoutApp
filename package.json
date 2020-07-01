@@ -10,13 +10,12 @@
   "scripts": {
     "start": "node server.js",
     "serve": "nodemon server.js",
-    "heroku-postbuild": "YARN_PRODUCTION=false yarn install --prefix app && yarn build --prefix app"
+    "heroku-postbuild": "cd app && yarn install && yarn build"
   },
   "keywords": [],
   "author": "Max Monis",
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^4.9.4",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.6",
     "express": "^4.17.1",
