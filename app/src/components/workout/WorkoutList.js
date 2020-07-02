@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -55,20 +56,21 @@ const WorkoutList = ({
           </option>
         ))}
       </Select>
-      <div className='scrollable'>
+      <TransitionGroup className='scrollable'>
         {filtered.map((workout) => (
-          <Workout
-            key={workout.id}
-            workout={workout}
-            selected={selected}
-            flagged={flagged}
-            editingWorkout={editingWorkout}
-            handleSelect={handleSelect}
-            handleClick={handleClick}
-            handleDelete={handleDelete}
-          />
+          <CSSTransition key={workout.id} timeout={500} classNames='fade'>
+            <Workout
+              workout={workout}
+              selected={selected}
+              flagged={flagged}
+              editingWorkout={editingWorkout}
+              handleSelect={handleSelect}
+              handleClick={handleClick}
+              handleDelete={handleDelete}
+            />
+          </CSSTransition>
         ))}
-      </div>
+      </TransitionGroup>
     </Paper>
   );
 };
