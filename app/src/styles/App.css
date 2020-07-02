@@ -60,14 +60,14 @@
   margin: auto;
 }
 
-.lift-form {
-  width: 80%;
-  padding: 0 10%;
-}
-
 .link {
   text-decoration: none;
   text-transform: uppercase;
+  color: white;
+}
+
+.link-title {
+  text-decoration: none;
   color: white;
 }
 
@@ -95,13 +95,18 @@
   width: 180px;
 }
 
+.small {
+  max-height: 40vh;
+}
+
 .record {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.small {
-  max-height: 40vh;
+.width-80 {
+  width: 80%;
+  padding: 0 10%;
 }
 
 @media (min-width: 1000px) {
