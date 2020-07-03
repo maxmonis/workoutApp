@@ -6,6 +6,7 @@
   width: 100%;
   overflow: scroll;
   position: absolute;
+  padding-bottom: 20px;
 }
 
 .button {
@@ -91,18 +92,6 @@
 .page {
   height: 100%;
   width: 100%;
-  position: fixed;
-}
-.page-enter {
-  transform: translate(100%);
-}
-.page-enter-active {
-  transition: transform 350ms ease-in;
-  transform: translate(0);
-}
-.page-exit-active {
-  transition: transform 350ms ease-in;
-  transform: translate(-100%);
 }
 
 .paper {
@@ -123,6 +112,21 @@
 
 .select {
   width: 180px;
+}
+
+.slide-enter {
+  position: fixed;
+  transform: translate(100%);
+}
+.slide-enter-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(0);
+}
+.slide-exit-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(-100%);
 }
 
 .small {

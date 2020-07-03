@@ -26,11 +26,11 @@ const theme = createMuiTheme({
 
 const App = () => {
   return (
-    <AuthState>
-      <ClientState>
-        <AlertState>
-          <ThemeProvider theme={theme}>
-            <div className='app'>
+    <div className='app'>
+      <AuthState>
+        <ClientState>
+          <AlertState>
+            <ThemeProvider theme={theme}>
               <Router>
                 <Navbar />
                 <Alerts />
@@ -39,7 +39,7 @@ const App = () => {
                     <TransitionGroup>
                       <CSSTransition
                         key={location.key}
-                        classNames='page'
+                        classNames='slide'
                         timeout={350}
                       >
                         <Switch location={location}>
@@ -55,11 +55,11 @@ const App = () => {
                 />
                 <Footer />
               </Router>
-            </div>
-          </ThemeProvider>
-        </AlertState>
-      </ClientState>
-    </AuthState>
+            </ThemeProvider>
+          </AlertState>
+        </ClientState>
+      </AuthState>
+    </div>
   );
 };
 
