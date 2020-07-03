@@ -39,8 +39,8 @@ const App = () => {
                     <TransitionGroup>
                       <CSSTransition
                         key={location.key}
-                        classNames='fade'
-                        timeout={500}
+                        classNames='page'
+                        timeout={350}
                       >
                         <Switch location={location}>
                           <PrivateRoute exact path='/' component={Roster} />
@@ -53,8 +53,8 @@ const App = () => {
                     </TransitionGroup>
                   )}
                 />
+                <Footer />
               </Router>
-              <Footer />
             </div>
           </ThemeProvider>
         </AlertState>
