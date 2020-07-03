@@ -53,7 +53,7 @@ const Register = (props) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div>
+    <div className='page'>
       <Typography variant='h3'>Register</Typography>
       <Paper className='paper'>
         <form className='form' onSubmit={handleSubmit}>

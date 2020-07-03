@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './styles/App.css';
 import About from './components/routes/About';
@@ -25,30 +26,40 @@ const theme = createMuiTheme({
 
 const App = () => {
   return (
-    <div className='app'>
-      <AuthState>
-        <ClientState>
-          <AlertState>
-            <ThemeProvider theme={theme}>
+    <AuthState>
+      <ClientState>
+        <AlertState>
+          <ThemeProvider theme={theme}>
+            <div className='app'>
               <Router>
-                <Fragment>
-                  <Navbar />
-                  <Alerts />
-                  <Switch>
-                    <PrivateRoute exact path='/' component={Roster} />
-                    <Route exact path='/about' component={About} />
-                    <Route exact path='/login' component={Login} />
-                    <Route exact path='/register' component={Register} />
-                    <PrivateRoute path='/:id' component={Home} />
-                  </Switch>
-                </Fragment>
+                <Navbar />
+                <Alerts />
+                <Route
+                  render={({ location }) => (
+                    <TransitionGroup>
+                      <CSSTransition
+                        key={location.key}
+                        classNames='fade'
+                        timeout={500}
+                      >
+                        <Switch location={location}>
+                          <PrivateRoute exact path='/' component={Roster} />
+                          <Route exact path='/about' component={About} />
+                          <Route exact path='/login' component={Login} />
+                          <Route exact path='/register' component={Register} />
+                          <PrivateRoute path='/:id' component={Home} />
+                        </Switch>
+                      </CSSTransition>
+                    </TransitionGroup>
+                  )}
+                />
               </Router>
-            </ThemeProvider>
-          </AlertState>
-        </ClientState>
-      </AuthState>
-      <Footer />
-    </div>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </AlertState>
+      </ClientState>
+    </AuthState>
   );
 };
 

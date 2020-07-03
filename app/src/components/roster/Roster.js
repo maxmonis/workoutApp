@@ -60,7 +60,7 @@ const Roster = (props) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div>
+    <div className='page'>
       <Typography variant='h3'>Clients</Typography>
       <Paper className='paper'>
         {isFormOpen || clients.length === 0 ? (

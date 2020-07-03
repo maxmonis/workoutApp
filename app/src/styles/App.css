@@ -3,9 +3,9 @@
   background-color: #282c34;
   color: white;
   min-height: 100vh;
-  height: 100%;
+  width: 100%;
   overflow: scroll;
-  position: relative;
+  position: absolute;
 }
 
 .button {
@@ -88,6 +88,12 @@
 
 .mr-40 {
   margin-right: 40px;
+}
+
+.page {
+  height: 100%;
+  position: fixed;
+  width: 100%;
 }
 
 .paper {
