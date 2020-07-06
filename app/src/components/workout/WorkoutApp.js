@@ -70,39 +70,41 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     <div className='page'>
       <div className='container'>
         <Typography variant='h3'>{client.name}</Typography>
-        <div>
-          {isFormOpen ? (
-            <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
-          ) : (
-            <Grid container direction='row'>
-              <Grid item xs={12} md={workouts.length ? 6 : 12}>
-                <NewWorkout
-                  exercise={exercise}
-                  workout={editingWorkout ? editingWorkout : workout}
-                  lifts={lifts}
-                  routine={routine}
-                  workouts={workouts}
-                  handleChange={handleChange}
-                  saveWorkout={saveWorkout}
-                  updateRoutine={updateRoutine}
-                  selectExercise={selectExercise}
-                  setExercise={setExercise}
-                />
-              </Grid>
-              {workouts.length > 0 && (
-                <Grid item xs={12} md={6}>
-                  <StatsApp
-                    workouts={workouts}
-                    records={records}
-                    updateWorkouts={updateWorkouts}
-                    selectWorkout={selectWorkout}
-                    editingWorkout={editingWorkout}
-                  />
-                </Grid>
-              )}
+        <Grid container direction='row'>
+          <Grid item xs={12} md={workouts.length ? 6 : 12}>
+            {isFormOpen ? (
+              <LiftApp
+                lifts={lifts}
+                updateLifts={updateLifts}
+                toggle={toggle}
+              />
+            ) : (
+              <NewWorkout
+                exercise={exercise}
+                workout={editingWorkout ? editingWorkout : workout}
+                lifts={lifts}
+                routine={routine}
+                workouts={workouts}
+                handleChange={handleChange}
+                saveWorkout={saveWorkout}
+                updateRoutine={updateRoutine}
+                selectExercise={selectExercise}
+                setExercise={setExercise}
+              />
+            )}
+          </Grid>
+          {workouts.length > 0 && (
+            <Grid item xs={12} md={6}>
+              <StatsApp
+                workouts={workouts}
+                records={records}
+                updateWorkouts={updateWorkouts}
+                selectWorkout={selectWorkout}
+                editingWorkout={editingWorkout}
+              />
             </Grid>
           )}
-        </div>
+        </Grid>
       </div>
     </div>
   );
