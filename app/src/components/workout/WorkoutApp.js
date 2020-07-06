@@ -67,14 +67,18 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <div className='container'>
-      <Typography variant='h3'>{client.name}</Typography>
-      <div>
-        {isFormOpen ? (
-          <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
-        ) : (
-          <Grid container direction='row'>
-            <Grid item xs={12} md={workouts.length ? 6 : 12}>
+    <div className='page'>
+      <div className='container'>
+        <Typography variant='h3'>{client.name}</Typography>
+        <Grid container direction='row'>
+          <Grid item xs={12} md={workouts.length ? 6 : 12}>
+            {isFormOpen ? (
+              <LiftApp
+                lifts={lifts}
+                updateLifts={updateLifts}
+                toggle={toggle}
+              />
+            ) : (
               <NewWorkout
                 exercise={exercise}
                 workout={editingWorkout ? editingWorkout : workout}
@@ -87,20 +91,20 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 selectExercise={selectExercise}
                 setExercise={setExercise}
               />
-            </Grid>
-            {workouts.length > 0 && (
-              <Grid item xs={12} md={6}>
-                <StatsApp
-                  workouts={workouts}
-                  records={records}
-                  updateWorkouts={updateWorkouts}
-                  selectWorkout={selectWorkout}
-                  editingWorkout={editingWorkout}
-                />
-              </Grid>
             )}
           </Grid>
-        )}
+          {workouts.length > 0 && (
+            <Grid item xs={12} md={6}>
+              <StatsApp
+                workouts={workouts}
+                records={records}
+                updateWorkouts={updateWorkouts}
+                selectWorkout={selectWorkout}
+                editingWorkout={editingWorkout}
+              />
+            </Grid>
+          )}
+        </Grid>
       </div>
     </div>
   );

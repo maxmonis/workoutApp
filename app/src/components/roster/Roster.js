@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -49,17 +50,10 @@ const Roster = (props) => {
   const selectClient = (id) => {
     props.history.push(`${id}`);
   };
-  useEffect(() => {
-    if (!loading) {
-      const bottom = document.querySelector('.bottom');
-      bottom.scrollIntoView({ behavior: 'smooth' });
-    }
-    // eslint-disable-next-line
-  }, [sorted]);
   return loading ? (
     <Spinner />
   ) : (
-    <div>
+    <div className='page'>
       <Typography variant='h3'>Clients</Typography>
       <Paper className='paper'>
         {isFormOpen || clients.length === 0 ? (
@@ -70,12 +64,20 @@ const Roster = (props) => {
             <div className='scrollable'>
               <List>
                 <Divider />
-                {sorted.map((client) => (
-                  <Fragment key={client.name}>
-                    <Client client={client} selectClient={selectClient} />
-                    <Divider />
-                  </Fragment>
-                ))}
+                <TransitionGroup>
+                  {sorted.map((client) => (
+                    <CSSTransition
+                      key={client.name}
+                      timeout={500}
+                      classNames='fade'
+                    >
+                      <Fragment>
+                        <Client client={client} selectClient={selectClient} />
+                        <Divider />
+                      </Fragment>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
               </List>
             </div>
             <Button color='primary' onClick={openForm}>
@@ -85,7 +87,6 @@ const Roster = (props) => {
         )}
       </Paper>
       <Quote />
-      <div className='bottom' />
     </div>
   );
 };

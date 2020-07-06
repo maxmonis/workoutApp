@@ -48,7 +48,7 @@ export default (state, action) => {
       return {
         ...state,
         filteredClients: state.clients.filter((client) => {
-          const regexp = new RegExp(`${payload}`, 'gi');
+          const regexp = new RegExp(`${payload.replace(/[^a-z]/gi, '')}`, 'gi');
           const name = client.name.replace(/ /g, '');
           const email = client.email.replace(/@.*$/, '');
           return name.match(regexp) || email.match(regexp);

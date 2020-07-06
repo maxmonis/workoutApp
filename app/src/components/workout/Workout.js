@@ -67,7 +67,7 @@ const Workout = ({
       <ul>
         {organizeRoutine(routine).map((exercise) => (
           <li
-            className='move-left'
+            className='mr-40'
             key={exercise.id}
           >{`${exercise.lift}: ${exercise.printout}`}</li>
         ))}

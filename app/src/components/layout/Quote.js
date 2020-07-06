@@ -6,9 +6,7 @@ const Quote = () => {
   const getQuote = async () => {
     setQuote(null);
     try {
-      const { data } = await axios.get(
-        'https://cors-anywhere.herokuapp.com/https://type.fit/api/quotes'
-      );
+      const { data } = await axios.get('https://type.fit/api/quotes');
       const index = Math.floor(Math.random() * data.length);
       setQuote(data[index]);
     } catch (err) {

@@ -1,11 +1,12 @@
 .app {
   text-align: center;
-  background-color: #282c34;
+  background-color: #213257;
   color: white;
   min-height: 100vh;
-  height: 100%;
+  width: 100%;
   overflow: scroll;
-  position: relative;
+  position: absolute;
+  padding-bottom: 20px;
 }
 
 .button {
@@ -28,6 +29,18 @@
   overflow-y: scroll;
   width: 100%;
   margin-left: 20px;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
 }
 
 .field {
@@ -53,6 +66,7 @@
   left: 0;
   bottom: 0;
   right: 0;
+  height: 40px;
 }
 
 .form {
@@ -71,8 +85,13 @@
   color: white;
 }
 
-.move-left {
+.mr-40 {
   margin-right: 40px;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
 }
 
 .paper {
@@ -93,6 +112,21 @@
 
 .select {
   width: 180px;
+}
+
+.slide-enter {
+  position: fixed;
+  transform: translate(100%);
+}
+.slide-enter-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(0);
+}
+.slide-exit-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(-100%);
 }
 
 .small {

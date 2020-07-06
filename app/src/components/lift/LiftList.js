@@ -1,21 +1,19 @@
-import React, { Fragment } from 'react';
-import Divider from '@material-ui/core/Divider';
+import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
 import Lift from './Lift';
 
 const LiftList = ({ lifts, updateLifts }) => {
   return (
-    <Paper>
-      <List>
-        {lifts.map((lift, index) => (
-          <Fragment key={lift}>
+    <List>
+      <TransitionGroup>
+        {lifts.map((lift) => (
+          <CSSTransition key={lift} timeout={500} classNames='fade'>
             <Lift lift={lift} updateLifts={updateLifts} />
-            {index < lifts.length - 1 && <Divider />}
-          </Fragment>
+          </CSSTransition>
         ))}
-      </List>
-    </Paper>
+      </TransitionGroup>
+    </List>
   );
 };
 

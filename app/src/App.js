@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './styles/App.css';
 import About from './components/routes/About';
@@ -31,23 +32,33 @@ const App = () => {
           <AlertState>
             <ThemeProvider theme={theme}>
               <Router>
-                <Fragment>
-                  <Navbar />
-                  <Alerts />
-                  <Switch>
-                    <PrivateRoute exact path='/' component={Roster} />
-                    <Route exact path='/about' component={About} />
-                    <Route exact path='/login' component={Login} />
-                    <Route exact path='/register' component={Register} />
-                    <PrivateRoute path='/:id' component={Home} />
-                  </Switch>
-                </Fragment>
+                <Navbar />
+                <Alerts />
+                <Route
+                  render={({ location }) => (
+                    <TransitionGroup>
+                      <CSSTransition
+                        key={location.key}
+                        classNames='slide'
+                        timeout={350}
+                      >
+                        <Switch location={location}>
+                          <PrivateRoute exact path='/' component={Roster} />
+                          <Route exact path='/about' component={About} />
+                          <Route exact path='/login' component={Login} />
+                          <Route exact path='/register' component={Register} />
+                          <PrivateRoute path='/:id' component={Home} />
+                        </Switch>
+                      </CSSTransition>
+                    </TransitionGroup>
+                  )}
+                />
+                <Footer />
               </Router>
             </ThemeProvider>
           </AlertState>
         </ClientState>
       </AuthState>
-      <Footer />
     </div>
   );
 };

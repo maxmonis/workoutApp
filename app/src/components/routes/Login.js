@@ -49,7 +49,7 @@ const Login = (props) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div>
+    <div className='page'>
       <Typography variant='h3'>Login</Typography>
       <Paper className='paper'>
         <form className='form' onSubmit={handleSubmit}>
