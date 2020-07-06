@@ -20,11 +20,17 @@ const RecordList = ({ records, selected }) => {
           <div key={record.id}>
             <ul>
               <li key={record.id} className='record mr-40'>
-                {record.becameRecord}
-                {record.surpassed && ` - ${record.surpassed}`}
-                <br />
                 {selected === '#' && `${record.lift}: `}
                 {record.printout}
+                {selected === '#' ? (
+                  <br />
+                ) : record.surpassed ? (
+                  ' from '
+                ) : (
+                  ' on '
+                )}
+                {record.becameRecord}
+                {record.surpassed && ` to ${record.surpassed}`}
               </li>
             </ul>
             {i < filtered.length - 1 && <Divider />}
