@@ -43,7 +43,12 @@ const App = () => {
                         timeout={350}
                       >
                         <Switch location={location}>
-                          <PrivateRoute exact path='/' component={Roster} />
+                          <PrivateRoute exact path='/' component={Home} />
+                          <PrivateRoute
+                            exact
+                            path='/clients'
+                            component={Roster}
+                          />
                           <Route exact path='/about' component={About} />
                           <Route exact path='/login' component={Login} />
                           <Route exact path='/register' component={Register} />

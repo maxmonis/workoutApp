@@ -25,7 +25,7 @@ const Navbar = () => {
       <Button onClick={logUserOut} color='inherit'>
         Logout
       </Button>
-      <Link to='/' className='link'>
+      <Link to='/clients' className='link'>
         <Button color='inherit'>Clients</Button>
       </Link>
     </Fragment>
@@ -45,7 +45,7 @@ const Navbar = () => {
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
-      <Link to='about' className='link-title'>
+      <Link to='/' className='link-title'>
         <Typography variant='h2'>maxWellness</Typography>
       </Link>
     </Fragment>
