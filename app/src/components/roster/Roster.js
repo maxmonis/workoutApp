@@ -31,7 +31,7 @@ const Roster = (props) => {
   const sorted = [
     ...alphabetize(active, 'name'),
     ...alphabetize(deactivated, 'name'),
-  ].filter((client) => client.name !== '#');
+  ];
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   const reset = () => {

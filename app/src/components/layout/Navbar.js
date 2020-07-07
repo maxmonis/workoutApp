@@ -28,6 +28,9 @@ const Navbar = () => {
       <Link to='/clients' className='link'>
         <Button color='inherit'>Clients</Button>
       </Link>
+      <Link to='/' className='link'>
+        <Button color='inherit'>{user && user.name}</Button>
+      </Link>
     </Fragment>
   );
   const guestLinks = (
