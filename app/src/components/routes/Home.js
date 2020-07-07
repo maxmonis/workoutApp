@@ -5,10 +5,10 @@ import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
 const Home = (props) => {
-  const { clients, addClient, updateClient } = useContext(
+  const { loading, clients, addClient, updateClient } = useContext(
     ClientContext
   );
-  if (clients.length === 0) {
+  if (!loading && !clients.length) {
     addClient({
       name: '#',
       lifts: ['Bench Press', 'Deadlift', 'Squat'],

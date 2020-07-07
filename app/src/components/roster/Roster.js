@@ -31,7 +31,7 @@ const Roster = (props) => {
   const sorted = [
     ...alphabetize(active, 'name'),
     ...alphabetize(deactivated, 'name'),
-  ];
+  ].filter((client) => client.name !== '#');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => setIsFormOpen(true);
   const reset = () => {
@@ -56,11 +56,11 @@ const Roster = (props) => {
     <div className='page'>
       <Typography variant='h3'>Clients</Typography>
       <Paper className='paper'>
-        {isFormOpen || clients.length === 0 ? (
+        {isFormOpen || clients.length === 1 ? (
           <EditRoster reset={reset} />
         ) : (
           <Fragment>
-            {clients.length > 1 && <FilterRoster />}
+            {clients.length > 2 && <FilterRoster />}
             <div className='scrollable'>
               <List>
                 <Divider />
