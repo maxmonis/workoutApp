@@ -26,7 +26,7 @@ const About = () => {
         well-organized repository. I welcome and greatly appreciate any feedback
         and suggestions you, the maxWellness community, can provide regarding
         ways the app can improve and grow. Please feel free to contact me with
-        questions, comments or concerns at maxwellness@gmail.com
+        questions, comments or concerns at maxwellnesscontact@gmail.com
       </Typography>
     </div>
   );

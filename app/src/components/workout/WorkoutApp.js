@@ -63,6 +63,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateRoutine([]);
   };
   useEffect(() => {
+    document.title = `maxWellness | ${client.name}`;
+    return () => (document.title = `maxWellness | Personal Training Solutions`);
+    // eslint-disable-next-line
+  }, []);
+  useEffect(() => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
