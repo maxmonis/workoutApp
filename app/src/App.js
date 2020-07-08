@@ -11,7 +11,6 @@ import Login from './components/routes/Login';
 import Navbar from './components/layout/Navbar';
 import PrivateRoute from './components/routes/PrivateRoute';
 import Register from './components/routes/Register';
-import Roster from './components/roster/Roster';
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import ClientState from './context/client/ClientState';
@@ -43,15 +42,10 @@ const App = () => {
                         timeout={350}
                       >
                         <Switch location={location}>
-                          <PrivateRoute exact path='/' component={Home} />
-                          <PrivateRoute
-                            exact
-                            path='/clients'
-                            component={Roster}
-                          />
                           <Route exact path='/about' component={About} />
                           <Route exact path='/login' component={Login} />
                           <Route exact path='/register' component={Register} />
+                          <PrivateRoute exact path='/' component={Home} />
                           <PrivateRoute path='/:id' component={Home} />
                         </Switch>
                       </CSSTransition>

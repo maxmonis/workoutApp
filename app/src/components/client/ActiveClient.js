@@ -7,12 +7,18 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-const ActiveClient = ({ clientName, id, handleEdit, handleDeactivate }) => {
+const ActiveClient = ({
+  clientName,
+  id,
+  toggle,
+  handleEdit,
+  handleDeactivate,
+}) => {
   return (
     <div>
       <ListItem>
         <Link className='link' to={id}>
-          <Button>{clientName}</Button>
+          <Button onClick={toggle}>{clientName}</Button>
         </Link>
         <ListItemSecondaryAction>
           <IconButton color='inherit' onClick={handleEdit}>
