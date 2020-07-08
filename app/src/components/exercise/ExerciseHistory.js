@@ -15,7 +15,7 @@ const ExerciseHistory = ({ workouts, lift, setExercise }) => {
   return (
     <div className='exercise-history'>
       {!exercises.length ? (
-        <h5>No {lift} stats for this client</h5>
+        <h3>No {lift} stats</h3>
       ) : (
         <div>
           {exercises.map((exercise) => (

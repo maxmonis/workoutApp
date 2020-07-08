@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
 import EditIcon from '@material-ui/icons/Edit';
@@ -8,14 +9,17 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const ActiveClient = ({
   clientName,
-  handleSelect,
+  id,
+  toggle,
   handleEdit,
   handleDeactivate,
 }) => {
   return (
     <div>
       <ListItem>
-        <Button onClick={handleSelect}>{clientName}</Button>
+        <Link className='link' to={id}>
+          <Button onClick={toggle}>{clientName}</Button>
+        </Link>
         <ListItemSecondaryAction>
           <IconButton color='inherit' onClick={handleEdit}>
             <EditIcon aria-label='Edit' />

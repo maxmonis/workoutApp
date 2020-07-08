@@ -1,19 +1,24 @@
-import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
 import Spinner from '../layout/Spinner';
 import WorkoutApp from '../workout/WorkoutApp';
 import ClientContext from '../../context/client/clientContext';
 
 const Home = (props) => {
-  const { clients, updateClient, loading } = useContext(ClientContext);
-  const { id } = props.match.params;
-  const selectedClient = clients.find((client) => client._id === id);
-  return loading ? (
-    <Spinner />
-  ) : selectedClient ? (
+  const { clients, updateClient } = useContext(ClientContext);
+  const [selectedClient, setSelectedClient] = useState(null);
+  useEffect(() => {
+    if (clients.length) {
+      const { id } = props.match.params;
+      setSelectedClient(
+        clients.find((client) => client._id === id) || clients[0]
+      );
+    }
+    // eslint-disable-next-line
+  }, [clients.length]);
+  return selectedClient ? (
     <WorkoutApp selectedClient={selectedClient} updateClient={updateClient} />
   ) : (
-    <Redirect to='/' />
+    <Spinner />
   );
 };
 

@@ -49,7 +49,10 @@ const Register = (props) => {
       registerUser({ name, email, password });
     }
   };
-
+  useEffect(() => {
+    document.title = `maxWellness | Welcome`;
+    // eslint-disable-next-line
+  }, []);
   return loading ? (
     <Spinner />
   ) : (

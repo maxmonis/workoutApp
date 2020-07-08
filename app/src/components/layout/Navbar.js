@@ -2,16 +2,22 @@ import React, { useContext, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Roster from '../roster/Roster';
 import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
+import useToggle from '../../hooks/useToggle';
 
 const Navbar = () => {
   const { isAuthenticated, logUserOut, loadUser, user } = useContext(
     AuthContext
   );
   const { getClients, clearClients } = useContext(ClientContext);
+  const [isDrawerOpen, toggle] = useToggle(false);
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
@@ -22,32 +28,39 @@ const Navbar = () => {
   }, [user]);
   const authLinks = (
     <Fragment>
-      <Button onClick={logUserOut} color='inherit'>
+      <IconButton color='inherit' onClick={toggle}>
+        <MenuIcon />
+      </IconButton>
+      <Button
+        style={{ margin: 'auto 10px auto auto' }}
+        onClick={logUserOut}
+        color='inherit'
+      >
         Logout
       </Button>
-      <Link to='/' className='link'>
-        <Button color='inherit'>Clients</Button>
-      </Link>
     </Fragment>
   );
   const guestLinks = (
-    <Fragment>
+    <div style={{ margin: 'auto 10px auto auto' }}>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </Fragment>
+    </div>
   );
   return (
     <Fragment>
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
-      <Link to='about' className='link-title'>
+      <Link to='/' className='link-title'>
         <Typography variant='h2'>maxWellness</Typography>
       </Link>
+      <Drawer open={isDrawerOpen} onClose={toggle}>
+        <Roster toggle={toggle} />
+      </Drawer>
     </Fragment>
   );
 };

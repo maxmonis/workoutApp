@@ -62,9 +62,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     setEditingWorkout(null);
     updateRoutine([]);
   };
+  const title = client.name === '#' ? 'Workouts' : client.name;
   useEffect(() => {
-    document.title = `maxWellness | ${client.name}`;
-    return () => (document.title = `maxWellness | Personal Training Solutions`);
+    document.title = `maxWellness | ${title}`;
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
@@ -74,7 +74,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   return (
     <div className='page'>
       <div className='container'>
-        <Typography variant='h3'>{client.name}</Typography>
+        <Typography variant='h3'>{title}</Typography>
         <Grid container direction='row'>
           <Grid item xs={12} md={workouts.length ? 6 : 12}>
             {isFormOpen ? (
