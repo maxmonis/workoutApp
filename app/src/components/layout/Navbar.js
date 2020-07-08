@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Roster from '../roster/Roster';
@@ -26,26 +28,27 @@ const Navbar = () => {
   }, [user]);
   const authLinks = (
     <Fragment>
-      <Button onClick={logUserOut} color='inherit'>
+      <IconButton color='inherit' onClick={toggle}>
+        <MenuIcon />
+      </IconButton>
+      <Button
+        style={{ margin: 'auto 10px auto auto' }}
+        onClick={logUserOut}
+        color='inherit'
+      >
         Logout
       </Button>
-      <Button onClick={toggle} color='inherit'>
-        Clients
-      </Button>
-      <Link to='/' className='link'>
-        <Button color='inherit'>{user && user.name}</Button>
-      </Link>
     </Fragment>
   );
   const guestLinks = (
-    <Fragment>
+    <div style={{ margin: 'auto 10px auto auto' }}>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </Fragment>
+    </div>
   );
   return (
     <Fragment>
