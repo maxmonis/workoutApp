@@ -13,6 +13,7 @@ const Home = (props) => {
         clients.find((client) => client._id === id) || clients[0]
       );
     }
+    // eslint-disable-next-line
   }, [clients.length]);
   return selectedClient ? (
     <WorkoutApp selectedClient={selectedClient} updateClient={updateClient} />
