@@ -51,9 +51,6 @@ const Roster = (props) => {
     document.title = `maxWellness | Clients`;
     // eslint-disable-next-line
   }, []);
-  const selectClient = (id) => {
-    props.history.push(`${id}`);
-  };
   return loading ? (
     <Spinner />
   ) : (
@@ -76,7 +73,7 @@ const Roster = (props) => {
                       classNames='fade'
                     >
                       <Fragment>
-                        <Client client={client} selectClient={selectClient} />
+                        <Client client={client} />
                         <Divider />
                       </Fragment>
                     </CSSTransition>

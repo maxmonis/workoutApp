@@ -3,15 +3,12 @@ import ActiveClient from './ActiveClient';
 import InactiveClient from './InactiveClient';
 import ClientContext from '../../context/client/clientContext';
 
-const Client = ({ client, selectClient }) => {
+const Client = ({ client }) => {
   const { deleteClient, updateClient, setEditingClient } = useContext(
     ClientContext
   );
   const { _id, name, isActive } = client;
   const clientName = name.length > 17 ? `${name.slice(0, 16).trim()}...` : name;
-  const handleSelect = () => {
-    selectClient(_id);
-  };
   const handleEdit = () => {
     setEditingClient(client);
   };
@@ -27,7 +24,7 @@ const Client = ({ client, selectClient }) => {
   return isActive ? (
     <ActiveClient
       clientName={clientName}
-      handleSelect={handleSelect}
+      id={_id}
       handleEdit={handleEdit}
       handleDeactivate={handleDeactivate}
     />
