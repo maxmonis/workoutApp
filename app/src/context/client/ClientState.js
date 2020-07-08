@@ -16,8 +16,15 @@ const ClientState = (props) => {
   const { clients, editingClient, filteredClients, loading, error } = state;
   const getClients = async () => {
     try {
-      const res = await axios.get('/api/clients');
-      dispatch({ type: 'GET_CLIENTS', payload: res.data });
+      const { data } = await axios.get('/api/clients');
+      if (!data.length)
+        addClient({
+          name: '#',
+          lifts: ['Bench Press', 'Deadlift', 'Squat'],
+          workouts: [],
+          records: [],
+        });
+      dispatch({ type: 'GET_CLIENTS', payload: data });
     } catch (err) {
       dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
     }
