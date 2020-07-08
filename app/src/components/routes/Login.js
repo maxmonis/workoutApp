@@ -46,6 +46,10 @@ const Login = (props) => {
       });
     }
   };
+  useEffect(() => {
+    document.title = `maxWellness | Welcome`;
+    // eslint-disable-next-line
+  }, []);
   return loading ? (
     <Spinner />
   ) : (

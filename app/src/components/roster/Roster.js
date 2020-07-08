@@ -47,6 +47,10 @@ const Roster = (props) => {
     reset();
     // eslint-disable-next-line
   }, [clients]);
+  useEffect(() => {
+    document.title = `maxWellness | Clients`;
+    // eslint-disable-next-line
+  }, []);
   const selectClient = (id) => {
     props.history.push(`${id}`);
   };

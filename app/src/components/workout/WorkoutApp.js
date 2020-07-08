@@ -65,7 +65,6 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   const title = client.name === '#' ? 'Workouts' : client.name;
   useEffect(() => {
     document.title = `maxWellness | ${title}`;
-    return () => (document.title = `maxWellness | Personal Training Solutions`);
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
