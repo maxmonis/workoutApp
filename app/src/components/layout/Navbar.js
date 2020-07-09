@@ -19,6 +19,10 @@ const Navbar = () => {
   );
   const { getClients, clearClients } = useContext(ClientContext);
   const [isDrawerOpen, toggle] = useToggle(false);
+  const handleLogout = () => {
+    toggle();
+    logUserOut();
+  };
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
@@ -32,10 +36,8 @@ const Navbar = () => {
       <IconButton color='inherit' onClick={toggle}>
         <MenuIcon />
       </IconButton>
-      <Link to='/login' className='link'>
-        <Button onClick={logUserOut} color='inherit'>
-          Logout
-        </Button>
+      <Link to='/' className='link'>
+        <Button color='inherit'>{user ? user.name : 'Workouts'}</Button>
       </Link>
     </Fragment>
   );
@@ -57,11 +59,11 @@ const Navbar = () => {
       <Typography variant='h2'>maxWellness</Typography>
       <Drawer open={isDrawerOpen} onClose={toggle}>
         <div className='drawer'>
-          <AppBar position='static' style={{ height: '56px' }}>
+          <AppBar position='static'>
             <Toolbar>
               <Link to='/' className='link'>
-                <Button onClick={toggle} color='inherit'>
-                  {user ? user.name : 'Workouts'}
+                <Button onClick={handleLogout} color='inherit'>
+                  Logout
                 </Button>
               </Link>
               <IconButton
