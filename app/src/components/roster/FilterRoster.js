@@ -20,7 +20,7 @@ const FilterRoster = () => {
     }
   };
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       <input
         className='filter'
         ref={text}
