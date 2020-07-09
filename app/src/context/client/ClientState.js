@@ -20,9 +20,6 @@ const ClientState = (props) => {
       if (!data.length)
         addClient({
           name: '#',
-          lifts: ['Bench Press', 'Deadlift', 'Squat'],
-          workouts: [],
-          records: [],
         });
       dispatch({ type: 'GET_CLIENTS', payload: data });
     } catch (err) {

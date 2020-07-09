@@ -28,8 +28,8 @@ const About = () => {
                 Access your account from anywhere in the world using a securely
                 encrypted password
                 <br /> *** <br />
-                This service is totally free of charge and we will never share
-                your data with any third party
+                Ad-free, free of charge and we will never share your data with
+                any third party
                 <br /> *** <br />
                 Please direct questions, comments or concerns to
                 <br /> maxwellnesscontact@gmail.com

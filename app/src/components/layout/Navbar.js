@@ -61,11 +61,9 @@ const Navbar = () => {
         <div className='drawer'>
           <AppBar position='static'>
             <Toolbar>
-              <Link to='/' className='link'>
-                <Button onClick={handleLogout} color='inherit'>
-                  Logout
-                </Button>
-              </Link>
+              <Button onClick={handleLogout} color='inherit'>
+                Logout
+              </Button>
               <IconButton
                 onClick={toggle}
                 color='inherit'
