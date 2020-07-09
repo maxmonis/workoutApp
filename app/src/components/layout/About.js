@@ -14,11 +14,11 @@ const About = () => {
         </Button>
       ) : (
         <Fragment>
-          <Typography variant='h5'>
+          <Typography variant='h6'>
             Welcome to maxWellness!
             <br /> *** <br />
-            Track all of your workouts and personal bests along with those of
-            any clients you're training
+            Track all of your workouts and personal bests along with those of up
+            to twenty clients
             <br /> *** <br />
             Access your account from anywhere in the world using a securely
             encrypted password

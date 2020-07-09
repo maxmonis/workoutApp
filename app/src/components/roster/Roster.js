@@ -29,7 +29,7 @@ const Roster = ({ toggle }) => {
     ...alphabetize(deactivated, 'name'),
   ].filter((client) => client.name !== '#');
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const openForm = () => setIsFormOpen(true);
+  const openForm = () => clients.length < 21 && setIsFormOpen(true);
   const reset = () => {
     setIsFormOpen(false);
     clearEditingClient();
@@ -69,9 +69,11 @@ const Roster = ({ toggle }) => {
               </TransitionGroup>
             </List>
           </div>
-          <Button color='primary' onClick={openForm}>
-            Add New Client
-          </Button>
+          {clients.length < 21 && (
+            <Button color='primary' onClick={openForm}>
+              Add New Client
+            </Button>
+          )}
         </Fragment>
       )}
     </Paper>
