@@ -12,6 +12,7 @@ const FilterRoster = () => {
     }
   });
   const handleChange = (e) => {
+    text.current.value = text.current.value.replace(/[^a-z]/gi, '');
     if (text.current.value !== '') {
       filterClients(e.target.value);
     } else {
