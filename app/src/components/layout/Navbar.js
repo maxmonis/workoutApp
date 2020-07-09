@@ -32,44 +32,50 @@ const Navbar = () => {
       <IconButton color='inherit' onClick={toggle}>
         <MenuIcon />
       </IconButton>
-      <Button
-        style={{ margin: 'auto 10px auto auto' }}
-        onClick={logUserOut}
-        color='inherit'
-      >
-        Logout
-      </Button>
+      <Link to='/login' className='link'>
+        <Button onClick={logUserOut} color='inherit'>
+          Logout
+        </Button>
+      </Link>
     </Fragment>
   );
   const guestLinks = (
-    <div style={{ margin: 'auto 10px auto auto' }}>
+    <Fragment>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </div>
+    </Fragment>
   );
   return (
     <Fragment>
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
-      <Link to='/' className='link-title'>
+      <Link to='/about' className='link-title'>
         <Typography variant='h2'>maxWellness</Typography>
       </Link>
       <Drawer open={isDrawerOpen} onClose={toggle}>
         <div className='drawer'>
           <AppBar position='static' style={{ height: '56px' }}>
-            <IconButton
-              onClick={toggle}
-              color='inherit'
-              style={{ margin: 'auto 10px auto auto' }}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
+            <Toolbar>
+              <Link to='/' className='link'>
+                <Button onClick={toggle} color='inherit'>
+                  Workouts
+                </Button>
+              </Link>
+              <IconButton
+                onClick={toggle}
+                color='inherit'
+                style={{ margin: 'auto 10px auto auto' }}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
           </AppBar>
+          <Typography variant='h3'>Clients</Typography>
           <Roster toggle={toggle} />
         </div>
       </Drawer>

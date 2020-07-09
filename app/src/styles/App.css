@@ -24,7 +24,6 @@
   background-color: #213257;
   color: white;
   height: 100%;
-  width: 400px;
   text-align: center;
   overflow-y: scroll;
 }
@@ -104,7 +103,7 @@
 }
 
 .paper {
-  margin: 5vh auto auto;
+  margin: auto;
   width: 300px;
   padding: 1.5rem;
 }
