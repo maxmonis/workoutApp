@@ -73,7 +73,7 @@ const Navbar = () => {
               </IconButton>
             </Toolbar>
           </AppBar>
-          <Typography variant='h3'>Clients</Typography>
+          <Typography variant='h3'>Roster</Typography>
           <Roster toggle={toggle} />
         </div>
       </Drawer>

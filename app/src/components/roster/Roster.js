@@ -44,39 +44,45 @@ const Roster = ({ toggle }) => {
     // eslint-disable-next-line
   }, [clients]);
   return (
-    <Paper className='paper'>
-      {isFormOpen || clients.length === 1 ? (
-        <EditRoster reset={reset} />
-      ) : (
-        <Fragment>
-          {clients.length > 2 && <FilterRoster />}
-          <div className='scrollable'>
-            <List>
-              <Divider />
-              <TransitionGroup>
-                {sorted.map((client) => (
-                  <CSSTransition
-                    key={client.name}
-                    timeout={500}
-                    classNames='fade'
-                  >
-                    <Fragment>
-                      <Client client={client} toggle={toggle} />
-                      <Divider />
-                    </Fragment>
-                  </CSSTransition>
-                ))}
-              </TransitionGroup>
-            </List>
-          </div>
-          {clients.length < 21 && (
-            <Button color='primary' onClick={openForm}>
-              Add New Client
-            </Button>
-          )}
-        </Fragment>
-      )}
-    </Paper>
+    <div>
+      <Paper className='paper'>
+        {isFormOpen || clients.length === 1 ? (
+          <EditRoster reset={reset} />
+        ) : (
+          <Fragment>
+            {clients.length > 2 && <FilterRoster />}
+            <div className='scrollable'>
+              <List>
+                <Divider />
+                <TransitionGroup>
+                  {sorted.map((client) => (
+                    <CSSTransition
+                      key={client.name}
+                      timeout={500}
+                      classNames='fade'
+                    >
+                      <Fragment>
+                        <Client client={client} toggle={toggle} />
+                        <Divider />
+                      </Fragment>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
+              </List>
+            </div>
+            {clients.length < 21 && (
+              <Button color='primary' onClick={openForm}>
+                Add New Client
+              </Button>
+            )}
+          </Fragment>
+        )}
+      </Paper>
+      <h3 className='width-80'>
+        You have {21 - clients.length} available slot
+        {clients.length !== 20 && 's'} on your roster
+      </h3>
+    </div>
   );
 };
 
