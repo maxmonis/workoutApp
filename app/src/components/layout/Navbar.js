@@ -54,9 +54,7 @@ const Navbar = () => {
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
-      <Link to='/about' className='link-title'>
-        <Typography variant='h2'>maxWellness</Typography>
-      </Link>
+      <Typography variant='h2'>maxWellness</Typography>
       <Drawer open={isDrawerOpen} onClose={toggle}>
         <div className='drawer'>
           <AppBar position='static' style={{ height: '56px' }}>
