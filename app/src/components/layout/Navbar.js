@@ -2,6 +2,7 @@ import React, { useContext, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -59,7 +60,18 @@ const Navbar = () => {
         <Typography variant='h2'>maxWellness</Typography>
       </Link>
       <Drawer open={isDrawerOpen} onClose={toggle}>
-        <Roster toggle={toggle} />
+        <div className='drawer'>
+          <AppBar position='static' style={{ height: '56px' }}>
+            <IconButton
+              onClick={toggle}
+              color='inherit'
+              style={{ margin: 'auto 10px auto auto' }}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+          </AppBar>
+          <Roster toggle={toggle} />
+        </div>
       </Drawer>
     </Fragment>
   );
