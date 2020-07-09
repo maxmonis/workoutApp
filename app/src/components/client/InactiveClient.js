@@ -24,7 +24,11 @@ const InactiveClient = ({ clientName, name, handleActivate, handleDelete }) => {
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
-      <Dialog open={isDialogOpen} onClose={toggle}>
+      <Dialog
+        style={{ maxWidth: '500px' }}
+        open={isDialogOpen}
+        onClose={toggle}
+      >
         <DeleteClient name={name} toggle={toggle} handleDelete={handleDelete} />
       </Dialog>
     </div>

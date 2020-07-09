@@ -21,14 +21,16 @@ const Quote = () => {
     getQuote();
     // eslint-disable-next-line
   }, []);
-  return !quote ? (
-    <div>
-      <h3>Loading quote...</h3>
-    </div>
-  ) : (
-    <div className='quote' onClick={getQuote}>
-      <h3>{quote.text}</h3>
-      <h4>-{quote.author || 'Anonymous'}</h4>
+  return (
+    <div className='quote'>
+      {!quote ? (
+        <h3>Loading quote...</h3>
+      ) : (
+        <div onClick={getQuote}>
+          <h3>{quote.text}</h3>
+          <h4>-{quote.author || 'Anonymous'}</h4>
+        </div>
+      )}
     </div>
   );
 };

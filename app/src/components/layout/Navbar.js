@@ -63,7 +63,7 @@ const Navbar = () => {
             <Toolbar>
               <Link to='/' className='link'>
                 <Button onClick={toggle} color='inherit'>
-                  Workouts
+                  {user ? user.name : 'Workouts'}
                 </Button>
               </Link>
               <IconButton
