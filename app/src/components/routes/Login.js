@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import About from '../layout/About';
 import Spinner from '../layout/Spinner';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
@@ -85,6 +86,7 @@ const Login = (props) => {
       <Link className='link' to='register'>
         Get started
       </Link>
+      <About />
     </div>
   );
 };
