@@ -72,45 +72,39 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <div className='page'>
-      <div className='container'>
-        <Typography variant='h3'>{title}</Typography>
-        <Grid container direction='row'>
-          <Grid item xs={12} md={workouts.length ? 6 : 12}>
-            {isFormOpen ? (
-              <LiftApp
-                lifts={lifts}
-                updateLifts={updateLifts}
-                toggle={toggle}
-              />
-            ) : (
-              <NewWorkout
-                exercise={exercise}
-                workout={editingWorkout ? editingWorkout : workout}
-                lifts={lifts}
-                routine={routine}
-                workouts={workouts}
-                handleChange={handleChange}
-                saveWorkout={saveWorkout}
-                updateRoutine={updateRoutine}
-                selectExercise={selectExercise}
-                setExercise={setExercise}
-              />
-            )}
-          </Grid>
-          {workouts.length > 0 && (
-            <Grid item xs={12} md={6}>
-              <StatsApp
-                workouts={workouts}
-                records={records}
-                updateWorkouts={updateWorkouts}
-                selectWorkout={selectWorkout}
-                editingWorkout={editingWorkout}
-              />
-            </Grid>
+    <div className='container'>
+      <Typography variant='h3'>{title}</Typography>
+      <Grid container direction='row'>
+        <Grid item xs={12} md={workouts.length ? 6 : 12}>
+          {isFormOpen ? (
+            <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
+          ) : (
+            <NewWorkout
+              exercise={exercise}
+              workout={editingWorkout ? editingWorkout : workout}
+              lifts={lifts}
+              routine={routine}
+              workouts={workouts}
+              handleChange={handleChange}
+              saveWorkout={saveWorkout}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
+              setExercise={setExercise}
+            />
           )}
         </Grid>
-      </div>
+        {workouts.length > 0 && (
+          <Grid item xs={12} md={6}>
+            <StatsApp
+              workouts={workouts}
+              records={records}
+              updateWorkouts={updateWorkouts}
+              selectWorkout={selectWorkout}
+              editingWorkout={editingWorkout}
+            />
+          </Grid>
+        )}
+      </Grid>
     </div>
   );
 };
