@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteClient from './DeleteClient';
 import useToggle from '../../hooks/useToggle';
 
 const InactiveClient = ({ clientName, name, handleActivate, handleDelete }) => {
   const [isDialogOpen, toggle] = useToggle(false);
+  const [optionsShown, setOptionsShown] = useState(false);
+  const showOptions = () => setOptionsShown(true);
+  const hideOptions = () => setOptionsShown(false);
   return (
-    <div>
+    <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       <ListItem>
         <Button disabled>{clientName}</Button>
-        <ListItemSecondaryAction>
+      </ListItem>
+      {optionsShown && (
+        <div>
           <IconButton onClick={handleActivate}>
             <AddIcon aria-label='Recover' />
           </IconButton>
           <IconButton onClick={toggle}>
             <DeleteIcon aria-label='Delete' />
           </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+        </div>
+      )}
       <Dialog
         style={{ maxWidth: '500px' }}
         open={isDialogOpen}

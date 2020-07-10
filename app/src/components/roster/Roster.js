@@ -45,7 +45,7 @@ const Roster = ({ toggle }) => {
   }, [clients]);
   return (
     <div>
-      <Paper className='paper'>
+      <Paper className='paper narrow'>
         {isFormOpen || clients.length === 1 ? (
           <EditRoster reset={reset} />
         ) : (
