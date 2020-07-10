@@ -6,7 +6,7 @@ import LiftList from './LiftList';
 
 const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
-    <Paper className='paper'>
+    <Paper className='paper narrow'>
       <AddLift updateLifts={updateLifts} />
       <LiftList lifts={lifts} updateLifts={updateLifts} />
       <Button onClick={toggle} color='primary'>

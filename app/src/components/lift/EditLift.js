@@ -5,23 +5,15 @@ import { strInput } from '../../functions/helpers';
 
 const EditLift = ({ lift, toggle, updateLifts }) => {
   const [value, handleChange, reset] = useInputState(lift);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateLifts(value.trim(), lift);
+    reset();
+    toggle();
+  };
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        updateLifts(value.trim(), lift);
-        reset();
-        toggle();
-      }}
-    >
-      <TextField
-        style={{ margin: '2px' }}
-        margin='normal'
-        value={strInput(value)}
-        onChange={handleChange}
-        fullWidth
-        autoFocus
-      />
+    <form onSubmit={handleSubmit}>
+      <TextField value={strInput(value)} onChange={handleChange} autoFocus />
     </form>
   );
 };

@@ -56,7 +56,7 @@ const Login = (props) => {
   ) : (
     <div className='page'>
       <Typography variant='h3'>Login</Typography>
-      <Paper className='paper'>
+      <Paper className='paper narrow'>
         <form className='form' onSubmit={handleSubmit}>
           <div>
             <Input

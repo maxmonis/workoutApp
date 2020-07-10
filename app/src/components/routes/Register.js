@@ -59,7 +59,7 @@ const Register = (props) => {
   ) : (
     <div className='page'>
       <Typography variant='h3'>Register</Typography>
-      <Paper className='paper'>
+      <Paper className='paper narrow'>
         <form className='form' onSubmit={handleSubmit}>
           <div>
             <Input

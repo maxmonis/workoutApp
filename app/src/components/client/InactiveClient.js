@@ -16,7 +16,9 @@ const InactiveClient = ({ clientName, name, handleActivate, handleDelete }) => {
   return (
     <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       <ListItem>
-        <Button disabled>{clientName}</Button>
+        <Button disabled style={{ margin: '0 auto' }}>
+          {clientName}
+        </Button>
       </ListItem>
       {optionsShown && (
         <div>
