@@ -11,7 +11,7 @@ const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
     <Paper className='paper narrow'>
       <AddLift updateLifts={updateLifts} />
-      <List>
+      <List className='scrollable'>
         <TransitionGroup>
           {lifts.map((lift) => (
             <CSSTransition key={lift} timeout={500} classNames='fade'>
