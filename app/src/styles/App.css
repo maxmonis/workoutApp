@@ -24,7 +24,7 @@
   background-color: #213257;
   color: white;
   height: 100%;
-  max-width: 275px;
+  width: 275px;
   text-align: center;
   overflow-y: scroll;
 }
