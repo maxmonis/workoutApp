@@ -8,7 +8,6 @@ const Client = ({ client, toggle }) => {
     ClientContext
   );
   const { _id, name, isActive } = client;
-  const clientName = name.length > 17 ? `${name.slice(0, 16).trim()}...` : name;
   const handleEdit = () => {
     setEditingClient(client);
   };
@@ -23,7 +22,7 @@ const Client = ({ client, toggle }) => {
   };
   return isActive ? (
     <ActiveClient
-      clientName={clientName}
+      name={name}
       toggle={toggle}
       id={_id}
       handleEdit={handleEdit}
@@ -31,7 +30,6 @@ const Client = ({ client, toggle }) => {
     />
   ) : (
     <InactiveClient
-      clientName={clientName}
       name={name}
       handleActivate={handleActivate}
       handleDelete={handleDelete}

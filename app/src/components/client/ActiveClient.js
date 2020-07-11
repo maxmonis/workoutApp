@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 
 const ActiveClient = ({
-  clientName,
+  name,
   id,
   toggle,
   handleEdit,
@@ -22,12 +22,12 @@ const ActiveClient = ({
         {optionsShown ? (
           <Link className='link' to={id} style={{ margin: '0 auto' }}>
             <Button color='primary' onClick={toggle}>
-              {clientName}
+              {name}
             </Button>
           </Link>
         ) : (
           <Button color='default' onClick={toggle} style={{ margin: '0 auto' }}>
-            {clientName}
+            {name}
           </Button>
         )}
       </ListItem>

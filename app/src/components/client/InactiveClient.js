@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import DeleteClient from './DeleteClient';
 import useToggle from '../../hooks/useToggle';
 
-const InactiveClient = ({ clientName, name, handleActivate, handleDelete }) => {
+const InactiveClient = ({ name, handleActivate, handleDelete }) => {
   const [isDialogOpen, toggle] = useToggle(false);
   const [optionsShown, setOptionsShown] = useState(false);
   const showOptions = () => setOptionsShown(true);
@@ -17,7 +17,7 @@ const InactiveClient = ({ clientName, name, handleActivate, handleDelete }) => {
     <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       <ListItem>
         <Button disabled style={{ margin: '0 auto' }}>
-          {clientName}
+          {name}
         </Button>
       </ListItem>
       {optionsShown && (

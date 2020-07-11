@@ -15,7 +15,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateLifts,
     updateWorkouts,
   } = useClientState(selectedClient);
-  const { lifts, workouts, records } = client;
+  const { lifts, workouts, records, name } = client;
   const defaultExercise = {
     lift: lifts[0],
     sets: '',
@@ -62,7 +62,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     setEditingWorkout(null);
     updateRoutine([]);
   };
-  const title = client.name === '#' ? 'Workouts' : client.name;
+  const title = name === '#' ? 'Workouts' : name;
   useEffect(() => {
     document.title = `maxWellness | ${title}`;
     // eslint-disable-next-line
