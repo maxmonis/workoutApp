@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import Divider from '@material-ui/core/Divider';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -43,15 +44,18 @@ const WorkoutList = ({
         ))}
       </Select>
       <TransitionGroup className='scrollable'>
-        {filtered.map((workout) => (
+        {filtered.map((workout, i) => (
           <CSSTransition key={workout.id} timeout={500} classNames='fade'>
-            <Workout
-              workout={workout}
-              selected={selected}
-              editingWorkout={editingWorkout}
-              selectWorkout={selectWorkout}
-              updateWorkouts={updateWorkouts}
-            />
+            <Fragment>
+              <Workout
+                workout={workout}
+                selected={selected}
+                editingWorkout={editingWorkout}
+                selectWorkout={selectWorkout}
+                updateWorkouts={updateWorkouts}
+              />
+              {i < workouts.length - 1 && <Divider />}
+            </Fragment>
           </CSSTransition>
         ))}
       </TransitionGroup>

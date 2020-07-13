@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -20,19 +20,19 @@ const About = () => {
       <br />
       <TransitionGroup className='page'>
         {!isDisplayed ? (
-          <CSSTransition key={1} timeout={500}>
+          <CSSTransition key={1} timeout={500} classNames='fade'>
             <Button color='inherit' onClick={toggle}>
               More Info &#x25BC;
             </Button>
           </CSSTransition>
         ) : (
           <CSSTransition key={2} timeout={500} classNames='fade'>
-            <div>
+            <Fragment>
               <Typography variant='h6'>
                 Welcome to maxWellness!
                 <br /> *** <br />
-                Track all of your workouts and personal bests along with those
-                of up to twenty clients
+                Track your workouts and personal bests along with those of up to
+                twenty clients
                 <br /> *** <br />
                 Access your account from anywhere in the world using a securely
                 encrypted password
@@ -50,7 +50,7 @@ const About = () => {
               <Button color='inherit' onClick={toggle}>
                 Hide Greeting &#x25B2;
               </Button>
-            </div>
+            </Fragment>
           </CSSTransition>
         )}
       </TransitionGroup>

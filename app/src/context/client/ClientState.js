@@ -17,7 +17,7 @@ const ClientState = (props) => {
   const getClients = async () => {
     try {
       const { data } = await axios.get('/api/clients');
-      if (!data.length)
+      if (!data.includes((client) => client.name === '#'))
         addClient({
           name: '#',
         });

@@ -51,11 +51,11 @@ const Roster = ({ toggle }) => {
         ) : (
           <Fragment>
             {clients.length > 2 && <FilterRoster />}
-            <div className='scrollable'>
-              <List>
+            <List>
+              <div className='scrollable'>
                 <Divider />
                 <TransitionGroup>
-                  {sorted.map((client) => (
+                  {sorted.map((client, i) => (
                     <CSSTransition
                       key={client.name}
                       timeout={500}
@@ -68,8 +68,8 @@ const Roster = ({ toggle }) => {
                     </CSSTransition>
                   ))}
                 </TransitionGroup>
-              </List>
-            </div>
+              </div>
+            </List>
             {clients.length < 21 && (
               <Button color='primary' onClick={openForm}>
                 Add New Client

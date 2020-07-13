@@ -7,7 +7,7 @@ import AddLift from './AddLift';
 
 const LiftApp = ({ lifts, updateLifts }) => {
   return (
-    <div style={{ padding: '5px', minWidth: '275px', maxWidth: '75vw' }}>
+    <div className='liftapp'>
       <AddLift updateLifts={updateLifts} />
       <List className='scrollable'>
         <TransitionGroup>

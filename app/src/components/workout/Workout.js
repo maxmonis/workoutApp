@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import organizeRoutine from '../../functions/organizeRoutine';
@@ -16,13 +16,8 @@ const Workout = ({
   const { id, fullDate, name, routine } = workout;
   const [isHovering, setIsHovering] = useState(false);
   const [displayMessage, toggle] = useToggle(false);
-  const handleSelect = () => {
-    if (editingWorkout && editingWorkout.id === id) {
-      selectWorkout(null);
-    } else {
-      selectWorkout(workout);
-    }
-  };
+  const handleSelect = () => selectWorkout(workout);
+  const handleReset = () => selectWorkout(null);
   const handleEnter = () => setIsHovering(true);
   const handleLeave = () => setIsHovering(false);
   const handleToggle = () => setIsHovering(!isHovering);
@@ -34,7 +29,6 @@ const Workout = ({
     };
     // eslint-disable-next-line
   }, [displayMessage]);
-  const handleClick = () => handleSelect(workout.id);
   return (
     <div onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <h4 onClick={handleToggle}>
@@ -42,34 +36,31 @@ const Workout = ({
         <br />
         {selected === '#' && name}
       </h4>
-      {isHovering && (
+      {editingWorkout && editingWorkout.id === id ? (
         <div>
-          {!displayMessage ? (
-            <div className='flex-row'>
-              <IconButton color='inherit' onClick={toggle}>
-                <DeleteIcon aria-label='Delete' />
-              </IconButton>
-              <IconButton color='inherit' onClick={handleClick}>
-                <EditIcon aria-label='Edit' />
-              </IconButton>
-            </div>
-          ) : (
-            <h5>
-              Click here
-              <br />
-              <DeleteIcon
-                style={{ cursor: 'pointer' }}
-                onClick={handleDelete}
-              />
-              <br />
-              to delete workout
-            </h5>
-          )}
+          <h2 style={{ margin: '0' }}>Currently Editing</h2>
+          <Button onClick={handleReset} color='primary'>
+            Discard Changes
+          </Button>
         </div>
-      )}
-      {editingWorkout && editingWorkout.id === id && (
-        <h3 style={{ margin: '0' }}>Currently Editing</h3>
-      )}
+      ) : displayMessage ? (
+        <h5 style={{ cursor: 'pointer' }} onClick={handleDelete}>
+          Click here
+          <br />
+          <DeleteIcon />
+          <br />
+          to delete workout
+        </h5>
+      ) : isHovering ? (
+        <div className='flex-row'>
+          <IconButton color='inherit' onClick={toggle}>
+            <DeleteIcon aria-label='Delete' />
+          </IconButton>
+          <IconButton color='inherit' onClick={handleSelect}>
+            <EditIcon aria-label='Edit' />
+          </IconButton>
+        </div>
+      ) : null}
       <ul onClick={handleToggle}>
         {organizeRoutine(routine).map((exercise) => (
           <li
@@ -78,7 +69,6 @@ const Workout = ({
           >{`${exercise.lift}: ${exercise.printout}`}</li>
         ))}
       </ul>
-      <Divider />
     </div>
   );
 };
