@@ -12,9 +12,11 @@ const ClientSchema = mongoose.Schema({
   },
   email: {
     type: String,
+    default: '',
   },
   phone: {
     type: String,
+    default: '',
   },
   isActive: {
     type: Boolean,
@@ -22,12 +24,15 @@ const ClientSchema = mongoose.Schema({
   },
   lifts: {
     type: [],
+    default: ['Bench Press', 'Deadlift', 'Squat'],
   },
   workouts: {
     type: [],
+    default: [],
   },
   records: {
     type: [],
+    default: [],
   },
 });
 

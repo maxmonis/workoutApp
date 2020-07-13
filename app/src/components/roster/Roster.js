@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Client from '../client/Client';
 import EditRoster from './EditRoster';
 import FilterRoster from './FilterRoster';
@@ -33,7 +29,7 @@ const Roster = ({ toggle }) => {
     ...alphabetize(deactivated, 'name'),
   ].filter((client) => client.name !== '#');
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const openForm = () => setIsFormOpen(true);
+  const openForm = () => clients.length < 21 && setIsFormOpen(true);
   const reset = () => {
     setIsFormOpen(false);
     clearEditingClient();
@@ -48,21 +44,8 @@ const Roster = ({ toggle }) => {
     // eslint-disable-next-line
   }, [clients]);
   return (
-    <div className='drawer'>
-      <AppBar position='static' style={{ height: '56px' }}>
-        <IconButton
-          onClick={toggle}
-          color='inherit'
-          style={{ margin: 'auto 10px auto auto' }}
-        >
-          <ChevronLeftIcon />
-        </IconButton>
-      </AppBar>
-      <Divider />
-      <Typography variant='h3' color='inherit'>
-        Clients
-      </Typography>
-      <Paper className='paper'>
+    <div>
+      <Paper className='paper narrow'>
         {isFormOpen || clients.length === 1 ? (
           <EditRoster reset={reset} />
         ) : (
@@ -87,12 +70,18 @@ const Roster = ({ toggle }) => {
                 </TransitionGroup>
               </List>
             </div>
-            <Button color='primary' onClick={openForm}>
-              Add New Client
-            </Button>
+            {clients.length < 21 && (
+              <Button color='primary' onClick={openForm}>
+                Add New Client
+              </Button>
+            )}
           </Fragment>
         )}
       </Paper>
+      <h3 className='width-80'>
+        You have {21 - clients.length} available slot
+        {clients.length !== 20 && 's'} on your roster
+      </h3>
     </div>
   );
 };

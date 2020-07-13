@@ -19,7 +19,10 @@ const DeleteClient = ({ name, toggle, handleDelete }) => {
   }, [value]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isMatch) handleDelete();
+    if (isMatch) {
+      toggle();
+      handleDelete();
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

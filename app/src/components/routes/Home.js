@@ -15,10 +15,17 @@ const Home = (props) => {
     }
     // eslint-disable-next-line
   }, [clients.length]);
-  return selectedClient ? (
-    <WorkoutApp selectedClient={selectedClient} updateClient={updateClient} />
-  ) : (
-    <Spinner />
+  return (
+    <div className='page'>
+      {selectedClient ? (
+        <WorkoutApp
+          selectedClient={selectedClient}
+          updateClient={updateClient}
+        />
+      ) : (
+        <Spinner />
+      )}
+    </div>
   );
 };
 

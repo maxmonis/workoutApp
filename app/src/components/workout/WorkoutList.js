@@ -13,7 +13,6 @@ const WorkoutList = ({
   editingWorkout,
 }) => {
   const [selected, setSelected] = useState('#');
-  const [flagged, setFlagged] = useState(null);
   const filtered =
     selected !== '#'
       ? workouts.filter((workout) => workout.name === selected)
@@ -23,19 +22,6 @@ const WorkoutList = ({
   ]);
   const handleChange = (e) => {
     setSelected(e.target.value);
-  };
-  const handleDelete = () => updateWorkouts(flagged);
-  const handleSelect = () => {
-    if (editingWorkout && editingWorkout.id === flagged) {
-      selectWorkout(null);
-    } else {
-      const workout = workouts.find((workout) => workout.id === flagged);
-      selectWorkout(workout);
-    }
-  };
-  const handleClick = (e) => {
-    const { value } = e.target;
-    flagged === value ? setFlagged(null) : setFlagged(value);
   };
   return (
     <Paper className='paper'>
@@ -62,11 +48,9 @@ const WorkoutList = ({
             <Workout
               workout={workout}
               selected={selected}
-              flagged={flagged}
               editingWorkout={editingWorkout}
-              handleSelect={handleSelect}
-              handleClick={handleClick}
-              handleDelete={handleDelete}
+              selectWorkout={selectWorkout}
+              updateWorkouts={updateWorkouts}
             />
           </CSSTransition>
         ))}

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import About from '../layout/About';
 import Spinner from '../layout/Spinner';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
@@ -58,7 +59,7 @@ const Register = (props) => {
   ) : (
     <div className='page'>
       <Typography variant='h3'>Register</Typography>
-      <Paper className='paper'>
+      <Paper className='paper narrow'>
         <form className='form' onSubmit={handleSubmit}>
           <div>
             <Input
@@ -105,6 +106,7 @@ const Register = (props) => {
       <Link className='link' to='login'>
         Sign in
       </Link>
+      <About />
     </div>
   );
 };

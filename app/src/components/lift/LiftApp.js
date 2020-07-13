@@ -1,23 +1,28 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import Lift from './Lift';
 import AddLift from './AddLift';
-import LiftList from './LiftList';
 
-const LiftApp = ({ lifts, updateLifts, toggle }) => {
+const LiftApp = ({ lifts, updateLifts }) => {
   return (
-    <Paper className='paper'>
-      <Grid container justify='center'>
-        <Grid item>
-          <AddLift updateLifts={updateLifts} />
-          <LiftList lifts={lifts} updateLifts={updateLifts} />
-        </Grid>
-      </Grid>
-      <Button onClick={toggle} color='primary'>
-        Finished Editing
-      </Button>
-    </Paper>
+    <div style={{ padding: '5px', minWidth: '275px', maxWidth: '75vw' }}>
+      <AddLift updateLifts={updateLifts} />
+      <List className='scrollable'>
+        <TransitionGroup>
+          {lifts.map((lift) => (
+            <CSSTransition key={lift} timeout={500} classNames='fade'>
+              <Grid container justify='center' direction='row'>
+                <Grid item>
+                  <Lift lift={lift} updateLifts={updateLifts} />
+                </Grid>
+              </Grid>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </List>
+    </div>
   );
 };
 

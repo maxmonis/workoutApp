@@ -7,6 +7,7 @@ const AddLift = ({ updateLifts }) => {
   const [value, handleChange, reset] = useInputState('');
   return (
     <form
+      className='width-80'
       onSubmit={(e) => {
         e.preventDefault();
         value && updateLifts(value.trim());

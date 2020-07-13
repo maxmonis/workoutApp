@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './styles/App.css';
-import About from './components/routes/About';
 import Alerts from './components/layout/Alerts';
 import Footer from './components/layout/Footer';
 import Home from './components/routes/Home';
@@ -42,7 +41,6 @@ const App = () => {
                         timeout={350}
                       >
                         <Switch location={location}>
-                          <Route exact path='/about' component={About} />
                           <Route exact path='/login' component={Login} />
                           <Route exact path='/register' component={Register} />
                           <PrivateRoute exact path='/' component={Home} />

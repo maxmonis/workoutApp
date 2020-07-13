@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
 import StatsApp from '../stats/StatsApp';
@@ -15,7 +16,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateLifts,
     updateWorkouts,
   } = useClientState(selectedClient);
-  const { lifts, workouts, records } = client;
+  const { lifts, workouts, records, name } = client;
   const defaultExercise = {
     lift: lifts[0],
     sets: '',
@@ -62,7 +63,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     setEditingWorkout(null);
     updateRoutine([]);
   };
-  const title = client.name === '#' ? 'Workouts' : client.name;
+  const title = name === '#' ? 'Workouts' : name;
   useEffect(() => {
     document.title = `maxWellness | ${title}`;
     // eslint-disable-next-line
@@ -72,45 +73,38 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <div className='page'>
-      <div className='container'>
-        <Typography variant='h3'>{title}</Typography>
-        <Grid container direction='row'>
-          <Grid item xs={12} md={workouts.length ? 6 : 12}>
-            {isFormOpen ? (
-              <LiftApp
-                lifts={lifts}
-                updateLifts={updateLifts}
-                toggle={toggle}
-              />
-            ) : (
-              <NewWorkout
-                exercise={exercise}
-                workout={editingWorkout ? editingWorkout : workout}
-                lifts={lifts}
-                routine={routine}
-                workouts={workouts}
-                handleChange={handleChange}
-                saveWorkout={saveWorkout}
-                updateRoutine={updateRoutine}
-                selectExercise={selectExercise}
-                setExercise={setExercise}
-              />
-            )}
-          </Grid>
-          {workouts.length > 0 && (
-            <Grid item xs={12} md={6}>
-              <StatsApp
-                workouts={workouts}
-                records={records}
-                updateWorkouts={updateWorkouts}
-                selectWorkout={selectWorkout}
-                editingWorkout={editingWorkout}
-              />
-            </Grid>
-          )}
+    <div className='container'>
+      <Typography variant='h3'>{title}</Typography>
+      <Grid container direction='row'>
+        <Grid item xs={12} md={workouts.length ? 6 : 12}>
+          <Dialog open={isFormOpen} onClose={toggle}>
+            <LiftApp lifts={lifts} updateLifts={updateLifts} />
+          </Dialog>
+          <NewWorkout
+            exercise={exercise}
+            workout={editingWorkout ? editingWorkout : workout}
+            lifts={lifts}
+            routine={routine}
+            workouts={workouts}
+            handleChange={handleChange}
+            saveWorkout={saveWorkout}
+            updateRoutine={updateRoutine}
+            selectExercise={selectExercise}
+            setExercise={setExercise}
+          />
         </Grid>
-      </div>
+        {workouts.length > 0 && (
+          <Grid item xs={12} md={6}>
+            <StatsApp
+              workouts={workouts}
+              records={records}
+              updateWorkouts={updateWorkouts}
+              selectWorkout={selectWorkout}
+              editingWorkout={editingWorkout}
+            />
+          </Grid>
+        )}
+      </Grid>
     </div>
   );
 };

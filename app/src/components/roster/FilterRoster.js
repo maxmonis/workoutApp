@@ -12,6 +12,7 @@ const FilterRoster = () => {
     }
   });
   const handleChange = (e) => {
+    text.current.value = text.current.value.replace(/[^a-z]/gi, '');
     if (text.current.value !== '') {
       filterClients(e.target.value);
     } else {
@@ -19,7 +20,7 @@ const FilterRoster = () => {
     }
   };
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       <input
         className='filter'
         ref={text}

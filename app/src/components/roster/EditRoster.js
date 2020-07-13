@@ -11,17 +11,12 @@ const EditRoster = ({ reset }) => {
     name: '',
     email: '',
     phone: '',
-    isActive: true,
-    lifts: ['Bench Press', 'Deadlift', 'Squat'],
-    workouts: [],
-    records: [],
   };
   const initialClient = editingClient ? editingClient : defaultClient;
   const [client, setClient] = useState(initialClient);
   const { name, email, phone } = client;
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setClient({ ...client, [name]: value });
+    setClient({ ...client, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();

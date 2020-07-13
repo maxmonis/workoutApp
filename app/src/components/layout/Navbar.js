@@ -2,6 +2,7 @@ import React, { useContext, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -18,6 +19,10 @@ const Navbar = () => {
   );
   const { getClients, clearClients } = useContext(ClientContext);
   const [isDrawerOpen, toggle] = useToggle(false);
+  const handleLogout = () => {
+    toggle();
+    logUserOut();
+  };
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
@@ -31,35 +36,46 @@ const Navbar = () => {
       <IconButton color='inherit' onClick={toggle}>
         <MenuIcon />
       </IconButton>
-      <Button
-        style={{ margin: 'auto 10px auto auto' }}
-        onClick={logUserOut}
-        color='inherit'
-      >
-        Logout
-      </Button>
+      <Link to='/' className='link'>
+        <Button color='inherit'>{user ? user.name : 'Workouts'}</Button>
+      </Link>
     </Fragment>
   );
   const guestLinks = (
-    <div style={{ margin: 'auto 10px auto auto' }}>
+    <Fragment>
       <Link to='login' className='link'>
         <Button color='inherit'>Login</Button>
       </Link>
       <Link to='register' className='link'>
         <Button color='inherit'>Register</Button>
       </Link>
-    </div>
+    </Fragment>
   );
   return (
     <Fragment>
       <AppBar position='static'>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
-      <Link to='/' className='link-title'>
-        <Typography variant='h2'>maxWellness</Typography>
-      </Link>
+      <Typography variant='h2'>maxWellness</Typography>
       <Drawer open={isDrawerOpen} onClose={toggle}>
-        <Roster toggle={toggle} />
+        <div className='drawer'>
+          <AppBar position='static'>
+            <Toolbar>
+              <Button onClick={handleLogout} color='inherit'>
+                Logout
+              </Button>
+              <IconButton
+                onClick={toggle}
+                color='inherit'
+                style={{ margin: 'auto 10px auto auto' }}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <Typography variant='h3'>Roster</Typography>
+          <Roster toggle={toggle} />
+        </div>
       </Drawer>
     </Fragment>
   );

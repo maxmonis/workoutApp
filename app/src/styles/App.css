@@ -24,7 +24,7 @@
   background-color: #213257;
   color: white;
   height: 100%;
-  width: 400px;
+  width: 275px;
   text-align: center;
   overflow-y: scroll;
 }
@@ -61,7 +61,7 @@
   width: 50%;
   font-size: large;
   padding: 5px 10px;
-  margin-bottom: 5px;
+  margin: 0 0 5px;
 }
 
 .flex-row {
@@ -75,7 +75,6 @@
   left: 0;
   bottom: 0;
   right: 0;
-  height: 40px;
 }
 
 .form {
@@ -89,13 +88,12 @@
   color: white;
 }
 
-.link-title {
-  text-decoration: none;
-  color: white;
-}
-
 .mr-40 {
   margin-right: 40px;
+}
+
+.narrow {
+  width: 200px;
 }
 
 .page {
@@ -104,8 +102,8 @@
 }
 
 .paper {
-  margin: 5vh auto auto;
-  width: 300px;
+  margin: 1rem auto;
+  max-width: 300px;
   padding: 1.5rem;
 }
 
