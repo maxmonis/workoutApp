@@ -9,17 +9,6 @@
   padding-bottom: 60px;
 }
 
-.button {
-  background: none;
-  border: none;
-  padding: 0;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
 .drawer {
   background-color: #213257;
   color: white;
@@ -82,6 +71,12 @@
   margin: auto;
 }
 
+.liftapp {
+  padding: 5px;
+  min-width: 275px;
+  max-width: 75vw;
+}
+
 .link {
   text-decoration: none;
   text-transform: uppercase;
@@ -138,11 +133,6 @@
 
 .small {
   max-height: 40vh;
-}
-
-.record {
-  font-size: 1rem;
-  font-weight: bold;
 }
 
 .width-80 {

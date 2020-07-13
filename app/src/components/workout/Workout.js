@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import organizeRoutine from '../../functions/organizeRoutine';
@@ -78,7 +77,6 @@ const Workout = ({
           >{`${exercise.lift}: ${exercise.printout}`}</li>
         ))}
       </ul>
-      <Divider />
     </div>
   );
 };

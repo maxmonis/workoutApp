@@ -19,9 +19,11 @@ const RecordList = ({ records, selected }) => {
         {filtered.map((record, i) => (
           <div key={record.id}>
             <ul>
-              <li key={record.id} className='record mr-40'>
-                {selected === '#' && `${record.lift}: `}
-                {record.printout}
+              <li key={record.id} className='mr-40'>
+                <strong>
+                  {selected === '#' && `${record.lift}: `}
+                  {record.printout}
+                </strong>
                 {selected === '#' ? (
                   <br />
                 ) : record.surpassed ? (
