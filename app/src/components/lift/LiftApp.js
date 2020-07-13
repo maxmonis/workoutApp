@@ -1,15 +1,13 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
 import Lift from './Lift';
 import AddLift from './AddLift';
 
-const LiftApp = ({ lifts, updateLifts, toggle }) => {
+const LiftApp = ({ lifts, updateLifts }) => {
   return (
-    <Paper className='paper narrow'>
+    <div style={{ padding: '5px', minWidth: '275px', maxWidth: '75vw' }}>
       <AddLift updateLifts={updateLifts} />
       <List className='scrollable'>
         <TransitionGroup>
@@ -24,10 +22,7 @@ const LiftApp = ({ lifts, updateLifts, toggle }) => {
           ))}
         </TransitionGroup>
       </List>
-      <Button onClick={toggle} color='primary'>
-        Finished Editing
-      </Button>
-    </Paper>
+    </div>
   );
 };
 

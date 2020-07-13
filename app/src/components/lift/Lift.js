@@ -25,7 +25,11 @@ const Lift = ({ lift, updateLifts }) => {
           />
         </form>
       ) : (
-        <ListItemText aria-label={`Edit ${lift}`} onClick={toggle}>
+        <ListItemText
+          style={{ textAlign: 'center' }}
+          aria-label={`Edit ${lift}`}
+          onClick={toggle}
+        >
           {lift}
         </ListItemText>
       )}

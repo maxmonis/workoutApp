@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import NewWorkout from './NewWorkout';
 import StatsApp from '../stats/StatsApp';
@@ -76,22 +77,21 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       <Typography variant='h3'>{title}</Typography>
       <Grid container direction='row'>
         <Grid item xs={12} md={workouts.length ? 6 : 12}>
-          {isFormOpen ? (
-            <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
-          ) : (
-            <NewWorkout
-              exercise={exercise}
-              workout={editingWorkout ? editingWorkout : workout}
-              lifts={lifts}
-              routine={routine}
-              workouts={workouts}
-              handleChange={handleChange}
-              saveWorkout={saveWorkout}
-              updateRoutine={updateRoutine}
-              selectExercise={selectExercise}
-              setExercise={setExercise}
-            />
-          )}
+          <Dialog open={isFormOpen} onClose={toggle}>
+            <LiftApp lifts={lifts} updateLifts={updateLifts} />
+          </Dialog>
+          <NewWorkout
+            exercise={exercise}
+            workout={editingWorkout ? editingWorkout : workout}
+            lifts={lifts}
+            routine={routine}
+            workouts={workouts}
+            handleChange={handleChange}
+            saveWorkout={saveWorkout}
+            updateRoutine={updateRoutine}
+            selectExercise={selectExercise}
+            setExercise={setExercise}
+          />
         </Grid>
         {workouts.length > 0 && (
           <Grid item xs={12} md={6}>
