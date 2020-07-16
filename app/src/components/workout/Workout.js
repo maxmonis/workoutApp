@@ -63,10 +63,7 @@ const Workout = ({
       ) : null}
       <ul onClick={handleToggle}>
         {organizeRoutine(routine).map((exercise) => (
-          <li
-            className='mr-40'
-            key={exercise.id}
-          >{`${exercise.lift}: ${exercise.printout}`}</li>
+          <li key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</li>
         ))}
       </ul>
     </div>

@@ -19,7 +19,7 @@ const RecordList = ({ records, selected }) => {
         {filtered.map((record, i) => (
           <div key={record.id}>
             <ul>
-              <li key={record.id} className='mr-40'>
+              <li key={record.id}>
                 <strong>
                   {selected === '#' && `${record.lift}: `}
                   {record.printout}
