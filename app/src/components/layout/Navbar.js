@@ -67,7 +67,7 @@ const Navbar = () => {
               <IconButton
                 onClick={toggle}
                 color='inherit'
-                style={{ margin: 'auto 10px auto auto' }}
+                style={{ margin: 'auto 0 auto auto' }}
               >
                 <ChevronLeftIcon />
               </IconButton>

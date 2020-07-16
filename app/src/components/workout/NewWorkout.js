@@ -64,9 +64,11 @@ const NewWorkout = ({
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
           />
-          <Button variant='outlined' color='inherit' onClick={toggle}>
-            Save Workout
-          </Button>
+          <div className='pad-1'>
+            <Button variant='outlined' color='inherit' onClick={toggle}>
+              Save Workout
+            </Button>
+          </div>
         </div>
       ) : (
         <Quote />

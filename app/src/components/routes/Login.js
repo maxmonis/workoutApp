@@ -78,7 +78,8 @@ const Login = (props) => {
               required
             />
           </div>
-          <Button type='submit' color='primary'>
+          <br />
+          <Button type='submit' color='primary' variant='outlined'>
             Sign In
           </Button>
         </form>

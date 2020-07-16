@@ -98,7 +98,8 @@ const Register = (props) => {
               required
             />
           </div>
-          <Button type='submit' color='primary'>
+          <br />
+          <Button type='submit' color='primary' variant='outlined'>
             Create Account
           </Button>
         </form>

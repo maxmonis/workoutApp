@@ -18,7 +18,7 @@ const RecordList = ({ records, selected }) => {
       <div className='scrollable small'>
         {filtered.map((record, i) => (
           <div key={record.id}>
-            <ul>
+            <ul className='pad-1'>
               <li key={record.id}>
                 <strong>
                   {selected === '#' && `${record.lift}: `}
