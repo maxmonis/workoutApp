@@ -97,13 +97,17 @@
 
 .paper {
   margin: 1rem auto;
-  max-width: 300px;
   padding: 1.5rem;
 }
 
 .quote {
   cursor: pointer;
   margin: 0 15%;
+}
+
+.res {
+  width: 80%;
+  max-width: 400px;
 }
 
 .scrollable {
@@ -139,13 +143,18 @@
   padding: 0 10%;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1050px) {
+  .container {
+    padding: 0 5%;
+  }
+}
+@media (min-width: 1200px) {
   .container {
     padding: 0 10%;
   }
 }
-@media (min-width: 1250px) {
+@media (min-width: 1350px) {
   .container {
-    padding: 0 20%;
+    padding: 0 15%;
   }
 }

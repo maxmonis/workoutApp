@@ -24,13 +24,7 @@ const RecordList = ({ records, selected }) => {
                   {selected === '#' && `${record.lift}: `}
                   {record.printout}
                 </strong>
-                {selected === '#' ? (
-                  <br />
-                ) : record.surpassed ? (
-                  ' from '
-                ) : (
-                  ' on '
-                )}
+                {record.surpassed ? ' from ' : ' on '}
                 {record.becameRecord}
                 {record.surpassed && ` to ${record.surpassed}`}
               </li>

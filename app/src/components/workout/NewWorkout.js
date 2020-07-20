@@ -7,7 +7,6 @@ import ExerciseHistory from '../exercise/ExerciseHistory';
 import Quote from '../layout/Quote';
 import SaveWorkout from './SaveWorkout';
 import useToggle from '../../hooks/useToggle';
-import organizeRoutine from '../../functions/organizeRoutine';
 
 const NewWorkout = ({
   exercise,
@@ -26,25 +25,9 @@ const NewWorkout = ({
     saveWorkout();
     toggle();
   };
-  return isFormOpen ? (
+  return (
     <div>
-      <Paper className='paper'>
-        <SaveWorkout
-          {...workout}
-          handleChange={handleChange}
-          handleSave={handleSave}
-          toggle={toggle}
-        />
-      </Paper>
-      {organizeRoutine(routine).map((exercise) => (
-        <h2 key={exercise.id}>
-          {exercise.lift}: {exercise.printout}
-        </h2>
-      ))}
-    </div>
-  ) : (
-    <div>
-      <Paper className='paper flex-row'>
+      <Paper className='paper flex-row res'>
         <AddExercise
           lifts={lifts}
           handleChange={handleChange}
@@ -64,11 +47,24 @@ const NewWorkout = ({
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
           />
-          <div className='pad-1'>
-            <Button variant='outlined' color='inherit' onClick={toggle}>
-              Save Workout
-            </Button>
-          </div>
+          {isFormOpen ? (
+            <div>
+              <Paper className='paper narrow'>
+                <SaveWorkout
+                  {...workout}
+                  handleChange={handleChange}
+                  handleSave={handleSave}
+                  toggle={toggle}
+                />
+              </Paper>
+            </div>
+          ) : (
+            <div className='pad-1'>
+              <Button variant='outlined' color='inherit' onClick={toggle}>
+                Save Workout
+              </Button>
+            </div>
+          )}
         </div>
       ) : (
         <Quote />
