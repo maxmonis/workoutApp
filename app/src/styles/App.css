@@ -118,7 +118,7 @@
 
 .res {
   width: 80%;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .scrollable {
@@ -154,18 +154,8 @@
   padding: 0 10%;
 }
 
-@media (min-width: 1050px) {
+@media (min-width: 1300px) {
   .container {
     padding: 0 5%;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    padding: 0 10%;
-  }
-}
-@media (min-width: 1350px) {
-  .container {
-    padding: 0 15%;
   }
 }
