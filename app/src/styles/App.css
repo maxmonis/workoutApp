@@ -18,7 +18,10 @@
 }
 
 .drawer {
-  background-color: #213257;
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
   color: white;
   height: 100%;
   width: 275px;

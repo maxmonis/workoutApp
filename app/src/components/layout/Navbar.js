@@ -53,13 +53,13 @@ const Navbar = () => {
   );
   return (
     <Fragment>
-      <AppBar position='static'>
+      <AppBar position='static' style={{ backgroundColor: '#101010' }}>
         <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
       </AppBar>
       <Typography variant='h2'>maxWellness</Typography>
       <Drawer open={isDrawerOpen} onClose={toggle}>
         <div className='drawer'>
-          <AppBar position='static'>
+          <AppBar position='static' style={{ backgroundColor: '#101010' }}>
             <Toolbar>
               <Button onClick={handleLogout} color='inherit'>
                 Logout
