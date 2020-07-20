@@ -30,21 +30,29 @@ const Workout = ({
     // eslint-disable-next-line
   }, [displayMessage]);
   return (
-    <div onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <h4 onClick={handleToggle}>
+    <div
+      className='pad-1'
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+    >
+      <h4 style={{ marginBottom: '5px' }} onClick={handleToggle}>
         {fullDate.slice(0, -3)}
         <br />
         {selected === '#' && name}
       </h4>
       {editingWorkout && editingWorkout.id === id ? (
         <div>
-          <h2 style={{ margin: '0' }}>Currently Editing</h2>
+          <h2>Currently Editing</h2>
           <Button onClick={handleReset} color='primary'>
             Discard Changes
           </Button>
         </div>
       ) : displayMessage ? (
-        <h5 style={{ cursor: 'pointer' }} onClick={handleDelete}>
+        <h5
+          className='pad-1'
+          style={{ cursor: 'pointer' }}
+          onClick={handleDelete}
+        >
           Click here
           <br />
           <DeleteIcon />
@@ -53,20 +61,17 @@ const Workout = ({
         </h5>
       ) : isHovering ? (
         <div className='flex-row'>
-          <IconButton color='inherit' onClick={toggle}>
-            <DeleteIcon aria-label='Delete' />
-          </IconButton>
           <IconButton color='inherit' onClick={handleSelect}>
             <EditIcon aria-label='Edit' />
+          </IconButton>
+          <IconButton color='inherit' onClick={toggle}>
+            <DeleteIcon aria-label='Delete' />
           </IconButton>
         </div>
       ) : null}
       <ul onClick={handleToggle}>
         {organizeRoutine(routine).map((exercise) => (
-          <li
-            className='mr-40'
-            key={exercise.id}
-          >{`${exercise.lift}: ${exercise.printout}`}</li>
+          <li key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</li>
         ))}
       </ul>
     </div>

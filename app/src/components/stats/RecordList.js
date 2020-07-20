@@ -18,19 +18,13 @@ const RecordList = ({ records, selected }) => {
       <div className='scrollable small'>
         {filtered.map((record, i) => (
           <div key={record.id}>
-            <ul>
-              <li key={record.id} className='mr-40'>
+            <ul className='pad-1'>
+              <li key={record.id}>
                 <strong>
                   {selected === '#' && `${record.lift}: `}
                   {record.printout}
                 </strong>
-                {selected === '#' ? (
-                  <br />
-                ) : record.surpassed ? (
-                  ' from '
-                ) : (
-                  ' on '
-                )}
+                {record.surpassed ? ' from ' : ' on '}
                 {record.becameRecord}
                 {record.surpassed && ` to ${record.surpassed}`}
               </li>

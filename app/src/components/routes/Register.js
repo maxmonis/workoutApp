@@ -51,14 +51,15 @@ const Register = (props) => {
     }
   };
   useEffect(() => {
-    document.title = `maxWellness | Welcome`;
+    document.title = `maxWellness | Fitness First`;
     // eslint-disable-next-line
   }, []);
   return loading ? (
     <Spinner />
   ) : (
     <div className='page'>
-      <Typography variant='h3'>Register</Typography>
+      <Typography variant='h4'>Welcome!</Typography>
+      <Typography variant='h6'>Create your free account</Typography>
       <Paper className='paper narrow'>
         <form className='form' onSubmit={handleSubmit}>
           <div>
@@ -97,14 +98,15 @@ const Register = (props) => {
               required
             />
           </div>
-          <Button type='submit' color='primary'>
+          <br />
+          <Button type='submit' color='primary' variant='outlined'>
             Create Account
           </Button>
         </form>
       </Paper>
       <h3>Already a member?</h3>
       <Link className='link' to='login'>
-        Sign in
+        <Button color='inherit'>Sign in</Button>
       </Link>
       <About />
     </div>

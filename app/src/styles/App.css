@@ -1,16 +1,27 @@
 .app {
   text-align: center;
-  background-color: #213257;
   color: white;
   min-height: 100vh;
   width: 100%;
   overflow: scroll;
   position: absolute;
-  padding-bottom: 60px;
+  padding-bottom: 25px;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url('/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
 }
 
 .drawer {
-  background-color: #213257;
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
   color: white;
   height: 100%;
   width: 275px;
@@ -61,7 +72,7 @@
 .footer {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 5px;
   right: 0;
 }
 
@@ -82,12 +93,12 @@
   color: white;
 }
 
-.mr-40 {
-  margin-right: 40px;
-}
-
 .narrow {
   width: 200px;
+}
+
+.pad-1 {
+  padding: 1rem 0;
 }
 
 .page {
@@ -97,7 +108,6 @@
 
 .paper {
   margin: 1rem auto;
-  max-width: 300px;
   padding: 1.5rem;
 }
 
@@ -106,9 +116,14 @@
   margin: 0 15%;
 }
 
+.res {
+  width: 80%;
+  max-width: 500px;
+}
+
 .scrollable {
   overflow-y: scroll;
-  max-height: 45vh;
+  max-height: 50vh;
 }
 
 .select {
@@ -131,7 +146,7 @@
 }
 
 .small {
-  max-height: 40vh;
+  max-height: 45vh;
 }
 
 .width-80 {
@@ -139,13 +154,8 @@
   padding: 0 10%;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1300px) {
   .container {
-    padding: 0 10%;
-  }
-}
-@media (min-width: 1250px) {
-  .container {
-    padding: 0 20%;
+    padding: 0 5%;
   }
 }

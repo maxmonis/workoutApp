@@ -29,7 +29,7 @@ const About = () => {
           <CSSTransition key={2} timeout={500} classNames='fade'>
             <Fragment>
               <Typography variant='h6'>
-                Welcome to maxWellness!
+                Thanks for visiting maxWellness!
                 <br /> *** <br />
                 Track your workouts and personal bests along with those of up to
                 twenty clients
@@ -54,6 +54,7 @@ const About = () => {
           </CSSTransition>
         )}
       </TransitionGroup>
+      <br />
     </div>
   );
 };

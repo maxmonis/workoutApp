@@ -28,7 +28,7 @@ const Quote = () => {
       ) : (
         <div onClick={getQuote}>
           <h3>{quote.text}</h3>
-          <h4>-{quote.author || 'Anonymous'}</h4>
+          <h4 className='pad-1'>-{quote.author || 'Anonymous'}</h4>
         </div>
       )}
     </div>

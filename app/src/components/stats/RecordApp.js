@@ -18,7 +18,7 @@ const RecordApp = ({ records }) => {
     setSelected(e.target.value);
   };
   return (
-    <Paper className='paper'>
+    <Paper className='paper res'>
       <Select
         native
         className='select'
