@@ -63,7 +63,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     setEditingWorkout(null);
     updateRoutine([]);
   };
-  const title = name === '#' ? 'Workouts' : name;
+  const title = name[0] === '#' ? name.slice(2) : name;
   useEffect(() => {
     document.title = `maxWellness | ${title}`;
     // eslint-disable-next-line

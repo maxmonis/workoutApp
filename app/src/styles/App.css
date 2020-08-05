@@ -6,10 +6,11 @@
   overflow: scroll;
   position: absolute;
   padding-bottom: 25px;
+  background-color: black;
   background-image: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.8)
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.7)
     ),
     url('/background.jpg');
   background-size: cover;
@@ -118,7 +119,7 @@
 
 .res {
   width: 80%;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 .scrollable {
@@ -154,8 +155,18 @@
   padding: 0 10%;
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 850px) {
   .container {
     padding: 0 5%;
+  }
+}
+@media (min-width: 1150px) {
+  .container {
+    padding: 0 10%;
+  }
+}
+@media (min-width: 1350px) {
+  .container {
+    padding: 0 15%;
   }
 }

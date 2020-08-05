@@ -56,7 +56,7 @@ const Login = (props) => {
   ) : (
     <div className='page'>
       <Typography variant='h4'>Welcome back!</Typography>
-      <Typography variant='h6'>Please enter your credentials</Typography>
+      <Typography variant='h6'>Enter your credentials</Typography>
       <Paper className='paper narrow'>
         <form className='form' onSubmit={handleSubmit}>
           <div>

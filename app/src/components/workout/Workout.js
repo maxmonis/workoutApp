@@ -48,14 +48,10 @@ const Workout = ({
           </Button>
         </div>
       ) : displayMessage ? (
-        <h5
-          className='pad-1'
-          style={{ cursor: 'pointer' }}
-          onClick={handleDelete}
-        >
+        <h5 className='pad-1'>
           Click here
           <br />
-          <DeleteIcon />
+          <DeleteIcon style={{ cursor: 'pointer' }} onClick={handleDelete} />
           <br />
           to delete workout
         </h5>

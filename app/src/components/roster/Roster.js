@@ -27,7 +27,7 @@ const Roster = ({ toggle }) => {
   const sorted = [
     ...alphabetize(active, 'name'),
     ...alphabetize(deactivated, 'name'),
-  ].filter((client) => client.name !== '#');
+  ].filter((client) => client.name[0] !== '#');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => clients.length < 21 && setIsFormOpen(true);
   const reset = () => {
@@ -46,7 +46,7 @@ const Roster = ({ toggle }) => {
   return (
     <div>
       <Paper className='paper narrow'>
-        {isFormOpen || clients.length === 1 ? (
+        {isFormOpen || clients.length < 2 ? (
           <EditRoster reset={reset} />
         ) : (
           <Fragment>
@@ -79,8 +79,8 @@ const Roster = ({ toggle }) => {
         )}
       </Paper>
       <h3 className='width-80'>
-        You have {21 - clients.length} available slot
-        {clients.length !== 20 && 's'} on your roster
+        You have {21 - clients.length} opening{clients.length !== 20 && 's'} on
+        your roster
       </h3>
     </div>
   );

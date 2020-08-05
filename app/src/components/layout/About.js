@@ -6,15 +6,7 @@ import useToggle from '../../hooks/useToggle';
 
 const About = () => {
   const [isDisplayed, toggle] = useToggle(false);
-  const email = 'maxwellnesscontact@gmail.com';
-  const handleClick = () => {
-    const input = document.createElement('input');
-    input.value = email;
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-  };
+  const CONTACT_EMAIL = 'maxwellnesscontact@gmail.com';
   return (
     <div className='width-80'>
       <br />
@@ -29,7 +21,7 @@ const About = () => {
           <CSSTransition key={2} timeout={500} classNames='fade'>
             <Fragment>
               <Typography variant='h6'>
-                Thanks for visiting maxWellness!
+                Thank you for visiting maxWellness
                 <br /> *** <br />
                 Track your workouts and personal bests along with those of up to
                 twenty clients
@@ -41,10 +33,7 @@ const About = () => {
                 any third party
                 <br /> *** <br />
                 Please direct questions, comments or concerns to
-                <br />
-                <span style={{ cursor: 'pointer' }} onClick={handleClick}>
-                  {email}
-                </span>
+                <br /> {CONTACT_EMAIL}
               </Typography>
               <br />
               <Button color='inherit' onClick={toggle}>

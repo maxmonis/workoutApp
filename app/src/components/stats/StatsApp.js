@@ -46,6 +46,7 @@ const StatsApp = ({
             value='records'
             control={<Radio />}
             label='records'
+            labelPlacement='start'
           />
         </RadioGroup>
       </FormControl>

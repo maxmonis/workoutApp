@@ -67,7 +67,7 @@ const Register = (props) => {
               type='text'
               name='name'
               value={name}
-              placeholder={'Username'}
+              placeholder={'Name'}
               onChange={handleChange}
               required
               autoFocus={true}
