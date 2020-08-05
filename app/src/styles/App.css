@@ -1,0 +1,172 @@
+.app {
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+  overflow: scroll;
+  position: absolute;
+  padding-bottom: 25px;
+  background-color: black;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.drawer {
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  color: white;
+  height: 100%;
+  width: 275px;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.exercise {
+  font-size: 1.5rem;
+}
+
+.exercise-history {
+  max-height: 100px;
+  overflow-y: scroll;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.field {
+  width: 60px;
+}
+
+.filter {
+  height: 25px;
+  width: 50%;
+  font-size: large;
+  padding: 5px 10px;
+}
+
+.flex-row {
+  display: flex;
+  flex: row;
+  justify-content: center;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  right: 0;
+}
+
+.form {
+  width: 200px;
+  margin: auto;
+}
+
+.liftapp {
+  padding: 5px;
+  min-width: 275px;
+  max-width: 75vw;
+}
+
+.link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+}
+
+.narrow {
+  width: 200px;
+}
+
+.pad-1 {
+  padding: 1rem 0;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+}
+
+.paper {
+  margin: 1rem auto;
+  padding: 1.5rem;
+}
+
+.quote {
+  cursor: pointer;
+  margin: 0 15%;
+}
+
+.res {
+  width: 80%;
+  max-width: 400px;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  max-height: 50vh;
+}
+
+.select {
+  width: 180px;
+}
+
+.slide-enter {
+  position: fixed;
+  transform: translate(100%);
+}
+.slide-enter-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(0);
+}
+.slide-exit-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(-100%);
+}
+
+.small {
+  max-height: 45vh;
+}
+
+.width-80 {
+  width: 80%;
+  padding: 0 10%;
+}
+
+@media (min-width: 850px) {
+  .container {
+    padding: 0 5%;
+  }
+}
+@media (min-width: 1150px) {
+  .container {
+    padding: 0 10%;
+  }
+}
+@media (min-width: 1350px) {
+  .container {
+    padding: 0 15%;
+  }
+}
