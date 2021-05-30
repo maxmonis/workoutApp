@@ -1,44 +1,49 @@
-.app {
-  text-align: center;
-  color: white;
-  min-height: 100vh;
-  width: 100%;
-  overflow: scroll;
+.alert {
+  bottom: 36px;
+  color: var(--white);
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 8px 16px;
   position: absolute;
-  padding-bottom: 25px;
-  background-color: black;
-  background-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.3),
-      rgba(0, 0, 0, 0.7)
-    ),
-    url('/background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
+  right: 16px;
+  width: max-content;
+  z-index: 2;
+}
+.alert.critical {
+  background: var(--red);
+}
+.alert.success {
+  background: var(--blue2);
 }
 
-.drawer {
-  background-image: url('/background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-  color: white;
-  height: 100%;
-  width: 275px;
+.auth {
+  margin-top: 48px;
+}
+.auth .btn {
+  margin: 8px 0 16px;
+}
+
+.exercise-app {
+  display: flex;
+  justify-content: center;
+  margin: 24px auto 36px;
+  max-width: 400px;
+}
+.exercise-app li {
+  margin: auto;
   text-align: center;
-  overflow-y: scroll;
-}
-
-.exercise {
-  font-size: 1.5rem;
+  width: max-content;
 }
 
 .exercise-history {
-  max-height: 100px;
-  overflow-y: scroll;
-  width: 100%;
-  margin-left: 20px;
+  margin-bottom: 8px;
+}
+.exercise-history div {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .fade-enter {
@@ -53,82 +58,48 @@
   transition: opacity 500ms ease-in;
 }
 
-.field {
-  width: 60px;
-}
-
-.filter {
-  height: 25px;
-  width: 50%;
-  font-size: large;
-  padding: 5px 10px;
-}
-
 .flex-row {
   display: flex;
   flex: row;
-  justify-content: center;
-}
-
-.footer {
-  position: absolute;
-  left: 0;
-  bottom: 5px;
-  right: 0;
-}
-
-.form {
-  width: 200px;
-  margin: auto;
 }
 
 .liftapp {
-  padding: 5px;
+  margin: 0 auto 24px;
+  max-width: max-content;
   min-width: 275px;
-  max-width: 75vw;
+  padding: 16px;
+  text-align: center;
 }
 
-.link {
-  text-decoration: none;
-  text-transform: uppercase;
-  color: white;
-}
 
-.narrow {
-  width: 200px;
-}
-
-.pad-1 {
-  padding: 1rem 0;
-}
-
-.page {
+.full-size {
   height: 100%;
   width: 100%;
 }
 
-.paper {
-  margin: 1rem auto;
-  padding: 1.5rem;
+.new-exercise-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 4px;
+  margin: 0 auto;
+  max-width: max-content;
+}
+.new-exercise-inputs .floating-label-input {
+  margin-top: 0;
+}
+.new-exercise-inputs .input {
+  max-width: 80px;
+  min-width: 80px;
 }
 
-.quote {
-  cursor: pointer;
-  margin: 0 15%;
-}
-
-.res {
-  width: 80%;
-  max-width: 400px;
+.record {
+  padding: 8px 16px;
 }
 
 .scrollable {
-  overflow-y: scroll;
   max-height: 50vh;
-}
-
-.select {
-  width: 180px;
+  overflow: scroll;
+  padding: 16px auto;
 }
 
 .slide-enter {
@@ -146,27 +117,38 @@
   transform: translate(-100%);
 }
 
-.small {
-  max-height: 45vh;
+.slide-up-enter {
+  position: fixed;
+  transform: translateY(100%);
+}
+.slide-up-enter-active {
+  position: fixed;
+  transition: transform 200ms ease-in;
+  transform: translateY(0);
+}
+.slide-up-exit-active {
+  position: fixed;
+  transition: transform 200ms ease-in;
+  transform: translateY(100%);
 }
 
-.width-80 {
-  width: 80%;
-  padding: 0 10%;
+.workout {
+  padding: 16px;
 }
 
-@media (min-width: 850px) {
-  .container {
-    padding: 0 5%;
-  }
+.workout-app {
+  max-height: 700px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8px;
 }
-@media (min-width: 1150px) {
-  .container {
-    padding: 0 10%;
-  }
+.workout-app > div {
+  margin-top: 48px;
 }
-@media (min-width: 1350px) {
-  .container {
-    padding: 0 15%;
+@media(min-width: 738px) {
+  .workout-app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 8px;
   }
 }

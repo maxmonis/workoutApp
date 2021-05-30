@@ -1,27 +1,34 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
+import React, { useEffect, useState } from 'react';
+import ExerciseHistory from '../exercise/ExerciseHistory';
+import { Input } from '../layout/UI';
 import { numInput } from '../../functions/helpers';
 
-const AddExercise = ({ lifts, handleChange, exercise, updateRoutine }) => {
+const AddExercise = ({ lifts, handleChange, exercise, records, updateRoutine, setExercise }) => {
   const { lift, sets, reps, weight } = exercise;
-  const handleSubmit = (e) => {
+  const [blurred, setBlurred] = useState(false);
+  const [error, setError] = useState(null);
+  const handleSubmit = e => {
     e.preventDefault();
-    updateRoutine(exercise);
+    if (weight > 0) {
+      setBlurred(false);
+      setError(null);
+      updateRoutine(exercise);
+    } else {
+      setError('Must be > 0');
+    }
   };
+  useEffect(() => {
+    blurred && weight < 1 ? setError('Must be > 0') : setError(null);
+    // eslint-disable-next-line
+  }, [weight]);
   return (
-    <form onSubmit={handleSubmit}>
-      <Select
+    <form onSubmit={handleSubmit} noValidate>
+      <select
         className='select'
-        native
-        id='lift'
+        name='lift'
         value={lift}
-        onChange={handleChange}
-        input={<Input />}
-      >
-        {lifts.map((lift) => (
+        onChange={handleChange}>
+        {lifts.map(lift => (
           <option key={lift} value={lift}>
             {lift}
           </option>
@@ -29,47 +36,45 @@ const AddExercise = ({ lifts, handleChange, exercise, updateRoutine }) => {
         <option key='#' value='#'>
           {'<<< Edit Exercises >>>'}
         </option>
-      </Select>
-      <div>
-        <TextField
-          className='field'
-          id='sets'
+      </select>
+      <ExerciseHistory
+          records={records}
+          lift={exercise.lift}
+          setExercise={setExercise}
+        />
+      <div className='new-exercise-inputs'>
+        <Input
+          name='sets'
           label='Sets'
           value={numInput(sets)}
-          onChange={handleChange}
+          handleChange={handleChange}
           inputProps={{
             pattern: '[0-9]*',
           }}
-          InputLabelProps={{ shrink: !!sets }}
-          autoFocus
         />
-        <TextField
-          className='field'
-          id='reps'
+        <Input
+          name='reps'
           label='Reps'
           value={numInput(reps)}
-          onChange={handleChange}
+          handleChange={handleChange}
           inputProps={{
             pattern: '[0-9]*',
           }}
-          InputLabelProps={{ shrink: !!reps }}
         />
-        <TextField
-          className='field'
-          id='weight'
+        <Input
+          name='weight'
           label='Weight'
           value={numInput(weight)}
-          onChange={handleChange}
+          handleChange={handleChange}
           inputProps={{
             pattern: '[0-9]*',
           }}
-          InputLabelProps={{ shrink: !!weight }}
-          required
+          error={error}
         />
       </div>
-      <Button type='submit' color='primary'>
-        Enter
-      </Button>
+      <button className='btn two' type='submit'>
+        Enter Exercise
+      </button>
     </form>
   );
 };

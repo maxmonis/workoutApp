@@ -1,32 +1,20 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 
-const ExerciseHistory = ({ workouts, lift, setExercise }) => {
-  const exercises = [];
-  for (let i = workouts.length - 1; i >= 0; i--) {
-    for (const exercise of workouts[i].routine) {
-      if (
-        exercise.lift === lift &&
-        !exercises.some((item) => item.printout === exercise.printout)
-      )
-        exercises.push(exercise);
-    }
-  }
+const ExerciseHistory = ({ records, lift, setExercise }) => {
+  const liftRecords = records.filter(record => record.lift === lift).reverse();
   return (
     <div className='exercise-history'>
-      {!exercises.length ? (
-        <h4>{lift} history will be displayed here</h4>
+      {!liftRecords.length ? (
+        <h6>{lift} records will be displayed here</h6>
       ) : (
         <div>
-          {exercises.map((exercise) => (
-            <Button
-              style={{ textTransform: 'lowercase' }}
+          {liftRecords.map(exercise => (
+            <button
+              className='btn'
               key={exercise.id}
-              color='primary'
-              onClick={() => setExercise(exercise)}
-            >
+              onClick={() => setExercise(exercise)}>
               {exercise.printout}
-            </Button>
+            </button>
           ))}
         </div>
       )}

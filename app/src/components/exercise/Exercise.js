@@ -9,15 +9,15 @@ const Exercise = ({ exercise, index, selectExercise }) => {
   return (
     <div>
       <Draggable draggableId={id} index={index}>
-        {(provided) => (
+        {provided => (
           <li
-            className='exercise'
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            onClick={handleClick}
-          >
-            {lift}: {printout}
+            onClick={handleClick}>
+            <h5>
+              {lift}: {printout}
+            </h5>
           </li>
         )}
       </Draggable>

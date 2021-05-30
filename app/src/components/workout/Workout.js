@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,62 +13,56 @@ const Workout = ({
   updateWorkouts,
 }) => {
   const { id, fullDate, name, routine } = workout;
-  const [isHovering, setIsHovering] = useState(false);
-  const [displayMessage, toggle] = useToggle(false);
+  const [isMenuDisplayed, setIsMenuDisplayed] = useState(false);
+  const [displayConfirmation, toggle] = useToggle(false);
   const handleSelect = () => selectWorkout(workout);
   const handleReset = () => selectWorkout(null);
-  const handleEnter = () => setIsHovering(true);
-  const handleLeave = () => setIsHovering(false);
-  const handleToggle = () => setIsHovering(!isHovering);
+  const handleToggle = () => setIsMenuDisplayed(!isMenuDisplayed);
   const handleDelete = () => updateWorkouts(id);
   useEffect(() => {
-    const timer = setTimeout(() => displayMessage && toggle(), 2000);
+    const timer = setTimeout(() => displayConfirmation && toggle(), 2500);
     return () => {
       clearTimeout(timer);
     };
     // eslint-disable-next-line
-  }, [displayMessage]);
+  }, [displayConfirmation]);
   return (
-    <div
-      className='pad-1'
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-    >
-      <h4 style={{ marginBottom: '5px' }} onClick={handleToggle}>
+    <div className='workout'>
+      <h6 onClick={handleToggle}>
         {fullDate.slice(0, -3)}
         <br />
         {selected === '#' && name}
-      </h4>
+      </h6>
+      <ul onClick={handleToggle}>
+        {organizeRoutine(routine).map(exercise => (
+          <li key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</li>
+        ))}
+      </ul>
       {editingWorkout && editingWorkout.id === id ? (
-        <div>
-          <h2>Currently Editing</h2>
-          <Button onClick={handleReset} color='primary'>
+        <>
+          <h6>Currently Editing</h6>
+          <button onClick={handleReset} className='btn'>
             Discard Changes
-          </Button>
-        </div>
-      ) : displayMessage ? (
-        <h5 className='pad-1'>
+          </button>
+        </>
+      ) : displayConfirmation ? (
+        <p>
           Click here
           <br />
-          <DeleteIcon style={{ cursor: 'pointer' }} onClick={handleDelete} />
+          <DeleteIcon onClick={handleDelete} />
           <br />
           to delete workout
-        </h5>
-      ) : isHovering ? (
-        <div className='flex-row'>
+        </p>
+      ) : isMenuDisplayed ? (
+        <>
           <IconButton color='inherit' onClick={handleSelect}>
             <EditIcon aria-label='Edit' />
           </IconButton>
           <IconButton color='inherit' onClick={toggle}>
             <DeleteIcon aria-label='Delete' />
           </IconButton>
-        </div>
+        </>
       ) : null}
-      <ul onClick={handleToggle}>
-        {organizeRoutine(routine).map((exercise) => (
-          <li key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</li>
-        ))}
-      </ul>
     </div>
   );
 };

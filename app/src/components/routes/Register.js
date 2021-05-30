@@ -1,55 +1,37 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import About from '../layout/About';
-import Spinner from '../layout/Spinner';
+import useValidate from '../../hooks/useValidate';
+import validateRegister from '../../validation/validateRegister';
+import { Input, Spinner } from '../layout/UI';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
-const Register = (props) => {
+const Register = ({ history }) => {
   const { setAlert } = useContext(AlertContext);
-  const {
-    registerUser,
-    error,
-    clearErrors,
-    isAuthenticated,
-    loading,
-  } = useContext(AuthContext);
+  const { registerUser, error, clearErrors, isAuthenticated, loading } =
+    useContext(AuthContext);
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      history.push('/');
     }
     if (error === 'User already exists') {
-      setAlert(error);
+      setAlert(error, 'critical');
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
-  const [user, setUser] = useState({
+  }, [error, isAuthenticated, history]);
+  const INITIAL_STATE = {
     name: '',
     email: '',
     password: '',
     password2: '',
-  });
-  const { name, email, password, password2 } = user;
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name || !email || !password) {
-      setAlert('Please fill out all fields');
-    } else if (password !== password2) {
-      setAlert('Passwords must match');
-    } else if (password.length < 6) {
-      setAlert('Password must have at least 6 characters');
-    } else {
-      registerUser({ name, email, password });
-    }
+  const createAccount = () => {
+    registerUser({ name, email, password });
   };
+  const { values, errors, handleChange, handleSubmit, handleBlur } =
+    useValidate(INITIAL_STATE, validateRegister, createAccount);
+  const { name, email, password, password2 } = values;
   useEffect(() => {
     document.title = `maxWellness | Fitness First`;
     // eslint-disable-next-line
@@ -57,58 +39,52 @@ const Register = (props) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='page'>
-      <Typography variant='h4'>Welcome!</Typography>
-      <Typography variant='h6'>Create your free account</Typography>
-      <Paper className='paper narrow'>
-        <form className='form' onSubmit={handleSubmit}>
-          <div>
-            <Input
-              type='text'
-              name='name'
-              value={name}
-              placeholder={'Name'}
-              onChange={handleChange}
-              required
-              autoFocus={true}
-            />
-            <Input
-              type='email'
-              name='email'
-              value={email}
-              placeholder={'Email'}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              type='password'
-              name='password'
-              value={password}
-              placeholder={'Password'}
-              onChange={handleChange}
-              required
-              minLength='6'
-            />
-            <Input
-              type='password'
-              name='password2'
-              value={password2}
-              placeholder={'Confirm Password'}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <br />
-          <Button type='submit' color='primary' variant='outlined'>
-            Create Account
-          </Button>
-        </form>
-      </Paper>
-      <h3>Already a member?</h3>
-      <Link className='link' to='login'>
-        <Button color='inherit'>Sign in</Button>
+    <div className='full-size auth'>
+      <h1>Welcome!</h1>
+      <h4>Create your free account</h4>
+      <form noValidate onSubmit={handleSubmit}>
+        <Input
+          name='name'
+          value={name}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          label='Name'
+          error={errors.name}
+        />
+        <Input
+          name='email'
+          value={email}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          label='Email'
+          error={errors.email}
+        />
+        <Input
+          name='password'
+          value={password}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          type='password'
+          label='Password'
+          error={errors.password}
+        />
+        <Input
+          name='password2'
+          value={password2}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          type='password2'
+          label='Confirm Password'
+          error={errors.password2}
+        />
+        <button className='btn one' type='submit'>
+          Create Account
+        </button>
+      </form>
+      <h6>Already a member?</h6>
+      <Link to='login'>
+        <button className='btn two'>Sign in</button>
       </Link>
-      <About />
     </div>
   );
 };

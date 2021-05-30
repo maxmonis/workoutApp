@@ -22,7 +22,6 @@ const FilterRoster = () => {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <input
-        className='filter'
         ref={text}
         type='text'
         placeholder='Search...'

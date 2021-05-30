@@ -16,7 +16,7 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
   return (
     <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       <ListItem>
-        <Button disabled style={{ margin: '0 auto' }}>
+        <Button disabled>
           {name}
         </Button>
       </ListItem>
@@ -31,7 +31,6 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
         </div>
       )}
       <Dialog
-        style={{ maxWidth: '500px' }}
         open={isDialogOpen}
         onClose={toggle}
       >

@@ -32,7 +32,7 @@ const EditRoster = ({ reset }) => {
       <Typography variant='h6'>
         {editingClient ? 'Edit Client' : 'New Client'}
       </Typography>
-      <form className='form' onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <TextField
           type='text'
           placeholder='Name'

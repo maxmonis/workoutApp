@@ -8,9 +8,9 @@ const About = () => {
   const [isDisplayed, toggle] = useToggle(false);
   const CONTACT_EMAIL = 'maxwellnesscontact@gmail.com';
   return (
-    <div className='width-80'>
+    <div>
       <br />
-      <TransitionGroup className='page'>
+      <TransitionGroup className='full-size'>
         {!isDisplayed ? (
           <CSSTransition key={1} timeout={500} classNames='fade'>
             <Button color='inherit' onClick={toggle}>

@@ -20,13 +20,13 @@ const ActiveClient = ({
     <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       <ListItem>
         {optionsShown ? (
-          <Link className='link' to={id} style={{ margin: '0 auto' }}>
+          <Link className='link' to={id}>
             <Button color='primary' onClick={toggle}>
               {name}
             </Button>
           </Link>
         ) : (
-          <Button color='default' onClick={toggle} style={{ margin: '0 auto' }}>
+          <Button color='default' onClick={toggle}>
             {name}
           </Button>
         )}

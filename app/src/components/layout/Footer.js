@@ -1,9 +1,12 @@
 import React from 'react';
 
 const Footer = () => (
-  <div className='footer'>
-    <h6>© Max Monis {new Date().getFullYear()}</h6>
-  </div>
+  <footer>
+    <a href='https://github.com/maxmonis' target='_blank' rel='noopener noreferrer'>
+      © Max Monis {new Date().getFullYear()}
+    </a>
+  </footer>
 );
 
 export default Footer;
+

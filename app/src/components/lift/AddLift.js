@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import {Input} from '../layout/UI';
 import useInputState from '../../hooks/useInputState';
 import { strInput } from '../../functions/helpers';
 
@@ -7,17 +7,17 @@ const AddLift = ({ updateLifts }) => {
   const [value, handleChange, reset] = useInputState('');
   return (
     <form
-      className='width-80'
+      noValidate
       onSubmit={(e) => {
         e.preventDefault();
         value && updateLifts(value.trim());
         reset();
       }}
     >
-      <TextField
+      <Input
+        className='input full-size'
         value={strInput(value)}
-        onChange={handleChange}
-        margin='normal'
+        handleChange={handleChange}
         label='Add New Exercise'
         fullWidth
         autoFocus={true}

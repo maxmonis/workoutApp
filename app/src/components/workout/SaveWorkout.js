@@ -1,42 +1,52 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import React, { useState, useEffect } from 'react';
+import { Input } from '../layout/UI';
 import { strInput } from '../../functions/helpers';
 
-const SaveWorkout = ({ name, date, handleChange, handleSave, toggle }) => {
-  const handleSubmit = (e) => {
+const SaveWorkout = ({ name, date, handleChange, saveWorkout, routine }) => {
+  const [blurred, setBlurred] = useState(false);
+  const [error, setError] = useState(null);
+  const handleSubmit = e => {
     e.preventDefault();
-    handleSave();
+    if (name) {
+      setBlurred(false);
+      setError(null);
+      saveWorkout();
+    } else {
+      setError('Workout name is required');
+    }
   };
+  useEffect(() => {
+    blurred && !name ? setError('Workout name is required') : setError(null);
+    // eslint-disable-next-line
+  }, [name]);
   return (
-    <form className='form' onSubmit={handleSubmit}>
-      <TextField
-        id='date'
+    <form onSubmit={handleSubmit} noValidate>
+      <Input
+        name='date'
         label='Workout Date'
         type='date'
         value={date}
-        onChange={handleChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
+        handleChange={handleChange}
       />
-      <TextField
-        id='name'
+      <Input
+        name='name'
         label='Workout Name'
         value={strInput(name)}
-        onChange={handleChange}
-        InputLabelProps={{
-          shrink: !!name,
-        }}
-        autoFocus
-        required
+        handleChange={handleChange}
+        error={error}
       />
-      <div>
-        <Button onClick={toggle}>Cancel</Button>
-        <Button color='primary' type='submit'>
-          Save
-        </Button>
-      </div>
+      {routine.length > 0 ? (
+        <button className='btn one' type='submit'>
+          Save Workout
+        </button>
+      ) : (
+        <button
+          className='btn tooltip bottom'
+          tooltip-content='Workout must include at least one exercise'
+          disabled>
+          Save Workout
+        </button>
+      )}
     </form>
   );
 };

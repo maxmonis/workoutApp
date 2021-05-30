@@ -10,7 +10,7 @@ const Quote = () => {
       const index = Math.floor(Math.random() * data.length);
       setQuote(data[index]);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setQuote({
         text: 'Be the change you want to see in the world',
         author: 'Mohandas Gandhi',
@@ -22,13 +22,13 @@ const Quote = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div className='quote'>
+    <div>
       {!quote ? (
-        <h3>Loading quote...</h3>
+        <h5>Loading quote...</h5>
       ) : (
         <div onClick={getQuote}>
-          <h3>{quote.text}</h3>
-          <h4 className='pad-1'>-{quote.author || 'Anonymous'}</h4>
+          <h5>{quote.text}</h5>
+          <h6>-{quote.author || 'Anonymous'}</h6>
         </div>
       )}
     </div>

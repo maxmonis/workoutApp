@@ -1,7 +1,4 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItem';
-import TextField from '@material-ui/core/TextField';
 import useInputState from '../../hooks/useInputState';
 import useToggle from '../../hooks/useToggle';
 import { strInput } from '../../functions/helpers';
@@ -15,25 +12,26 @@ const Lift = ({ lift, updateLifts }) => {
     toggle();
   };
   return (
-    <ListItem style={{ padding: 0 }} component='div'>
+    <li>
       {isEditing ? (
         <form onSubmit={handleSubmit}>
-          <TextField
+          <input
+            className='input'
             value={strInput(value)}
             onChange={handleChange}
+            onBlur={toggle}
             autoFocus
           />
         </form>
       ) : (
-        <ListItemText
-          style={{ textAlign: 'center' }}
+        <h6
           aria-label={`Edit ${lift}`}
           onClick={toggle}
         >
           {lift}
-        </ListItemText>
+        </h6>
       )}
-    </ListItem>
+    </li>
   );
 };
 

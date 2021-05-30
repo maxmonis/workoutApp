@@ -1,27 +1,22 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
 import Lift from './Lift';
 import AddLift from './AddLift';
 
-const LiftApp = ({ lifts, updateLifts }) => {
+const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
     <div className='liftapp'>
       <AddLift updateLifts={updateLifts} />
-      <List className='scrollable'>
+      <ul className='scrollable'>
         <TransitionGroup>
-          {lifts.map((lift) => (
+          {lifts.map(lift => (
             <CSSTransition key={lift} timeout={500} classNames='fade'>
-              <Grid container justify='center' direction='row'>
-                <Grid item>
-                  <Lift lift={lift} updateLifts={updateLifts} />
-                </Grid>
-              </Grid>
+              <Lift lift={lift} updateLifts={updateLifts} />
             </CSSTransition>
           ))}
         </TransitionGroup>
-      </List>
+      </ul>
+      <button className='btn one' onClick={toggle}>Save Changes</button>
     </div>
   );
 };

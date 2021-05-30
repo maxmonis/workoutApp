@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Spinner from '../layout/Spinner';
+import {Spinner} from '../layout/UI';
 import WorkoutApp from '../workout/WorkoutApp';
 import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
@@ -20,7 +20,7 @@ const Home = (props) => {
     // eslint-disable-next-line
   }, [clients]);
   return (
-    <div className='page'>
+    <div className='full-size'>
       {selectedClient ? (
         <WorkoutApp
           selectedClient={selectedClient}

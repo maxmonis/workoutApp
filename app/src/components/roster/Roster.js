@@ -3,7 +3,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
 import Client from '../client/Client';
 import EditRoster from './EditRoster';
 import FilterRoster from './FilterRoster';
@@ -45,7 +44,7 @@ const Roster = ({ toggle }) => {
   }, [clients]);
   return (
     <div>
-      <Paper className='paper narrow'>
+      <div>
         {isFormOpen || clients.length < 2 ? (
           <EditRoster reset={reset} />
         ) : (
@@ -77,8 +76,8 @@ const Roster = ({ toggle }) => {
             )}
           </Fragment>
         )}
-      </Paper>
-      <h3 className='width-80'>
+      </div>
+      <h3>
         You have {21 - clients.length} opening{clients.length !== 20 && 's'} on
         your roster
       </h3>
