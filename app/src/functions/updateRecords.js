@@ -1,7 +1,6 @@
 const updateRecords = (workout, initialRecords) => {
   const records = [...initialRecords];
-  const { routine, fullDate } = workout;
-  const date = fullDate.split(' ')[1];
+  const { routine, date } = workout;
   for (const exercise of routine) {
     const { lift, sets, reps, weight } = exercise;
     let isRecord = true;
@@ -24,14 +23,17 @@ const updateRecords = (workout, initialRecords) => {
       }
     }
     if (isRecord) {
+      exercise.becameRecord = date;
       records.push({
         ...exercise,
         becameRecord: date,
         id: exercise.id.split('').reverse().join(''),
       });
+    } else {
+      exercise.becameRecord = null;
     }
   }
-  return records;
+  return { records, workout };
 };
 
 export default updateRecords;

@@ -17,7 +17,7 @@ const NewWorkout = ({
 }) => {
   return (
     <div>
-      <h2>New Workout</h2>
+      <h1>New Workout</h1>
       <div>
         <AddExercise
           lifts={lifts}

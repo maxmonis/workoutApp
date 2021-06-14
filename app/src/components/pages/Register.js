@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Quote from '../layout/Quote';
 import useValidate from '../../hooks/useValidate';
 import validateRegister from '../../validation/validateRegister';
 import { Input, Spinner } from '../layout/UI';
@@ -73,7 +74,7 @@ const Register = ({ history }) => {
           value={password2}
           handleBlur={handleBlur}
           handleChange={handleChange}
-          type='password2'
+          type='password'
           label='Confirm Password'
           error={errors.password2}
         />
@@ -81,10 +82,11 @@ const Register = ({ history }) => {
           Create Account
         </button>
       </form>
-      <h6>Already a member?</h6>
+      <h5>Already a member?</h5>
       <Link to='login'>
         <button className='btn two'>Sign in</button>
       </Link>
+      <Quote />
     </div>
   );
 };

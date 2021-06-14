@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import RecordApp from './RecordApp';
-import WorkoutList from '../workout/WorkoutList';
+import React, { useState, useEffect } from 'react';
+import RecordList from './RecordList';
+import WorkoutList from '../stats/WorkoutList';
 
 const StatsApp = ({
   workouts,
@@ -14,40 +14,72 @@ const StatsApp = ({
     const { value } = e.target;
     setDisplay(value);
   };
+  const [isWide, setIsWide] = useState(
+    typeof window !== 'undefined' && window.innerWidth > 768
+  );
+  const updateMedia = () => {
+    setIsWide(window.innerWidth > 768);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  });
   return (
-    <div>
-      <h2>All {display === 'workouts' ? 'Workouts' : 'Records'}</h2>
-      <div>
-        {display === 'workouts' ? (
-          <WorkoutList
-            workouts={[...workouts].reverse()}
-            updateWorkouts={updateWorkouts}
-            selectWorkout={selectWorkout}
-            editingWorkout={editingWorkout}
-          />
-        ) : (
-          <RecordApp records={[...records].reverse()} />
-        )}
-      </div>
-      <input
-        className='radio'
-        type='radio'
-        value='workouts'
-        id='workouts'
-        checked={display === 'workouts'}
-        onChange={handleChange}
-      />
-      <label htmlFor='workouts'>Workouts</label>
-      <input
-        className='radio'
-        type='radio'
-        value='records'
-        id='records'
-        checked={display === 'records'}
-        onChange={handleChange}
-      />
-      <label htmlFor='records'>Records</label>
-    </div>
+    <>
+      {isWide ? (
+        <>
+          <section>
+            <h1>Workouts</h1>
+            <WorkoutList
+              workouts={[...workouts].reverse()}
+              updateWorkouts={updateWorkouts}
+              selectWorkout={selectWorkout}
+              editingWorkout={editingWorkout}
+            />
+          </section>
+          <section>
+            <h1>Records</h1>
+            <RecordList records={[...records].reverse()} />
+          </section>
+        </>
+      ) : (
+        <section>
+          <h1>{display === 'workouts' ? 'Workouts' : 'Records'}</h1>
+          {display === 'records' ? (
+            <RecordList records={[...records].reverse()} />
+          ) : (
+            <WorkoutList
+              workouts={[...workouts].reverse()}
+              updateWorkouts={updateWorkouts}
+              selectWorkout={selectWorkout}
+              editingWorkout={editingWorkout}
+            />
+          )}
+          <fieldset>
+            <label>
+              <input
+                className='radio'
+                type='radio'
+                value='workouts'
+                checked={display === 'workouts'}
+                onChange={handleChange}
+              />
+              Workouts
+            </label>
+            <label>
+              <input
+                className='radio'
+                type='radio'
+                value='records'
+                checked={display === 'records'}
+                onChange={handleChange}
+              />
+              Records
+            </label>
+          </fieldset>
+        </section>
+      )}
+    </>
   );
 };
 

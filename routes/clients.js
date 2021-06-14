@@ -9,7 +9,7 @@ router.get('/', auth, async (req, res) => {
     const clients = await Client.find({ user: req.user.id }).sort({ date: -1 });
     res.json(clients);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -45,7 +45,7 @@ router.post(
       const client = await newClient.save();
       res.json(client);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       res.status(500).send('Server Error');
     }
   }
@@ -82,7 +82,7 @@ router.put('/:id', auth, async (req, res) => {
     );
     res.json(client);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -97,7 +97,7 @@ router.delete('/:id', auth, async (req, res) => {
     await Client.findByIdAndRemove(req.params.id);
     res.json({ msg: 'Client removed' });
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });

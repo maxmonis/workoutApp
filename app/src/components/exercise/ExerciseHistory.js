@@ -5,9 +5,9 @@ const ExerciseHistory = ({ records, lift, setExercise }) => {
   return (
     <div className='exercise-history'>
       {!liftRecords.length ? (
-        <h6>{lift} records will be displayed here</h6>
+        <h4>{lift} records will be displayed here</h4>
       ) : (
-        <div>
+        <>
           {liftRecords.map(exercise => (
             <button
               className='btn'
@@ -16,7 +16,7 @@ const ExerciseHistory = ({ records, lift, setExercise }) => {
               {exercise.printout}
             </button>
           ))}
-        </div>
+        </>
       )}
     </div>
   );

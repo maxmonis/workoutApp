@@ -5,7 +5,8 @@ import AddLift from './AddLift';
 
 const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
-    <div className='liftapp'>
+    <div className='lift-app'>
+      <h1>Exercises</h1>
       <AddLift updateLifts={updateLifts} />
       <ul className='scrollable'>
         <TransitionGroup>
@@ -16,7 +17,7 @@ const LiftApp = ({ lifts, updateLifts, toggle }) => {
           ))}
         </TransitionGroup>
       </ul>
-      <button className='btn one' onClick={toggle}>Save Changes</button>
+      <button className='btn two' onClick={toggle}>Done Editing</button>
     </div>
   );
 };

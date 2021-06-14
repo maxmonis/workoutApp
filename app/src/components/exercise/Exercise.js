@@ -7,21 +7,19 @@ const Exercise = ({ exercise, index, selectExercise }) => {
     selectExercise(exercise);
   };
   return (
-    <div>
-      <Draggable draggableId={id} index={index}>
-        {provided => (
-          <li
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            onClick={handleClick}>
-            <h5>
-              {lift}: {printout}
-            </h5>
-          </li>
-        )}
-      </Draggable>
-    </div>
+    <Draggable draggableId={id} index={index}>
+      {provided => (
+        <li
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          onClick={handleClick}>
+          <h3>
+            {lift}: {printout}
+          </h3>
+        </li>
+      )}
+    </Draggable>
   );
 };
 

@@ -11,35 +11,18 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   const { client, routine, updateRoutine, updateLifts, updateWorkouts } =
     useClientState(selectedClient);
   const { lifts, workouts, records, name } = client;
-  const defaultExercise = {
+  const DEFAULT_EXERCISE = {
     lift: lifts[0],
     sets: '',
     reps: '',
     weight: '',
   };
-  const [exercise, setExercise] = useState(defaultExercise);
-  const getDefaultName = () => {
-    const now = new Date();
-    const day = now.getDay();
-    const DAYS = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
-    const weekday = DAYS[day];
-    const hrs = now.getHours();
-    const time = hrs < 12 ? 'morning' : hrs < 17 ? 'afternoon' : 'evening';
-    return `${weekday} ${time} workout`;
-  };
-  const defaultWorkout = {
-    name: getDefaultName(),
+  const [exercise, setExercise] = useState(DEFAULT_EXERCISE);
+  const DEFAULT_WORKOUT = {
+    name: '',
     date: new Date().toISOString().slice(0, 10),
   };
-  const [workout, setWorkout] = useState(defaultWorkout);
+  const [workout, setWorkout] = useState(DEFAULT_WORKOUT);
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [isFormOpen, toggle] = useToggle(false);
   const handleChange = e => {
@@ -70,8 +53,8 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       : { ...workout, routine };
     setAlert('Workout Saved', 'success');
     updateWorkouts(updated);
-    setExercise(defaultExercise);
-    setWorkout(defaultWorkout);
+    setExercise(DEFAULT_EXERCISE);
+    setWorkout(DEFAULT_WORKOUT);
     setEditingWorkout(null);
     updateRoutine([]);
   };
@@ -85,39 +68,33 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <div>
-      <div className='workout-app'>
-        <div>
-          {isFormOpen ? (
-            <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
-          ) : (
-            <NewWorkout
-              exercise={exercise}
-              workout={editingWorkout ? editingWorkout : workout}
-              lifts={lifts}
-              routine={routine}
-              workouts={workouts}
-              records={records}
-              handleChange={handleChange}
-              saveWorkout={saveWorkout}
-              updateRoutine={updateRoutine}
-              selectExercise={selectExercise}
-              setExercise={setExercise}
-            />
-          )}
-        </div>
-        {workouts.length > 0 && (
-          <div>
-            <StatsApp
-              workouts={workouts}
-              records={records}
-              updateWorkouts={updateWorkouts}
-              selectWorkout={selectWorkout}
-              editingWorkout={editingWorkout}
-            />
-          </div>
+    <div className='workout-app full-size'>
+      <section>
+        {isFormOpen ? (
+          <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
+        ) : (
+          <NewWorkout
+            exercise={exercise}
+            workout={editingWorkout ? editingWorkout : workout}
+            lifts={lifts}
+            routine={routine}
+            workouts={workouts}
+            records={records}
+            handleChange={handleChange}
+            saveWorkout={saveWorkout}
+            updateRoutine={updateRoutine}
+            selectExercise={selectExercise}
+            setExercise={setExercise}
+          />
         )}
-      </div>
+      </section>
+      <StatsApp
+        records={records}
+        workouts={workouts}
+        updateWorkouts={updateWorkouts}
+        selectWorkout={selectWorkout}
+        editingWorkout={editingWorkout}
+      />
     </div>
   );
 };

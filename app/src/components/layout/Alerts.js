@@ -9,9 +9,9 @@ const Alerts = () => {
       {alerts.length > 0 &&
         alerts.map(alert => (
           <CSSTransition classNames='slide-up' key={alert.id} timeout={200}>
-            <h5 className={`alert ${alert.type || ''}`}>
+            <h2 className={`alert ${alert.type || ''}`}>
               {alert.msg}
-            </h5>
+            </h2>
           </CSSTransition>
         ))}
     </TransitionGroup>

@@ -1,49 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input } from '../layout/UI';
 import { strInput } from '../../functions/helpers';
 
 const SaveWorkout = ({ name, date, handleChange, saveWorkout, routine }) => {
-  const [blurred, setBlurred] = useState(false);
-  const [error, setError] = useState(null);
+  const INITIAL_ERRORS = { name: null, date: null };
+  const [errors, setErrors] = useState(INITIAL_ERRORS);
+  const validateDate = date =>
+    /^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/.test(date);
   const handleSubmit = e => {
     e.preventDefault();
-    if (name) {
-      setBlurred(false);
-      setError(null);
-      saveWorkout();
-    } else {
-      setError('Workout name is required');
+    if (routine.length) {
+      const isDateValid = validateDate(date);
+      if (name && isDateValid) {
+        setErrors(INITIAL_ERRORS);
+        saveWorkout();
+      } else {
+        const nameError = !name ? 'Workout name is required' : null;
+        const dateError = !isDateValid
+          ? 'Date must be in format yyyy-mm-dd'
+          : null;
+        setErrors({ name: nameError, date: dateError });
+      }
     }
   };
-  useEffect(() => {
-    blurred && !name ? setError('Workout name is required') : setError(null);
-    // eslint-disable-next-line
-  }, [name]);
+  const handleBlur = () => name && setErrors({ ...errors, name: null });
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form className='save-workout' onSubmit={handleSubmit} noValidate>
       <Input
         name='date'
         label='Workout Date'
         type='date'
         value={date}
         handleChange={handleChange}
+        error={errors.date}
+        persistentLabel={true}
       />
       <Input
         name='name'
         label='Workout Name'
         value={strInput(name)}
         handleChange={handleChange}
-        error={error}
+        handleBlur={handleBlur}
+        error={errors.name}
       />
-      {routine.length > 0 ? (
+      {routine.length > 0 && (
         <button className='btn one' type='submit'>
-          Save Workout
-        </button>
-      ) : (
-        <button
-          className='btn tooltip bottom'
-          tooltip-content='Workout must include at least one exercise'
-          disabled>
           Save Workout
         </button>
       )}

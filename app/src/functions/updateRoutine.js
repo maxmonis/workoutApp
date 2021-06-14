@@ -2,7 +2,7 @@ import createNewExercise from './createNewExercise';
 
 const UpdateRoutine = (value, routine) =>
   typeof value === 'string'
-    ? routine.filter((exercise) => exercise.id !== value)
+    ? routine.filter(exercise => exercise.id !== value)
     : value.lift
     ? [...routine, createNewExercise(value)]
     : typeof value[0] === 'string'

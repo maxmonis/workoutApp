@@ -1,7 +1,6 @@
 import React from 'react';
 
 export const Input = ({
-  classes,
   name,
   value,
   type,
@@ -9,8 +8,9 @@ export const Input = ({
   handleChange,
   label,
   error,
+  persistentLabel,
 }) => (
-  <div className={`floating-label-input ${classes || ''}`}>
+  <div className='input-container'>
     <input
       className='input'
       name={name}
@@ -19,8 +19,11 @@ export const Input = ({
       value={value}
       onChange={handleChange}
       onBlur={handleBlur}
+      pattern={type === 'number' ? '[0-9]*' : null}
     />
-    <span className='floating-label'>{label}</span>
+    <span className={persistentLabel ? 'persistent-label' : 'floating-label'}>
+      {label}
+    </span>
     {error && <p className='input-error'>{error}</p>}
   </div>
 );

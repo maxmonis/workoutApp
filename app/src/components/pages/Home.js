@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
-import {Spinner} from '../layout/UI';
+import { Spinner } from '../layout/UI';
 import WorkoutApp from '../workout/WorkoutApp';
 import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
 
-const Home = (props) => {
+const Home = props => {
   const { user } = useContext(AuthContext);
   const { clients, updateClient } = useContext(ClientContext);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -14,7 +14,7 @@ const Home = (props) => {
     } else if (clients.length) {
       const { id } = props.match.params;
       setSelectedClient(
-        clients.find((client) => client._id === id) || clients[0]
+        clients.find(client => client._id === id) || clients[0]
       );
     }
     // eslint-disable-next-line

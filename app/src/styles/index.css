@@ -1,4 +1,5 @@
 * {
+  border: none;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -17,7 +18,8 @@
   --blue3: #00538c;
 
   --grey1: #a2aaaf;
-  --grey2: #01090e;
+  --grey2: #434546;
+  --grey3: #01090e;
 
   --red: #e04040;
 
@@ -50,12 +52,13 @@ button {
   background: inherit;
   border: none;
   border-radius: 10px;
-  color: inherit;
+  color: var(--grey1);
   cursor: pointer;
   font-family: inherit;
   font-size: 16px;
   font-weight: 700;
   outline: none;
+  padding: 8px 12px;
 }
 
 code {
@@ -63,83 +66,43 @@ code {
     monospace;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 700;
-}
-h5,
-h6,
-p {
-  font-weight: 400;
-}
-
-h1 {
-  font-size: 26px;
-}
-h2 {
-  font-size: 24px;
-}
-h3 {
-  font-size: 22px;
-}
-h4 {
-  font-size: 20px;
-}
-h5 {
-  font-size: 18px;
-}
-h6 {
-  font-size: 16px;
-}
-p {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  h1 {
-    font-size: 40px;
-  }
-  h2 {
-    font-size: 36px;
-  }
-  h3 {
-    font-size: 32px;
-  }
-  h4 {
-    font-size: 28px;
-  }
-  h5 {
-    font-size: 24px;
-  }
-  h6 {
-    font-size: 20px;
-  }
-  p {
-    font-size: 16px;
-  }
+fieldset {
+  display: flex;
+  justify-content: center;
+  margin: 12px auto;
+  overflow-x: scroll;
 }
 
 footer {
   bottom: 5px;
   left: 0;
   right: 0;
-  position: fixed;
+  position: absolute;
 }
 
 header {
   align-items: center;
   display: flex;
   justify-content: space-evenly;
-  padding: 0 8px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+label {
+  cursor: pointer;
+  margin: 0 4px;
+  white-space: nowrap;
+}
+label:hover {
+  text-decoration: underline;
 }
 
 ul li {
   list-style: none;
 }
-
-
 
 .App {
   align-items: center;
@@ -149,18 +112,18 @@ ul li {
       rgba(255, 255, 255, 0.7)
     ),
     url('/background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
   background-position: top center;
-  color: var(--grey2);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--grey3);
   font-weight: 500;
-  height: max-content;
   justify-content: center;
   min-height: 100vh;
-  overflow: scroll;
-  padding-bottom: 24px;
-  position: absolute;
+  overflow-y: scroll;
+  padding-bottom: 36px;
+  position: relative;
   text-align: center;
+  text-shadow: none;
   transition: 0.8s;
   -webkit-transition: 0.8s;
   width: 100%;
@@ -173,12 +136,14 @@ ul li {
     ),
     url('/background.jpg');
   color: var(--white);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 /* Button */
 
 .btn {
-  padding: 8px 12px;
+  color: inherit;
 }
 .btn:focus {
   box-shadow: var(--glow);
@@ -226,11 +191,11 @@ ul li {
 }
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 200ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 .fade-exit-active {
   opacity: 0;
-  transition: opacity 200ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 
 /* Input */
@@ -240,7 +205,7 @@ ul li {
   border-radius: 6px;
   font-size: 16px;
   line-height: 24px;
-  min-width: 240px;
+  min-width: 200px;
   outline: none;
   padding: 4px 8px;
 }
@@ -279,12 +244,10 @@ ul li {
 }
 
 /* Radio */
+
 .radio {
   cursor: pointer;
   margin: 8px;
-}
-.radio + label {
-  cursor: pointer;
 }
 
 /* Select */
@@ -292,9 +255,10 @@ ul li {
 .select {
   border: 2px solid var(--blue1);
   border-radius: 4px;
+  cursor: pointer;
   font-size: 16px;
   line-height: 24px;
-  min-width: 240px;
+  min-width: 200px;
   outline: none;
   padding: 4px 8px;
   width: max-content;
@@ -332,6 +296,7 @@ ul li {
 .tooltip {
   position: relative;
   text-align: center;
+  text-shadow: none;
 }
 .tooltip::after {
   background-color: var(--blue2);

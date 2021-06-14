@@ -16,7 +16,7 @@ const useClientState = (initialClient) => {
   return {
     client,
     routine,
-    updateRoutine: (value) =>
+    updateRoutine: (value) => 
       saveRoutine(eliminateRedundancy(updateRoutine(value, routine))),
     updateLifts: (newName, oldName) => {
       const updated = updateLifts(newName, oldName, client, routine);

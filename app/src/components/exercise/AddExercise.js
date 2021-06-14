@@ -3,7 +3,14 @@ import ExerciseHistory from '../exercise/ExerciseHistory';
 import { Input } from '../layout/UI';
 import { numInput } from '../../functions/helpers';
 
-const AddExercise = ({ lifts, handleChange, exercise, records, updateRoutine, setExercise }) => {
+const AddExercise = ({
+  lifts,
+  handleChange,
+  exercise,
+  records,
+  updateRoutine,
+  setExercise,
+}) => {
   const { lift, sets, reps, weight } = exercise;
   const [blurred, setBlurred] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +29,7 @@ const AddExercise = ({ lifts, handleChange, exercise, records, updateRoutine, se
     // eslint-disable-next-line
   }, [weight]);
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <>
       <select
         className='select'
         name='lift'
@@ -38,44 +45,40 @@ const AddExercise = ({ lifts, handleChange, exercise, records, updateRoutine, se
         </option>
       </select>
       <ExerciseHistory
-          records={records}
-          lift={exercise.lift}
-          setExercise={setExercise}
-        />
-      <div className='new-exercise-inputs'>
-        <Input
-          name='sets'
-          label='Sets'
-          value={numInput(sets)}
-          handleChange={handleChange}
-          inputProps={{
-            pattern: '[0-9]*',
-          }}
-        />
-        <Input
-          name='reps'
-          label='Reps'
-          value={numInput(reps)}
-          handleChange={handleChange}
-          inputProps={{
-            pattern: '[0-9]*',
-          }}
-        />
-        <Input
-          name='weight'
-          label='Weight'
-          value={numInput(weight)}
-          handleChange={handleChange}
-          inputProps={{
-            pattern: '[0-9]*',
-          }}
-          error={error}
-        />
-      </div>
-      <button className='btn two' type='submit'>
-        Enter Exercise
-      </button>
-    </form>
+        records={records}
+        lift={exercise.lift}
+        setExercise={setExercise}
+      />
+      <form onSubmit={handleSubmit} noValidate>
+        <div className='new-exercise-inputs'>
+          <Input
+            name='sets'
+            label='Sets'
+            type='number'
+            value={numInput(sets)}
+            handleChange={handleChange}
+          />
+          <Input
+            name='reps'
+            label='Reps'
+            type='number'
+            value={numInput(reps)}
+            handleChange={handleChange}
+          />
+          <Input
+            name='weight'
+            label='Weight'
+            type='number'
+            value={numInput(weight)}
+            handleChange={handleChange}
+            error={error}
+          />
+        </div>
+        <button className='btn two' type='submit'>
+          Enter Exercise
+        </button>
+      </form>
+    </>
   );
 };
 

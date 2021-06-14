@@ -24,12 +24,12 @@ const Lift = ({ lift, updateLifts }) => {
           />
         </form>
       ) : (
-        <h6
+        <h3
           aria-label={`Edit ${lift}`}
           onClick={toggle}
         >
           {lift}
-        </h6>
+        </h3>
       )}
     </li>
   );

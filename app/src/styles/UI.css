@@ -1,12 +1,17 @@
 /* Input */
 
-.floating-label-input {
+.input-container {
   margin: 24px auto;
   position: relative;
   width: max-content;
 }
+.floating-label, .persistent-label {
+  position: absolute;
+  text-shadow: none;
+}
 .input:focus + .floating-label,
-.input:not(:focus):valid + .floating-label {
+.input:not(:focus):valid + .floating-label,
+.persistent-label {
   color: var(--blue2);
   font-size: 12px;
   left: 8px;
@@ -17,7 +22,6 @@
   color: var(--grey1);
   left: 8px;
   pointer-events: none;
-  position: absolute;
   top: 8px;
   transition: 0.2s ease all;
 }

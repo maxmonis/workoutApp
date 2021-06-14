@@ -8,9 +8,6 @@ const Navbar = ({ dark, toggleDark }) => {
   const { isAuthenticated, logUserOut, loadUser, user } =
     useContext(AuthContext);
   const { getClients, clearClients } = useContext(ClientContext);
-  const handleLogout = () => {
-    logUserOut();
-  };
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
@@ -21,7 +18,7 @@ const Navbar = ({ dark, toggleDark }) => {
   }, [user]);
   const authLinks = (
     <>
-      <button className='link' onClick={handleLogout}>
+      <button className='link' onClick={() => logUserOut()}>
         Logout
       </button>
     </>

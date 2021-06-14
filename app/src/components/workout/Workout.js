@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import organizeRoutine from '../../functions/organizeRoutine';
 import useToggle from '../../hooks/useToggle';
-
+import AlertContext from '../../context/alert/alertContext';
+import { formatDate } from '../../functions/helpers';
 const Workout = ({
   workout,
   selected,
@@ -12,13 +13,17 @@ const Workout = ({
   selectWorkout,
   updateWorkouts,
 }) => {
-  const { id, fullDate, name, routine } = workout;
+  const { setAlert } = useContext(AlertContext);
+  const { id, date, name, routine } = workout;
   const [isMenuDisplayed, setIsMenuDisplayed] = useState(false);
   const [displayConfirmation, toggle] = useToggle(false);
   const handleSelect = () => selectWorkout(workout);
   const handleReset = () => selectWorkout(null);
   const handleToggle = () => setIsMenuDisplayed(!isMenuDisplayed);
-  const handleDelete = () => updateWorkouts(id);
+  const handleDelete = () => {
+    setAlert('Workout Deleted', 'success');
+    updateWorkouts(id);
+  };
   useEffect(() => {
     const timer = setTimeout(() => displayConfirmation && toggle(), 2500);
     return () => {
@@ -28,11 +33,8 @@ const Workout = ({
   }, [displayConfirmation]);
   return (
     <div className='workout'>
-      <h6 onClick={handleToggle}>
-        {fullDate.slice(0, -3)}
-        <br />
-        {selected === '#' && name}
-      </h6>
+      <h3 onClick={handleToggle}>{selected === '#' && name}</h3>
+      <h4>{formatDate(date)}</h4>
       <ul onClick={handleToggle}>
         {organizeRoutine(routine).map(exercise => (
           <li key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</li>
@@ -40,7 +42,7 @@ const Workout = ({
       </ul>
       {editingWorkout && editingWorkout.id === id ? (
         <>
-          <h6>Currently Editing</h6>
+          <h4>Currently Editing</h4>
           <button onClick={handleReset} className='btn'>
             Discard Changes
           </button>
