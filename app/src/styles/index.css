@@ -258,6 +258,7 @@ ul li {
   cursor: pointer;
   font-size: 16px;
   line-height: 24px;
+  max-width: 200px;
   min-width: 200px;
   outline: none;
   padding: 4px 8px;

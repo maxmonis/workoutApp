@@ -33,11 +33,12 @@ const Workout = ({
   }, [displayConfirmation]);
   return (
     <div className='workout'>
-      <h3 onClick={handleToggle}>{selected === '#' && name}</h3>
-      <h4>{formatDate(date)}</h4>
+      <h3 onClick={handleToggle}>{selected === '#' && `${name} - `}{formatDate(date)}</h3>
       <ul onClick={handleToggle}>
         {organizeRoutine(routine).map(exercise => (
-          <li key={exercise.id}>{`${exercise.lift}: ${exercise.printout}`}</li>
+          <li key={exercise.id}>
+            <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
+          </li>
         ))}
       </ul>
       {editingWorkout && editingWorkout.id === id ? (

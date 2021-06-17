@@ -15,10 +15,10 @@ const StatsApp = ({
     setDisplay(value);
   };
   const [isWide, setIsWide] = useState(
-    typeof window !== 'undefined' && window.innerWidth > 768
+    typeof window !== 'undefined' && window.innerWidth >= 992
   );
   const updateMedia = () => {
-    setIsWide(window.innerWidth > 768);
+    setIsWide(window.innerWidth >= 992);
   };
   useEffect(() => {
     window.addEventListener('resize', updateMedia);
@@ -43,7 +43,7 @@ const StatsApp = ({
           </section>
         </>
       ) : (
-        <section>
+        <section className='is-narrow'>
           <h1>{display === 'workouts' ? 'Workouts' : 'Records'}</h1>
           {display === 'records' ? (
             <RecordList records={[...records].reverse()} />
