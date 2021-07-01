@@ -54,6 +54,7 @@ const Register = ({ history }) => {
         />
         <Input
           name='email'
+          type='email'
           value={email}
           handleBlur={handleBlur}
           handleChange={handleChange}

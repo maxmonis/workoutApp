@@ -1,0 +1,179 @@
+/* Generic classes */
+
+/* -------------------------------------------------- */
+
+/* Button */
+
+.btn.one:not(:disabled) {
+  background: var(--blue2);
+  color: var(--white);
+}
+.btn.one:hover:not(:disabled) {
+  background: var(--blue3);
+}
+.btn.one:active:not(:disabled) {
+  color: var(--blue1);
+}
+.btn.one:focus {
+  box-shadow: var(--glow);
+}
+
+.btn.two:not(:disabled) {
+  background: var(--white);
+  border: 2px solid var(--blue2);
+  color: var(--blue2);
+}
+.btn.two:focus:not(:disabled) {
+  background: var(--white);
+  border: 2px solid var(--blue3);
+}
+.btn.two:hover:not(:disabled) {
+  background: var(--blue1);
+}
+.btn.two:active:not(:disabled) {
+  border: 2px solid var(--blue3);
+  color: var(--blue3);
+}
+.btn.two:focus {
+  box-shadow: var(--glow);
+}
+
+.btn:disabled {
+  background: var(--grey1);
+  border: 2px solid var(--grey2);
+  color: var(--grey2);
+  cursor: not-allowed;
+}
+
+/* -------------------------------------------------- */
+
+/* Input */
+
+.input {
+  border: 2px solid var(--grey1);
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 200px;
+  min-width: 200px;
+  outline: none;
+  padding: 4px 8px;
+}
+.input:hover {
+  background: var(--blue1);
+}
+.input:focus {
+  border: 2px solid var(--blue2);
+  box-shadow: var(--glow);
+}
+.input::placeholder {
+  color: var(--grey1);
+}
+
+.input-error {
+  color: var(--red);
+  font-size: 12px;
+}
+
+/* -------------------------------------------------- */
+
+/* Link */
+
+.link {
+  color: var(--blue2);
+}
+.link:hover {
+  text-decoration: underline;
+}
+.link:active {
+  color: var(--blue3);
+}
+.dark .link {
+  color: var(--white);
+}
+.dark .link:active {
+  color: var(--blue1);
+}
+
+/* -------------------------------------------------- */
+
+/* Select */
+
+.select {
+  background: var(--white);
+  border: 2px solid var(--blue1);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 200px;
+  min-width: 200px;
+  outline: none;
+  padding: 4px 8px;
+}
+.select:hover {
+  background: var(--blue1);
+}
+.select:focus {
+  border: 2px solid var(--blue2);
+  box-shadow: var(--glow);
+}
+.select:active {
+  border: 2px solid var(--blue3);
+}
+
+/* -------------------------------------------------- */
+
+/* Tooltip */
+
+.tooltip {
+  position: relative;
+  text-align: center;
+  text-shadow: none;
+}
+.tooltip::after {
+  background: var(--blue2);
+  border-radius: 10px;
+  color: var(--white);
+  content: attr(tooltip-content);
+  display: none;
+  left: 50%;
+  max-width: 200px;
+  padding: 4px 8px;
+  position: absolute;
+  text-align: center;
+  width: max-content;
+  z-index: 2;
+}
+.tooltip::before {
+  background: var(--blue2);
+  content: '';
+  display: none;
+  height: 1rem;
+  left: 50%;
+  position: absolute;
+  width: 1rem;
+  z-index: 2;
+}
+.tooltip:hover::after {
+  display: block;
+}
+.tooltip:hover::before {
+  display: block;
+}
+.tooltip.top::after {
+  top: 0;
+  transform: translate(-50%, calc(-100% - 10px));
+}
+.tooltip.top::before {
+  top: 0;
+  transform: translate(-50%, calc(-100% - 5px)) rotate(45deg);
+}
+.tooltip.bottom::after {
+  bottom: 0;
+  transform: translate(-50%, calc(100% + 10px));
+}
+.tooltip.bottom::before {
+  bottom: 0;
+  transform: translate(-50%, calc(100% + 5px)) rotate(45deg);
+}

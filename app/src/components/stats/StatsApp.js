@@ -10,10 +10,6 @@ const StatsApp = ({
   editingWorkout,
 }) => {
   const [display, setDisplay] = useState('workouts');
-  const handleChange = e => {
-    const { value } = e.target;
-    setDisplay(value);
-  };
   const [isWide, setIsWide] = useState(
     typeof window !== 'undefined' && window.innerWidth >= 992
   );
@@ -29,7 +25,7 @@ const StatsApp = ({
       {isWide ? (
         <>
           <section>
-            <h1>Workouts</h1>
+            <h2>Workouts</h2>
             <WorkoutList
               workouts={[...workouts].reverse()}
               updateWorkouts={updateWorkouts}
@@ -38,13 +34,29 @@ const StatsApp = ({
             />
           </section>
           <section>
-            <h1>Records</h1>
+            <h2>Records</h2>
             <RecordList records={[...records].reverse()} />
           </section>
         </>
       ) : (
-        <section className='is-narrow'>
-          <h1>{display === 'workouts' ? 'Workouts' : 'Records'}</h1>
+        <section>
+          <h2>
+            <span
+              className={
+                display === 'workouts' ? 'pointer underline' : 'pointer'
+              }
+              onClick={() => setDisplay('workouts')}>
+              Workouts
+            </span>
+            &nbsp;|&nbsp;
+            <span
+              className={
+                display === 'records' ? 'pointer underline' : 'pointer'
+              }
+              onClick={() => setDisplay('records')}>
+              Records
+            </span>
+          </h2>
           {display === 'records' ? (
             <RecordList records={[...records].reverse()} />
           ) : (
@@ -55,28 +67,6 @@ const StatsApp = ({
               editingWorkout={editingWorkout}
             />
           )}
-          <fieldset>
-            <label>
-              <input
-                className='radio'
-                type='radio'
-                value='workouts'
-                checked={display === 'workouts'}
-                onChange={handleChange}
-              />
-              Workouts
-            </label>
-            <label>
-              <input
-                className='radio'
-                type='radio'
-                value='records'
-                checked={display === 'records'}
-                onChange={handleChange}
-              />
-              Records
-            </label>
-          </fieldset>
         </section>
       )}
     </>

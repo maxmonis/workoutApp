@@ -17,11 +17,9 @@ const Navbar = ({ dark, toggleDark }) => {
     // eslint-disable-next-line
   }, [user]);
   const authLinks = (
-    <>
-      <button className='link' onClick={() => logUserOut()}>
-        Logout
-      </button>
-    </>
+    <button className='link' onClick={() => logUserOut()}>
+      Logout
+    </button>
   );
   const guestLinks = (
     <>
@@ -34,16 +32,14 @@ const Navbar = ({ dark, toggleDark }) => {
     </>
   );
   return (
-    <>
-      <header>
-        {isAuthenticated ? authLinks : guestLinks}
-        <Switch
-          bool={dark}
-          toggle={toggleDark}
-          tooltipContent={`Set theme to ${dark ? 'light' : 'dark'}`}
-        />
-      </header>
-    </>
+    <header>
+      {isAuthenticated ? authLinks : guestLinks}
+      <Switch
+        bool={dark}
+        toggle={toggleDark}
+        tooltipContent={`Set theme to ${dark ? 'light' : 'dark'}`}
+      />
+    </header>
   );
 };
 

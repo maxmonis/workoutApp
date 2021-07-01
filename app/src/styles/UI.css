@@ -1,3 +1,7 @@
+/* Custom material from UI.js */
+
+/* -------------------------------------------------- */
+
 /* Input */
 
 .input-container {
@@ -25,6 +29,8 @@
   top: 8px;
   transition: 0.2s ease all;
 }
+
+/* -------------------------------------------------- */
 
 /* Spinner */
 
@@ -114,6 +120,8 @@
   }
 }
 
+/* -------------------------------------------------- */
+
 /* Switch */
 
 .switch-container {
@@ -137,7 +145,7 @@
   width: 0;
 }
 .slider {
-  background-color: var(--grey1);
+  background: var(--grey1);
   bottom: 0;
   border-radius: 34px;
   cursor: pointer;
@@ -149,7 +157,7 @@
   -webkit-transition: 0.4s;
 }
 .slider:before {
-  background-color: var(--white);
+  background: var(--white);
   border-radius: 50%;
   bottom: 4px;
   content: '';
@@ -161,10 +169,10 @@
   width: 26px;
 }
 input:checked + .slider {
-  background-color: var(--blue3);
+  background: var(--blue3);
 }
 input:hover + .slider {
-  background-color: var(--blue2);
+  background: var(--blue2);
 }
 input:focus + .slider {
   box-shadow: 0 0 1px var(--blue2);

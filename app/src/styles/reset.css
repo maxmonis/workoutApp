@@ -1,0 +1,43 @@
+/* Global styles and variables */
+
+* {
+  border: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: 'Arvo', serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  --blue1: #c4def5;
+  --blue2: #1e90ff;
+  --blue3: #00538c;
+
+  --grey1: #a2aaaf;
+  --grey2: #434546;
+  --grey3: #01090e;
+
+  --red: #e04040;
+
+  --white: #ffffff;
+
+  --glow: 0 0 2px 2px rgba(57, 141, 227, 0.54);
+}

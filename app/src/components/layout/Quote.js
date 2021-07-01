@@ -26,10 +26,10 @@ const Quote = () => {
       {!quote ? (
         <h4>Loading quote...</h4>
       ) : (
-        <div onClick={getQuote}>
+        <>
           <h4>{quote.text}</h4>
           <h5>-{quote.author || 'Anonymous'}</h5>
-        </div>
+        </>
       )}
     </div>
   );

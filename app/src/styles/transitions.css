@@ -1,0 +1,55 @@
+/* 'react-transition-group' animations */
+
+/* -------------------------------------------------- */
+
+/* Fade in or out */
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+/* -------------------------------------------------- */
+
+/* Slide RTL */
+
+.slide-enter {
+  position: fixed;
+  transform: translate(100%);
+}
+.slide-enter-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(0);
+}
+.slide-exit-active {
+  position: fixed;
+  transition: transform 350ms ease-in;
+  transform: translate(-100%);
+}
+
+/* -------------------------------------------------- */
+
+/* Slide up from bottom then back down */
+
+.slide-up-enter {
+  position: fixed;
+  transform: translateY(100%);
+}
+.slide-up-enter-active {
+  position: fixed;
+  transition: transform 200ms ease-in;
+  transform: translateY(0);
+}
+.slide-up-exit-active {
+  position: fixed;
+  transition: transform 200ms ease-in;
+  transform: translateY(100%);
+}

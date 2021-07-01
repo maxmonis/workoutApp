@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { Input } from '../layout/UI';
 import { strInput } from '../../functions/helpers';
 
-const SaveWorkout = ({ name, date, handleChange, saveWorkout, routine }) => {
+const SaveWorkout = ({
+  name,
+  date,
+  handleChange,
+  saveWorkout,
+  routine,
+  updateRoutine,
+}) => {
   const INITIAL_ERRORS = { name: null, date: null };
   const [errors, setErrors] = useState(INITIAL_ERRORS);
   const validateDate = date =>
@@ -25,7 +32,7 @@ const SaveWorkout = ({ name, date, handleChange, saveWorkout, routine }) => {
   };
   const handleBlur = () => name && setErrors({ ...errors, name: null });
   return (
-    <form className='save-workout' onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate>
       <Input
         name='date'
         label='Workout Date'
@@ -44,9 +51,12 @@ const SaveWorkout = ({ name, date, handleChange, saveWorkout, routine }) => {
         error={errors.name}
       />
       {routine.length > 0 && (
-        <button className='btn one' type='submit'>
-          Save Workout
-        </button>
+        <>
+          <button className='btn one' type='submit'>
+            Save Workout
+          </button>
+          <button onClick={() => updateRoutine([])}>Clear</button>
+        </>
       )}
     </form>
   );

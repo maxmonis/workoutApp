@@ -6,9 +6,9 @@ import AddLift from './AddLift';
 const LiftApp = ({ lifts, updateLifts, toggle }) => {
   return (
     <div className='lift-app'>
-      <h1>Exercises</h1>
+      <h2>Exercises</h2>
       <AddLift updateLifts={updateLifts} />
-      <ul className='scrollable'>
+      <ul>
         <TransitionGroup>
           {lifts.map(lift => (
             <CSSTransition key={lift} timeout={500} classNames='fade'>

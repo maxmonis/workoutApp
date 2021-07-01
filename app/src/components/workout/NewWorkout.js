@@ -16,30 +16,29 @@ const NewWorkout = ({
   setExercise,
 }) => {
   return (
-    <div>
-      <h1>New Workout</h1>
-      <div>
-        <AddExercise
-          lifts={lifts}
-          handleChange={handleChange}
-          exercise={exercise}
-          records={records}
-          updateRoutine={updateRoutine}
-          setExercise={setExercise}
-        />
-        <ExerciseApp
-          routine={routine}
-          updateRoutine={updateRoutine}
-          selectExercise={selectExercise}
-        />
-        <SaveWorkout
-          {...workout}
-          routine={routine}
-          handleChange={handleChange}
-          saveWorkout={saveWorkout}
-        />
-      </div>
-    </div>
+    <>
+      <h2>New Workout</h2>
+      <AddExercise
+        lifts={lifts}
+        handleChange={handleChange}
+        exercise={exercise}
+        records={records}
+        updateRoutine={updateRoutine}
+        setExercise={setExercise}
+      />
+      <ExerciseApp
+        routine={routine}
+        updateRoutine={updateRoutine}
+        selectExercise={selectExercise}
+      />
+      <SaveWorkout
+        {...workout}
+        routine={routine}
+        handleChange={handleChange}
+        saveWorkout={saveWorkout}
+        updateRoutine={updateRoutine}
+      />
+    </>
   );
 };
 

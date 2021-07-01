@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import './styles/App.css';
-import './styles/UI.css';
 import Alerts from './components/layout/Alerts';
 import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
@@ -18,7 +16,7 @@ const App = () => {
   const [dark, setDark] = useState(true);
   const toggleDark = () => setDark(!dark);
   return (
-    <div className={`App ${dark ? 'dark' : ''}`}>
+    <div className={`app ${dark ? 'dark' : ''}`}>
       <AuthState>
         <ClientState>
           <AlertState>

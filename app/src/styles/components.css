@@ -1,0 +1,166 @@
+.alert {
+  background: var(--grey3);
+  bottom: 36px;
+  color: var(--white);
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  position: absolute;
+  right: 16px;
+  width: max-content;
+  z-index: 2;
+}
+.alert.critical {
+  background: var(--red);
+}
+.alert.success {
+  background: var(--blue2);
+}
+
+.app {
+  align-items: center;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.7)
+    ),
+    url('/background.jpg');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--grey3);
+  font-weight: 500;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 36px;
+  position: relative;
+  text-align: center;
+  text-shadow: none;
+  transition: 0.8s;
+  -webkit-transition: 0.8s;
+  width: 100%;
+}
+.app.dark {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('/background.jpg');
+  color: var(--white);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.auth .btn {
+  margin: 4px 0 16px;
+}
+
+.exercise-app {
+  display: flex;
+  justify-content: center;
+  margin: 24px auto 36px;
+  padding: 0 12px;
+  text-align: center;
+}
+.exercise-app h4 {
+  max-width: 30ch;
+}
+
+.exercise-history {
+  margin: 0 auto 12px;
+  max-width: 275px;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.exercise-history .btn:first-child {
+  padding-left: 0;
+}
+.exercise-history .btn:last-child {
+  padding-right: 0;
+}
+.exercise-history h4 {
+  white-space: normal;
+}
+
+.lift-app {
+  margin: 0 auto;
+  max-width: max-content;
+  min-width: 275px;
+}
+.lift-app .btn {
+  margin: 24px 0 0;
+}
+.lift-app .input-container {
+  margin: 12px auto;
+}
+
+.new-exercise-inputs {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  max-width: 240px;
+}
+.new-exercise-inputs .input-container {
+  margin-top: 0;
+}
+.new-exercise-inputs .input {
+  max-width: 70px;
+  min-width: 70px;
+  padding-right: 4px;
+}
+.new-exercise-inputs div:last-child .input {
+  max-width: 90px;
+  min-width: 90px;
+}
+
+.quote {
+  margin: 0 auto;
+  max-width: 45ch;
+  padding: 16px 16px 24px;
+}
+.quote h4 {
+  margin-bottom: 12px;
+}
+
+.scrollable {
+  margin: 0 auto;
+  max-height: calc(100vh - 200px);
+  max-width: 30ch;
+  overflow: scroll;
+  padding: 16px 0;
+}
+.scrollable ul {
+  margin-bottom: 16px;
+}
+
+.workout-app {
+  min-height: calc(100vh - 100px);
+  padding: 0 16px;
+}
+.workout-app > section {
+  margin-bottom: 36px;
+}
+.workout-app > section select {
+  margin: 12px 0;
+}
+@media (min-width: 568px) {
+  .scrollable {
+    min-height: 450px;
+  }
+  .workout-app {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    grid-gap: 8px;
+    margin: 0 auto;
+    max-width: 700px;
+    padding: 0 auto;
+  }
+}
+@media (min-width: 992px) {
+  .workout-app {
+    max-width: 1000px;
+  }
+}

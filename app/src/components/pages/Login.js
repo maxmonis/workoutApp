@@ -44,6 +44,7 @@ const Login = ({ history }) => {
       <form noValidate onSubmit={handleSubmit}>
         <Input
           name='email'
+          type='email'
           value={email}
           handleBlur={handleBlur}
           handleChange={handleChange}
@@ -67,7 +68,7 @@ const Login = ({ history }) => {
       <Link to='register'>
         <button className='btn two'>Get started</button>
       </Link>
-      <Quote/>
+      <Quote />
     </div>
   );
 };

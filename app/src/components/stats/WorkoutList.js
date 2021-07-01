@@ -23,7 +23,7 @@ const WorkoutList = ({
   return (
     <>
       {workouts.length ? (
-        <div>
+        <>
           <select className='select' value={selected} onChange={handleChange}>
             <option key='#' value='#'>
               All Workouts
@@ -47,7 +47,7 @@ const WorkoutList = ({
               </CSSTransition>
             ))}
           </TransitionGroup>
-        </div>
+        </>
       ) : (
         <h5>
           Your workouts will be displayed here. We recommend giving them names

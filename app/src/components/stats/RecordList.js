@@ -18,7 +18,7 @@ const RecordList = ({ records }) => {
   return (
     <>
       {records.length ? (
-        <div>
+        <>
           <select className='select' value={selected} onChange={handleChange}>
             <option key='#' value='#'>
               All Records
@@ -31,11 +31,7 @@ const RecordList = ({ records }) => {
           </select>
           <TransitionGroup className='scrollable'>
             {filtered.map(({ id, lift, printout, becameRecord, surpassed }) => (
-              <CSSTransition
-                className='record'
-                key={id}
-                timeout={500}
-                classNames='fade'>
+              <CSSTransition key={id} timeout={500} classNames='fade'>
                 <ul>
                   <li key={id}>
                     <h3>
@@ -51,7 +47,7 @@ const RecordList = ({ records }) => {
               </CSSTransition>
             ))}
           </TransitionGroup>
-        </div>
+        </>
       ) : (
         <>
           <h5>
