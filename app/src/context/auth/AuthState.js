@@ -4,15 +4,20 @@ import AuthContext from './authContext';
 import authReducer from './authReducer';
 import setAuthToken from '../../functions/setAuthToken';
 
-const AuthState = (props) => {
-  const initialState = {
+const AuthState = ({ children }) => {
+  const INITIAL_STATE = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
     user: null,
     error: null,
   };
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const CONFIG = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
   const { token, isAuthenticated, loading, user, error } = state;
   const loadUser = async () => {
     if (localStorage.token) {
@@ -25,28 +30,18 @@ const AuthState = (props) => {
       dispatch({ type: 'AUTH_ERROR' });
     }
   };
-  const registerUser = async (formData) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+  const registerUser = async formData => {
     try {
-      const res = await axios.post('/api/users', formData, config);
+      const res = await axios.post('/api/users', formData, CONFIG);
       dispatch({ type: 'REGISTER_SUCCESS', payload: res.data });
       loadUser();
     } catch (err) {
       dispatch({ type: 'REGISTER_FAILURE', payload: err.response.data.msg });
     }
   };
-  const logUserIn = async (formData) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+  const logUserIn = async formData => {
     try {
-      const res = await axios.post('/api/auth', formData, config);
+      const res = await axios.post('/api/auth', formData, CONFIG);
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });
       loadUser();
     } catch (err) {
@@ -70,9 +65,8 @@ const AuthState = (props) => {
         logUserIn,
         logUserOut,
         clearErrors,
-      }}
-    >
-      {props.children}
+      }}>
+      {children}
     </AuthContext.Provider>
   );
 };

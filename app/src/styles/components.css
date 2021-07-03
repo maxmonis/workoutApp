@@ -33,7 +33,7 @@
   justify-content: center;
   min-height: 100vh;
   overflow-y: scroll;
-  padding-bottom: 36px;
+  padding-bottom: 24px;
   position: relative;
   text-align: center;
   text-shadow: none;
@@ -129,7 +129,6 @@
   max-height: calc(100vh - 200px);
   max-width: 30ch;
   overflow: scroll;
-  padding: 16px 0;
 }
 .scrollable ul {
   margin-bottom: 16px;

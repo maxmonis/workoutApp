@@ -7,25 +7,17 @@ const WorkoutSchema = mongoose.Schema({
   },
   name: {
     type: String,
-    default: 'Workout',
     required: true,
     trim: true,
   },
   date: {
     type: Date,
+    required: true,
     default: Date.now,
   },
-  tags: {
-    type: [],
-    default: [],
-  },
-  public: {
-    type: Boolean,
-    default: false,
-  },
   routine: {
-      type: [],
-      default: [],
+    type: [],
+    required: true,
   },
 });
 

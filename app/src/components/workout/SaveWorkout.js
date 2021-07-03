@@ -40,7 +40,7 @@ const SaveWorkout = ({
         value={date}
         handleChange={handleChange}
         error={errors.date}
-        persistentLabel={true}
+        persistentLabel
       />
       <Input
         name='name'

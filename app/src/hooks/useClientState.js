@@ -4,19 +4,19 @@ import updateLifts from '../functions/updateLifts';
 import updateRoutine from '../functions/updateRoutine';
 import updateWorkouts from '../functions/updateWorkouts';
 
-const useClientState = (initialClient) => {
+const useClientState = initialClient => {
   const [client, setClient] = useState(initialClient);
   const defaultRoutine =
     JSON.parse(window.localStorage.getItem(client._id)) || [];
   const [routine, setRoutine] = useState(defaultRoutine);
-  const saveRoutine = (updated) => {
+  const saveRoutine = updated => {
     window.localStorage.setItem(client._id, JSON.stringify(updated));
     setRoutine(updated);
   };
   return {
     client,
     routine,
-    updateRoutine: (value) => 
+    updateRoutine: value =>
       saveRoutine(eliminateRedundancy(updateRoutine(value, routine))),
     updateLifts: (newName, oldName) => {
       const updated = updateLifts(newName, oldName, client, routine);
@@ -30,7 +30,7 @@ const useClientState = (initialClient) => {
         }
       }
     },
-    updateWorkouts: (value) => {
+    updateWorkouts: value => {
       const { workouts, records } = updateWorkouts(value, client.workouts);
       setClient({ ...client, workouts, records });
     },
