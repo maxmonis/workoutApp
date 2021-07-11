@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../layout/Footer';
 import Quote from '../layout/Quote';
 import useValidate from '../../hooks/useValidate';
 import validateRegister from '../../validation/validateRegister';
@@ -88,6 +89,7 @@ const Register = ({ history }) => {
         <button className='btn two'>Sign in</button>
       </Link>
       <Quote />
+      <Footer />
     </div>
   );
 };

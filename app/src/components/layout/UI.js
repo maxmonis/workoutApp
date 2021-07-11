@@ -28,6 +28,17 @@ export const Input = ({
   </div>
 );
 
+export const Modal = ({ children, handleClose }) => {
+  return (
+    <>
+      <div className='background-blur-overlay' onClick={handleClose} />
+      <div className='modal'>
+        {children}
+      </div>
+    </>
+  );
+};
+
 export const Spinner = () => <div className='spinner' />;
 
 export const Switch = ({ bool, toggle, label, tooltipContent }) => (

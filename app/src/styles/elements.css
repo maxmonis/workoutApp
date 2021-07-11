@@ -38,6 +38,10 @@
   box-shadow: var(--glow);
 }
 
+.btn.red {
+  color: var(--red);
+}
+
 .btn:disabled {
   background: var(--grey1);
   border: 2px solid var(--grey2);

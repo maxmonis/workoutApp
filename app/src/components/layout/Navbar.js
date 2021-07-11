@@ -16,29 +16,29 @@ const Navbar = ({ dark, toggleDark }) => {
     user ? getClients() : clearClients();
     // eslint-disable-next-line
   }, [user]);
-  const authLinks = (
-    <button className='link' onClick={() => logUserOut()}>
-      Logout
-    </button>
-  );
-  const guestLinks = (
-    <>
-      <Link to='login' className='link'>
-        <button className='link'>Login</button>
-      </Link>
-      <Link to='register' className='link'>
-        <button className='link'>Register</button>
-      </Link>
-    </>
-  );
   return (
     <header>
-      {isAuthenticated ? authLinks : guestLinks}
-      <Switch
-        bool={dark}
-        toggle={toggleDark}
-        tooltipContent={`Set theme to ${dark ? 'light' : 'dark'}`}
-      />
+      {isAuthenticated ? (
+        <>
+          <button className='link' onClick={() => logUserOut()}>
+            Logout
+          </button>
+          <Switch
+            bool={!dark}
+            toggle={toggleDark}
+            tooltipContent={`Turn ${dark ? 'on' : 'off'} the lights`}
+          />
+        </>
+      ) : (
+        <>
+          <Link to='login' className='link'>
+            <button className='link'>Login</button>
+          </Link>
+          <Link to='register' className='link'>
+            <button className='link'>Register</button>
+          </Link>
+        </>
+      )}
     </header>
   );
 };

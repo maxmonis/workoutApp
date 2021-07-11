@@ -49,12 +49,12 @@ const WorkoutList = ({
           </TransitionGroup>
         </>
       ) : (
-        <h5>
+        <h4 class="intro-text">
           Your workouts will be displayed here. We recommend giving them names
           which describe the focus of that routine (eg. full body, chest and
           back, legs, etc.) since you'll then be able to filter your workouts by
           name. New personal records will be flagged with an asterisk.
-        </h5>
+        </h4>
       )}
     </>
   );

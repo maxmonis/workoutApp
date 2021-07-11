@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { Input } from '../layout/UI';
+import React, { useState, useEffect } from 'react';
+import { Input, Modal } from '../layout/UI';
 import { strInput } from '../../functions/helpers';
+import organizeRoutine from '../../functions/organizeRoutine';
+import useToggle from '../../hooks/useToggle';
 
 const SaveWorkout = ({
   name,
@@ -12,6 +14,7 @@ const SaveWorkout = ({
 }) => {
   const INITIAL_ERRORS = { name: null, date: null };
   const [errors, setErrors] = useState(INITIAL_ERRORS);
+  const [isFormOpen, toggleForm] = useToggle(false);
   const validateDate = date =>
     /^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/.test(date);
   const handleSubmit = e => {
@@ -31,33 +34,54 @@ const SaveWorkout = ({
     }
   };
   const handleBlur = () => name && setErrors({ ...errors, name: null });
+  useEffect(() => {
+    if (routine.length === 0 && isFormOpen) {
+      toggleForm();
+    }
+    // eslint-disable-next-line
+  }, [routine]);
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <Input
-        name='date'
-        label='Workout Date'
-        type='date'
-        value={date}
-        handleChange={handleChange}
-        error={errors.date}
-        persistentLabel
-      />
-      <Input
-        name='name'
-        label='Workout Name'
-        value={strInput(name)}
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        error={errors.name}
-      />
-      {routine.length > 0 && (
-        <>
+    <form onSubmit={handleSubmit} noValidate className='save-workout-form'>
+      {isFormOpen ? (
+        <Modal handleClose={toggleForm}>
+          <h2>Save Workout</h2>
+          <Input
+            name='name'
+            label='Workout Name'
+            value={strInput(name)}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors.name}
+          />
+          <Input
+            name='date'
+            label='Workout Date'
+            type='date'
+            value={date}
+            handleChange={handleChange}
+            error={errors.date}
+            persistentLabel
+          />
+          <ul>
+            {organizeRoutine(routine).map(exercise => (
+              <li key={exercise.id}>
+                <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
+              </li>
+            ))}
+          </ul>
           <button className='btn one' type='submit'>
+            Confirm
+          </button>
+          <button onClick={toggleForm}>Cancel</button>
+        </Modal>
+      ) : routine.length > 0 ? (
+        <>
+          <button className='btn one' onClick={toggleForm}>
             Save Workout
           </button>
           <button onClick={() => updateRoutine([])}>Clear</button>
         </>
-      )}
+      ) : null}
     </form>
   );
 };

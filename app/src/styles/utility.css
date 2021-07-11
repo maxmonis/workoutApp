@@ -1,5 +1,11 @@
 /* Basic styles */
 
+.flex-row {
+  align-items: center;
+  display: flex;
+  flex: row;
+}
+
 .full-size {
   height: 100%;
   width: 100%;

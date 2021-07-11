@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Alerts from './components/layout/Alerts';
-import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Navbar from './components/layout/Navbar';
@@ -41,7 +40,6 @@ const App = () => {
                     </TransitionGroup>
                   )}
                 />
-                <Footer />
               </Router>
               <Alerts />
             </AlertState>

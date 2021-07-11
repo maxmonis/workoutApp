@@ -49,30 +49,33 @@ const RecordList = ({ records }) => {
           </TransitionGroup>
         </>
       ) : (
-        <>
-          <h5>
+        <div class='intro-text'>
+          <h4>
             Your personal records will be displayed here along with the date you
             first acheived them:
-          </h5>
+          </h4>
           <h3>Bench Press: 3(10x135)</h3>
-          <h4>3/6/21</h4>
-          <h5>
+          <h4>3/12/21</h4>
+          <h3>***</h3>
+          <h4>
             When you set a new personal record, you'll also see the date on
             which the previous one was broken:
-          </h5>
+          </h4>
           <h3>Bench Press: 3(10x145)</h3>
-          <h4>3/20/21</h4>
+          <h4>3/19/21</h4>
           <h3>Bench Press: 3(10x135)</h3>
-          <h4>3/6/21-3/20/21</h4>
-          <h5>
+          <h4>3/12/21-3/19/21</h4>
+          <h3>***</h3>
+          <h4>
             You can break a record by increasing the weight and/or reps and/or
             sets without decreasing any other field.
-          </h5>
-          <h5>
+          </h4>
+          <h3>***</h3>
+          <h4>
             Personal records will also be displayed in the New Workout widget to
             help you plan your routines.
-          </h5>
-        </>
+          </h4>
+        </div>
       )}
     </>
   );

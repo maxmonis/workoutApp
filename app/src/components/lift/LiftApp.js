@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Lift from './Lift';
 import AddLift from './AddLift';
 
-const LiftApp = ({ lifts, updateLifts, toggle }) => {
+const LiftApp = ({ lifts, updateLifts, toggleLiftForm }) => {
   return (
     <div className='lift-app'>
       <h2>Exercises</h2>
@@ -17,7 +17,7 @@ const LiftApp = ({ lifts, updateLifts, toggle }) => {
           ))}
         </TransitionGroup>
       </ul>
-      <button className='btn two' onClick={toggle}>Done Editing</button>
+      <button className='btn two' onClick={toggleLiftForm}>Done Editing</button>
     </div>
   );
 };

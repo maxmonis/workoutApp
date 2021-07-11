@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import organizeRoutine from '../../functions/organizeRoutine';
 import useToggle from '../../hooks/useToggle';
 import AlertContext from '../../context/alert/alertContext';
 import { formatDate } from '../../functions/helpers';
+import { Modal } from '../layout/UI';
+
 const Workout = ({
   workout,
   selected,
@@ -12,41 +14,42 @@ const Workout = ({
 }) => {
   const { setAlert } = useContext(AlertContext);
   const { id, date, name, routine } = workout;
-  const [isMenuDisplayed, setIsMenuDisplayed] = useState(false);
-  const [displayConfirmation, toggle] = useToggle(false);
+  const [showMenu, toggleMenu] = useToggle(false);
+  const [showDeleteModal, toggleDeleteModal] = useToggle(false);
   const handleDelete = () => {
     updateWorkouts(id);
     setAlert('Workout Deleted', 'success');
   };
-  useEffect(() => {
-    const timer = setTimeout(() => displayConfirmation && toggle(), 2500);
-    return () => {
-      clearTimeout(timer);
-    };
-    // eslint-disable-next-line
-  }, [displayConfirmation]);
   return (
     <>
-      <h3
-        className='pointer'
-        onClick={() => setIsMenuDisplayed(!isMenuDisplayed)}>
+      {showDeleteModal && (
+        <Modal class='delete-workout-modal' handleClose={toggleDeleteModal}>
+          <div className='delete-workout-modal'>
+            <h2>Delete Workout?</h2>
+            <h5>This action cannot be undone</h5>
+            <button onClick={handleDelete} className='btn red'>
+              Delete
+            </button>
+            <button onClick={toggleDeleteModal} className='btn'>
+              Cancel
+            </button>
+          </div>
+        </Modal>
+      )}
+      <h3 className='pointer' onClick={toggleMenu}>
         {selected === '#' && `${name} - `}
         {formatDate(date)}
       </h3>
       {editingWorkout && editingWorkout.id === id ? (
-        <button onClick={() => selectWorkout(null)} className='btn'>
+        <button onClick={() => selectWorkout(null)} className='btn red'>
           Discard Changes
         </button>
-      ) : displayConfirmation ? (
-        <button onClick={handleDelete} className='btn'>
-          Confirm Deletion
-        </button>
-      ) : isMenuDisplayed ? (
+      ) : showMenu ? (
         <>
           <button onClick={() => selectWorkout(workout)} className='btn'>
             Edit
           </button>
-          <button onClick={toggle} className='btn'>
+          <button onClick={toggleDeleteModal} className='btn'>
             Delete
           </button>
         </>

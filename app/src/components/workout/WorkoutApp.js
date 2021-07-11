@@ -24,7 +24,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   };
   const [workout, setWorkout] = useState(DEFAULT_WORKOUT);
   const [editingWorkout, setEditingWorkout] = useState(null);
-  const [isFormOpen, toggle] = useToggle(false);
+  const [isFormOpen, toggleLiftForm] = useToggle(false);
   const handleChange = e => {
     const { name, value } = e.target;
     if (name === 'name' || name === 'date') {
@@ -32,7 +32,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         ? setEditingWorkout({ ...editingWorkout, [name]: value })
         : setWorkout({ ...workout, [name]: value });
     } else {
-      value === '#' ? toggle() : setExercise({ ...exercise, [name]: value });
+      value === '#'
+        ? toggleLiftForm()
+        : setExercise({ ...exercise, [name]: value });
     }
   };
   const selectExercise = exercise => {
@@ -71,7 +73,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     <div className='workout-app full-size'>
       <section>
         {isFormOpen ? (
-          <LiftApp lifts={lifts} updateLifts={updateLifts} toggle={toggle} />
+          <LiftApp
+            lifts={lifts}
+            updateLifts={updateLifts}
+            toggleLiftForm={toggleLiftForm}
+          />
         ) : (
           <NewWorkout
             exercise={exercise}

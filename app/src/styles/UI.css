@@ -9,7 +9,8 @@
   position: relative;
   width: max-content;
 }
-.floating-label, .persistent-label {
+.floating-label,
+.persistent-label {
   position: absolute;
   text-shadow: none;
 }
@@ -28,6 +29,30 @@
   pointer-events: none;
   top: 8px;
   transition: 0.2s ease all;
+}
+
+/* -------------------------------------------------- */
+
+/* Modal */
+
+.modal {
+  background: var(--white);
+  border: 1px solid var(--grey3);
+  border-radius: 6px;
+  color: var(--grey3);
+  left: 50%;
+  margin-left: -150px;
+  padding: 16px;
+  position: fixed;
+  text-shadow: none;
+  top: 10%;
+  width: 300px;
+}
+.dark .modal {
+  background: var(--grey3);
+  border: 1px solid var(--white);
+  color: var(--white);
+  text-shadow: inherit;
 }
 
 /* -------------------------------------------------- */
@@ -145,7 +170,7 @@
   width: 0;
 }
 .slider {
-  background: var(--grey1);
+  background: var(--blue3);
   bottom: 0;
   border-radius: 34px;
   cursor: pointer;
@@ -169,7 +194,7 @@
   width: 26px;
 }
 input:checked + .slider {
-  background: var(--blue3);
+  background: var(--grey1);
 }
 input:hover + .slider {
   background: var(--blue2);
